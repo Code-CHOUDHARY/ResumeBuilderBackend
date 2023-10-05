@@ -8,9 +8,14 @@ import java.util.Set;
 import org.hibernate.annotations.UpdateTimestamp;
 import com.resumebuilder.education.Education;
 import com.resumebuilder.projects.ProjectMaster;
+
+import com.resumebuilder.roles.Roles;
+import com.resumebuilder.security.approle.AppRole;
+
 import com.resumebuilder.technology.TechnologyMaster;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,11 +26,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.*;
 
+@Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
 @Table(name="User")
 public class User {
 	@Id
@@ -33,6 +36,9 @@ public class User {
 	private Long user_id;	
 	@Column
 	private String full_name;
+	
+
+
 	@Column(name = "email_id")
 	private String email;
 	@Column
@@ -41,8 +47,8 @@ public class User {
 	private String employee_Id;
 	@Column
 	private String current_role;
-	@Column
-	private String application_role;//(Admin, Manager, Employee)
+//	@Column
+//	private AppRole application_role;//(Admin, Manager, Employee)
 	@Column
 	private String user_image;
 	@Column
@@ -68,8 +74,22 @@ public class User {
 	@Column
 	private boolean is_deleted;
 	
-//	private boolean status;
-//	private String remark;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+	    name = "user_app_role",
+	    joinColumns = @JoinColumn(name = "user_id"),
+	    inverseJoinColumns = @JoinColumn(name = "id")
+	)
+	private Set<AppRole> appRoles = new HashSet<>();
+
+	
+	 @ManyToMany(fetch = FetchType.LAZY)
+	  @JoinTable(  name = "user_roles", 
+	        joinColumns = @JoinColumn(name = "user_id"), 
+	        inverseJoinColumns = @JoinColumn(name = "role_id"))
+	  private Set<Roles> roles = new HashSet<>();
+
 	
 	@ManyToMany
     @JoinTable(name = "user_project_mapping",
@@ -89,5 +109,10 @@ public class User {
 	)
 	private Set<TechnologyMaster> technologies = new HashSet<>();
 
+	public User(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
 
 }

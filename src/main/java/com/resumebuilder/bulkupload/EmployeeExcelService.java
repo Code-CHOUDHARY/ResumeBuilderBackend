@@ -97,7 +97,7 @@ public class EmployeeExcelService {
 		    // Check if a record with the same Employee ID or Email already exists
 		    User existingUser = userRepository.findByEmployeeIds(user.getEmployee_Id());
 		    if (existingUser == null) {
-		        existingUser = userRepository.findByEmail(user.getEmail());
+		        existingUser = userRepository.findByEmailId(user.getEmail());
 		    }
 
 		    User userSave;

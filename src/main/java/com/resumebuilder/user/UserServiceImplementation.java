@@ -2,16 +2,43 @@ package com.resumebuilder.user;
 
 import java.util.List;
 
+import java.util.Optional;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resumebuilder.exception.UserNotFoundException;
 
+
 @Service
 public class UserServiceImplementation implements UserService{
 	
 	@Autowired
-    private UserRepository userRepository;
+
+	private UserRepository userRepository;
+
+	@Override
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+
+	public User findUserByIdUser(Long userId) {
+		
+		Optional<User> opt =userRepository.findById(userId);
+		
+		
+			return opt.get();
+		
+
+	}
+
+	@Override
+	public User findUserByUsername(String userName) {
+		
+		Optional<User> opt = userRepository.findByEmail(userName);
+		return opt.get();
+	}
 
 	//add the new user
 	@Override
@@ -23,7 +50,7 @@ public class UserServiceImplementation implements UserService{
 				saveUser.setPassword(user.getPassword());
 				saveUser.setEmployee_Id(user.getEmployee_Id());
 				saveUser.setCurrent_role(user.getCurrent_role());
-				saveUser.setApplication_role(user.getApplication_role());
+				saveUser.setAppRoles(user.getAppRoles());
 				saveUser.setUser_image(user.getUser_image());
 				saveUser.setGender(user.getGender());
 				saveUser.setMobile_number(user.getMobile_number());
@@ -55,7 +82,7 @@ public class UserServiceImplementation implements UserService{
         existingUser.setLocation(updatedUser.getLocation());
         existingUser.setCurrent_role(updatedUser.getCurrent_role());
         existingUser.setEmployee_Id(updatedUser.getEmployee_Id());
-        existingUser.setApplication_role(updatedUser.getApplication_role());
+        existingUser.setAppRoles(updatedUser.getAppRoles());
         existingUser.setUser_image(updatedUser.getUser_image());
         existingUser.setMobile_number(updatedUser.getMobile_number());
         existingUser.setDate_of_joining(updatedUser.getDate_of_joining());
@@ -74,16 +101,17 @@ public class UserServiceImplementation implements UserService{
 		
 	}
 
-	//list of all users
-	@Override
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
-	}
+//	//list of all users
+//	@Override
+//	public List<User> getAllUsers() {
+//		return userRepository.findAll();
+//	}
 
 
 	@Override
 	public User getUserByEmail(String email) {
-		return userRepository.findByEmail(email);
+		return userRepository.findByEmailId(email);
 	}
     
 }
+
