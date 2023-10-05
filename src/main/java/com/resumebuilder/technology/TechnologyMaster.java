@@ -1,18 +1,15 @@
 package com.resumebuilder.technology;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
+import org.hibernate.annotations.UpdateTimestamp;
 import com.resumebuilder.user.User;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -30,7 +27,8 @@ public class TechnologyMaster {
 	private Long technology_id;
 	private String technology_name;
 	private String modified_by;
-	private Date modified_on;
+	@UpdateTimestamp
+	private LocalDateTime modified_on;
 	private boolean is_deleted;
 	
 	@ManyToMany(mappedBy = "technologies") // Many technologies can be associated with many users

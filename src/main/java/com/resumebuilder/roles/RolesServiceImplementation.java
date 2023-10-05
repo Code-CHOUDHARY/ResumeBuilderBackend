@@ -28,39 +28,49 @@ public class RolesServiceImplementation implements RolesService{
      * @return Save the role.
      */
 	
-	@Override
-	public Roles addRole(Roles role) throws RoleException{
-		try {
-           
+    @Override
+    public Roles addRole(Roles role) throws RoleException {
+        try {
+            // Check if a role with the same name already exists
+            Roles existingRole = rolesRepository.findByRoleName(role.getRole_name());
+
+            if (existingRole != null) {
+                throw new RoleException("Role with the same name already exists: " + role.getRole_name());
+            }
+
             Roles saveRole = new Roles();
             saveRole.setRole_name(role.getRole_name());
-           
-            saveRole.setModified_by(role.getModified_by());     
+            saveRole.setModified_by(role.getModified_by());
             saveRole.set_deleted(false);
 
             return rolesRepository.save(saveRole);
         } catch (Exception e) {
-            throw new RoleException("Failed to add role. " + e.getMessage());
+            throw new RoleException("Failed to add role. Because the role with the same name already exists.");
         }
-		
-	}
+    }
+
 	
 	
 	@Override
-    public Roles updateRole(Long id, Roles updatedRole) throws RoleException {
-        try {
-            Roles existingRole = rolesRepository.findById(id)
-                    .orElseThrow(() -> new RoleException("Role not found with id: " + id));
+	public Roles updateRole(Long id, Roles updatedRole) throws RoleException {
+	    try {
+	        Roles existingRole = rolesRepository.findById(id)
+	                .orElseThrow(() -> new RoleException("Role not found with id: " + id));
 
-            // Update the role properties
-            existingRole.setRole_name(updatedRole.getRole_name());
-            existingRole.setModified_by(updatedRole.getModified_by());
+	        // Check if the role is marked as deleted
+	        if (existingRole.is_deleted()) {
+	            throw new RoleException("Cannot update a deleted role.");
+	        }
 
-            return rolesRepository.save(existingRole);
-        } catch (Exception e) {
-            throw new RoleException("Failed to update role. " + e.getMessage());
-        }
-    }
+	        // Update the role properties
+	        existingRole.setRole_name(updatedRole.getRole_name());
+	        existingRole.setModified_by(updatedRole.getModified_by());
+
+	        return rolesRepository.save(existingRole);
+	    } catch (Exception e) {
+	        throw new RoleException("Failed to update role. " + e.getMessage());
+	    }
+	}
 
     @Override
     public void deleteRole(Long id) throws RoleException {
