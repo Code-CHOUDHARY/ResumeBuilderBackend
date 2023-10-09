@@ -32,7 +32,7 @@ public class TechnologyExcelService {
             }
             
             technologySave.setTechnology_name(technologies.getTechnology_name());
-            
+            technologySave.setModified_on(technologies.getModified_on());
             // Save the role 
             technologyRepository.save(technologySave);
         }

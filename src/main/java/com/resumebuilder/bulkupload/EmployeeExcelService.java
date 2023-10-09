@@ -118,6 +118,7 @@ public class EmployeeExcelService {
 		    userSave.setCurrent_role(user.getCurrent_role());
 		    userSave.setEmail(user.getEmail());
 		    userSave.setGender(user.getGender());
+		    userSave.setModified_on(user.getModified_on());
 		    userSave.setMobile_number(user.getMobile_number());
 		    userSave.setLocation(user.getLocation());
 

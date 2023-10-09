@@ -33,7 +33,7 @@ public class RoleExcelService {
             }
             
             roleSave.setRole_name(role.getRole_name());
-            
+            roleSave.setModified_on(role.getModified_on());            
             // Save the role 
             rolesRepository.save(roleSave);
         }

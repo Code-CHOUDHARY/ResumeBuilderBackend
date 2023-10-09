@@ -45,7 +45,7 @@ public class RolesServiceImplementation implements RolesService{
 
             return rolesRepository.save(saveRole);
         } catch (Exception e) {
-            throw new RoleException("Failed to add role. Because the role with the same name already exists.");
+            throw new RoleException("Failed to add role, because the role with the same name already exists.");
         }
     }
 
@@ -68,7 +68,7 @@ public class RolesServiceImplementation implements RolesService{
 
 	        return rolesRepository.save(existingRole);
 	    } catch (Exception e) {
-	        throw new RoleException("Failed to update role. " + e.getMessage());
+	        throw new RoleException("Role does not exist.");
 	    }
 	}
 
@@ -82,7 +82,7 @@ public class RolesServiceImplementation implements RolesService{
             existingRole.set_deleted(true);
             rolesRepository.save(existingRole);
         } catch (Exception e) {
-            throw new RoleException("Failed to delete role. " + e.getMessage());
+            throw new RoleException("Role does not exist.");
         }
     }
 

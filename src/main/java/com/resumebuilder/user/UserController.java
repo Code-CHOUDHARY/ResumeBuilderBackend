@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@RequestMapping("/api/users")
+//@RequestMapping("/users")
 
 public class UserController {
 	@Autowired
@@ -31,9 +31,7 @@ public class UserController {
 	private JwtUtils jwtUtils;
 	
 	@GetMapping("/list")
-//	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-//	@PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> userList = userService.getAllUsers();
         return new ResponseEntity<>(userList, HttpStatus.OK);
@@ -62,7 +60,7 @@ public class UserController {
     }
 
 	//add user api
-    @PostMapping("/add")
+    @PostMapping("/add/employee")
     //@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<User> addUser(@RequestBody User user) {
         User addedUser = userService.addUser(user);
@@ -70,7 +68,7 @@ public class UserController {
     }
 
     //update user api
-    @PutMapping("/edit/{userId}")
+    @PutMapping("/edit/employee/{userId}")
     //@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<User> editUser(@PathVariable Long userId, @RequestBody User updatedUser) {
         User editedUser = userService.editUser(userId, updatedUser);
@@ -78,7 +76,7 @@ public class UserController {
     }
     
     //delete user api
-    @DeleteMapping("/delete/{userId}")
+    @DeleteMapping("/delete/employee/{userId}")
     //@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteUserById(userId);
