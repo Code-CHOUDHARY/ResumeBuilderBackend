@@ -1,20 +1,11 @@
 package com.resumebuilder.roles;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-
-import org.hibernate.annotations.CreationTimestamp;
-
-import com.resumebuilder.user.User;
-
+import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -33,10 +24,8 @@ public class Roles {
 	private Long role_id;
 	private String role_name;
 	private String modified_by; // according to token store the name of current user in database
-	@CreationTimestamp
+	@UpdateTimestamp
 	private LocalDateTime modified_on;
 	private boolean is_deleted;
-	
-
 
 }

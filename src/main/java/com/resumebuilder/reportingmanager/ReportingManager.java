@@ -19,16 +19,16 @@ import lombok.*;
 @Table(name = "reporting_manager_mapping")
 public class ReportingManager {
 	
-	 @Id
+	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	 	@ManyToOne
-	    @JoinColumn(name = "employee_id")
-	    private User employee;
+//	 	@ManyToOne
+//	    @JoinColumn(name = "employee_id")
+	    private String employee_id;
 
-	    @ManyToOne
-	    @JoinColumn(name = "manager_employee_id")
-	    private User manager;
+//	    @ManyToOne
+//	    @JoinColumn(name = "manager_employee_id")
+	    private String manager_employee_id;
 
 }

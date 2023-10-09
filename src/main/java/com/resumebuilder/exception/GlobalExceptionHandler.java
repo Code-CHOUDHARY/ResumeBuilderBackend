@@ -41,5 +41,12 @@ public class GlobalExceptionHandler {
     public CustomErrorResponse handleRoleException(RoleException ex) {
         return new CustomErrorResponse("Role exception", ex.getMessage());
     }
+	
+	@ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public CustomErrorResponse handleUserNotFoundException(UserNotFoundException ex) {
+        return new CustomErrorResponse("User not found. ", ex.getMessage());
+    }
 
 }
