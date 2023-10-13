@@ -1,5 +1,6 @@
 package com.resumebuilder.technology;
 
+
 import java.security.Principal;
 
 public interface TechnologyMasterServcie {

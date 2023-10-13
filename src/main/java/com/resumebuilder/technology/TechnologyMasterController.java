@@ -1,10 +1,12 @@
 package com.resumebuilder.technology;
 
+
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import com.resumebuilder.exception.TechnologyException;
 
 @RestController
 @RequestMapping("/api/technologies")
+
 public class TechnologyMasterController {
 	
 	@Autowired
@@ -30,6 +33,7 @@ public class TechnologyMasterController {
      * @return The added technology record.
      * @throws TechnologyException if there is an issue adding the technology.
      */
+
 
 // @PostMapping("/add")
 //    public TechnologyMaster addTechnology(@RequestBody TechnologyMaster technology, Principal principal) throws TechnologyException {
@@ -45,7 +49,7 @@ public class TechnologyMasterController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}   
 	    }
- 
+
  
  /**
      * Updates an existing technology record by ID.
@@ -58,6 +62,7 @@ public class TechnologyMasterController {
      */
  
     @PutMapping("/edit/{technologyId}")
+
     public ResponseEntity<?> updateTechnology(@PathVariable Long technologyId, @RequestBody TechnologyMaster updatedTechnology, Principal principal) {
         try {
 			TechnologyMaster technologyMaster = technologyMasterService.updateTechnology(technologyId, updatedTechnology, principal);
@@ -69,6 +74,7 @@ public class TechnologyMasterController {
         } catch (Exception e) {
         	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}   	
+
     }
     
     /**
@@ -90,3 +96,4 @@ public class TechnologyMasterController {
        
     }
 }
+

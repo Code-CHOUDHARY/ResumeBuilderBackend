@@ -1,6 +1,12 @@
 package com.resumebuilder.roles;
 
 import java.security.Principal;
+
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +19,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.resumebuilder.downloadtemplate.RolesExcelExporter;
 import com.resumebuilder.exception.RoleException;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/admin/api/roles")
@@ -66,5 +76,27 @@ public class RolesController {
 	        return ResponseEntity.status(HttpStatus.OK).body(roles);
 	    }
     
-
+	    @GetMapping("export/excel")
+	    public void exportToExcel(HttpServletResponse response) throws IOException {
+	    	
+	    	// Set the response content type to indicate an Excel file download
+	        response.setContentType("application/octet-stream");
+	        
+	        // Create a date formatter to include in the filename
+	        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+	        String currentDateTime = dateFormatter.format(new Date());
+	         
+	     // Define the content disposition header for download
+	        String headerKey = "Content-Disposition";
+	        String headerValue = "attachment; filename=roles_" + currentDateTime + ".xlsx";
+	        response.setHeader(headerKey, headerValue);
+	         
+	     // Retrieve the list of roles from the service
+	        List<Roles> listroles = rolesService.getAllRoles();
+	         
+	       RolesExcelExporter excelExporter = new RolesExcelExporter(listroles);
+	         
+	       // Export the data to the response output stream
+	        excelExporter.export(response);    
+	    }  
 }

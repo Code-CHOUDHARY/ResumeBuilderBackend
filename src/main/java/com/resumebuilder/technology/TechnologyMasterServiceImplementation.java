@@ -1,5 +1,6 @@
 package com.resumebuilder.technology;
 
+
 import java.security.Principal;
 import java.util.Optional;
 
@@ -16,9 +17,11 @@ import com.resumebuilder.user.UserRepository;
 
 import jakarta.transaction.Transactional;
 
+
 @Service
 public class TechnologyMasterServiceImplementation implements TechnologyMasterServcie {
 	
+
 	private final Logger logger = LoggerFactory.getLogger(TechnologyMasterServiceImplementation.class);
 	
 	@Autowired
@@ -27,6 +30,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	@Autowired
 	private UserRepository userRepository;
 	
+
 	/**
      * Add a new technology record.
      *
@@ -35,6 +39,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
      * @return The added technology record.
      */
 	
+
 	@Transactional
 	public TechnologyMaster addTechnology(TechnologyMaster technology, Principal principal) throws TechnologyException {
 		try {
@@ -62,7 +67,6 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 		} catch (Exception e) {
 			throw new TechnologyException("Technology with the same name already exist.");
 		}
-		
 	}
 	
 	 /**
@@ -118,15 +122,21 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
      *
      * @param id The ID of the technology record to be deleted.
      * @throws TechnologyNotFoundException if the technology with the given ID does not exist.
+<<<<<<< HEAD
      * @throws TechnologyException if there is an issue deleting the technology.
+=======
+     * @throws TechnologyException         if there is an issue deleting the technology.
+>>>>>>> b6ed48a0d25b78927d37a643b2e00365629f7edd
      */	
 
 	@Override
 	public void deleteTechnology(Long id) throws TechnologyNotFoundException, TechnologyException {
 		
 			try {
+
 	            Optional<TechnologyMaster> optionalTechnology = technologyMasterRepository.findById(id)
 ;
+
 	            if (optionalTechnology.isPresent()) {
 	                TechnologyMaster existingTechnology = optionalTechnology.get();
 	                existingTechnology.set_deleted(true);
@@ -141,3 +151,4 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	
 	}
 }
+

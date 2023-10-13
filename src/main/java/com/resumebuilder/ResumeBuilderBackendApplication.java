@@ -12,7 +12,7 @@ public class ResumeBuilderBackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ResumeBuilderBackendApplication.class, args);
-		logger.info("Project start...");
+		logger.info("Project started...");
 	}
 
 }
