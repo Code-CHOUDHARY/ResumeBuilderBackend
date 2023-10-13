@@ -1,9 +1,12 @@
 package com.resumebuilder.roles;
 
+import java.security.Principal;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,9 +37,9 @@ public class RolesController {
 	    }
 	    
 	    @PostMapping("/add")
-	    public ResponseEntity<?> addRole(@RequestBody Roles role) {
+	    public ResponseEntity<?> addRole(@RequestBody Roles role, Principal principal) {
 	        try {
-	            Roles addedRole = rolesService.addRole(role);
+	            Roles addedRole = rolesService.addRole(role, principal);
 	            return ResponseEntity.status(HttpStatus.CREATED).body(addedRole);
 	        } catch (RoleException e) {
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -44,9 +47,9 @@ public class RolesController {
 	    }
 	    
 	    @PutMapping("/edit/{id}")
-	    public ResponseEntity<?> updateRole(@PathVariable Long id, @RequestBody Roles updatedRole) {
+	    public ResponseEntity<?> updateRole(@PathVariable Long id, @RequestBody Roles updatedRole, Principal principal) {
 	        try {
-	            Roles updated = rolesService.updateRole(id, updatedRole);
+	            Roles updated = rolesService.updateRole(id, updatedRole, principal);
 	            if (updated != null) {
 	                return ResponseEntity.status(HttpStatus.OK).body(updated);
 	            } else {
@@ -58,9 +61,9 @@ public class RolesController {
 	    }
 	    
 	    @DeleteMapping("/delete/{id}")
-	    public ResponseEntity<?> deleteRole(@PathVariable Long id) {
+	    public ResponseEntity<?> deleteRole(@PathVariable Long id,Principal principal) {
 	        try {
-	            rolesService.deleteRole(id);
+	            rolesService.deleteRole(id,principal);
 	            return ResponseEntity.status(HttpStatus.OK).body("Role deleted successfully");
 	        } catch (RoleException e) {
 	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

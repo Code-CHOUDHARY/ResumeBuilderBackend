@@ -3,14 +3,22 @@ package com.resumebuilder.exception;
 public class CustomErrorResponse {
 	
 	 private String errorMessage;
-	    private String errorDetails;
+//	    private String errorDetails;
 
-	    public CustomErrorResponse(String errorMessage, String errorDetails) {
+//	    public CustomErrorResponse(String errorMessage, String errorDetails) {
+//	        this.errorMessage = errorMessage;
+//	        this.errorDetails = errorDetails;
+//	    }
+	 
+	 public CustomErrorResponse(String errorMessage, String string) {
 	        this.errorMessage = errorMessage;
-	        this.errorDetails = errorDetails;
 	    }
 
-	    public String getErrorMessage() {
+	    public CustomErrorResponse(String message) {
+		this.errorMessage = message;
+	}
+
+		public String getErrorMessage() {
 	        return errorMessage;
 	    }
 
@@ -18,12 +26,12 @@ public class CustomErrorResponse {
 	        this.errorMessage = errorMessage;
 	    }
 
-	    public String getErrorDetails() {
-	        return errorDetails;
-	    }
-
-	    public void setErrorDetails(String errorDetails) {
-	        this.errorDetails = errorDetails;
-	    }
+//	    public String getErrorDetails() {
+//	        return errorDetails;
+//	    }
+//
+//	    public void setErrorDetails(String errorDetails) {
+//	        this.errorDetails = errorDetails;
+//	    }
 
 }
