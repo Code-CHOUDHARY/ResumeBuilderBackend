@@ -53,7 +53,7 @@ public class RolesServiceImplementationTest {
         roleToAdd.setModified_by("Ruchi");
 
         // Call the service method to add the role
-        Roles addedRole = rolesService.addRole(roleToAdd);
+        Roles addedRole = rolesService.addRole(roleToAdd, null);
 
         // Track the added data
         addedData.add("Added role with ID: " + addedRole.getRole_id());
@@ -79,7 +79,7 @@ public class RolesServiceImplementationTest {
         updatedRole.setModified_by("Ruchi");
 
         // Call the service method to update the role
-        Roles result = rolesService.updateRole(existingRole.getRole_id(), updatedRole);
+        Roles result = rolesService.updateRole(existingRole.getRole_id(), updatedRole, null);
 
         // Track the updated data
         updatedData.add("Updated role with ID: " + existingRole.getRole_id());
@@ -99,7 +99,7 @@ public class RolesServiceImplementationTest {
         rolesRepository.save(existingRole);
 
         // Call the service method to delete the role
-        rolesService.deleteRole(existingRole.getRole_id());
+        rolesService.deleteRole(existingRole.getRole_id(), null);
 
         // Track the deleted data
         deletedData.add("Deleted role with ID: " + existingRole.getRole_id());

@@ -36,14 +36,14 @@ public class RolesControllerTest {
     @BeforeEach
     public void setUp() {
         // Define mock behavior for the RolesService methods
-        when(rolesService.addRole(any(Roles.class))).thenAnswer(invocation -> {
+        when(rolesService.addRole(any(Roles.class), null)).thenAnswer(invocation -> {
             Roles role = invocation.getArgument(0);
             // Simulate saving to the database (MySQL)
             role.setRole_id(1L); // Set a mock ID for the added role
             return role;
         });
 
-        when(rolesService.updateRole(Mockito.eq(1L), any(Roles.class))).thenAnswer(invocation -> {
+        when(rolesService.updateRole(Mockito.eq(1L), any(Roles.class), null)).thenAnswer(invocation -> {
             Roles updatedRole = invocation.getArgument(1);
             // Simulate updating in the database (MySQL)
             updatedRole.setRole_id(1L); // Set a mock ID for the updated role
