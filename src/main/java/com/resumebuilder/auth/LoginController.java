@@ -45,7 +45,6 @@ import lombok.RequiredArgsConstructor;
 public class LoginController {	  
 		
 	
-	  private final SecurityContextLogoutHandler logoutHandler;
 	  private final AuthenticationManager authenticationManager;	  
 	  private final UserRepository userRepository;	  
 	  private final AppRoleRepository roleRepository;  
@@ -144,7 +143,7 @@ System.out.println(roles);
 	  public ResponseEntity<?> logoutUser() {
 
 
-	        String invalidatedToken = jwtUtils.generateInvalidatedJwtToken();
+	        jwtUtils.generateInvalidatedJwtToken();
 
 	            return ResponseEntity.ok(new MessageResponse("Logout successful."));
 	        } 
