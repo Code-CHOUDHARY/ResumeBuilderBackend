@@ -119,6 +119,7 @@ public class BulkUploadTechnologyService {
 	        		 technologies.setModified_by(currentUser.getFull_name());
 	                 technologyMasterRepository.save(technologies);
 	             } else if (existingTechnologies.is_deleted()) {
+	            	 //check existing soft delete technology and re-add again
 	            	 TechnologyMaster newTech = new TechnologyMaster();
 	            	 newTech.setTechnology_name(technologies.getTechnology_name());
 	            	 newTech.setModified_by(currentUser.getFull_name());
@@ -136,7 +137,7 @@ public class BulkUploadTechnologyService {
 	
 	private TechnologyMaster findTechnologyByName(List<TechnologyMaster> technologyList, String technologyName) {
 	    for (TechnologyMaster tech : technologyList) {
-	        if (tech.getTechnology_name().equals(technologyName)) {
+	        if (tech.getTechnology_name().equals(technologyName) && tech.is_deleted()==false) {
 	            return tech;
 	        }
 	    }

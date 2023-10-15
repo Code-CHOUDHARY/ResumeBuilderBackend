@@ -29,26 +29,22 @@ public class BulkUploadController {
 	public static final Logger logger = LoggerFactory.getLogger(ResumeBuilderBackendApplication.class);
 	
 	@Autowired
-    private BulkExcelService bulkexcelService;
-	
-	@Autowired
-	private RoleBulkService roleBulkService;
-	
-	@Autowired
 	private BulkUploadRoleService bulkUploadRoleService;
+	
+	@Autowired
+	private BulkUploadEmployeeService bulkUploadEmployeeService;
 	
 	@Autowired
 	private BulkUploadTechnologyService bulkUploadTechnologyService;
 	
 	@PostMapping("/upload/EmployeeExcel")
-    public ResponseEntity<String> uploadEmployeeExcelFile(@RequestParam("file") MultipartFile file, Principal principal) throws IOException {
-        try {
-        	bulkexcelService.processExcelFile(file, principal);
+    public ResponseEntity<String> uploadEmployeeExcelFile(@RequestParam("file") MultipartFile file, Principal principal) {
+			try {
+        	bulkUploadEmployeeService.processEmployeeExcelFile(file, principal);
             return ResponseEntity.ok("File uploaded successfully.");
-        } catch (DuplicateDataEntryException e) {
-        	 String errorMessage = e.getMessage();
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorMessage);
-        } 
+			} catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+			}
     }
 	
 	 @PostMapping("/upload/RoleExcel")
