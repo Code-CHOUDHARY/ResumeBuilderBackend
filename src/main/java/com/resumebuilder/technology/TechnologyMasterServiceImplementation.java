@@ -1,5 +1,6 @@
 package com.resumebuilder.technology;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +85,11 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 			
 			}
 	
+	}
+
+	@Override
+	public List<TechnologyMaster> getAllTechnologies() {
+		// TODO Auto-generated method stub
+		return technologyMasterRepository.findAll();
 	}
 }

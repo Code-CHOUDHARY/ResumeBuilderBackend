@@ -32,4 +32,6 @@ public interface TechnologyMasterServcie {
      */
     
     void deleteTechnology(Long id);
+    
+    java.util.List<TechnologyMaster> getAllTechnologies();
 }
