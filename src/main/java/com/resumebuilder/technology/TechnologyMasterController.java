@@ -1,8 +1,13 @@
 package com.resumebuilder.technology;
 
+
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,16 +17,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.exception.TechnologyException;
 
-import jakarta.validation.constraints.AssertFalse.List;
+
 
 /**
  * REST controller for managing technology records.
  */
 
 @RestController
-@RequestMapping("api/technologies")
+@RequestMapping("/api/technologies")
+
 public class TechnologyMasterController {
 	
 	@Autowired
@@ -35,10 +42,22 @@ public class TechnologyMasterController {
      * @throws TechnologyException if there is an issue adding the technology.
      */
 
- @PostMapping("/add")
-    public TechnologyMaster addTechnology(@RequestBody TechnologyMaster technology) throws TechnologyException {
-        return technologyMasterService.addTechnology(technology);
-    }
+
+// @PostMapping("/add")
+//    public TechnologyMaster addTechnology(@RequestBody TechnologyMaster technology, Principal principal) throws TechnologyException {
+//        return technologyMasterService.addTechnology(technology, principal);
+//    }
+	
+	 @PostMapping("/add")
+	    public ResponseEntity<?> addTechnology(@RequestBody TechnologyMaster technology, Principal principal) throws TechnologyException {
+	     try {
+			TechnologyMaster technologyMaster = technologyMasterService.addTechnology(technology, principal);
+			return ResponseEntity.status(HttpStatus.CREATED).body(technologyMaster);
+		} catch (TechnologyException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}   
+	    }
+
  
  /**
      * Updates an existing technology record by ID.
@@ -51,8 +70,19 @@ public class TechnologyMasterController {
      */
  
     @PutMapping("/edit/{technologyId}")
-    public TechnologyMaster updateTechnology(@PathVariable Long technologyId, @RequestBody TechnologyMaster updatedTechnology) {
-        return technologyMasterService.updateTechnology(technologyId, updatedTechnology);
+
+    public ResponseEntity<?> updateTechnology(@PathVariable Long technologyId, @RequestBody TechnologyMaster updatedTechnology, Principal principal) {
+        try {
+			TechnologyMaster technologyMaster = technologyMasterService.updateTechnology(technologyId, updatedTechnology, principal);
+			if (technologyMaster != null) {
+		       return ResponseEntity.status(HttpStatus.OK).body(technologyMaster);
+			}else {
+				 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Technology not found with id: " + technologyId);
+			}
+        } catch (Exception e) {
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}   	
+
     }
     
     /**
@@ -64,13 +94,20 @@ public class TechnologyMasterController {
      */
     
     @DeleteMapping("/delete/{technologyId}")
-    public void deleteTechnology(@PathVariable Long technologyId) {
-       technologyMasterService.deleteTechnology(technologyId);
+    public ResponseEntity<?> deleteTechnology(@PathVariable Long technologyId) {
+    	try {
+    		technologyMasterService.deleteTechnology(technologyId);
+    		return ResponseEntity.status(HttpStatus.OK).body("Technology deleted successfully");
+        } catch (RoleException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+       
     }
     
     @GetMapping("/list")
-    public ResponseEntity<java.util.List<TechnologyMaster>> getAllRoles() {
+    public ResponseEntity<List<TechnologyMaster>> getAllRoles() {
         java.util.List<TechnologyMaster> technologies = technologyMasterService.getAllTechnologies();
         return ResponseEntity.status(HttpStatus.OK).body(technologies);
     }
 }
+

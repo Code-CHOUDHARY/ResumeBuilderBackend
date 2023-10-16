@@ -30,7 +30,9 @@ public class TechnologyMaster {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long technology_id;
 	private String technology_name;
-	@CreatedBy
+
+	@Column(name = "modified_by")
+
 	private String modified_by;
 	@UpdateTimestamp
 	private LocalDateTime modified_on;

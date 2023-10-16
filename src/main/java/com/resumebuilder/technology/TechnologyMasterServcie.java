@@ -1,11 +1,12 @@
 package com.resumebuilder.technology;
 
-/**
- * Service interface for managing technology records.
- */
+
+import java.security.Principal;
+import java.util.List;
 
 public interface TechnologyMasterServcie {
 	
+
 	/**
      * Add a new technology record.
      *
@@ -13,7 +14,7 @@ public interface TechnologyMasterServcie {
      * @return The added technology record.
      */
 	
-	TechnologyMaster addTechnology(TechnologyMaster technology);
+	TechnologyMaster addTechnology(TechnologyMaster technology, Principal principal);
 	
 	/**
      * Update an existing technology record by ID.
@@ -23,7 +24,7 @@ public interface TechnologyMasterServcie {
      * @return The updated technology record.
      */
 	
-    TechnologyMaster updateTechnology(Long id, TechnologyMaster updatedTechnology);
+    TechnologyMaster updateTechnology(Long id, TechnologyMaster updatedTechnology, Principal principal);
     
     /**
      * Delete a technology record by ID.
@@ -33,5 +34,5 @@ public interface TechnologyMasterServcie {
     
     void deleteTechnology(Long id);
     
-    java.util.List<TechnologyMaster> getAllTechnologies();
+    List<TechnologyMaster> getAllTechnologies();
 }
