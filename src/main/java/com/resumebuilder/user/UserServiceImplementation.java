@@ -1,5 +1,6 @@
 package com.resumebuilder.user;
 
+import java.security.Principal;
 import java.util.List;
 
 import java.util.Optional;
@@ -42,15 +43,16 @@ public class UserServiceImplementation implements UserService{
 
 	//add the new user
 	@Override
-	public User addUser(User user)throws UserNotFoundException {
+	public User addUser(User user, Principal principal)throws UserNotFoundException {
 		 try {
+			 User currentuser = userRepository.findByEmailId(principal.getName());
 				User saveUser = new User();
 				saveUser.setFull_name(user.getFull_name());
 				saveUser.setEmail(user.getEmail());
 				saveUser.setPassword(user.getPassword());
 				saveUser.setEmployee_Id(user.getEmployee_Id());
 				saveUser.setCurrent_role(user.getCurrent_role());
-				saveUser.setAppRoles(user.getAppRoles());
+				saveUser.setAppRole(user.getAppRole());
 				saveUser.setUser_image(user.getUser_image());
 				saveUser.setGender(user.getGender());
 				saveUser.setMobile_number(user.getMobile_number());
@@ -60,7 +62,7 @@ public class UserServiceImplementation implements UserService{
 				saveUser.setLinkedin_lnk(user.getLinkedin_lnk());
 				saveUser.setPortfolio_link(user.getPortfolio_link());
 				saveUser.setBlogs_link(user.getBlogs_link());
-				saveUser.setModified_by(user.getModified_by());
+				saveUser.setModified_by(currentuser.getFull_name());
 				
 				 return userRepository.save(saveUser);
 				
@@ -72,7 +74,8 @@ public class UserServiceImplementation implements UserService{
 	
  // Update the existing user
     @Override
-	public User editUser(Long userId, User updatedUser) {
+	public User editUser(Long userId, User updatedUser, Principal principal) {
+    	User currentuser = userRepository.findByEmailId(principal.getName());
     	User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
         existingUser.setFull_name(updatedUser.getFull_name());
@@ -82,13 +85,14 @@ public class UserServiceImplementation implements UserService{
         existingUser.setLocation(updatedUser.getLocation());
         existingUser.setCurrent_role(updatedUser.getCurrent_role());
         existingUser.setEmployee_Id(updatedUser.getEmployee_Id());
-        existingUser.setAppRoles(updatedUser.getAppRoles());
+        existingUser.setAppRole(updatedUser.getAppRole());
         existingUser.setUser_image(updatedUser.getUser_image());
         existingUser.setMobile_number(updatedUser.getMobile_number());
         existingUser.setDate_of_joining(updatedUser.getDate_of_joining());
         existingUser.setLinkedin_lnk(updatedUser.getLinkedin_lnk());
         existingUser.setPortfolio_link(updatedUser.getPortfolio_link());
-        existingUser.setBlogs_link(updatedUser.getBlogs_link());     
+        existingUser.setBlogs_link(updatedUser.getBlogs_link());
+        existingUser.setModified_by(currentuser.getFull_name());
         return userRepository.save(existingUser);
 	}
 

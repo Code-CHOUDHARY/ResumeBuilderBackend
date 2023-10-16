@@ -48,5 +48,40 @@ public class GlobalExceptionHandler {
     public CustomErrorResponse handleUserNotFoundException(UserNotFoundException ex) {
         return new CustomErrorResponse("User not found. ", ex.getMessage());
     }
+	
+	@ExceptionHandler(DataMissingException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public CustomErrorResponse handleDataMissingException(DataMissingException ex) {
+        return new CustomErrorResponse("Data missing.", ex.getMessage());
+    }
+	
+	@ExceptionHandler(DuplicateDataEntryException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public CustomErrorResponse handleDuplicateDataEntryException(DuplicateDataEntryException ex) {
+        return new CustomErrorResponse("Duplicate data entry.", ex.getMessage());
+    }
+	
+	@ExceptionHandler(TechnologyNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public CustomErrorResponse handleTechnologyNotFoundException(TechnologyNotFoundException ex) {
+        return new CustomErrorResponse("Technology not found.", ex.getMessage());
+    }
+
+    @ExceptionHandler(TechnologyException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public CustomErrorResponse handleTechnologyException(TechnologyException ex) {
+        return new CustomErrorResponse("Technology exception.", ex.getMessage());
+    }
+    
+    @ExceptionHandler(DataProcessingException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public CustomErrorResponse handleDataProcessingException(DataProcessingException ex) {
+        return new CustomErrorResponse(ex.getMessage());
+    }
 
 }

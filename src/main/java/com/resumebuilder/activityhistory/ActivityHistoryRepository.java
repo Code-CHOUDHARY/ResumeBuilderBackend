@@ -1,5 +1,7 @@
 package com.resumebuilder.activityhistory;
 
-public class ActivityHistoryRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ActivityHistoryRepository extends JpaRepository<ActivityHistory, Long> {
 
 }
