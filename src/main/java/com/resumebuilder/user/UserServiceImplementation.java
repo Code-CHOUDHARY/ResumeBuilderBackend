@@ -1,12 +1,15 @@
 package com.resumebuilder.user;
-
 import java.security.Principal;
 import java.security.SecureRandom;
+import java.util.HashMap;
 
 import java.util.List;
-
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import jakarta.mail.internet.MimeMessage;
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import com.resumebuilder.auth.SignupRequest;
 import com.resumebuilder.exception.UserNotFoundException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.activityhistory.ActivityHistoryRepository;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.security.approle.ERole;
 import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.security.response.MessageResponse;
@@ -23,15 +30,20 @@ import com.resumebuilder.security.response.MessageResponse;
 @Service
 public class UserServiceImplementation implements UserService{
 	
-	@Autowired
-	private UserRepository userRepository;
-	
+
 	 @Autowired
 	    private UserRoleRepository roleRepository;
 	 
 	 @Autowired
 	 private JavaMailSender mailSender;
 
+	@Autowired
+	private ActivityHistoryService activityHistoryService;
+	
+	@Autowired
+	private ActivityHistoryRepository activityHistoryRepository;
+	
+	
 	@Override
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
@@ -40,11 +52,7 @@ public class UserServiceImplementation implements UserService{
 	public User findUserByIdUser(Long userId) {
 		
 		Optional<User> opt =userRepository.findById(userId);
-		
-		
 			return opt.get();
-		
-
 	}
 
 	@Override
@@ -122,6 +130,14 @@ public class UserServiceImplementation implements UserService{
 
 		            }
 		        }
+				 UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+				/
+				 String activityType = "Add Employee";
+			     String description = "New Employee Added";
+			     String newData = userToJsonConverter.convertUserToJSON(user);
+			     activityHistoryService.addActivity(activityType, description, newData, null, null);
+				
+
 
 		        userRepository.save(user);
 		        
@@ -129,6 +145,7 @@ public class UserServiceImplementation implements UserService{
 		        sendEmailPassword(user, user.getPassword());
 
 		        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
+
 				
 			} catch (Exception e) {
 				throw new UserNotFoundException("Failed to add user data."+e.getMessage());
@@ -156,15 +173,62 @@ public class UserServiceImplementation implements UserService{
         existingUser.setLinkedin_lnk(updatedUser.getLinkedin_lnk());
         existingUser.setPortfolio_link(updatedUser.getPortfolio_link());
         existingUser.setBlogs_link(updatedUser.getBlogs_link());
+
         existingUser.setModified_by(currentuser.getFull_name());
+        
+     // Compare the fields and identify changes
+        Map<String, String> changes = new HashMap<>();
+        if (!Objects.equals(existingUser.getFull_name(), updatedUser.getFull_name())) {
+            changes.put("full_name", updatedUser.getFull_name());
+        }
+        if (!Objects.equals(existingUser.getEmail(), updatedUser.getEmail())) {
+            changes.put("email", updatedUser.getEmail());
+        }
+        if (!Objects.equals(existingUser.getDate_of_birth(), updatedUser.getDate_of_birth())) {
+            changes.put("Date of Birth", updatedUser.getDate_of_birth());
+        }
+        if (!Objects.equals(existingUser.getGender(), updatedUser.getGender())) {
+            changes.put("Gender", updatedUser.getGender());
+        }
+        if (!Objects.equals(existingUser.getLocation(), updatedUser.getLocation())) {
+            changes.put("Location", updatedUser.getLocation());
+        }
+        
+        System.out.println("changes for user"+changes);
+        
+        	
+         String activityType = "Update Employee";
+	     String description = "Change in Employee Data";
+	     
+	     UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+	           
+		try {
+			 String newData = userToJsonConverter.convertChangesToJson(changes);
+			 String oldData = userToJsonConverter.convertUserToJSON(existingUser);
+			 
+			 activityHistoryService.
+			    addActivity
+			    (activityType, description,newData ,oldData, null);
+			}
+		catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+      
         return userRepository.save(existingUser);
-	}
+        }
+	
 
     //delete the user 
 	@Override
 	public void deleteUserById(Long userId) {
 		User existingUser = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));     
+                .orElseThrow(() -> new UserNotFoundException("User not found"));   
+		 String activityType = "Delete Employee";
+	     String description = "Change in Employee Data";
+	     
+	    activityHistoryService.addActivity(activityType, description,"user with"+userId + "deleted", null, null);
+		
         userRepository.delete(existingUser);
 		
 	}
