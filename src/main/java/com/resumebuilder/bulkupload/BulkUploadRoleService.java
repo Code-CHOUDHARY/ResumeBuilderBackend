@@ -1,6 +1,8 @@
 package com.resumebuilder.bulkupload;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,7 +23,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.core.env.Environment;
 import com.resumebuilder.exception.DataProcessingException;
 import com.resumebuilder.roles.Roles;
 import com.resumebuilder.roles.RolesRepository;
@@ -28,12 +30,13 @@ import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 
 import io.jsonwebtoken.io.IOException;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class BulkUploadRoleService {
 	
 	@Autowired
-	private Environment env;
+	private HttpServletRequest request;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -44,7 +47,7 @@ public class BulkUploadRoleService {
 	@Autowired
     private Map<Integer, String> rolesColumnMapping; // Inject the mapping for Roles
 	
-	public void processRoleExcelFile(MultipartFile file, Principal principal) throws IOException {
+	public void processRoleExcelFile(MultipartFile file, Principal principal) throws IOException, IllegalStateException, java.io.IOException, InvalidFormatException {
 	    try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
 	        Sheet rolesSheet = workbook.getSheet("Roles");
 
@@ -56,33 +59,13 @@ public class BulkUploadRoleService {
 	            throw new DataProcessingException(String.join(", ", validationMessages));
 	        }
 	        
-	     // Specify an absolute path on your server where you have write permissions
-	        //String uploadDirectory = "src/main/uploads/templates/"; // Replace with your actual directory path
-	        String uploadDirectory = "/Resume-Builder-Backend/uploads" + File.separator;
-	        String uploadedFileName = file.getOriginalFilename();
-	        String targetFilePath = uploadDirectory + uploadedFileName;
-	        File targetFile = new File(targetFilePath);
-
-	        System.out.println("Upload Directory: " + uploadDirectory);
-	        System.out.println("Uploaded File Name: " + uploadedFileName);
-	        System.out.println("Target File Path: " + targetFilePath);
-
-	        // Create the target directory if it doesn't exist
-	        File directory = new File(uploadDirectory);
-	        if (!directory.exists()) {
-	            directory.mkdirs(); // Creates any missing directories in the path
-	        }
-
-	        file.transferTo(targetFile);
-	        System.out.println("Upload Directory: " + uploadDirectory);
-	        System.out.println("Uploaded File Name: " + uploadedFileName);
-	        System.out.println("Target File Path: " + targetFilePath);
-
 	        // Continue with saving the data
 	        processRolesSheet(rolesSheet, user);
 	    } catch (java.io.IOException e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 	private List<String> validateRolesSheet(Sheet sheet) {

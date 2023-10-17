@@ -95,7 +95,7 @@ public class UserController {
 //        return new ResponseEntity<>(addedUser, HttpStatus.CREATED);
 //    }
 
-
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @PostMapping("/add/employee")
     public ResponseEntity<?> addUser(@Valid @RequestBody SignupRequest signUpRequest, Principal principal) {
     	User currentuser = userRepository.findByEmailId(principal.getName());
@@ -146,10 +146,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
 
     }
-
+    
     //update user api
     @PutMapping("/edit/employee/{userId}")
-    //@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<User> editUser(@PathVariable Long userId, @RequestBody User updatedUser, Principal principal) {
         User editedUser = userService.editUser(userId, updatedUser,principal);
         return new ResponseEntity<>(editedUser, HttpStatus.OK);
@@ -157,7 +157,7 @@ public class UserController {
 
     //delete user api
     @DeleteMapping("/delete/employee/{userId}")
-    //@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteUserById(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
