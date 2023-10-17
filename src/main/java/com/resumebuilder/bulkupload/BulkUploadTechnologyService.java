@@ -1,5 +1,8 @@
 package com.resumebuilder.bulkupload;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
@@ -40,8 +43,10 @@ public class BulkUploadTechnologyService {
 	@Autowired
     private Map<Integer, String> technologyColumnMapping;
 	
-	public void processTechnologyExcelFile(MultipartFile file, Principal principal) throws IOException {
-	    try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+	public void processTechnologyExcelFile(MultipartFile file, Principal principal) throws IOException, java.io.IOException {
+	    
+		
+		try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
 	        Sheet technologySheet = workbook.getSheet("Technologies");
 
 	        User user = userRepository.findByEmailId(principal.getName());
@@ -55,9 +60,9 @@ public class BulkUploadTechnologyService {
 	        // Continue with saving the data
 	        processTechnologySheet(technologySheet, user);
 	    } catch (java.io.IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            e.printStackTrace();
+        }
+     
 	}
 
 	private List<String> validateTechnologySheet(Sheet sheet) {

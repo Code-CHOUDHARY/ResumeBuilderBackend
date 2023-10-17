@@ -2,6 +2,7 @@ package com.resumebuilder.technology;
 
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -149,6 +150,12 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	            throw new TechnologyException("Technology does not exist.");   
 			}
 	
+	}
+
+	@Override
+	public List<TechnologyMaster> getAllTechnologyList() {
+		
+		return technologyMasterRepository.findAll();
 	}
 }
 
