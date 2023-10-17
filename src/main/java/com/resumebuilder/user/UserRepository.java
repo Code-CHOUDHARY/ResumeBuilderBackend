@@ -44,4 +44,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 
 	  Boolean existsByEmail(String email);
+	  
+	  @Query(value = "select * from user where email_id =:email",nativeQuery = true)
+		User findByEmail_Id(String email);
+		@Query(value = "select * from user where employee_id =:employeeId",nativeQuery = true)
+		User findByEmployee_Id(String employeeId);
 }

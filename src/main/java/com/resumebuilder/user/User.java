@@ -10,9 +10,11 @@ import com.resumebuilder.education.Education;
 import com.resumebuilder.projects.ProjectMaster;
 
 import com.resumebuilder.roles.Roles;
-import com.resumebuilder.security.approle.AppRole;
-
+//import com.resumebuilder.security.approle.AppRole;
+import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.technology.TechnologyMaster;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,7 +24,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -36,9 +40,6 @@ public class User {
 	private Long user_id;	
 	@Column
 	private String full_name;
-	
-
-
 	@Column(name = "email_id")
 	private String email;
 	@Column
@@ -47,8 +48,6 @@ public class User {
 	private String employee_Id;
 	@Column
 	private String current_role;
-//	@Column
-//	private AppRole application_role;//(Admin, Manager, Employee)
 	@Column
 	private String user_image;
 	@Column
@@ -73,36 +72,26 @@ public class User {
 	private String modified_by;
 	@Column
 	private boolean is_deleted;
-	
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-	    name = "user_app_role",
-	    joinColumns = @JoinColumn(name = "user_id"),
-	    inverseJoinColumns = @JoinColumn(name = "id")
-	)
-	private Set<AppRole> appRoles = new HashSet<>();
-
-	
-	 @ManyToMany(fetch = FetchType.LAZY)
+	 @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	  @JoinTable(  name = "user_roles", 
-	        joinColumns = @JoinColumn(name = "user_id"), 
+//	        joinColumns = @JoinColumn(name = "user_id"), 
 	        inverseJoinColumns = @JoinColumn(name = "role_id"))
 	  private Set<Roles> roles = new HashSet<>();
 
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_project_mapping",
             joinColumns = {@JoinColumn(name = "employee_Id")},
             inverseJoinColumns = {@JoinColumn(name = "project_master_id")})
     private Set<ProjectMaster> projects = new HashSet<>();
 	
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Education> educations = new ArrayList<>();
 
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "employee_technology_mapping",
 	    joinColumns = @JoinColumn(name = "employee_Id"),
 	    inverseJoinColumns = @JoinColumn(name = "technology_id")
@@ -114,5 +103,8 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private UserRole appRole;
 
 }

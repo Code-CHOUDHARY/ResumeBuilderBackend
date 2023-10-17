@@ -1,6 +1,7 @@
 package com.resumebuilder.user;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.resumebuilder.security.approle.UserRole;
 
 public class UserDetailsImpl implements UserDetails {
 	  private static final long serialVersionUID = 1L;
@@ -36,9 +38,12 @@ public class UserDetailsImpl implements UserDetails {
 	  }
 
 	  public static UserDetailsImpl build(User user) {
-		    List<GrantedAuthority> authorities = user.getAppRoles().stream()
-		        .map(role -> new SimpleGrantedAuthority(role.getName().toString())) // Use getName() to get the role name
-		        .collect(Collectors.toList());
+//		    List<GrantedAuthority> authorities = user.getAppRoles().stream()
+//		        .map(role -> new SimpleGrantedAuthority(role.getName().toString())) // Use getName() to get the role name
+//		        .collect(Collectors.toList());
+		  UserRole userRole = user.getAppRole();
+		    List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(String.valueOf(userRole.getName())));
+		  
 
 		    return new UserDetailsImpl(
 		        user.getUser_id(),

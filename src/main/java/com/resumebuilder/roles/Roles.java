@@ -2,6 +2,8 @@ package com.resumebuilder.roles;
 
 import java.time.LocalDateTime;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,7 @@ public class Roles {
 	private String role_name;
 	private String modified_by; // according to token store the name of current user in database
 	@UpdateTimestamp
+	@Column(name = "modified_on")
 	private LocalDateTime modified_on;
 	private boolean is_deleted;
 
