@@ -79,11 +79,11 @@ public class LoginController {
 	  @PostMapping("/signup")
 	  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		 System.out.println(signUpRequest.getEmail()+signUpRequest.getRole());
-//	    if (UserRepository.existsByEmail(signUpRequest.getUsername())) {
-//	      return ResponseEntity
-//	          .badRequest()
-//	          .body(new MessageResponse("Error: Username is already taken!"));
-//	    }
+	    if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+	      return ResponseEntity
+	          .badRequest()
+	          .body(new MessageResponse("Error: Username is already taken!"));
+	    }
 
 	    // Create new user's account
 	    User user = new User( signUpRequest.getEmail(),

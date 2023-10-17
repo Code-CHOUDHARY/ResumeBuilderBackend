@@ -5,11 +5,13 @@ import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.stereotype.Component;
 
 import com.resumebuilder.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,6 +26,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="TechnologyMaster")
+@EntityListeners(TechnologyMasterEventListener.class)
+@Component
 public class TechnologyMaster {
 	
 	@Id

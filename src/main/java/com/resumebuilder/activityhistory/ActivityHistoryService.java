@@ -1,5 +1,6 @@
 package com.resumebuilder.activityhistory;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public interface ActivityHistoryService {
      * @return The added Activity record.
      */
 	
-	public ActivityHistory addActivity(ActivityHistory activityHistory);
+	public Void addActivity(String activityType, String Description,String newData, String oldData, String modifiedBy);
 	
 	/**
 	 * 

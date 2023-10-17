@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.education.Education;
 import com.resumebuilder.projects.ProjectMaster;
 
@@ -15,6 +17,7 @@ import com.resumebuilder.security.approle.AppRole;
 import com.resumebuilder.technology.TechnologyMaster;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +33,7 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @Table(name="User")
+@EntityListeners(UserEntityListener.class)
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +41,6 @@ public class User {
 	@Column
 	private String full_name;
 	
-
-
 	@Column(name = "email_id")
 	private String email;
 	@Column
@@ -108,6 +110,9 @@ public class User {
 	    inverseJoinColumns = @JoinColumn(name = "technology_id")
 	)
 	private Set<TechnologyMaster> technologies = new HashSet<>();
+	
+	 	@OneToMany(mappedBy = "user") // A user can be associated with many activities
+	    private List<ActivityHistory> activityHistories; // Reference to the ActivityHistory entity
 
 	public User(String email, String password) {
 		super();

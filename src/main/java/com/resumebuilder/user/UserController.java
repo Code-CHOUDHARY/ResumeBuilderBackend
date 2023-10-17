@@ -63,7 +63,7 @@ public class UserController {
     @PostMapping("/add/employee")
     //@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<User> addUser(@RequestBody User user) {
-        User addedUser = userService.addUser(user);
+        User addedUser = userService.addUser(user );
         return new ResponseEntity<>(addedUser, HttpStatus.CREATED);
     }
 

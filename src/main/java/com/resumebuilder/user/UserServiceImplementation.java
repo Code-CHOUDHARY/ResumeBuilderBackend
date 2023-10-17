@@ -1,23 +1,37 @@
 package com.resumebuilder.user;
 
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
-
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.activityhistory.ActivityHistoryRepository;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.UserNotFoundException;
+import com.resumebuilder.teamactivity.TeamActivityService;
 
 
 @Service
 public class UserServiceImplementation implements UserService{
 	
 	@Autowired
-
 	private UserRepository userRepository;
-
+	
+	@Autowired
+	private ActivityHistoryService activityHistoryService;
+	
+	@Autowired
+	private ActivityHistoryRepository activityHistoryRepository;
+	
+	
 	@Override
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
@@ -26,11 +40,7 @@ public class UserServiceImplementation implements UserService{
 	public User findUserByIdUser(Long userId) {
 		
 		Optional<User> opt =userRepository.findById(userId);
-		
-		
 			return opt.get();
-		
-
 	}
 
 	@Override
@@ -45,6 +55,10 @@ public class UserServiceImplementation implements UserService{
 	public User addUser(User user)throws UserNotFoundException {
 		 try {
 				User saveUser = new User();
+				
+				
+//				User username = userRepository.findByEmailId(principal.getName());
+				
 				saveUser.setFull_name(user.getFull_name());
 				saveUser.setEmail(user.getEmail());
 				saveUser.setPassword(user.getPassword());
@@ -60,7 +74,14 @@ public class UserServiceImplementation implements UserService{
 				saveUser.setLinkedin_lnk(user.getLinkedin_lnk());
 				saveUser.setPortfolio_link(user.getPortfolio_link());
 				saveUser.setBlogs_link(user.getBlogs_link());
-				saveUser.setModified_by(user.getModified_by());
+				saveUser.setModified_by(user.getFull_name());
+				
+				 UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+				
+				 String activityType = "Add Employee";
+			     String description = "New Employee Added";
+			     String newData = userToJsonConverter.convertUserToJSON(saveUser);
+			     activityHistoryService.addActivity(activityType, description, newData, null, null);
 				
 				 return userRepository.save(saveUser);
 				
@@ -88,15 +109,61 @@ public class UserServiceImplementation implements UserService{
         existingUser.setDate_of_joining(updatedUser.getDate_of_joining());
         existingUser.setLinkedin_lnk(updatedUser.getLinkedin_lnk());
         existingUser.setPortfolio_link(updatedUser.getPortfolio_link());
-        existingUser.setBlogs_link(updatedUser.getBlogs_link());     
+        existingUser.setBlogs_link(updatedUser.getBlogs_link());    
+        
+     // Compare the fields and identify changes
+        Map<String, String> changes = new HashMap<>();
+        if (!Objects.equals(existingUser.getFull_name(), updatedUser.getFull_name())) {
+            changes.put("full_name", updatedUser.getFull_name());
+        }
+        if (!Objects.equals(existingUser.getEmail(), updatedUser.getEmail())) {
+            changes.put("email", updatedUser.getEmail());
+        }
+        if (!Objects.equals(existingUser.getDate_of_birth(), updatedUser.getDate_of_birth())) {
+            changes.put("Date of Birth", updatedUser.getDate_of_birth());
+        }
+        if (!Objects.equals(existingUser.getGender(), updatedUser.getGender())) {
+            changes.put("Gender", updatedUser.getGender());
+        }
+        if (!Objects.equals(existingUser.getLocation(), updatedUser.getLocation())) {
+            changes.put("Location", updatedUser.getLocation());
+        }
+        
+        System.out.println("changes for user"+changes);
+        
+        	
+         String activityType = "Update Employee";
+	     String description = "Change in Employee Data";
+	     
+	     UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+	           
+		try {
+			 String newData = userToJsonConverter.convertChangesToJson(changes);
+			 String oldData = userToJsonConverter.convertUserToJSON(existingUser);
+			 
+			 activityHistoryService.
+			    addActivity
+			    (activityType, description,newData ,oldData, null);
+			}
+		catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+      
         return userRepository.save(existingUser);
-	}
+        }
+	
 
     //delete the user 
 	@Override
 	public void deleteUserById(Long userId) {
 		User existingUser = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));     
+                .orElseThrow(() -> new UserNotFoundException("User not found"));   
+		 String activityType = "Delete Employee";
+	     String description = "Change in Employee Data";
+	     
+	    activityHistoryService.addActivity(activityType, description,"user with"+userId + "deleted", null, null);
+		
         userRepository.delete(existingUser);
 		
 	}

@@ -1,5 +1,6 @@
 package com.resumebuilder.user;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface UserService {

@@ -1,5 +1,9 @@
 package com.resumebuilder.technology;
 
+import com.resumebuilder.roles.Roles;
+
+import jakarta.validation.constraints.AssertFalse.List;
+
 /**
  * Service interface for managing technology records.
  */
@@ -32,4 +36,6 @@ public interface TechnologyMasterServcie {
      */
     
     void deleteTechnology(Long id);
+    
+    java.util.List<TechnologyMaster> getAllTechnologies();
 }
