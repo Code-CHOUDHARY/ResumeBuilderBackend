@@ -20,8 +20,11 @@ public interface UserService {
 
 
 	public User editUser(Long userId, User updatedUser, Principal principal);
+
 	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal);
-	//public User addUser(SignupRequest signUpRequest, Principal principal);
+
+	//public User addUser(User user, Principal principal);
+
 	public void deleteUserById(Long userId);
 
 	public User getUserByEmail(String email);

@@ -36,6 +36,7 @@ public class BulkUploadTechnologyService {
 	
 	public static final String EXCEL_TEMPLATE_DIRECTORY = "upload/template/technology"; 
 	
+
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -47,6 +48,7 @@ public class BulkUploadTechnologyService {
 	
 	public void processTechnologyExcelFile(MultipartFile file, Principal principal) throws IOException, java.io.IOException {
 	    
+
 		try {
 			// Save the uploaded Excel file to the project path
             String fileName = file.getOriginalFilename();
@@ -66,6 +68,7 @@ public class BulkUploadTechnologyService {
                     outputStream.write(buffer, 0, bytesRead);
                 }
             }
+
 		try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
 	        Sheet technologySheet = workbook.getSheet("Technologies");
 
@@ -82,9 +85,11 @@ public class BulkUploadTechnologyService {
 	    } catch (java.io.IOException e) {
             e.printStackTrace();
         }
+
     } catch (IOException e) {
         e.printStackTrace();
     }
+
 	}
 
 	private List<String> validateTechnologySheet(Sheet sheet) {

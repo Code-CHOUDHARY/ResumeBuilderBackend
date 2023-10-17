@@ -2,6 +2,8 @@ package com.resumebuilder.activityhistory;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.resumebuilder.user.User;
 
 import jakarta.persistence.Entity;
@@ -21,15 +23,14 @@ public class ActivityHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long activity_id;
-	private String activity_name;
+	
 	private String activity_type;
-	private String activity_for;
+
 	private String old_data;
 	private String new_data;
 	private String activity_by;
+	@CreationTimestamp
 	private Date activity_on;
 	
-	@ManyToOne
-    private User user; // Reference to the User entity
 
 }

@@ -32,6 +32,7 @@ public class TechnologyMaster {
 	private String modified_by;
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
+	@Column(name="is_deleted", columnDefinition = "BOOLEAN DEFAULT false")
 	private boolean is_deleted;
 	
 	@ManyToMany(mappedBy = "technologies") // Many technologies can be associated with many users

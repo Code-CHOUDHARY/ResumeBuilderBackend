@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -28,8 +28,8 @@ import com.resumebuilder.roles.Roles;
 import com.resumebuilder.roles.RolesRepository;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
-
 import io.jsonwebtoken.io.IOException;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class BulkUploadRoleService {
@@ -40,6 +40,9 @@ public class BulkUploadRoleService {
 	private Environment env;
 	
 	@Autowired
+	private HttpServletRequest request;
+	
+	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
@@ -48,6 +51,7 @@ public class BulkUploadRoleService {
 	@Autowired
     private Map<Integer, String> rolesColumnMapping; // Inject the mapping for Roles
 	
+
 	public void processRoleExcelFile(MultipartFile file, Principal principal) throws IOException, java.io.IOException {
 	    
 		try {
@@ -69,7 +73,8 @@ public class BulkUploadRoleService {
                     outputStream.write(buffer, 0, bytesRead);
                 }
             }
-		try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+	    try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+
 	        Sheet rolesSheet = workbook.getSheet("Roles");
 
 	        User user = userRepository.findByEmailId(principal.getName());
@@ -79,6 +84,7 @@ public class BulkUploadRoleService {
 	        if (!validationMessages.isEmpty()) {
 	            throw new DataProcessingException(String.join(", ", validationMessages));
 	        }
+
 	        // Continue with saving the data
 	        processRolesSheet(rolesSheet, user);
 	    } catch (java.io.IOException e) {
@@ -87,7 +93,10 @@ public class BulkUploadRoleService {
     } catch (IOException e) {
         e.printStackTrace();
     }
-	}
+
+	     	        
+		}
+
 
 	private List<String> validateRolesSheet(Sheet sheet) {
 	    List<String> validationMessages = new ArrayList<>();

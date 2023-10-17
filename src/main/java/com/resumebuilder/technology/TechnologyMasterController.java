@@ -1,11 +1,15 @@
 package com.resumebuilder.technology;
 
+
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.exception.TechnologyException;
+import com.resumebuilder.roles.Roles;
+
+
+
+/**
+ * REST controller for managing technology records.
+ */
 
 @RestController
 @RequestMapping("/api/technologies")
@@ -36,6 +47,9 @@ public class TechnologyMasterController {
 //        return technologyMasterService.addTechnology(technology, principal);
 //    }
 	
+	
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	 @PostMapping("/add")
 	    public ResponseEntity<?> addTechnology(@RequestBody TechnologyMaster technology, Principal principal) throws TechnologyException {
 	     try {
@@ -45,7 +59,7 @@ public class TechnologyMasterController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}   
 	    }
- 
+
  
  /**
      * Updates an existing technology record by ID.
@@ -57,6 +71,7 @@ public class TechnologyMasterController {
      * @throws TechnologyException         if there is an issue updating the technology.
      */
  
+	@PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/edit/{technologyId}")
     public ResponseEntity<?> updateTechnology(@PathVariable Long technologyId, @RequestBody TechnologyMaster updatedTechnology, Principal principal) {
         try {
@@ -79,6 +94,7 @@ public class TechnologyMasterController {
      * @throws TechnologyException         if there is an issue deleting the technology.
      */
     
+	@PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{technologyId}")
     public ResponseEntity<?> deleteTechnology(@PathVariable Long technologyId) {
     	try {
@@ -89,4 +105,14 @@ public class TechnologyMasterController {
         }
        
     }
+
+
+    
+    @GetMapping("/list")
+    public ResponseEntity<List<TechnologyMaster>> getAllRoles() {
+        java.util.List<TechnologyMaster> technologies = technologyMasterService.getAllTechnologyList();
+        return ResponseEntity.status(HttpStatus.OK).body(technologies);
+    }
 }
+
+

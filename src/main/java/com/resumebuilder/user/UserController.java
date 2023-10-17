@@ -1,24 +1,33 @@
 package com.resumebuilder.user;
 
 import java.security.Principal;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import com.resumebuilder.auth.SignupRequest;
 import jakarta.validation.Valid;
+
+
+import com.resumebuilder.security.jwt.JwtUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-//@RequestMapping("/users")
+
+//@RequestMapping("/api/users")
+
 
 public class UserController {
     @Autowired
@@ -115,7 +124,7 @@ public class UserController {
 
     //update user api
     @PutMapping("/edit/employee/{userId}")
-    //@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<User> editUser(@PathVariable Long userId, @RequestBody User updatedUser, Principal principal) {
         User editedUser = userService.editUser(userId, updatedUser,principal);
         return new ResponseEntity<>(editedUser, HttpStatus.OK);
@@ -123,7 +132,7 @@ public class UserController {
 
     //delete user api
     @DeleteMapping("/delete/employee/{userId}")
-    //@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteUserById(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

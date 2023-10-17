@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.security.Principal;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.exception.DataProcessingException;
+import com.resumebuilder.roles.Roles;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 
@@ -35,6 +38,7 @@ public class BulkUploadEmployeeService {
 	
 	public static final String EXCEL_TEMPLATE_DIRECTORY = "upload/template/employee"; 
 	
+
 		@Autowired
 	    private UserRepository userRepository;
 	    
@@ -44,6 +48,7 @@ public class BulkUploadEmployeeService {
 	
 	    @Transactional
 	    public void processEmployeeExcelFile(MultipartFile file, Principal principal) {
+
 	    	try {
 				// Save the uploaded Excel file to the project path
 	            String fileName = file.getOriginalFilename();
@@ -64,7 +69,8 @@ public class BulkUploadEmployeeService {
 	                }
 	            }
 	    	
-	    	try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+	    	
+	        try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
 	            Sheet employeeSheet = workbook.getSheet("Employees");	         	
 	            // Process and save data from employeeSheet
 	            List<String> checkValid = validateEmployeeData(employeeSheet);
@@ -77,12 +83,13 @@ public class BulkUploadEmployeeService {
 		            throw new DataProcessingException(errorMessage);
 		        }
 					processEmployeeSheet(employeeSheet, employeeColumnMapping, user);
+
 	        } catch (java.io.IOException e) {
 	            e.printStackTrace();
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
-	    }
+	    }	        
 	    }
 	
 	    
@@ -185,7 +192,7 @@ public class BulkUploadEmployeeService {
 	    
 	    private User findUserByEmail(List<User> userList, String Email) {
 		    for (User employee : userList) {
-		        if (employee.getEmail() != null && employee.getEmail().equals(Email) && employee.is_deleted() == false ){
+		        if (employee.getEmail() != null && employee.getEmail().equals(Email) && employee.is_deleted() == false ){		        
 		            return employee;
 		        }
 		    }
