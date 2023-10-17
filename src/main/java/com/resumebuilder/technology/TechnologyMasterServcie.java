@@ -3,8 +3,8 @@ package com.resumebuilder.technology;
 
 import java.security.Principal;
 import java.util.List;
-
 import com.resumebuilder.roles.Roles;
+
 
 public interface TechnologyMasterServcie {
 	
@@ -37,5 +37,6 @@ public interface TechnologyMasterServcie {
     void deleteTechnology(Long id);
     
     List<TechnologyMaster> getAllTechnologyList();
+
 
 }

@@ -21,6 +21,12 @@ import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.exception.TechnologyException;
 import com.resumebuilder.roles.Roles;
 
+
+
+/**
+ * REST controller for managing technology records.
+ */
+
 @RestController
 @RequestMapping("/api/technologies")
 
@@ -101,12 +107,12 @@ public class TechnologyMasterController {
         }
        
     }
-	
-	
-	@GetMapping("/list")
-	 public ResponseEntity<List<TechnologyMaster>> getAllTechnologyList() {
-        List<TechnologyMaster> technology = technologyMasterService.getAllTechnologyList();
-        return ResponseEntity.status(HttpStatus.OK).body(technology);
+
+    
+    @GetMapping("/list")
+    public ResponseEntity<List<TechnologyMaster>> getAllRoles() {
+        java.util.List<TechnologyMaster> technologies = technologyMasterService.getAllTechnologyList();
+        return ResponseEntity.status(HttpStatus.OK).body(technologies);
     }
 }
 

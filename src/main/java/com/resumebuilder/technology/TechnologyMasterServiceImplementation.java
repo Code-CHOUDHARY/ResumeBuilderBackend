@@ -4,12 +4,10 @@ package com.resumebuilder.technology;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.exception.TechnologyException;
 import com.resumebuilder.exception.TechnologyNotFoundException;
@@ -157,5 +155,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 		
 		return technologyMasterRepository.findAll();
 	}
+
+
 }
 
