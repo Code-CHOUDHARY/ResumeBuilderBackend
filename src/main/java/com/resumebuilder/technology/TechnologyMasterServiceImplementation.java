@@ -74,9 +74,6 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 			saveTechnology.setTechnology_name(technology.getTechnology_name());
 			saveTechnology.set_deleted(false);
 			saveTechnology.setModified_by(user.getFull_name());
-		if (technology == null) {
-	        throw new TechnologyException("Technology object cannot be null");
-	    }
 
 	    if (technology.getTechnology_name() == null || technology.getTechnology_name().isEmpty()) {
 	        throw new TechnologyException("Technology name cannot be null or empty");
@@ -85,7 +82,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	     String activityType = "Add Technology";
 	     String description = "Change in Technology Data";
 	     
-	    activityHistoryService.addActivity(activityType, description, technology.getTechnology_name(), null, null);
+	    activityHistoryService.addActivity(activityType, description, technology.getTechnology_name(), null, user.getFull_name());
 	    
 		return technologyMasterRepository.save(technology);
 
@@ -123,7 +120,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
                 String activityType = "Edit Technology";
    		     	String description = "Change in technology data";
    		     
-   		    activityHistoryService.addActivity(activityType, description, updatedTechnology.getTechnology_name(), existingTechnology.getTechnology_name(), null);
+   		    activityHistoryService.addActivity(activityType, description, updatedTechnology.getTechnology_name(), existingTechnology.getTechnology_name(), user.getFull_name());
 
 	        return technologyMasterRepository.save(existingTechnology);
 		} catch (Exception e) {
@@ -158,10 +155,10 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
      */	
 
 	@Override
-	public void deleteTechnology(Long id) throws TechnologyNotFoundException, TechnologyException {
+	public void deleteTechnology(Long id, Principal principal) throws TechnologyNotFoundException, TechnologyException {
 		
 			try {
-
+				User user = userRepository.findByEmailId(principal.getName());
 	            Optional<TechnologyMaster> optionalTechnology = technologyMasterRepository.findById(id)
 ;
 
@@ -172,7 +169,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	             String activityType = "Delete technology";
 	   		     String description = "Change in Technology data";
 	   		     
-	   		    activityHistoryService.addActivity(activityType, description,"Technology with the name" + existingTechnology.getTechnology_name() + "is deleted", null, null);
+	   		    activityHistoryService.addActivity(activityType, description,"Technology with the name" + existingTechnology.getTechnology_name() + "is deleted", null, user.getFull_name());
 	                
 	                technologyMasterRepository.save(existingTechnology);
 	            } else {

@@ -34,7 +34,7 @@ public class ActivityHistory {
 	private Long activity_id;	
 	private String activity_type;
 	private String description;
-	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String old_data;
 	@Column(columnDefinition = "TEXT")
 	private String new_data;

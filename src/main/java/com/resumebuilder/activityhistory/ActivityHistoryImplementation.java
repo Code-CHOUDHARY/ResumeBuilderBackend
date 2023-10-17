@@ -48,6 +48,8 @@ public class ActivityHistoryImplementation implements ActivityHistoryService {
 		activityHistory.setActivity_type(activityType);
 		activityHistory.setDescription(Description);
 		activityHistory.setNew_data(newData);
+		activityHistory.setActivity_by(modifiedBy);
+		activityHistory.setOld_data(oldData);
 	
 		activityHistoryRepo.save(activityHistory);
 		

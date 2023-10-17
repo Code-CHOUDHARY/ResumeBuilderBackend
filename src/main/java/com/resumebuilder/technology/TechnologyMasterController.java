@@ -96,9 +96,9 @@ public class TechnologyMasterController {
     
 	@PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{technologyId}")
-    public ResponseEntity<?> deleteTechnology(@PathVariable Long technologyId) {
+    public ResponseEntity<?> deleteTechnology(@PathVariable Long technologyId, Principal principal) {
     	try {
-    		technologyMasterService.deleteTechnology(technologyId);
+    		technologyMasterService.deleteTechnology(technologyId, principal);
     		return ResponseEntity.status(HttpStatus.OK).body("Technology deleted successfully");
         } catch (RoleException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

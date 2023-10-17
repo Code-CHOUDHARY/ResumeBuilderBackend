@@ -25,7 +25,7 @@ public interface UserService {
 
 	//public User addUser(User user, Principal principal);
 
-	public void deleteUserById(Long userId);
+	public void deleteUserById(Long userId, Principal principal);
 
 	public User getUserByEmail(String email);
 

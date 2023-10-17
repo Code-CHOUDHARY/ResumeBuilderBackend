@@ -30,9 +30,11 @@ import com.resumebuilder.security.response.MessageResponse;
 @Service
 public class UserServiceImplementation implements UserService{
 	
-
 	 @Autowired
-	    private UserRoleRepository roleRepository;
+	 private UserRepository userRepository;
+	
+	 @Autowired
+	 private UserRoleRepository roleRepository;
 	 
 	 @Autowired
 	 private JavaMailSender mailSender;
@@ -131,11 +133,11 @@ public class UserServiceImplementation implements UserService{
 		            }
 		        }
 				 UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
-				/
+				
 				 String activityType = "Add Employee";
 			     String description = "New Employee Added";
 			     String newData = userToJsonConverter.convertUserToJSON(user);
-			     activityHistoryService.addActivity(activityType, description, newData, null, null);
+			     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
 				
 
 
@@ -208,7 +210,7 @@ public class UserServiceImplementation implements UserService{
 			 
 			 activityHistoryService.
 			    addActivity
-			    (activityType, description,newData ,oldData, null);
+			    (activityType, description,newData ,oldData, currentuser.getFull_name());
 			}
 		catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
@@ -219,19 +221,8 @@ public class UserServiceImplementation implements UserService{
         }
 	
 
-    //delete the user 
-	@Override
-	public void deleteUserById(Long userId) {
-		User existingUser = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));   
-		 String activityType = "Delete Employee";
-	     String description = "Change in Employee Data";
-	     
-	    activityHistoryService.addActivity(activityType, description,"user with"+userId + "deleted", null, null);
-		
-        userRepository.delete(existingUser);
-		
-	}
+    
+	
 
 
 
@@ -281,6 +272,22 @@ public class UserServiceImplementation implements UserService{
         helper.setText(content, true);
         mailSender.send(message);
     }
+	
+	 //delete the user 
+	
+	@Override
+	public void deleteUserById(Long userId, Principal principal) {
+		// TODO Auto-generated method stub
+		User currentuser = userRepository.findByEmailId(principal.getName());
+		User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));   
+		 String activityType = "Delete Employee";
+	     String description = "Change in Employee Data";
+	     
+	    activityHistoryService.addActivity(activityType, description,"user with"+userId + "deleted", null, currentuser.getFull_name());
+		
+        userRepository.delete(existingUser);
+	}
     
 }
 

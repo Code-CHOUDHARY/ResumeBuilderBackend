@@ -34,7 +34,7 @@ public interface TechnologyMasterServcie {
      * @param id The ID of the technology record to be deleted.
      */
     
-    void deleteTechnology(Long id);
+    void deleteTechnology(Long id, Principal principal);
 
     
     List<TechnologyMaster> getAllTechnologyList();

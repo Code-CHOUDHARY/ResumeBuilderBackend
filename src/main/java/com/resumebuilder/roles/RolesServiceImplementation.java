@@ -76,7 +76,8 @@ public class RolesServiceImplementation implements RolesService{
     @Override
     public Roles addRole(Roles role, Principal principal) throws RoleException {
         try {
-        	User user = userRepository.findByEmailId(principal.getName());
+            User user = userRepository.findByEmailId(principal.getName());
+            
             // Check if a role with the same name already exists (including soft-deleted roles)
             Roles existingRole = rolesRepository.findByRoleName(role.getRole_name());
 
@@ -88,31 +89,36 @@ public class RolesServiceImplementation implements RolesService{
                     newRole.setRole_name(role.getRole_name());
                     newRole.setModified_by(user.getFull_name());
                     newRole.set_deleted(false);
-                    return rolesRepository.save(newRole);
+                    
+                    // Save the new role to the database
+                    newRole = rolesRepository.save(newRole);
+
+                    String activityType = "Add Role";
+                    String description = "New Role Added";
+                    activityHistoryService.addActivity(activityType, description, role.getRole_name(), null, user.getFull_name());
+                    
+                    return newRole; // Return the newly created role
                 } else {
                     // If an existing role with the same name exists and is not soft-deleted, throw an exception.
                     throw new RoleException("Role with the same name already exists: " + role.getRole_name());
                 }
+            } else {
+                // If no role with the same name exists, create and save the new role
+                role.setModified_by(user.getFull_name());
+                role.set_deleted(false);
+                role = rolesRepository.save(role);
+                
+                String activityType = "Add Role";
+                String description = "New Role Added";
+                activityHistoryService.addActivity(activityType, description, role.getRole_name(), null, user.getFull_name());
+                
+                return role; // Return the newly created role
             }
-
-            // If no existing role with the same name is found, create a new role
-            Roles saveRole = new Roles();
-            saveRole.setRole_name(role.getRole_name());
-            saveRole.setModified_by(user.getFull_name());
-            saveRole.set_deleted(false);
-            
-             String activityType = "Add Role";
-		     String description = "New Role Added";
-		     
-		    activityHistoryService.addActivity(activityType, description, role.getRole_name(), null, null);
-
-            return rolesRepository.save(saveRole);
         } catch (Exception e) {
-            throw new RoleException("Failed to add role.");
+            // Handle exceptions appropriately
+            throw new RoleException("An error occurred while adding the role: " + e.getMessage());
         }
     }
-
-	
 	
 	@Override
 	public Roles updateRole(Long id, Roles updatedRole, Principal principal) throws RoleException {
@@ -133,7 +139,7 @@ public class RolesServiceImplementation implements RolesService{
 	         String activityType = "Update Role";
 		     String description = "Change in role data";
 		     
-		     activityHistoryService.addActivity(activityType, description, updatedRole.getRole_name(), existingRole.getRole_name(),null);
+		     activityHistoryService.addActivity(activityType, description, updatedRole.getRole_name(), existingRole.getRole_name(),user.getFull_name());
 
 	        return rolesRepository.save(existingRole);
 	    } catch (Exception e) {
@@ -157,7 +163,7 @@ public class RolesServiceImplementation implements RolesService{
              String activityType = "Delete Role";
 		     String description = "Deleted a Role";
 		     
-		     activityHistoryService.addActivity(activityType, description, existingRole.getRole_name() + "is Deleted", null, null);
+		     activityHistoryService.addActivity(activityType, description, existingRole.getRole_name() + "is Deleted", null, user.getFull_name());
 
             rolesRepository.save(existingRole);
         } catch (Exception e) {

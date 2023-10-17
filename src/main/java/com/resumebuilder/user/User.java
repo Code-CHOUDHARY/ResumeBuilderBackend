@@ -37,7 +37,6 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @Table(name="User")
-@EntityListeners(UserEntityListener.class)
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
