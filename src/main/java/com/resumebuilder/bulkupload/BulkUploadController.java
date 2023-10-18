@@ -1,67 +1,78 @@
 package com.resumebuilder.bulkupload;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.security.Principal;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.resumebuilder.user.User;
+
+import com.resumebuilder.ResumeBuilderBackendApplication;
+import com.resumebuilder.exception.DuplicateDataEntryException;
+
 
 @RestController
+//@RequestMapping("/auth") //temporary 
 public class BulkUploadController {
 	
-	@Autowired
-    private EmployeeExcelService excelService;
+	public static final Logger logger = LoggerFactory.getLogger(ResumeBuilderBackendApplication.class);
 	
 	@Autowired
-	private RoleExcelService roleExcelService;
+	private BulkUploadRoleService bulkUploadRoleService;
 	
 	@Autowired
-	private TechnologyExcelService technologyExcelService;
+	private BulkUploadEmployeeService bulkUploadEmployeeService;
 	
-	 //bulk upload API for employees
-    @PostMapping("/employees/upload")
-	public ResponseEntity<?> uploadEmployeeExcel(@RequestParam("file")MultipartFile file) throws IOException{
+	@Autowired
+	private BulkUploadTechnologyService bulkUploadTechnologyService;
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/upload/EmployeeExcel")
+    public ResponseEntity<String> uploadEmployeeExcelFile(@RequestParam("file") MultipartFile file, Principal principal) {
+			try {
+        	bulkUploadEmployeeService.processEmployeeExcelFile(file, principal);
+            return ResponseEntity.ok("File uploaded successfully.");
+			} catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+			}
+    }
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	 @PostMapping("/upload/RoleExcel")
+	    public ResponseEntity<?> uploadRoleExcel(@RequestParam("file") MultipartFile file, Principal principal) throws IOException, io.jsonwebtoken.io.IOException, IllegalStateException, InvalidFormatException {		 
+		 try {
+			 bulkUploadRoleService.processRoleExcelFile(file, principal);
+	            return ResponseEntity.ok("File uploaded successfully.");
+	        } catch (DuplicateDataEntryException e) {
+	            String errorMessage = e.getMessage();
+	            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorMessage);
+	        } 		
+	    }
+	 
+				
+	 
+	@PreAuthorize("hasRole('ADMIN')")
+	 @PostMapping("/upload/TechnologyExcel")
+	    public ResponseEntity<?> uploadTechnologyExcel(@RequestParam("file") MultipartFile file, Principal principal) throws IOException {
+		 
+		 try {
+			 bulkUploadTechnologyService.processTechnologyExcelFile(file, principal);
+	            return ResponseEntity.ok("File uploaded successfully.");
+	        } catch (DuplicateDataEntryException e) {
+	            String errorMessage = e.getMessage();
+	            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorMessage);
+	        } 
 		
-		if(EmployeeExcelHelper.checkExcelFormat(file)) {
-			//true
-			this.excelService.save(file);
-			return ResponseEntity.ok(Map.of("message","File is uploaded and data saved in database."));
-			
-		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file only.");
-	}
-    
-//    @GetMapping("/employees")
-//    public List<User> getAllEmployees() {
-//        return excelService.getAllUsers();
-//    }
-    
-  //bulk upload API for roles
-    @PostMapping("/roles/upload")
-    public ResponseEntity<?> uploadRolesExcel(@RequestParam("file") MultipartFile file) throws IOException {
-        if (RoleExcelHelper.checkExcelFormat(file)) {
-        	roleExcelService.save(file);
-            return ResponseEntity.ok(Map.of("message", "File is uploaded, and roles are saved in the database."));
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload an Excel file only.");
-    }
-    
-    
-  //bulk upload API for technology
-    @PostMapping("/technology/upload")
-    public ResponseEntity<?> uploadTechnologyExcel(@RequestParam("file") MultipartFile file) throws IOException {
-        if (TechnologyExcelHelper.checkExcelFormat(file)) {
-        	technologyExcelService.save(file);
-            return ResponseEntity.ok(Map.of("message", "File is uploaded, and technologies are saved in the database."));
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload an Excel file only.");
-    }
-
+	    }
+	
+	
+	 
 }

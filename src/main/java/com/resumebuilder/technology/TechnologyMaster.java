@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.UpdateTimestamp;
 import com.resumebuilder.user.User;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,9 +28,11 @@ public class TechnologyMaster {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long technology_id;
 	private String technology_name;
+	@Column(name = "modified_by")
 	private String modified_by;
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
+	@Column(name="is_deleted", columnDefinition = "BOOLEAN DEFAULT false")
 	private boolean is_deleted;
 	
 	@ManyToMany(mappedBy = "technologies") // Many technologies can be associated with many users
