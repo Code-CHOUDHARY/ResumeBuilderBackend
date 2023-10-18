@@ -3,6 +3,8 @@ package com.resumebuilder.resumetemplates;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,12 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	@Autowired
 	private ResumeTemplatesRepository repo;
 	
+	 private static final Logger logger = LogManager.getLogger(ResumeTemplatesServiceImplementation.class); 
+
 	@Override
 	public List<ResumeTemplates> getAllTemplates() {
 		//repo.findAll()
+		logger.info("this is the getAllTemplates method");
 		return repo.findAllAvailable();
 	}
 
@@ -33,7 +38,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 				                  .professional_experience(req.getProfessional_experience())
 				                  .certificates(req.getCertificates())
 				                  .is_deleted(false).build();
-		ResumeTemplates savedTemplate=this.repo.save(template);
+		ResumeTemplates savedTemplate=this.repo.save(template);	
 		return savedTemplate;
 	}
 
