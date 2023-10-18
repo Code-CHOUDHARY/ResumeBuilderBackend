@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,19 +31,25 @@ public class ResumeTemplates {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long template_id;
 	
+	
 	private String template_name;
+	
 	
 	@Column(columnDefinition = "TEXT")
 	private String profile_summary;
 	
+	
 	@Column(columnDefinition = "TEXT")
 	private String professional_experience;
+	
 	
 	@Column(columnDefinition = "TEXT")
 	private String projects;
 	
+	
 	@Column(columnDefinition = "TEXT")
 	private String certificates;
+	
 	
 	private String modified_by;
 

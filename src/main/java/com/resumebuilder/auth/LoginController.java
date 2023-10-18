@@ -1,12 +1,8 @@
 package com.resumebuilder.auth;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,24 +11,24 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+//import com.resumebuilder.security.approle.AppRole;
+//import com.resumebuilder.security.approle.AppRoleRepository;
 import com.resumebuilder.security.approle.ERole;
+import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.security.jwt.JwtUtils;
 import com.resumebuilder.security.response.JwtResponse;
 import com.resumebuilder.security.response.MessageResponse;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserDetailsImpl;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserRoleRepository;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -44,10 +40,10 @@ import lombok.RequiredArgsConstructor;
 public class LoginController {	  
 		
 	
-	  private final SecurityContextLogoutHandler logoutHandler;
 	  private final AuthenticationManager authenticationManager;	  
 	  private final UserRepository userRepository;	  
-//	  private final AppRoleRepository roleRepository;  
+	  private final UserRoleRepository roleRepository;  
+	 // private final UserRoleRepository userRoleRepository;
 	  private final PasswordEncoder encoder;
 	  private final JwtUtils jwtUtils;
 
@@ -78,11 +74,11 @@ public class LoginController {
 //	  @PostMapping("/signup")
 //	  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 //		 System.out.println(signUpRequest.getEmail()+signUpRequest.getRole());
-//	    if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-//	      return ResponseEntity
-//	          .badRequest()
-//	          .body(new MessageResponse("Error: Username is already taken!"));
-//	    }
+////	    if (UserRepository.existsByEmail(signUpRequest.getUsername())) {
+////	      return ResponseEntity
+////	          .badRequest()
+////	          .body(new MessageResponse("Error: Username is already taken!"));
+////	    }
 //
 //	    // Create new user's account
 //	    User user = new User( signUpRequest.getEmail(),
@@ -138,12 +134,94 @@ public class LoginController {
 //	          return ResponseEntity.badRequest().body(new MessageResponse("Invalid token or token already expired."));
 //	      }
 //	  }
+	  
+	  @PostMapping("/signup")
+	  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+		 System.out.println(signUpRequest.getEmail()+signUpRequest.getRole());
+		// Create a new User instance and map the fields from SignupRequest
+		    User user = new User(signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
+		    user.setFull_name(signUpRequest.getFull_name());
+		    user.setEmployee_Id(signUpRequest.getEmployee_Id());
+		    user.setCurrent_role(signUpRequest.getCurrent_role());
+		    user.setUser_image(signUpRequest.getUser_image());
+		    user.setGender(signUpRequest.getGender());
+		    user.setMobile_number(signUpRequest.getMobile_number());
+		    user.setLocation(signUpRequest.getLocation());
+		    user.setDate_of_joining(signUpRequest.getDate_of_joining());
+		    user.setDate_of_birth(signUpRequest.getDate_of_birth());
+		    user.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
+		    user.setPortfolio_link(signUpRequest.getPortfolio_link());
+		    user.setBlogs_link(signUpRequest.getBlogs_link());
+		    user.setModified_by(signUpRequest.getModified_by());	  
+
+//	    Set<String> strRoles = signUpRequest.getRole();
+//	    Set<AppRole> roles = new HashSet<>();
+//System.out.println(roles);
+//	    if (strRoles == null) {
+//	    	AppRole userRole = roleRepository.findByName(ERole.ROLE_USER)
+//	          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//	      roles.add(userRole);
+//	    } else {
+//	      strRoles.forEach(role -> {
+//	        switch (role) {
+//	        case "admin":
+//	        	AppRole adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+//	              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//	          roles.add(adminRole);
+//
+//	          break;
+//	        case "manager":
+//	        	AppRole managerRole = roleRepository.findByName(ERole.ROLE_MANAGER)
+//	              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//	          roles.add(managerRole);
+//
+//	          break;
+//	        default:
+//	        	AppRole userRole = roleRepository.findByName(ERole.ROLE_USER)
+//	              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//	          roles.add(userRole);
+//	        }
+//	      });
+//	    }
+//
+//	    user.setAppRoles(roles);
+//	    userRepository.save(user);
+		    
+		    String strRoles = signUpRequest.getRole();
+	        //Set<AppRole> roles = new HashSet<>();
+	        //System.out.println(roles);
+	        if (strRoles == null) {
+	            UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
+	            user.setAppRole(userRole);
+	        } else {
+	            switch (strRoles) {
+	                case "admin":
+	                    UserRole adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
+	                    user.setAppRole(adminRole);
+
+	                    break;
+	                case "manager":
+	                    UserRole managerRole = roleRepository.findByName(ERole.ROLE_MANAGER);
+	                    user.setAppRole(managerRole);
+
+	                    break;
+	                default:
+	                    UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
+	                    user.setAppRole(userRole);
+
+	            }
+	        }
+
+	        userRepository.save(user);
+
+	    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	  }
 
 	  @PostMapping("/logout")
 	  public ResponseEntity<?> logoutUser() {
 
 
-	        String invalidatedToken = jwtUtils.generateInvalidatedJwtToken();
+	        jwtUtils.generateInvalidatedJwtToken();
 
 	            return ResponseEntity.ok(new MessageResponse("Logout successful."));
 	        } 
