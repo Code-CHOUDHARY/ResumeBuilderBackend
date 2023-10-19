@@ -2,6 +2,8 @@ package com.resumebuilder.bulkupload;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import org.slf4j.Logger;
@@ -36,12 +38,12 @@ public class BulkUploadController {
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/upload/EmployeeExcel")
-    public ResponseEntity<String> uploadEmployeeExcelFile(@RequestParam("file") MultipartFile file, Principal principal) {
+    public ResponseEntity<List<EmployeeBulkUploadDto>> uploadEmployeeExcelFile(@RequestParam("file") MultipartFile file, Principal principal) {
 			try {
-        	bulkUploadEmployeeService.processEmployeeExcelFile(file, principal);
-            return ResponseEntity.ok("File uploaded successfully.");
+				var employeeBulkUploadDtos = bulkUploadEmployeeService.processEmployeeExcelFile(file, principal);
+				return ResponseEntity.ok(employeeBulkUploadDtos);
 			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
 			}
     }
 	
