@@ -1,6 +1,7 @@
 package com.resumebuilder.technology;
 
 
+import java.util.List;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -10,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resumebuilder.exception.RoleException;
+import com.resumebuilder.exception.TechnologyException;
+
+import com.resumebuilder.activityhistory.ActivityHistoryRepository;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
+
 import com.resumebuilder.exception.TechnologyException;
 import com.resumebuilder.exception.TechnologyNotFoundException;
 import com.resumebuilder.user.User;
@@ -27,9 +33,14 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	
 	@Autowired
 	private TechnologyMasterRepository technologyMasterRepository;
-	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private ActivityHistoryService activityHistoryService;
+	
+	@Autowired
+	private ActivityHistoryRepository activityHistoryRepository;
+
 	
 
 	/**
@@ -63,7 +74,18 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 			saveTechnology.setTechnology_name(technology.getTechnology_name());
 			saveTechnology.set_deleted(false);
 			saveTechnology.setModified_by(user.getFull_name());
-			return technologyMasterRepository.save(technology);
+
+	    if (technology.getTechnology_name() == null || technology.getTechnology_name().isEmpty()) {
+	        throw new TechnologyException("Technology name cannot be null or empty");
+	    }
+	    
+	     String activityType = "Add Technology";
+	     String description = "Change in Technology Data";
+	     
+	    activityHistoryService.addActivity(activityType, description, technology.getTechnology_name(), null, user.getFull_name());
+	    
+		return technologyMasterRepository.save(technology);
+
 			
 		} catch (Exception e) {
 			throw new TechnologyException("Technology with the same name already exist.");
@@ -94,6 +116,12 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	        existingTechnology.setTechnology_name(updatedTechnology.getTechnology_name());
 	        existingTechnology.setModified_by(user.getFull_name());
 
+                
+                String activityType = "Edit Technology";
+   		     	String description = "Change in technology data";
+   		     
+   		    activityHistoryService.addActivity(activityType, description, updatedTechnology.getTechnology_name(), existingTechnology.getTechnology_name(), user.getFull_name());
+
 	        return technologyMasterRepository.save(existingTechnology);
 		} catch (Exception e) {
 			throw new TechnologyException("Technology does not exist.");
@@ -123,34 +151,37 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
      *
      * @param id The ID of the technology record to be deleted.
      * @throws TechnologyNotFoundException if the technology with the given ID does not exist.
-<<<<<<< HEAD
      * @throws TechnologyException if there is an issue deleting the technology.
-=======
-     * @throws TechnologyException         if there is an issue deleting the technology.
->>>>>>> b6ed48a0d25b78927d37a643b2e00365629f7edd
      */	
 
 	@Override
-	public void deleteTechnology(Long id) throws TechnologyNotFoundException, TechnologyException {
+	public void deleteTechnology(Long id, Principal principal) throws TechnologyNotFoundException, TechnologyException {
 		
 			try {
-
+				User user = userRepository.findByEmailId(principal.getName());
 	            Optional<TechnologyMaster> optionalTechnology = technologyMasterRepository.findById(id)
 ;
 
 	            if (optionalTechnology.isPresent()) {
 	                TechnologyMaster existingTechnology = optionalTechnology.get();
 	                existingTechnology.set_deleted(true);
+	                
+	             String activityType = "Delete technology";
+	   		     String description = "Change in Technology data";
+	   		     
+	   		    activityHistoryService.addActivity(activityType, description,"Technology with the name" + existingTechnology.getTechnology_name() + "is deleted", null, user.getFull_name());
+	                
 	                technologyMasterRepository.save(existingTechnology);
 	            } else {
 	                throw new TechnologyNotFoundException("Technology with ID " + id + " not found.");
 	            }
 	        } 
 			catch (Exception e) {
-	            throw new TechnologyException("Technology does not exist.");   
+
+	            throw new TechnologyException("Failed to delete technology."+ e);   		
 			}
-	
 	}
+
 
 	@Override
 	public List<TechnologyMaster> getAllTechnologyList() {

@@ -23,20 +23,6 @@ public class ActivityHistoryController {
 	
 	@Autowired
 	private ActivityHistoryService activityHistoryService;
-	
-	@PostMapping("/add")
-    public ResponseEntity<ActivityHistory> addActivity(@RequestBody ActivityHistory activity) {
-        try {
-            // Add the activity
-            ActivityHistory addedActivity = activityHistoryService.addActivity(activity);
-            
-            // Return the added activity with a success response
-            return new ResponseEntity<>(addedActivity, HttpStatus.CREATED);
-        } catch (ActivityException e) {
-            // Handle exceptions and return an error response
-        	 return new ResponseEntity<>( HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
     /**
      * Get all activities.

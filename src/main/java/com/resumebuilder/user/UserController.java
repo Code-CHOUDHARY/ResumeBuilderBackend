@@ -133,8 +133,8 @@ public class UserController {
     //delete user api
     @DeleteMapping("/delete/employee/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
-        userService.deleteUserById(userId);
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId, Principal principal) {
+        userService.deleteUserById(userId, principal);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

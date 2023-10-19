@@ -271,16 +271,6 @@ public class UserServiceImplementation implements UserService{
         return userRepository.save(existingUser);
 	}
 
-    
-    
-    //delete the user 
-	@Override
-	public void deleteUserById(Long userId) {
-		User existingUser = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));     
-        userRepository.delete(existingUser);
-		
-	}
 
 
 
@@ -330,6 +320,14 @@ public class UserServiceImplementation implements UserService{
         helper.setText(content, true);
         mailSender.send(message);
     }
+
+	@Override
+	public void deleteUserById(Long userId, Principal principal) {
+		User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));     
+        userRepository.delete(existingUser);
+		
+	}
     
 }
 

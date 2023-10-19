@@ -2,11 +2,13 @@ package com.resumebuilder.resumetemplates;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.resumebuilder.exception.ResumeTemplateExceptions;
 
-import jakarta.servlet.http.HttpServletRequest;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @RestController
 @RequestMapping("/templates")
 public class ResumeTemplatesController {
@@ -27,13 +29,15 @@ public class ResumeTemplatesController {
 	@Autowired
 	private ResumeTemplatesService service;
 	
-	
-	 
+	 private static final Logger logger = LogManager.getLogger(ResumeTemplatesController.class); 
+
+	 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	 
 	@PostMapping("/addTemplate")
 	public ResponseEntity<?> addTemplate(@RequestBody  ResumeTemplates request){
 		ResumeTemplates template=service.addTemplate(request);
 		if(template!=null) {
+//			logger.info("Requested user info: {} "+"add template request ",authentication.getName());
 			return ResponseEntity.status(HttpStatus.OK).body("template added Succesfull");
 		}else {
 			//ResponseEntity.ok(new ResumeTemplateExceptions("Unable to Add Resume Template"))
@@ -67,6 +71,7 @@ public class ResumeTemplatesController {
 	 @GetMapping("/getTemplate/{templateId}")
 	   public ResponseEntity<?> getTemplateById(@PathVariable("templateId")String templateId){
 		 ResumeTemplates template=service.getTemplateById(templateId);
+		 
 		 if(template!=null) {
 			 return  ResponseEntity.status(HttpStatus.OK).body(template);
 		 }else {
