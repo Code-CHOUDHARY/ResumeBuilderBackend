@@ -6,12 +6,16 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -22,44 +26,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.resumebuilder.DTO.RolesDto;
+import com.resumebuilder.DTO.TechnologyDto;
 import com.resumebuilder.exception.DataProcessingException;
 import com.resumebuilder.roles.Roles;
+import com.resumebuilder.roles.RolesRepository;
 import com.resumebuilder.technology.TechnologyMaster;
 import com.resumebuilder.technology.TechnologyMasterRepository;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 
 import io.jsonwebtoken.io.IOException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class BulkUploadTechnologyService {
 	
 	public static final String EXCEL_TEMPLATE_DIRECTORY = "upload/template/technology"; 
-	
+	 public static final Logger logger = LogManager.getLogger(BulkUploadRoleService.class);
 
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
-	private TechnologyMasterRepository technologyMasterRepository;
-	
-	@Autowired
-    private Map<Integer, String> technologyColumnMapping;
-	
-	public void processTechnologyExcelFile(MultipartFile file, Principal principal) throws IOException, java.io.IOException {
-	    
+    private TechnologyMasterRepository technologyRepository;
 
-		try {
-			// Save the uploaded Excel file to the project path
+    @Transactional
+    public List<TechnologyDto> processTechnologyExcelFile(MultipartFile file, Principal principal) throws Exception {
+        try {
+            // Validate the data in the Excel sheet
+            List<TechnologyDto> technologyBulkUploadDtos;
+            try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+                Sheet technologySheet = workbook.getSheet("Technologies");
+                logger.info("Number of Rows: " + technologySheet.getPhysicalNumberOfRows());
+                technologyBulkUploadDtos = validateTechnologyData(technologySheet);
+            }
+
+            // Save the uploaded Excel file to the project path
             String fileName = file.getOriginalFilename();
             File destFile = new File(EXCEL_TEMPLATE_DIRECTORY, fileName);
-
-            // If target project path not create then create it
             File directory = destFile.getParentFile();
-            if (!directory.exists()) {
-                directory.mkdirs();
+            
+            if (!directory.exists() && !directory.mkdirs()) {
+                throw new IOException("Failed to create directory: " + directory.getAbsolutePath());
             }
-         // Copy the file's input stream to the destination file
+
             try (InputStream inputStream = file.getInputStream();
                  FileOutputStream outputStream = new FileOutputStream(destFile)) {
                 byte[] buffer = new byte[1024];
@@ -69,112 +80,108 @@ public class BulkUploadTechnologyService {
                 }
             }
 
-		try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
-	        Sheet technologySheet = workbook.getSheet("Technologies");
-
-	        User user = userRepository.findByEmailId(principal.getName());
-
-	        List<String> validationMessages = validateTechnologySheet(technologySheet);
-
-	        if (!validationMessages.isEmpty()) {
-	            throw new DataProcessingException(String.join(", ", validationMessages));
-	        }
-
-	        // Continue with saving the data
-	        processTechnologySheet(technologySheet, user);
-	    } catch (java.io.IOException e) {
+            User user = userRepository.findByEmailId(principal.getName());
+            return processTechnologySheet(technologyBulkUploadDtos, user);
+        } catch (IOException e) {
+            // Handle the exception, you can log it and throw a custom exception or return an error response.
+            logger.error("Error processing the Excel file: " + e.getMessage());
             e.printStackTrace();
+            throw e;
+            //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing the Excel file.");
+        }
+		
+    }   
+
+    private List<TechnologyDto> processTechnologySheet(List<TechnologyDto> technologyBulkUploadDtos, User currentUser) throws Exception {
+        List<TechnologyMaster> existingRoles = technologyRepository.findAll();
+        List<TechnologyDto> allData = new ArrayList<>();
+
+        for (TechnologyDto bulkUploadDto : technologyBulkUploadDtos) {
+            if (bulkUploadDto.getTechnology_name() != null) {
+                TechnologyMaster existingTechology = findByTechnologyName(existingRoles, bulkUploadDto.getTechnology_name());
+                if (existingTechology != null) {
+                    if (existingTechology.is_deleted()) {
+                        createTechnology(existingTechology, bulkUploadDto, currentUser);
+                    } else {
+                        updateTechnology(existingTechology, bulkUploadDto, currentUser);
+                    }
+                } else {
+                    if (bulkUploadDto.getRemark().isEmpty()) {
+                        TechnologyMaster newTechnology = new TechnologyMaster();
+                        createTechnology(newTechnology, bulkUploadDto, currentUser);
+                    }
+                }
+            }
+
+            allData.add(bulkUploadDto);
         }
 
-    } catch (IOException e) {
-        e.printStackTrace();
+        return allData;
     }
 
-	}
 
-	private List<String> validateTechnologySheet(Sheet sheet) {
-	    List<String> validationMessages = new ArrayList<>();
-	    Set<String> uniqueRoleNames = new HashSet<>();
+    private TechnologyMaster findByTechnologyName(List<TechnologyMaster> techList, String technology_name) {
+        for (TechnologyMaster tech : techList) {
+            if (tech.getTechnology_name() != null && tech.getTechnology_name().equals(technology_name) && !tech.is_deleted()) {
+                return tech;
+            }
+        }
+        return null;
+    }
 
-	    for (Row row : sheet) {
-	        if (row.getRowNum() == 0) {
-	            // Skip the header row
-	            continue;
-	        }
+    private boolean allFieldsAreNull(TechnologyDto bulkExcelTechDto) {
+        return bulkExcelTechDto.getTechnology_name() == null;
+    }
 
-	        for (Map.Entry<Integer, String> entry : technologyColumnMapping.entrySet()) {
-	            Integer columnIndex = entry.getKey();
-	            String fieldName = entry.getValue();
-	            String cellValue = getStringValue(row.getCell(columnIndex));
+    private void createTechnology(TechnologyMaster newTechnology, TechnologyDto bulkUploadDto, User currentUser) {
+    	newTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
+    	newTechnology.setModified_by(currentUser.getFull_name());
+    	newTechnology.setModified_on(LocalDateTime.now());
+        technologyRepository.save(newTechnology);
+    }
 
-	            if (fieldName.equals("technology_name")) {
-	                // Check for duplicate technology names
-	                if (uniqueRoleNames.contains(cellValue)) {
-	                    validationMessages.add("Duplicate data entry for technology name: " + cellValue);
-	                } else {
-	                    uniqueRoleNames.add(cellValue);
-	                }
+    private void updateTechnology(TechnologyMaster existingTechnology, TechnologyDto bulkUploadDto, User currentUser) {
+    	existingTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
+    	existingTechnology.setModified_by(currentUser.getFull_name());
+    	existingTechnology.setModified_on(LocalDateTime.now());
+        technologyRepository.save(existingTechnology);
+    }
+    
+    private List<TechnologyDto> validateTechnologyData(Sheet sheet) {
+        Set<String> processedRoles = new HashSet<>();
+        List<String> missingDataMsg = new ArrayList<>();
+        List<TechnologyDto> bulkExcelTechnologyDtos = new ArrayList<>();
 
-	                // Check for missing values
-	                if (cellValue == null || cellValue.isEmpty()) {
-	                    validationMessages.add("Data missing for technology name");
-	                }
-	            }
-	        }
-	    }
+        for (Row row : sheet) {
+            if (row.getRowNum() == 0) {
+                continue; // Skip the header row
+            }
 
-	    return validationMessages;
-	}
+            String technology_name = getStringValue(row.getCell(1)); // Assuming role name is in column 1
 
-	private void processTechnologySheet(Sheet sheet, User currentUser) {
-		List<TechnologyMaster> existingTechnology = technologyMasterRepository.findAll();
-	    for (Row row : sheet) {
-	        if (row.getRowNum() == 0) {
-	            // Skip the header row
-	            continue;
-	        }
+            if (technology_name == null) {
+                missingDataMsg.add("Data missing for technology name");
+            } else {
+                if (processedRoles.contains(technology_name)) {
+                    missingDataMsg.add("Duplicate data entry for technology name: " + technology_name);
+                } else {
+                    processedRoles.add(technology_name);
+                }
+            }
 
-	        TechnologyMaster technologies = new TechnologyMaster();
-	        technologies.setModified_by(currentUser.getFull_name());
+            TechnologyDto bulkExcelTechDto = new TechnologyDto();
+            bulkExcelTechDto.setTechnology_name(technology_name);
+            bulkExcelTechDto.setRemark(missingDataMsg.stream().toList());
+            bulkExcelTechDto.setStatus(!allFieldsAreNull(bulkExcelTechDto));
 
-	        for (Map.Entry<Integer, String> entry : technologyColumnMapping.entrySet()) {
-	            Integer columnIndex = entry.getKey();
-	            String fieldName = entry.getValue();
-	            String cellValue = getStringValue(row.getCell(columnIndex));
+            bulkExcelTechnologyDtos.add(bulkExcelTechDto);
 
-	            setFieldValue(technologies, fieldName, cellValue);
-	        }
-	        	
-	        TechnologyMaster existingTechnologies = findTechnologyByName(existingTechnology, technologies.getTechnology_name());
-	        	 if (existingTechnologies == null) {
-	                 // technology doesn't exist, so create a new one
-	        		 technologies.setModified_by(currentUser.getFull_name());
-	                 technologyMasterRepository.save(technologies);
-	             } else if (existingTechnologies.is_deleted()) {
-	            	 //check existing soft delete technology and re-add again
-	            	 TechnologyMaster newTech = new TechnologyMaster();
-	            	 newTech.setTechnology_name(technologies.getTechnology_name());
-	            	 newTech.setModified_by(currentUser.getFull_name());
-	            	 newTech.set_deleted(false);
-	            	 technologyMasterRepository.save(newTech);
-	            	
-	             }
-	        	
-	        }
-	       
-	    }
-	    
-	    
-	
-	
-	private TechnologyMaster findTechnologyByName(List<TechnologyMaster> technologyList, String technologyName) {
-	    for (TechnologyMaster tech : technologyList) {
-	        if (tech.getTechnology_name().equals(technologyName) && tech.is_deleted()==false) {
-	            return tech;
-	        }
-	    }
-	    return null;
-	}
+            missingDataMsg.clear();
+        }
+
+        logger.info("Bulk Excel Employee Dto received {}", bulkExcelTechnologyDtos);
+        return bulkExcelTechnologyDtos;
+    }
     
     private String getStringValue(Cell cell) {
         if (cell == null) {
@@ -186,27 +193,16 @@ public class BulkUploadTechnologyService {
                 return cell.getStringCellValue();
             case NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    return dateFormat.format(cell.getDateCellValue());
+                    // If the cell contains a date, convert it to a string in your desired format
+                    Date date = cell.getDateCellValue();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // You can change the date format as needed
+                    return dateFormat.format(date);
                 } else {
+                    // If it's not a date, treat it as a numeric value
                     return String.valueOf((int) cell.getNumericCellValue());
                 }
             default:
                 return null;
-        }
-    }
-
-    private void setFieldValue(TechnologyMaster technology, String fieldName, String cellValue) {
-        try {
-            Field field = technology.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            if (field.getType() == String.class) {
-                field.set(technology, cellValue);
-            } else if (field.getType() == Integer.class) {
-                field.set(technology, Integer.parseInt(cellValue));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

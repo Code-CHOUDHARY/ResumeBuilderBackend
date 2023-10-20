@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.ResumeBuilderBackendApplication;
+import com.resumebuilder.DTO.RolesDto;
+import com.resumebuilder.DTO.TechnologyDto;
 import com.resumebuilder.exception.DuplicateDataEntryException;
 
 
@@ -49,13 +49,12 @@ public class BulkUploadController {
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	 @PostMapping("/upload/RoleExcel")
-	    public ResponseEntity<?> uploadRoleExcel(@RequestParam("file") MultipartFile file, Principal principal) throws IOException, io.jsonwebtoken.io.IOException, IllegalStateException, InvalidFormatException {		 
+	    public ResponseEntity<List<RolesDto>> uploadRoleExcel(@RequestParam("file") MultipartFile file, Principal principal) throws Exception {		 
 		 try {
-			 bulkUploadRoleService.processRoleExcelFile(file, principal);
-	            return ResponseEntity.ok("File uploaded successfully.");
-	        } catch (DuplicateDataEntryException e) {
-	            String errorMessage = e.getMessage();
-	            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorMessage);
+			 var roleBulkUploadDtos = bulkUploadRoleService.processRoleExcelFile(file, principal);
+			 return ResponseEntity.ok(roleBulkUploadDtos);
+	        } catch (Exception e) {
+	        	return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
 	        } 		
 	    }
 	 
@@ -63,14 +62,13 @@ public class BulkUploadController {
 	 
 	@PreAuthorize("hasRole('ADMIN')")
 	 @PostMapping("/upload/TechnologyExcel")
-	    public ResponseEntity<?> uploadTechnologyExcel(@RequestParam("file") MultipartFile file, Principal principal) throws IOException {
+	    public ResponseEntity<List<TechnologyDto>> uploadTechnologyExcel(@RequestParam("file") MultipartFile file, Principal principal) throws IOException {
 		 
 		 try {
-			 bulkUploadTechnologyService.processTechnologyExcelFile(file, principal);
-	            return ResponseEntity.ok("File uploaded successfully.");
-	        } catch (DuplicateDataEntryException e) {
-	            String errorMessage = e.getMessage();
-	            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorMessage);
+			 var technologyBulkUploadDtos = bulkUploadTechnologyService.processTechnologyExcelFile(file, principal);
+			 return ResponseEntity.ok(technologyBulkUploadDtos);
+	        } catch (Exception e) {
+	        	return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
 	        } 
 		
 	    }

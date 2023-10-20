@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +25,5 @@ public class EmployeeBulkUploadDto {
     private String location;
     private List<String> remark;
     private boolean status;
+    
 }

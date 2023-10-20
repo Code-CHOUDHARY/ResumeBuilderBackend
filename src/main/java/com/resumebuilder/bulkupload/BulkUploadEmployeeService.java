@@ -109,7 +109,7 @@ public class BulkUploadEmployeeService {
                 if (existingUser != null) {
                     if (existingUser.is_deleted()) {
                         // User exists but is marked as deleted, so create a new user
-                        createUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
+                        createUser(existingUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
                     } else {
                         // User exists, update the existing user
                         updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
@@ -118,7 +118,7 @@ public class BulkUploadEmployeeService {
                     // User doesn't exist, create a new user
                     if (bulkUploadDto.getRemark().isEmpty()) {
                         User newUser = new User();
-                        createUser(newUser, bulkUploadDto, encodedPassword, currentUser);
+                        createUser(newUser, bulkUploadDto,generatedPassword, encodedPassword, currentUser);
                     } else {
                         bulkUploadDto.setStatus(true);
                         notStoredData.add(bulkUploadDto);
@@ -180,7 +180,7 @@ public class BulkUploadEmployeeService {
         }
     }
 
-    private void createUser(User newUser, EmployeeBulkUploadDto bulkUploadDto, String encodedPassword, User currentUser) throws Exception {
+    private void createUser(User newUser, EmployeeBulkUploadDto bulkUploadDto, String generatedPassword, String encodedPassword, User currentUser) throws Exception {
         newUser.setFull_name(bulkUploadDto.getFullName());
         newUser.setDate_of_joining(bulkUploadDto.getDateOfJoining());
         newUser.setDate_of_birth(bulkUploadDto.getDateOfBirth());
@@ -195,8 +195,9 @@ public class BulkUploadEmployeeService {
         newUser.setModified_on(LocalDateTime.now());
 
         userRepository.save(newUser);
-     // Send the email with the generated password
-        sendEmailPassword(newUser, newUser.getPassword());
+        
+        // Send the email with the generated password
+        sendEmailPassword(newUser, generatedPassword);
 
     }
 
