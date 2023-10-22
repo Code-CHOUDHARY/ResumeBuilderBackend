@@ -147,8 +147,44 @@ public class BulkUploadTechnologyService {
         technologyRepository.save(existingTechnology);
     }
     
+//    private List<TechnologyDto> validateTechnologyData(Sheet sheet) {
+//        Set<String> processedRoles = new HashSet<>();
+//        List<String> missingDataMsg = new ArrayList<>();
+//        List<TechnologyDto> bulkExcelTechnologyDtos = new ArrayList<>();
+//
+//        for (Row row : sheet) {
+//            if (row.getRowNum() == 0) {
+//                continue; // Skip the header row
+//            }
+//
+//            String technology_name = getStringValue(row.getCell(1)); // Assuming role name is in column 1
+//
+//            if (technology_name == null) {
+//                missingDataMsg.add("Data missing for technology name");
+//            } else {
+//                if (processedRoles.contains(technology_name)) {
+//                    missingDataMsg.add("Duplicate data entry for technology name: " + technology_name);
+//                } else {
+//                    processedRoles.add(technology_name);
+//                }
+//            }
+//
+//            TechnologyDto bulkExcelTechDto = new TechnologyDto();
+//            bulkExcelTechDto.setTechnology_name(technology_name);
+//            bulkExcelTechDto.setRemark(missingDataMsg.stream().toList());
+//            bulkExcelTechDto.setStatus(!allFieldsAreNull(bulkExcelTechDto));
+//
+//            bulkExcelTechnologyDtos.add(bulkExcelTechDto);
+//
+//            missingDataMsg.clear();
+//        }
+//
+//        logger.info("Bulk Excel Employee Dto received {}", bulkExcelTechnologyDtos);
+//        return bulkExcelTechnologyDtos;
+//    }
+    
     private List<TechnologyDto> validateTechnologyData(Sheet sheet) {
-        Set<String> processedRoles = new HashSet<>();
+        Set<String> processedTechnology = new HashSet<>();
         List<String> missingDataMsg = new ArrayList<>();
         List<TechnologyDto> bulkExcelTechnologyDtos = new ArrayList<>();
 
@@ -160,28 +196,28 @@ public class BulkUploadTechnologyService {
             String technology_name = getStringValue(row.getCell(1)); // Assuming role name is in column 1
 
             if (technology_name == null) {
-                missingDataMsg.add("Data missing for technology name");
+                missingDataMsg.add("Data missing for role name");
             } else {
-                if (processedRoles.contains(technology_name)) {
-                    missingDataMsg.add("Duplicate data entry for technology name: " + technology_name);
+                if (processedTechnology.contains(technology_name)) {
+                    missingDataMsg.add("Duplicate data entry for role name: " + technology_name);
                 } else {
-                    processedRoles.add(technology_name);
+                	processedTechnology.add(technology_name);
                 }
             }
 
             TechnologyDto bulkExcelTechDto = new TechnologyDto();
             bulkExcelTechDto.setTechnology_name(technology_name);
             bulkExcelTechDto.setRemark(missingDataMsg.stream().toList());
-            bulkExcelTechDto.setStatus(!allFieldsAreNull(bulkExcelTechDto));
-
+            bulkExcelTechDto.setStatus(missingDataMsg.isEmpty());
+            
             bulkExcelTechnologyDtos.add(bulkExcelTechDto);
-
             missingDataMsg.clear();
         }
 
         logger.info("Bulk Excel Employee Dto received {}", bulkExcelTechnologyDtos);
         return bulkExcelTechnologyDtos;
     }
+
     
     private String getStringValue(Cell cell) {
         if (cell == null) {
@@ -200,7 +236,7 @@ public class BulkUploadTechnologyService {
                 } else {
                     // If it's not a date, treat it as a numeric value
                     return String.valueOf((int) cell.getNumericCellValue());
-                }
+              }
             default:
                 return null;
         }

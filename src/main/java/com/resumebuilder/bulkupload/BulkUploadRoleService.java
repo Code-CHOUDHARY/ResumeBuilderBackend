@@ -146,6 +146,42 @@ public class BulkUploadRoleService {
             rolesRepository.save(existingRole);
         }
         
+//        private List<RolesDto> validateRoleData(Sheet sheet) {
+//            Set<String> processedRoles = new HashSet<>();
+//            List<String> missingDataMsg = new ArrayList<>();
+//            List<RolesDto> bulkExcelRolesDtos = new ArrayList<>();
+//
+//            for (Row row : sheet) {
+//                if (row.getRowNum() == 0) {
+//                    continue; // Skip the header row
+//                }
+//
+//                String role_name = getStringValue(row.getCell(1)); // Assuming role name is in column 1
+//
+//                if (role_name == null) {
+//                    missingDataMsg.add("Data missing for role name");
+//                } else {
+//                    if (processedRoles.contains(role_name)) {
+//                        missingDataMsg.add("Duplicate data entry for role name: " + role_name);
+//                    } else {
+//                        processedRoles.add(role_name);
+//                    }
+//                }
+//
+//                RolesDto bulkExcelRoleDto = new RolesDto();
+//                bulkExcelRoleDto.setRole_name(role_name);
+//                bulkExcelRoleDto.setRemark(missingDataMsg.stream().toList());
+//                bulkExcelRoleDto.setStatus(!allFieldsAreNull(bulkExcelRoleDto));
+//
+//                bulkExcelRolesDtos.add(bulkExcelRoleDto);
+//
+//                missingDataMsg.clear();
+//            }
+//
+//            logger.info("Bulk Excel Employee Dto received {}", bulkExcelRolesDtos);
+//            return bulkExcelRolesDtos;
+//        }
+        
         private List<RolesDto> validateRoleData(Sheet sheet) {
             Set<String> processedRoles = new HashSet<>();
             List<String> missingDataMsg = new ArrayList<>();
@@ -171,7 +207,7 @@ public class BulkUploadRoleService {
                 RolesDto bulkExcelRoleDto = new RolesDto();
                 bulkExcelRoleDto.setRole_name(role_name);
                 bulkExcelRoleDto.setRemark(missingDataMsg.stream().toList());
-                bulkExcelRoleDto.setStatus(!allFieldsAreNull(bulkExcelRoleDto));
+                bulkExcelRoleDto.setStatus(missingDataMsg.isEmpty()); // Set status as false if missingDataMsg is not empty
 
                 bulkExcelRolesDtos.add(bulkExcelRoleDto);
 
@@ -181,6 +217,7 @@ public class BulkUploadRoleService {
             logger.info("Bulk Excel Employee Dto received {}", bulkExcelRolesDtos);
             return bulkExcelRolesDtos;
         }
+
         
         private String getStringValue(Cell cell) {
             if (cell == null) {
