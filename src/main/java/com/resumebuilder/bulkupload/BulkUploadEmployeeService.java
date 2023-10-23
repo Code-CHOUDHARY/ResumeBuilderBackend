@@ -82,6 +82,77 @@ public class BulkUploadEmployeeService {
         }
     }   
 
+//    private List<EmployeeBulkUploadDto> processEmployeeSheet(List<EmployeeBulkUploadDto> employeeBulkUploadDto, User currentUser) throws Exception {
+//        List<User> existingUsers = userRepository.findAll();
+//        List<EmployeeBulkUploadDto> notStoredData = new ArrayList<>();
+//        List<EmployeeBulkUploadDto> storedData = new ArrayList<>();
+//
+//        logger.info("Found List of users {}", employeeBulkUploadDto);
+//
+//        for (EmployeeBulkUploadDto bulkUploadDto : employeeBulkUploadDto) {
+//          
+//            if (bulkUploadDto.getEmployeeId() != null &&
+//                    bulkUploadDto.getFullName() != null &&
+//                    bulkUploadDto.getDateOfJoining() != null &&
+//                    bulkUploadDto.getDateOfBirth() != null &&
+//                    bulkUploadDto.getCurrentRole() != null &&
+//                    bulkUploadDto.getEmail() != null &&
+//                    bulkUploadDto.getGender() != null &&
+//                    bulkUploadDto.getMobile_number() != null &&
+//                    bulkUploadDto.getLocation() != null) {
+//                User existingUser = findUserByEmail(existingUsers, bulkUploadDto.getEmail());
+//
+//                // Generate a random password
+//                String generatedPassword = generateRandomPassword();
+//                String encodedPassword = passwordEncoder.encode(generatedPassword);
+//
+//                if (existingUser != null) {
+//                    if (existingUser.is_deleted()) {
+//                        // User exists but is marked as deleted, so create a new user
+//                        User user = createUser(existingUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+//                        if (bulkUploadDto.getRemark().isEmpty()) {
+//                            bulkUploadDto.setStatus(false);
+//                            storedData.add(bulkUploadDto);
+//                        }
+//                    
+//                    } else {
+//                        // User exists, update the existing user
+//                       User user = updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
+//                       if (bulkUploadDto.getRemark().isEmpty()) {
+//                           bulkUploadDto.setStatus(false);
+//                           storedData.add(bulkUploadDto);
+//                       }
+//                    }
+//                } else {
+//                    // User doesn't exist, create a new user
+//                    if (bulkUploadDto.getRemark().isEmpty()) {
+//                        User newUser = new User();
+//                        createUser(newUser, bulkUploadDto,generatedPassword, encodedPassword, currentUser);
+//                    } else {
+//                        bulkUploadDto.setStatus(true);
+//                        notStoredData.add(bulkUploadDto);
+//                    }
+//                }
+//
+////                if (bulkUploadDto.getRemark().isEmpty()) {
+////                    bulkUploadDto.setStatus(false);
+////                    storedData.add(bulkUploadDto);
+////                }
+//            } else {
+//                bulkUploadDto.setStatus(true);
+//                notStoredData.add(bulkUploadDto);
+//            }
+//
+//        }
+//
+//        // Return both the stored and not stored data
+//        List<EmployeeBulkUploadDto> allData = new ArrayList<>();
+//        allData.addAll(storedData);
+//        allData.addAll(notStoredData);
+//
+//        return allData;
+//    }
+    
     private List<EmployeeBulkUploadDto> processEmployeeSheet(List<EmployeeBulkUploadDto> employeeBulkUploadDto, User currentUser) throws Exception {
         List<User> existingUsers = userRepository.findAll();
         List<EmployeeBulkUploadDto> notStoredData = new ArrayList<>();
@@ -90,7 +161,7 @@ public class BulkUploadEmployeeService {
         logger.info("Found List of users {}", employeeBulkUploadDto);
 
         for (EmployeeBulkUploadDto bulkUploadDto : employeeBulkUploadDto) {
-          
+
             if (bulkUploadDto.getEmployeeId() != null &&
                     bulkUploadDto.getFullName() != null &&
                     bulkUploadDto.getDateOfJoining() != null &&
@@ -106,28 +177,32 @@ public class BulkUploadEmployeeService {
                 String generatedPassword = generateRandomPassword();
                 String encodedPassword = passwordEncoder.encode(generatedPassword);
 
-                if (existingUser != null) {
-                    if (existingUser.is_deleted()) {
-                        // User exists but is marked as deleted, so create a new user
-                        createUser(existingUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+                if (bulkUploadDto.getRemark().isEmpty()) {
+                    if (existingUser != null) {
+                        if (existingUser.is_deleted()) {
+                            // User exists but is marked as deleted, so create a new user
+                            createUser(existingUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+                            storedData.add(bulkUploadDto);
+                        } else {
+                            // User exists, update the existing user
+                            updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
+                            storedData.add(bulkUploadDto);
+                        }
                     } else {
-                        // User exists, update the existing user
-                        updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
+                        // User doesn't exist, create a new user
+                        if (bulkUploadDto.getRemark().isEmpty()) {
+                            User newUser = new User();
+                            createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+                            bulkUploadDto.setStatus(false);
+                            storedData.add(bulkUploadDto);
+                        } else {
+                            bulkUploadDto.setStatus(true);
+                            notStoredData.add(bulkUploadDto);
+                        }
                     }
                 } else {
-                    // User doesn't exist, create a new user
-                    if (bulkUploadDto.getRemark().isEmpty()) {
-                        User newUser = new User();
-                        createUser(newUser, bulkUploadDto,generatedPassword, encodedPassword, currentUser);
-                    } else {
-                        bulkUploadDto.setStatus(true);
-                        notStoredData.add(bulkUploadDto);
-                    }
-                }
-
-                if (bulkUploadDto.getRemark().isEmpty()) {
-                    bulkUploadDto.setStatus(false);
-                    storedData.add(bulkUploadDto);
+                    bulkUploadDto.setStatus(true);
+                    notStoredData.add(bulkUploadDto);
                 }
             } else {
                 bulkUploadDto.setStatus(true);
@@ -180,7 +255,7 @@ public class BulkUploadEmployeeService {
         }
     }
 
-    private void createUser(User newUser, EmployeeBulkUploadDto bulkUploadDto, String generatedPassword, String encodedPassword, User currentUser) throws Exception {
+    private User createUser(User newUser, EmployeeBulkUploadDto bulkUploadDto, String generatedPassword, String encodedPassword, User currentUser) throws Exception {
         newUser.setFull_name(bulkUploadDto.getFullName());
         newUser.setDate_of_joining(bulkUploadDto.getDateOfJoining());
         newUser.setDate_of_birth(bulkUploadDto.getDateOfBirth());
@@ -194,14 +269,16 @@ public class BulkUploadEmployeeService {
         newUser.setModified_by(currentUser.getFull_name());
         newUser.setModified_on(LocalDateTime.now());
 
-        userRepository.save(newUser);
+        User user = userRepository.save(newUser);
         
         // Send the email with the generated password
         sendEmailPassword(newUser, generatedPassword);
+        
+        return user;
 
     }
 
-    private void updateUser(User existingUser, EmployeeBulkUploadDto bulkUploadDto, String encodedPassword, User currentUser) {
+    private User updateUser(User existingUser, EmployeeBulkUploadDto bulkUploadDto, String encodedPassword, User currentUser) {
         existingUser.setFull_name(bulkUploadDto.getFullName());
         existingUser.setDate_of_joining(bulkUploadDto.getDateOfJoining());
         existingUser.setDate_of_birth(bulkUploadDto.getDateOfBirth());
@@ -214,7 +291,7 @@ public class BulkUploadEmployeeService {
         existingUser.setModified_by(currentUser.getFull_name());
         existingUser.setModified_on(LocalDateTime.now());
 
-        userRepository.save(existingUser);
+        return userRepository.save(existingUser);
     }
 
     private User findUserByEmail(List<User> userList, String Email) {
