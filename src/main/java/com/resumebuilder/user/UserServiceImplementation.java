@@ -54,6 +54,7 @@ public class UserServiceImplementation implements UserService{
 	public User findUserByIdUser(Long userId) {
 		
 		Optional<User> opt =userRepository.findById(userId);
+		System.out.println("obj"+opt);
 			return opt.get();
 	}
 

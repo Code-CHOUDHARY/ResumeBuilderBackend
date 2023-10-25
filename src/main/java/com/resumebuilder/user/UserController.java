@@ -45,7 +45,7 @@ public class UserController {
     public ResponseEntity<User> findUserByIdHandler(@PathVariable Long id) {
 
         User user = userService.findUserByIdUser(id);
-
+        System.out.println("user Education"+user.getEducations());
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 

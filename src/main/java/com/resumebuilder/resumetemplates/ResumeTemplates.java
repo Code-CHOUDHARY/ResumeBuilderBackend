@@ -6,6 +6,8 @@ import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -57,6 +59,7 @@ public class ResumeTemplates {
 	private Date modified_on;
 	
     @Column(columnDefinition = "boolean")
+    @JsonIgnore  //not sending in response
 	private boolean is_deleted;
 	
 //	@ManyToOne
