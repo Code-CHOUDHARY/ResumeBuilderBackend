@@ -79,58 +79,6 @@ public class UserController {
         }
     }
 
-
-
-//    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-//    @PostMapping("/add/employee")
-//    public ResponseEntity<?> addUser(@Valid @RequestBody SignupRequest signUpRequest, Principal principal) {
-//    	
-//    	User currentuser = userRepository.findByEmailId(principal.getName());
-//
-//        // Create a new User instance
-//        User user = new User(signUpRequest.getEmail(), signUpRequest.getEmail()); // Set the initial password to be the same as the email
-//        user.setFull_name(signUpRequest.getFull_name());
-//        user.setEmployee_Id(signUpRequest.getEmployee_Id());
-//        user.setCurrent_role(signUpRequest.getCurrent_role());
-//        user.setUser_image(signUpRequest.getUser_image());
-//        user.setGender(signUpRequest.getGender());
-//        user.setMobile_number(signUpRequest.getMobile_number());
-//        user.setLocation(signUpRequest.getLocation());
-//        user.setDate_of_joining(signUpRequest.getDate_of_joining());
-//        user.setDate_of_birth(signUpRequest.getDate_of_birth());
-//        user.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
-//        user.setPortfolio_link(signUpRequest.getPortfolio_link());
-//        user.setBlogs_link(signUpRequest.getBlogs_link());
-//        user.setModified_by(currentuser.getFull_name());
-//
-//        String strRoles = signUpRequest.getRole();
-//
-//        if (strRoles == null) {
-//            UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
-//            user.setAppRole(userRole);
-//        } else {
-//            switch (strRoles) {
-//                case "admin":
-//                    UserRole adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
-//                    user.setAppRole(adminRole);
-//
-//                    break;
-//                case "manager":
-//                    UserRole managerRole = roleRepository.findByName(ERole.ROLE_MANAGER);
-//                    user.setAppRole(managerRole);
-//
-//                    break;
-//                default:
-//                    UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
-//                    user.setAppRole(userRole);
-//
-//            }
-//        }
-//
-//        userRepository.save(user);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
-//    }
     
     /**
      * Add a new employee user.
