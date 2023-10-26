@@ -1,5 +1,6 @@
 package com.resumebuilder.bulkupload;
 
+import com.resumebuilder.DTO.EmployeeBulkUploadDto;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 import jakarta.mail.internet.MimeMessage;
@@ -24,6 +25,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Service for handling bulk upload of employee data from Excel files.
+ */
+
 @Service
 public class BulkUploadEmployeeService {
 
@@ -39,6 +44,17 @@ public class BulkUploadEmployeeService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    
+    /**
+     * Processes an Excel file containing employee data.
+     *
+     * @param file      The Excel file to process.
+     * @param principal The principal user initiating the upload.
+     * @return A list of EmployeeBulkUploadDto objects containing processed data.
+     * @throws Exception If there is an error during processing.
+     */
+    
 
     @Transactional
     public List<EmployeeBulkUploadDto> processEmployeeExcelFile(MultipartFile file, Principal principal) throws Exception {
@@ -153,6 +169,16 @@ public class BulkUploadEmployeeService {
 //        return allData;
 //    }
     
+    /**
+     * Processes the data from the employee sheet.
+     *
+     * @param employeeBulkUploadDtos A list of EmployeeBulkUploadDto objects containing technology data.
+     * @param currentUser        The user initiating the update.
+     * @return A list of processed EmployeeBulkUploadDto objects.
+     * @throws Exception If there is an error during processing.
+     */
+    
+    
     private List<EmployeeBulkUploadDto> processEmployeeSheet(List<EmployeeBulkUploadDto> employeeBulkUploadDto, User currentUser) throws Exception {
         List<User> existingUsers = userRepository.findAll();
         List<EmployeeBulkUploadDto> notStoredData = new ArrayList<>();
@@ -254,6 +280,15 @@ public class BulkUploadEmployeeService {
                 return null;
         }
     }
+    
+    
+    /**
+     * Creates a new employee with the provided data.
+     *
+     * @param newEmployee     The new employee to create.
+     * @param bulkUploadDto The data from the uploaded Excel sheet.
+     * @param currentUser  The user initiating the creation.
+     */
 
     private User createUser(User newUser, EmployeeBulkUploadDto bulkUploadDto, String generatedPassword, String encodedPassword, User currentUser) throws Exception {
         newUser.setFull_name(bulkUploadDto.getFullName());
@@ -277,6 +312,14 @@ public class BulkUploadEmployeeService {
         return user;
 
     }
+    
+    /**
+     * Updates an existing employee with the provided data.
+     *
+     * @param existingEmployee   The existing employee to update.
+     * @param bulkUploadDto The data from the uploaded Excel sheet.
+     * @param currentUser    The user initiating the update.
+     */
 
     private User updateUser(User existingUser, EmployeeBulkUploadDto bulkUploadDto, String encodedPassword, User currentUser) {
         existingUser.setFull_name(bulkUploadDto.getFullName());
@@ -293,6 +336,15 @@ public class BulkUploadEmployeeService {
 
         return userRepository.save(existingUser);
     }
+    
+    
+    /**
+     * Finds a employee by its email in the list of existing roles.
+     *
+     * @param employeeList  The list of existing employees.
+     * @param email The email of the employee to find.
+     * @return The found employee, or null if not found.
+     */
 
     private User findUserByEmail(List<User> userList, String Email) {
         for (User employee : userList) {
@@ -303,6 +355,14 @@ public class BulkUploadEmployeeService {
         return null;
     }
 	    
+    
+    /**
+     * Validates and processes data from an Excel sheet containing employee information.
+     *
+     * @param sheet The Excel sheet containing employees data.
+     * @return A list of EmployeeBulkUploadDto objects with processed employee data.
+     */
+    
     private List<EmployeeBulkUploadDto> validateEmployeeData(Sheet sheet) {
         Set<String> processedEmployeeIds1 = new HashSet<>();
         Set<String> processedEmails = new HashSet<>();
@@ -385,6 +445,12 @@ public class BulkUploadEmployeeService {
         return bulkExcelEmployeeDtos;
     }
 
+    
+    /**
+     * Generates a random password with specified complexity.
+     *
+     * @return A randomly generated password.
+     */
 
     public String generateRandomPassword() {
         SecureRandom random = new SecureRandom();
@@ -408,6 +474,14 @@ public class BulkUploadEmployeeService {
         return password.toString();
     }
 
+    
+    /**
+     * Sends an email to a user with their generated password.
+     *
+     * @param user              The user to send the email to.
+     * @param generatePassword The generated password.
+     * @throws Exception If there is an error sending the email.
+     */
 
     public void sendEmailPassword(User user, String generatePassword) throws Exception {
         String senderName = "QW Resume Builder";

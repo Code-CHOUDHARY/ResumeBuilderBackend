@@ -16,17 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.ResumeBuilderBackendApplication;
+import com.resumebuilder.DTO.EmployeeBulkUploadDto;
 import com.resumebuilder.DTO.RolesDto;
 import com.resumebuilder.DTO.TechnologyDto;
 import com.resumebuilder.exception.DuplicateDataEntryException;
 
+/**
+ * Controller for handling bulk uploads of employee, role, and technology data from Excel files.
+ */
 
 @RestController
-//@RequestMapping("/auth") //temporary 
 public class BulkUploadController {
 	
+	// Define a logger
 	public static final Logger logger = LoggerFactory.getLogger(ResumeBuilderBackendApplication.class);
 	
+	// Autowired services for bulk uploads
 	@Autowired
 	private BulkUploadRoleService bulkUploadRoleService;
 	
@@ -35,6 +40,14 @@ public class BulkUploadController {
 	
 	@Autowired
 	private BulkUploadTechnologyService bulkUploadTechnologyService;
+	
+	/**
+     * Endpoint for uploading employee data from an Excel file.
+     * 
+     * @param file      The Excel file containing employee data.
+     * @param principal The Principal object representing the user.
+     * @return A response entity containing a list of processed employee data.
+     */
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/upload/EmployeeExcel")
@@ -46,6 +59,15 @@ public class BulkUploadController {
 				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
 			}
     }
+	
+	/**
+     * Endpoint for uploading role data from an Excel file.
+     * 
+     * @param file      The Excel file containing role data.
+     * @param principal The Principal object representing the user.
+     * @return A response entity containing a list of processed role data.
+     * @throws Exception If an error occurs during processing.
+     */
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	 @PostMapping("/upload/RoleExcel")
@@ -59,7 +81,15 @@ public class BulkUploadController {
 	    }
 	 
 				
-	 
+	/**
+     * Endpoint for uploading technology data from an Excel file.
+     * 
+     * @param file      The Excel file containing technology data.
+     * @param principal The Principal object representing the user.
+     * @return A response entity containing a list of processed technology data.
+     * @throws IOException If an error occurs during processing.
+     */
+	
 	@PreAuthorize("hasRole('ADMIN')")
 	 @PostMapping("/upload/TechnologyExcel")
 	    public ResponseEntity<List<TechnologyDto>> uploadTechnologyExcel(@RequestParam("file") MultipartFile file, Principal principal) throws IOException {

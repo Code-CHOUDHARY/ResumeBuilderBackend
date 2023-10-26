@@ -89,6 +89,12 @@ public class GlobalExceptionHandler {
     public CustomErrorResponse handleMultipleDataEntryException(MultipleDataEntryException ex) {
         return new CustomErrorResponse(ex.getMessage());
     }
+    
+    @ExceptionHandler(ProjectException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public CustomErrorResponse handleProjectException(ProjectException ex) {
+        return new CustomErrorResponse(ex.getMessage());
+    }
 
 
 }

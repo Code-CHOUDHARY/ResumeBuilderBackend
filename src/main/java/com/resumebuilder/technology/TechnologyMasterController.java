@@ -56,7 +56,7 @@ public class TechnologyMasterController {
 			TechnologyMaster technologyMaster = technologyMasterService.addTechnology(technology, principal);
 			return ResponseEntity.status(HttpStatus.CREATED).body(technologyMaster);
 		} catch (TechnologyException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
 		}   
 	    }
 
@@ -79,10 +79,10 @@ public class TechnologyMasterController {
 			if (technologyMaster != null) {
 		       return ResponseEntity.status(HttpStatus.OK).body(technologyMaster);
 			}else {
-				 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Technology not found with id: " + technologyId);
+				 return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Technology not found with id: " + technologyId);
 			}
         } catch (Exception e) {
-        	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        	return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
 		}   	
     }
     
@@ -101,12 +101,16 @@ public class TechnologyMasterController {
     		technologyMasterService.deleteTechnology(technologyId, principal);
     		return ResponseEntity.status(HttpStatus.OK).body("Technology deleted successfully");
         } catch (RoleException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
        
     }
 
-
+	 /**
+     * Get a list of all technologies.
+     *
+     * @return A list of technologies.
+     */
     
     @GetMapping("/list")
     public ResponseEntity<List<TechnologyMaster>> getAllRoles() {

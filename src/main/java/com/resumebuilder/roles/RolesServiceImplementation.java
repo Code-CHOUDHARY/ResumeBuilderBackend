@@ -29,8 +29,7 @@ public class RolesServiceImplementation implements RolesService{
         this.eventPublisher = eventPublisher;
     }
     
-    
-	/**
+    /**
      * Add a new role.
      *
      * @param role The role to be added.
@@ -38,39 +37,6 @@ public class RolesServiceImplementation implements RolesService{
      * @throws RoleException  if there is an issue adding the role.
      * @return Save the role.
      */
-    
-//    //add role with same name then it soft delete is activated and if role with new name that will be add
-//    @Override
-//    public Roles addRole(Roles role, Principal principal) throws RoleException {
-//        try {
-//        	User user = userRepository.findByEmailId(principal.getName());
-//      	
-//            // Check if a role with the same name already exists, including deleted roles
-//            Roles existingRole = rolesRepository.findByRoleName(role.getRole_name());            
-//            if (existingRole != null) {
-//                if (existingRole.is_deleted()) {
-//                    // If the existing role is soft-deleted, we can either update it or throw an exception.
-//                    // Here, we are updating the existing role.
-//                    existingRole.set_deleted(false);
-//                    existingRole.setModified_by(user.getFull_name());
-//                    return rolesRepository.save(existingRole);
-//                } else {
-//                    // If a role with the same name exists and is not soft-deleted, throw an exception.
-//                    throw new RoleException("Role with the same name already exists: " + role.getRole_name());
-//                }
-//            }
-//
-//            // If no existing role with the same name, create a new role
-//            Roles saveRole = new Roles();
-//            saveRole.setRole_name(role.getRole_name());
-//            saveRole.setModified_by(user.getFull_name());
-//            saveRole.set_deleted(false);
-//
-//            return rolesRepository.save(saveRole);
-//        } catch (Exception e) {
-//            throw new RoleException("Failed to add role.");
-//        }
-//    }
     
     //add role with same name of soft deleted role and already same role (soft deleted) also be maintain in DB 
     @Override
@@ -120,6 +86,16 @@ public class RolesServiceImplementation implements RolesService{
         }
     }
 	
+    /**
+     * Update an existing role by ID.
+     *
+     * @param id         The ID of the role to be updated.
+     * @param updatedRole The updated role details.
+     * @param principal  Represents user identity.
+     * @throws RoleException if there is an issue updating the role.
+     * @return The updated role.
+     */
+    
 	@Override
 	public Roles updateRole(Long id, Roles updatedRole, Principal principal) throws RoleException {
 	    try {
@@ -146,6 +122,14 @@ public class RolesServiceImplementation implements RolesService{
 	        throw new RoleException("Role does not exist.");
 	    }
 	}
+	
+	/**
+     * Delete a role by ID.
+     *
+     * @param id        The ID of the role to be deleted.
+     * @param principal Represents user identity.
+     * @throws RoleException if there is an issue deleting the role.
+     */
 
     @Override
     public void deleteRole(Long id, Principal principal) throws RoleException {
@@ -170,6 +154,12 @@ public class RolesServiceImplementation implements RolesService{
             throw new RoleException("Role does not exist.");
         }
     }
+    
+    /**
+     * Get a list of all roles.
+     *
+     * @return A list of roles.
+     */
 
 	@Override
 	public List<Roles> getAllRoles() {

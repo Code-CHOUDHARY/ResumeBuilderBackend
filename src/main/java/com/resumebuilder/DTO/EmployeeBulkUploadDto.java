@@ -1,4 +1,4 @@
-package com.resumebuilder.bulkupload;
+package com.resumebuilder.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

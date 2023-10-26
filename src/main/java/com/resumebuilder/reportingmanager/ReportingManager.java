@@ -12,19 +12,19 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "reporting_manager_mapping")
+@Table(name = "reporting_manager_allocation")
 public class ReportingManager {
 	
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	 	@OneToOne
-		@JoinColumn(name = "employee_id")
-	    private User employee_id;
+	    @ManyToOne
+	    @JoinColumn(name = "employee_id") // Reference to the ROLE_USER employee
+	    private User employee;
 
 	    @ManyToOne
-	    @JoinColumn(name = "manager_employee_id")
-	    private User manager_employee_id;
+	    @JoinColumn(name = "manager_id") // Reference to the ROLE_MANAGER
+	    private User manager;
 
 }
