@@ -182,7 +182,12 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 			}
 	}
 
-
+	/**
+     * Get a list of all technologies.
+     *
+     * @return A list of technologies.
+     */
+	
 	@Override
 	public List<TechnologyMaster> getAllTechnologyList() {
 		

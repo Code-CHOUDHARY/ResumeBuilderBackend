@@ -36,20 +36,37 @@ public class UserServiceImplementation implements UserService{
 	 @Autowired
 	 private PasswordEncoder passwordEncoder;
 
+	 /**
+	     * Retrieve a list of all users.
+	     *
+	     * @return List of User entities.
+	     */
+	 
 	@Override
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
+	
+	/**
+     * Find a user by their user ID.
+     *
+     * @param userId User ID.
+     * @return The User entity if found, or throw UserNotFoundException.
+     */
 
 	public User findUserByIdUser(Long userId) {
 		
-		Optional<User> opt =userRepository.findById(userId);
-		
-		
-			return opt.get();
-		
+		Optional<User> opt =userRepository.findById(userId);		
+			return opt.get();	
 
 	}
+	
+	/**
+     * Find a user by their username (email).
+     *
+     * @param userName Username (email).
+     * @return The User entity if found, or throw UserNotFoundException.
+     */
 
 	@Override
 	public User findUserByUsername(String userName) {
@@ -58,6 +75,15 @@ public class UserServiceImplementation implements UserService{
 		return opt.get();
 	}
 
+	/**
+     * Add a new user or update an existing one.
+     *
+     * @param signUpRequest SignupRequest containing user details.
+     * @param principal      Principal representing the authenticated user.
+     * @return ResponseEntity with a success message or error.
+     * @throws UserNotFoundException if adding or updating the user fails.
+     */
+	
 	//add the new user
 	@Override
 	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal) throws UserNotFoundException {
@@ -239,6 +265,14 @@ public class UserServiceImplementation implements UserService{
 //		    } 
 //	}
     
+	/**
+     * Edit an existing user.
+     *
+     * @param userId      User ID of the user to edit.
+     * @param updatedUser User object containing updated details.
+     * @param principal   Principal representing the authenticated user.
+     * @return Updated User entity.
+     */
 	
  // Update the existing user
     @Override
@@ -271,14 +305,23 @@ public class UserServiceImplementation implements UserService{
         return userRepository.save(existingUser);
 	}
 
-
-
+    /**
+     * Get a user by their email.
+     *
+     * @param email Email address of the user.
+     * @return The User entity if found, or null if not found.
+     */
 
 	@Override
 	public User getUserByEmail(String email) {
 		return userRepository.findByEmailId(email);
 	}
 	
+	 /**
+     * Generates a random password with specified complexity.
+     *
+     * @return A randomly generated password.
+     */
 	
 	public String generateRandomPassword() {
 	    SecureRandom random = new SecureRandom();
@@ -302,6 +345,13 @@ public class UserServiceImplementation implements UserService{
 	    return password.toString();
 	}
 	
+	/**
+     * Sends an email to a user with their generated password.
+     *
+     * @param user              The user to send the email to.
+     * @param generatePassword The generated password.
+     * @throws Exception If there is an error sending the email.
+     */
 	
 	public void sendEmailPassword(User user, String generatePassword) throws Exception {
         String senderName = "QW Resume Builder";
@@ -321,6 +371,13 @@ public class UserServiceImplementation implements UserService{
         mailSender.send(message);
     }
 
+	/**
+     * Delete a user by their user ID.
+     *
+     * @param userId    User ID of the user to delete.
+     * @param principal Principal representing the authenticated user.
+     */
+	
 	@Override
 	public void deleteUserById(Long userId, Principal principal) {
 		User existingUser = userRepository.findById(userId)
@@ -328,6 +385,13 @@ public class UserServiceImplementation implements UserService{
         userRepository.delete(existingUser);
 		
 	}
+	
+//	@Override
+//	public List<User> getManagers() {
+//        String roleName = "ROLE_MANAGER"; // The appRole filter
+//        List<User> managers = userRepository.findByAppRoleName(roleName);
+//        return managers;
+//    }
     
 }
 

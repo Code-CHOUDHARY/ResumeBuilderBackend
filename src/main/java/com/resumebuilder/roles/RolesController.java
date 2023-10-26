@@ -35,6 +35,14 @@ public class RolesController {
 	        this.rolesService = rolesService;
 	    }
 	    
+	    /**
+	     * Add a new role.
+	     *
+	     * @param role      The role to be added.
+	     * @param principal Represents user identity.
+	     * @return The added role or an error message.
+	     */
+	    
 	    @PreAuthorize("hasRole('ADMIN')")
 	    @PostMapping("/add")
 	    public ResponseEntity<?> addRole(@RequestBody Roles role, Principal principal) {
@@ -42,9 +50,18 @@ public class RolesController {
 	            Roles addedRole = rolesService.addRole(role, principal);
 	            return ResponseEntity.status(HttpStatus.CREATED).body(addedRole);
 	        } catch (RoleException e) {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(e.getMessage());
 	        }
 	    }
+	    
+	    /**
+	     * Update an existing role by ID.
+	     *
+	     * @param id         The ID of the role to be updated.
+	     * @param updatedRole The updated role details.
+	     * @param principal  Represents user identity.
+	     * @return The updated role or an error message.
+	     */
 	    
 	    @PreAuthorize("hasRole('ADMIN')")
 	    @PutMapping("/edit/{id}")
@@ -54,12 +71,19 @@ public class RolesController {
 	            if (updated != null) {
 	                return ResponseEntity.status(HttpStatus.OK).body(updated);
 	            } else {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Role not found with id: " + id);
+	                return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Role not found with id: " + id);
 	            }
 	        } catch (RoleException e) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
 	        }
 	    }
+	    
+	    /**
+	     * Delete a role by ID.
+	     * @param id        The ID of the role to be deleted.
+	     * @param principal Represents user identity.
+	     * @return A success message or an error message.
+	     */
 	    
 	    @PreAuthorize("hasRole('ADMIN')")
 	    @DeleteMapping("/delete/{id}")
@@ -68,9 +92,14 @@ public class RolesController {
 	            rolesService.deleteRole(id,principal);
 	            return ResponseEntity.status(HttpStatus.OK).body("Role deleted successfully");
 	        } catch (RoleException e) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
 	        }
 	    }
+	    
+	    /**
+	     * Get a list of all roles.
+	     * @return A list of roles.
+	     */
 	    
 	    @GetMapping("/list")
 	    public ResponseEntity<List<Roles>> getAllRoles() {

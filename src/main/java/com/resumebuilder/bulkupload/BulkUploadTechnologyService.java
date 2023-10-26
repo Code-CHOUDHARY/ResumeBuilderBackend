@@ -39,6 +39,10 @@ import com.resumebuilder.user.UserRepository;
 import io.jsonwebtoken.io.IOException;
 import jakarta.transaction.Transactional;
 
+/**
+ * Service for bulk uploading technology data from an Excel file.
+ */
+
 @Service
 public class BulkUploadTechnologyService {
 	
@@ -50,6 +54,15 @@ public class BulkUploadTechnologyService {
 	
 	@Autowired
     private TechnologyMasterRepository technologyRepository;
+		
+	/**
+     * Process the uploaded Excel file containing technology data.
+     *
+     * @param file      The uploaded Excel file.
+     * @param principal The Principal object representing the user.
+     * @return A list of TechnologyDto objects with processed technology data.
+     * @throws Exception If an error occurs during the processing.
+     */
 
     @Transactional
     public List<TechnologyDto> processTechnologyExcelFile(MultipartFile file, Principal principal) throws Exception {
@@ -91,6 +104,15 @@ public class BulkUploadTechnologyService {
         }
 		
     }   
+    
+    /**
+     * Process the technology data from the Excel sheet and update the database.
+     *
+     * @param technologyBulkUploadDtos List of TechnologyDto objects from Excel.
+     * @param currentUser              The current user performing the upload.
+     * @return A list of TechnologyDto objects with processed technology data.
+     * @throws Exception If an error occurs during the processing.
+     */
 
     private List<TechnologyDto> processTechnologySheet(List<TechnologyDto> technologyBulkUploadDtos, User currentUser) throws Exception {
         List<TechnologyMaster> existingRoles = technologyRepository.findAll();
@@ -119,7 +141,14 @@ public class BulkUploadTechnologyService {
         return allData;
     }
 
-
+    /**
+     * Find an existing technology by its name.
+     *
+     * @param techList       List of existing technologies.
+     * @param technologyName The name of the technology to find.
+     * @return The found TechnologyMaster object or null if not found.
+     */
+    
     private TechnologyMaster findByTechnologyName(List<TechnologyMaster> techList, String technology_name) {
         for (TechnologyMaster tech : techList) {
             if (tech.getTechnology_name() != null && tech.getTechnology_name().equals(technology_name) && !tech.is_deleted()) {
@@ -129,9 +158,24 @@ public class BulkUploadTechnologyService {
         return null;
     }
 
+    /**
+     * Check if all fields in the TechnologyDto are null.
+     *
+     * @param bulkExcelTechDto The TechnologyDto object to check.
+     * @return True if all fields are null, otherwise false.
+     */
+    
     private boolean allFieldsAreNull(TechnologyDto bulkExcelTechDto) {
         return bulkExcelTechDto.getTechnology_name() == null;
     }
+    
+    /**
+     * Create a new technology record in the database.
+     *
+     * @param newTechnology The new TechnologyMaster object to create.
+     * @param bulkUploadDto The TechnologyDto object with data to populate.
+     * @param currentUser   The user performing the operation.
+     */
 
     private void createTechnology(TechnologyMaster newTechnology, TechnologyDto bulkUploadDto, User currentUser) {
     	newTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
@@ -139,6 +183,14 @@ public class BulkUploadTechnologyService {
     	newTechnology.setModified_on(LocalDateTime.now());
         technologyRepository.save(newTechnology);
     }
+    
+    /**
+     * Update an existing technology record in the database.
+     *
+     * @param existingTechnology The existing TechnologyMaster object to update.
+     * @param bulkUploadDto      The TechnologyDto object with data to update.
+     * @param currentUser        The user performing the operation.
+     */
 
     private void updateTechnology(TechnologyMaster existingTechnology, TechnologyDto bulkUploadDto, User currentUser) {
     	existingTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
@@ -183,6 +235,14 @@ public class BulkUploadTechnologyService {
 //        return bulkExcelTechnologyDtos;
 //    }
     
+    
+    /**
+     * Validate the data in the Excel sheet and return a list of TechnologyDto objects.
+     *
+     * @param sheet The Excel sheet to validate.
+     * @return A list of TechnologyDto objects with processed data.
+     */
+    
     private List<TechnologyDto> validateTechnologyData(Sheet sheet) {
         Set<String> processedTechnology = new HashSet<>();
         List<String> missingDataMsg = new ArrayList<>();
@@ -218,6 +278,12 @@ public class BulkUploadTechnologyService {
         return bulkExcelTechnologyDtos;
     }
 
+    /**
+     * Get the string value of a cell in the Excel sheet.
+     *
+     * @param cell The Excel cell to extract the value from.
+     * @return The string representation of the cell's value.
+     */
     
     private String getStringValue(Cell cell) {
         if (cell == null) {

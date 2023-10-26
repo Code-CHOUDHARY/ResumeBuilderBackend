@@ -9,8 +9,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.education.Education;
+import com.resumebuilder.projects.EmployeeProject;
 import com.resumebuilder.projects.ProjectMaster;
-
+import com.resumebuilder.reportingmanager.ReportingManager;
 import com.resumebuilder.roles.Roles;
 //import com.resumebuilder.security.approle.AppRole;
 import com.resumebuilder.security.approle.UserRole;
@@ -84,10 +85,17 @@ public class User {
 
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_project_mapping",
-            joinColumns = {@JoinColumn(name = "employee_Id")},
+    @JoinTable(name = "manager_project_mapping",
+            joinColumns = {@JoinColumn(name = "manager_employee_Id")},
             inverseJoinColumns = {@JoinColumn(name = "project_master_id")})
     private Set<ProjectMaster> projects = new HashSet<>();
+	
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "employee_project_mapping",
+            joinColumns = {@JoinColumn(name = "employee_Id")},
+            inverseJoinColumns = {@JoinColumn(name = "emp_project_id")})
+    private Set<EmployeeProject> assignedProjects = new HashSet<>();
 	
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -113,4 +121,13 @@ public class User {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserRole appRole;
 
+	@OneToMany(mappedBy = "employee")
+    private List<ReportingManager> reportsToMe;
+
+    @OneToMany(mappedBy = "manager")
+    private List<ReportingManager> iManage;
+    
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private User manager;
 }

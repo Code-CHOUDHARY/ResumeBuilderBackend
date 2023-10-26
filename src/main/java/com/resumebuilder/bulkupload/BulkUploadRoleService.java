@@ -37,6 +37,10 @@ import com.resumebuilder.user.UserRepository;
 import io.jsonwebtoken.io.IOException;
 import jakarta.transaction.Transactional;
 
+/**
+ * Service for handling bulk upload of role data from Excel files.
+ */
+
 @Service
 public class BulkUploadRoleService {
 	
@@ -49,6 +53,16 @@ public class BulkUploadRoleService {
 
         @Autowired
         private RolesRepository rolesRepository;
+        
+        
+        /**
+         * Processes an Excel file containing role data.
+         *
+         * @param file      The Excel file to process.
+         * @param principal The principal user initiating the upload.
+         * @return A list of RolesDto objects containing processed data.
+         * @throws Exception If there is an error during processing.
+         */
 
         @Transactional
         public List<RolesDto> processRoleExcelFile(MultipartFile file, Principal principal) throws Exception {
@@ -90,6 +104,16 @@ public class BulkUploadRoleService {
             }
 			
         }   
+        
+        
+        /**
+         * Processes the data from the role sheet.
+         *
+         * @param roleBulkUploadDtos A list of RolesDto objects containing role data.
+         * @param currentUser        The user initiating the update.
+         * @return A list of processed RolesDto objects.
+         * @throws Exception If there is an error during processing.
+         */
 
         private List<RolesDto> processRoleSheet(List<RolesDto> roleBulkUploadDtos, User currentUser) throws Exception {
             List<Roles> existingRoles = rolesRepository.findAll();
@@ -118,6 +142,15 @@ public class BulkUploadRoleService {
             return allData;
         }
 
+        
+        /**
+         * Finds a role by its name in the list of existing roles.
+         *
+         * @param roleList  The list of existing roles.
+         * @param role_name The name of the role to find.
+         * @return The found role, or null if not found.
+         */
+        
 
         private Roles findByRoleName(List<Roles> roleList, String role_name) {
             for (Roles role : roleList) {
@@ -128,16 +161,30 @@ public class BulkUploadRoleService {
             return null;
         }
 
-        private boolean allFieldsAreNull(RolesDto dto) {
-            return dto.getRole_name() == null;
-        }
-
+        /**
+         * Creates a new role with the provided data.
+         *
+         * @param newRole     The new role to create.
+         * @param bulkUploadDto The data from the uploaded Excel sheet.
+         * @param currentUser  The user initiating the creation.
+         */
+        
+        
         private void createRole(Roles newRole, RolesDto bulkUploadDto, User currentUser) {
             newRole.setRole_name(bulkUploadDto.getRole_name());
             newRole.setModified_by(currentUser.getFull_name());
+            logger.info("Role modified by- "+currentUser.getFull_name());
             newRole.setModified_on(LocalDateTime.now());
             rolesRepository.save(newRole);
         }
+        
+        /**
+         * Updates an existing role with the provided data.
+         *
+         * @param existingRole   The existing role to update.
+         * @param bulkUploadDto The data from the uploaded Excel sheet.
+         * @param currentUser    The user initiating the update.
+         */
 
         private void updateRole(Roles existingRole, RolesDto bulkUploadDto, User currentUser) {
             existingRole.setRole_name(bulkUploadDto.getRole_name());
@@ -182,6 +229,15 @@ public class BulkUploadRoleService {
 //            return bulkExcelRolesDtos;
 //        }
         
+        
+        /**
+         * Validates and processes data from an Excel sheet containing role information.
+         *
+         * @param sheet The Excel sheet containing role data.
+         * @return A list of RolesDto objects with processed role data.
+         */
+        
+        
         private List<RolesDto> validateRoleData(Sheet sheet) {
             Set<String> processedRoles = new HashSet<>();
             List<String> missingDataMsg = new ArrayList<>();
@@ -218,6 +274,12 @@ public class BulkUploadRoleService {
             return bulkExcelRolesDtos;
         }
 
+        /**
+         * Retrieves the string value of a cell in an Excel sheet.
+         *
+         * @param cell The Excel cell to extract the value from.
+         * @return The string representation of the cell's value.
+         */
         
         private String getStringValue(Cell cell) {
             if (cell == null) {

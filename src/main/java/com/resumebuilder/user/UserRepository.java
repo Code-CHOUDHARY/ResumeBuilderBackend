@@ -1,16 +1,15 @@
 package com.resumebuilder.user;
 
-
 import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.resumebuilder.security.approle.ERole;
+import com.resumebuilder.security.approle.UserRole;
+
 import java.util.List;
-
-
-
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
@@ -52,4 +51,10 @@ public interface UserRepository extends JpaRepository<User, Long>{
 		User findByEmail_Id(String email);
 		@Query(value = "select * from user where employee_id =:employeeId",nativeQuery = true)
 		User findByEmployee_Id(String employeeId);
+		
+		@Query(value = "SELECT * FROM user u WHERE u.app_role_id = (SELECT id FROM app_roles WHERE name = 'ROLE_MANAGER')", nativeQuery = true)
+	    List<User> findManagers();
+
+		Optional<User> findById(User reportingManager);
+		
 }
