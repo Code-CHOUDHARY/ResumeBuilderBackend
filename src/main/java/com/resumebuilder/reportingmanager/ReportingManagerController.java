@@ -27,9 +27,9 @@ public class ReportingManagerController {
         return managers;
     }
 	
-    @PostMapping("/allocate")
-    public ResponseEntity<String> allocateReportingManager(@RequestParam("employeeId") Long employeeId, @RequestParam("managerId") Long managerId) {
-        reportingManagerService.allocateReportingManager(employeeId, managerId);
-        return ResponseEntity.ok("Reporting manager allocated successfully.");
-    }
+//    @PostMapping("/allocate")
+//    public ResponseEntity<String> allocateReportingManager(@RequestParam("employeeId") Long employeeId, @RequestParam("managerId") Long managerId) {
+//        reportingManagerService.allocateReportingManager(employeeId, managerId);
+//        return ResponseEntity.ok("Reporting manager allocated successfully.");
+//    }
 }
