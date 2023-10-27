@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public CustomErrorResponse handleUserNotFoundException(UserNotFoundException ex) {
-        return new CustomErrorResponse("User not found. ", ex.getMessage());
+        return new CustomErrorResponse("User Exception. ", ex.getMessage());
     }
 	
 	@ExceptionHandler(DataMissingException.class)

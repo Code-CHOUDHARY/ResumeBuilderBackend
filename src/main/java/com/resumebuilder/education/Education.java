@@ -1,9 +1,13 @@
 package com.resumebuilder.education;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.resumebuilder.user.User;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,6 +37,10 @@ public class Education {
 	private String show_duration;
 	private boolean show_nothing;
 	private boolean is_deleted;
+	private Long Modified_by;
+	@UpdateTimestamp
+	@Column(name = "modified_on")
+	private LocalDateTime modified_on;
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_Id")

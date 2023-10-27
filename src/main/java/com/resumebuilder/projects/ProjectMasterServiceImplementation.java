@@ -2,14 +2,24 @@ package com.resumebuilder.projects;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.resumebuilder.DTO.ProjectMasterDto;
 import com.resumebuilder.exception.ProjectException;
+import com.resumebuilder.exception.ProjectNotFoundException;
 import com.resumebuilder.exception.RoleException;
+import com.resumebuilder.exception.UserNotFoundException;
+import com.resumebuilder.reportingmanager.ReportingManager;
+import com.resumebuilder.security.approle.ERole;
+import com.resumebuilder.security.approle.UserRole;
+import com.resumebuilder.security.response.MessageResponse;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 
@@ -23,6 +33,9 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 	private UserRepository userRepository;
 	
 	@Autowired
+	private ProjectAssignRepository projectAssignRepository;
+	
+	@Autowired
 	private EmployeeProjectRepository employeeProjectRepository;
 	
 	/**
@@ -31,6 +44,7 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
      * @param The project to be added.
      * @principal represent user identity.
      * @return Save the project.
+	 * @throws Exception 
      */
 	
 	@Override
@@ -64,6 +78,74 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 		}
 		
 	}
+	
+//	@Override
+//	public ResponseEntity<?> addProject(ProjectMasterDto projectMasterDto, Principal principal) {
+//	    try {
+//	        User user = userRepository.findByEmail_Id(principal.getName());
+//
+//	        ProjectMaster existingProject = projectMasterRepository.findByProjectTitle(projectMasterDto.getProject_title());
+//	        ProjectMaster projectMaster;
+//	        
+//	        if (existingProject != null) {
+//	            // A project with the same title already exists, so create a new one
+//	            ProjectMaster newProject = new ProjectMaster();
+//	            newProject.setProject_title(projectMasterDto.getProject_title());
+//	            newProject.setProject_summary(projectMasterDto.getProject_summary());
+//	            newProject.setStart_date(projectMasterDto.getStart_date());
+//	            newProject.setEnd_date(projectMasterDto.getEnd_date());
+//	            newProject.setOrganization_name(projectMasterDto.getOrganization_name());
+//	            newProject.setClient_name(projectMasterDto.getClient_name());
+//	            newProject.setModified_by(user.getUser_id());
+//	            newProject.setModified_on(projectMasterDto.getModified_on());
+//	            newProject.setCurrent(false);
+//	            newProject.setProject_url(projectMasterDto.getProject_url());
+//	            newProject.setRoles_and_responsibility(projectMasterDto.getRoles_and_responsibility());
+//	            newProject.setShow_dates(false);
+//	            newProject.setShow_duration(projectMasterDto.getShow_duration());
+//	            newProject.setShow_nothing(false);
+//	            newProject.setTechnology_stack(projectMasterDto.getTechnology_stack());
+//	            newProject.set_deleted(false);
+//
+//	           projectMaster = projectMasterRepository.save(newProject);
+//	        } else {
+//	            // Create a new project
+//	            ProjectMaster newProject = new ProjectMaster();
+//	            newProject.setProject_title(projectMasterDto.getProject_title());
+//	            newProject.setProject_summary(projectMasterDto.getProject_summary());
+//	            newProject.setStart_date(projectMasterDto.getStart_date());
+//	            newProject.setEnd_date(projectMasterDto.getEnd_date());
+//	            newProject.setOrganization_name(projectMasterDto.getOrganization_name());
+//	            newProject.setClient_name(projectMasterDto.getClient_name());
+//	            newProject.setModified_by(user.getUser_id());
+//	            newProject.setModified_on(projectMasterDto.getModified_on());
+//	            newProject.setCurrent(false);
+//	            newProject.setProject_url(projectMasterDto.getProject_url());
+//	            newProject.setRoles_and_responsibility(projectMasterDto.getRoles_and_responsibility());
+//	            newProject.setShow_dates(false);
+//	            newProject.setShow_duration(projectMasterDto.getShow_duration());
+//	            newProject.setShow_nothing(false);
+//	            newProject.setTechnology_stack(projectMasterDto.getTechnology_stack());
+//	            newProject.set_deleted(false);
+//
+//	             projectMaster = projectMasterRepository.save(newProject);
+//	        }
+//
+//	        for (Long employeeId : projectMasterDto.getEmployeeIds()) {
+//	            User employee = userRepository.findById(employeeId).orElseThrow(() -> new Exception("Employee not found with ID: " + employeeId));
+//	            ProjectAssign assign = new ProjectAssign();
+//	            assign.setEmployee(employee);
+//	            assign.setProject(projectMaster);
+//	            projectAssignRepository.save(assign);
+//	        }
+//
+//	        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Project data added successfully."));
+//	    } catch (Exception e) {
+//	        throw new ProjectNotFoundException("Failed to add project data. " + e.getMessage());
+//	    }
+//	}
+
+	
 	
 	/**
      * Assign a project to a user.
@@ -152,7 +234,7 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 	        return employeeProjectRepository.save(existingProject);
 	    }
 	   }catch(Exception e) {
-		   throw new ProjectException("Assign project does not exist.");
+		   throw new ProjectException("Project does not exist.");
 	    }
 	return updatedProject;
 	}
@@ -194,6 +276,8 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 //	}
 	
 	
+	
+	
 	@Override
 	public void deleteProjectMasterAndAssignProject(Long projectId, Long emp_project_id, Principal principal) {
 		User currentUser = userRepository.findByEmail_Id(principal.getName());
@@ -211,5 +295,11 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 	        employeeProjectRepository.save(assignProject);
 	    }
 	}
+	
+	
+    public List<EmployeeProject> getAssignedProjectsByUserId(Long userId) {
+        return employeeProjectRepository.findByUsersUserId(userId);
+    }
+	
 
 }

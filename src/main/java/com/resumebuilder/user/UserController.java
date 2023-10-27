@@ -118,13 +118,13 @@ public class UserController {
      * @param principal  Represents the user identity.
      * @return The response entity indicating the success or failure of the delete operation.
      */
-
-    //delete user api
-    @DeleteMapping("/delete/employee/{userId}")
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long userId, Principal principal) {
-        userService.deleteUserById(userId, principal);
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-    }
+//need to change the delete api for manager side and employee side different
+//    //delete user api
+//    @DeleteMapping("/delete/employee/{userId}")
+//    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+//    public ResponseEntity<Void> deleteUser(@PathVariable Long userId, Principal principal) {
+//        userService.deleteUserById(userId, principal);
+//        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+//    }
     
 }
