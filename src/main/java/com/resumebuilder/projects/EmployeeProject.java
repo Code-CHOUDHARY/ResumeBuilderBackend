@@ -52,12 +52,12 @@ public class EmployeeProject {
 		private String technology_stack;
 		private String roles_and_responsibility;
 		@Column(name = "assign_by")
-		private String assign_by;
+		private Long assign_by;
 		@UpdateTimestamp
 		@Column(name = "modified_on")
 		private LocalDateTime modified_on;
 		private boolean is_deleted;
-		private String modified_by;
+		private Long modified_by;
 			
 		
 		@ManyToMany(mappedBy = "assignedProjects")

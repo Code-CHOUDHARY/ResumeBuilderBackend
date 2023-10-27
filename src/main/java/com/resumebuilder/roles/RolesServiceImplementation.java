@@ -53,7 +53,7 @@ public class RolesServiceImplementation implements RolesService{
                     // If it's soft-deleted, create a new role without overwriting the existing soft-deleted role
                     Roles newRole = new Roles();
                     newRole.setRole_name(role.getRole_name());
-                    newRole.setModified_by(user.getFull_name());
+                    newRole.setModified_by(user.getUser_id());
                     newRole.set_deleted(false);
                     
                     // Save the new role to the database
@@ -70,7 +70,7 @@ public class RolesServiceImplementation implements RolesService{
                 }
             } else {
                 // If no role with the same name exists, create and save the new role
-                role.setModified_by(user.getFull_name());
+                role.setModified_by(user.getUser_id());
                 role.set_deleted(false);
                 role = rolesRepository.save(role);
                 
@@ -110,7 +110,7 @@ public class RolesServiceImplementation implements RolesService{
 
 	        // Update the role properties
 	        existingRole.setRole_name(updatedRole.getRole_name());
-	        existingRole.setModified_by(user.getFull_name());
+	        existingRole.setModified_by(user.getUser_id());
 	        
 	         String activityType = "Update Role";
 		     String description = "Change in role data";
@@ -141,7 +141,7 @@ public class RolesServiceImplementation implements RolesService{
             // Soft delete the role by marking it as deleted
             existingRole.set_deleted(true);
 
-            existingRole.setModified_by(user.getFull_name());
+            existingRole.setModified_by(user.getUser_id());
 
             
              String activityType = "Delete Role";

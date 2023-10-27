@@ -151,8 +151,7 @@ public class LoginController {
 		    user.setDate_of_birth(signUpRequest.getDate_of_birth());
 		    user.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
 		    user.setPortfolio_link(signUpRequest.getPortfolio_link());
-		    user.setBlogs_link(signUpRequest.getBlogs_link());
-		    user.setModified_by(signUpRequest.getModified_by());	  
+		    user.setBlogs_link(signUpRequest.getBlogs_link());  
 
 //	    Set<String> strRoles = signUpRequest.getRole();
 //	    Set<AppRole> roles = new HashSet<>();

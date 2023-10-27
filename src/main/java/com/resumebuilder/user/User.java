@@ -73,7 +73,7 @@ public class User {
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
 	@Column
-	private String modified_by;
+	private Long modified_by;
 	@Column
 	private boolean is_deleted;
 
@@ -120,14 +120,6 @@ public class User {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserRole appRole;
-
-	@OneToMany(mappedBy = "employee")
-    private List<ReportingManager> reportsToMe;
-
-    @OneToMany(mappedBy = "manager")
-    private List<ReportingManager> iManage;
-    
-    @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private User manager;
+   
+   
 }

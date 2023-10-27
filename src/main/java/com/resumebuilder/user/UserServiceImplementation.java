@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.resumebuilder.auth.SignupRequest;
 import com.resumebuilder.exception.UserNotFoundException;
+import com.resumebuilder.reportingmanager.ReportingManager;
+import com.resumebuilder.reportingmanager.ReportingManagerRepository;
 import com.resumebuilder.security.approle.ERole;
 import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.security.response.MessageResponse;
@@ -32,6 +34,9 @@ public class UserServiceImplementation implements UserService{
 	 
 	 @Autowired
 	 private JavaMailSender mailSender;
+	 
+	 @Autowired
+	 private ReportingManagerRepository reportingManagerRepository;
 	 
 	 @Autowired
 	 private PasswordEncoder passwordEncoder;
@@ -87,13 +92,12 @@ public class UserServiceImplementation implements UserService{
 	//add the new user
 	@Override
 	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal) throws UserNotFoundException {
-	    try {
-	        User currentuser = userRepository.findByEmailId(principal.getName());
 
+		try {
+	        User currentuser = userRepository.findByEmailId(principal.getName());	        
 	        if (currentuser == null) {
 	            throw new UserNotFoundException("Current user not found.");
 	        }
-
 	        // Check if a user with the same email exists (soft-deleted or not)
 	        User existingUser = userRepository.findByEmailId(signUpRequest.getEmail());
 
@@ -114,8 +118,7 @@ public class UserServiceImplementation implements UserService{
 	                newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
 	                newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 	                newUser.setBlogs_link(signUpRequest.getBlogs_link());
-	                newUser.setModified_by(currentuser.getFull_name());
-
+	                newUser.setModified_by(currentuser.getUser_id());
 	                String strRoles = signUpRequest.getRole();
 	                UserRole appRole;
 
@@ -137,10 +140,17 @@ public class UserServiceImplementation implements UserService{
 	                newUser.setAppRole(appRole);
 	                String encodedPassword = passwordEncoder.encode(newUser.getPassword());
 	                newUser.setPassword(encodedPassword);
-
 	                newUser.set_deleted(false); // Mark the user as not soft-deleted
-
-	                userRepository.save(newUser);
+	                User user = userRepository.save(newUser);
+	                for(Long id: signUpRequest.getManagerIds()) {	           	                	
+	                	User manager = userRepository.findById(id).get();	                	
+	                	System.out.println("manager id - "+manager);
+	                	 ReportingManager reportingManager = new ReportingManager();	      
+	                	 reportingManager.setEmployee(user);
+	                	 reportingManager.setManager(manager);
+	                	 reportingManagerRepository.save(reportingManager);	                		                	 
+	                }
+	               	                	                
 	                // Send the email with the generated password
 	                sendEmailPassword(newUser, newUser.getPassword());
 
@@ -165,7 +175,7 @@ public class UserServiceImplementation implements UserService{
 	            newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
 	            newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 	            newUser.setBlogs_link(signUpRequest.getBlogs_link());
-	            newUser.setModified_by(currentuser.getFull_name());
+	            newUser.setModified_by(currentuser.getUser_id());
 
 	            String strRoles = signUpRequest.getRole();
 	            UserRole appRole;
@@ -189,7 +199,14 @@ public class UserServiceImplementation implements UserService{
 	            String encodedPassword = passwordEncoder.encode(newUser.getPassword());
 	            newUser.setPassword(encodedPassword);
 
-	            userRepository.save(newUser);
+	            User user = userRepository.save(newUser);
+                for(Long id: signUpRequest.getManagerIds()) {             	
+                	User manager = userRepository.findById(id).get();
+                	 ReportingManager reportingManager = new ReportingManager();      
+                	 reportingManager.setEmployee(user);
+                	 reportingManager.setManager(manager);
+                	 reportingManagerRepository.save(reportingManager);              	 
+                }
 
 	            // Send the email with the generated password
 	            sendEmailPassword(newUser, password);
@@ -301,7 +318,7 @@ public class UserServiceImplementation implements UserService{
         existingUser.setLinkedin_lnk(updatedUser.getLinkedin_lnk());
         existingUser.setPortfolio_link(updatedUser.getPortfolio_link());
         existingUser.setBlogs_link(updatedUser.getBlogs_link());
-        existingUser.setModified_by(currentuser.getFull_name());
+        existingUser.setModified_by(currentuser.getUser_id());
         return userRepository.save(existingUser);
 	}
 

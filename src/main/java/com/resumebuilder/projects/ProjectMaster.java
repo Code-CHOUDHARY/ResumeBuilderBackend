@@ -44,7 +44,7 @@ public class ProjectMaster {
 	private String project_summary;
 	private String technology_stack;
 	private String roles_and_responsibility;
-	private String modified_by;
+	private Long modified_by;
 	@UpdateTimestamp
 	@Column(name = "modified_on")
 	private LocalDateTime modified_on;
