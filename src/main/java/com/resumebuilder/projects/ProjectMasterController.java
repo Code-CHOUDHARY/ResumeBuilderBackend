@@ -2,12 +2,15 @@ package com.resumebuilder.projects;
 
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.resumebuilder.exception.ProjectException;
+import com.resumebuilder.exception.UserNotFoundException;
+import com.resumebuilder.user.User;
+import com.resumebuilder.user.UserRepository;
 
 
 @RestController
@@ -25,6 +31,19 @@ public class ProjectMasterController {
 	
 	@Autowired
 	private ProjectMasterService projectMasterService; // Autowired instance of ProjectMasterService for handling business logic
+	
+	@Autowired 
+	private UserRepository userRepository;
+	
+	@Autowired
+	private ProjectMasterServiceImplementation projectMasterServiceImplementation;
+	
+	@GetMapping("/employeesList")
+    public List<User> getEmployees() {
+    	List<User> employees = userRepository.findEmployees();
+        return employees;
+    }
+	
 	
 	//Demo- add project for testing assigned project
 	@PostMapping("/add")
@@ -98,4 +117,12 @@ public class ProjectMasterController {
     	projectMasterService.deleteProjectMasterAndAssignProject(projectId, emp_project_id, principal);
         return ResponseEntity.ok("Project deleted successfully.");
     }
+    
+    
+    //list of assign projects 
+    @GetMapping("/assignProjectsList/{userId}")
+    public List<EmployeeProject> getAssignedProjectsByUserId(@PathVariable Long userId) {
+        return projectMasterServiceImplementation.getAssignedProjectsByUserId(userId);
+    }
+    
 }

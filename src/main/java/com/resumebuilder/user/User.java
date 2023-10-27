@@ -91,7 +91,7 @@ public class User {
     private Set<ProjectMaster> projects = new HashSet<>();
 	
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "employee_project_mapping",
             joinColumns = {@JoinColumn(name = "employee_Id")},
             inverseJoinColumns = {@JoinColumn(name = "emp_project_id")})

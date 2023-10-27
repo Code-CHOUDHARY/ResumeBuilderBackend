@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProjectMasterRepository extends JpaRepository<ProjectMaster, Long> {
 
+	//ProjectMaster findByProjectTitle(String project_title);
+
 }
