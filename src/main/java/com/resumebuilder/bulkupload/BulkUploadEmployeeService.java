@@ -301,7 +301,7 @@ public class BulkUploadEmployeeService {
         newUser.setMobile_number(bulkUploadDto.getMobile_number());
         newUser.setLocation(bulkUploadDto.getLocation());
         newUser.setPassword(encodedPassword);
-        newUser.setModified_by(currentUser.getFull_name());
+        newUser.setModified_by(currentUser.getUser_id());
         newUser.setModified_on(LocalDateTime.now());
 
         User user = userRepository.save(newUser);
@@ -331,7 +331,7 @@ public class BulkUploadEmployeeService {
         existingUser.setMobile_number(bulkUploadDto.getMobile_number());
         existingUser.setLocation(bulkUploadDto.getLocation());
         existingUser.setPassword(encodedPassword);
-        existingUser.setModified_by(currentUser.getFull_name());
+        existingUser.setModified_by(currentUser.getUser_id());
         existingUser.setModified_on(LocalDateTime.now());
 
         return userRepository.save(existingUser);

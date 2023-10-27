@@ -44,7 +44,7 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 			pm.setEnd_date(projectMaster.getEnd_date());
 			pm.setOrganization_name(projectMaster.getOrganization_name());
 			pm.setClient_name(projectMaster.getClient_name());
-			pm.setModified_by(user.getFull_name());
+			pm.setModified_by(user.getUser_id());
 			pm.setModified_on(projectMaster.getModified_on());
 			pm.setCurrent(false);
 			pm.setProject_url(projectMaster.getProject_url());
@@ -94,7 +94,7 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
         employeeProject.setOrganization_name(projectMaster.getOrganization_name());
         employeeProject.setProject_url(projectMaster.getProject_url());
         employeeProject.setTechnology_stack(projectMaster.getTechnology_stack());
-        employeeProject.setAssign_by(currentUser.getFull_name());
+        employeeProject.setAssign_by(currentUser.getUser_id());
         employeeProject.setModified_on(LocalDateTime.now());
         
         User user = userRepository.findById(userId).orElse(null);
@@ -147,7 +147,7 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 	        existingProject.setOrganization_name(updatedProject.getOrganization_name());
 	        existingProject.setProject_url(updatedProject.getProject_url());
 	        existingProject.setTechnology_stack(updatedProject.getTechnology_stack());
-	        existingProject.setModified_by(currentUser.getFull_name());
+	        existingProject.setModified_by(currentUser.getUser_id());
 
 	        return employeeProjectRepository.save(existingProject);
 	    }
@@ -195,16 +195,19 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 	
 	
 	@Override
-	public void deleteProjectMasterAndAssignProject(Long projectId, Long emp_project_id) {
-	    ProjectMaster project = projectMasterRepository.findById(projectId).orElse(null);
+	public void deleteProjectMasterAndAssignProject(Long projectId, Long emp_project_id, Principal principal) {
+		User currentUser = userRepository.findByEmail_Id(principal.getName());
+		ProjectMaster project = projectMasterRepository.findById(projectId).orElse(null);
 	    if (project != null) {
 	        project.set_deleted(true);
+	        project.setModified_by(currentUser.getUser_id());
 	        projectMasterRepository.save(project);
 	    }
 
 	    EmployeeProject assignProject = employeeProjectRepository.findById(emp_project_id).orElse(null);
 	    if (assignProject != null) {
 	    	assignProject.set_deleted(true);
+	    	assignProject.setModified_by(currentUser.getUser_id());
 	        employeeProjectRepository.save(assignProject);
 	    }
 	}

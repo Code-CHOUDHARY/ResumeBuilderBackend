@@ -55,6 +55,11 @@ public interface UserRepository extends JpaRepository<User, Long>{
 		@Query(value = "SELECT * FROM user u WHERE u.app_role_id = (SELECT id FROM app_roles WHERE name = 'ROLE_MANAGER')", nativeQuery = true)
 	    List<User> findManagers();
 
-		Optional<User> findById(User reportingManager);
+		//Optional<User> findById(User reportingManager);
+		Optional<User> findById(Long id);
+		
+		
+		@Query("SELECT u.full_name FROM User u WHERE u.user_id = :userId")
+	    String findFullNameById(@Param("userId") Long userId);
 		
 }

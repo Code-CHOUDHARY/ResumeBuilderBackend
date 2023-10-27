@@ -82,11 +82,20 @@ public class ProjectMasterController {
         }
     }
 	
+	/**
+     * Endpoint for delete an assigned project.
+     * 
+     * @param projectId        The ID of the project used for delete project in manager side.
+     * @param emp_project_id The ID of the assigned project used for delete assign project.
+     * @param principal      The Principal object representing the user.
+     * @return A response entity containing the edited project.
+     * @throws Exception If an error occurs during editing.
+     */
 	
 	// Soft delete a project and its assignment
     @DeleteMapping("/delete/{projectId}/{emp_project_id}")
-    public ResponseEntity<String> deleteProject(@PathVariable Long projectId, @PathVariable Long emp_project_id) {
-    	projectMasterService.deleteProjectMasterAndAssignProject(projectId, emp_project_id);
+    public ResponseEntity<String> deleteProject(@PathVariable Long projectId, @PathVariable Long emp_project_id, Principal principal) {
+    	projectMasterService.deleteProjectMasterAndAssignProject(projectId, emp_project_id, principal);
         return ResponseEntity.ok("Project deleted successfully.");
     }
 }
