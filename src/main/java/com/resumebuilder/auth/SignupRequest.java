@@ -3,6 +3,7 @@ package com.resumebuilder.auth;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -46,9 +47,7 @@ public class SignupRequest {
 	private LocalDateTime modified_on;
 	private String modified_by;
 	private boolean is_deleted;
-//	@Column(name = "application_role_id")
-//    private int applicationRoleId;
-	  
+	private List<Long> managerIds;
 	  
 
 }

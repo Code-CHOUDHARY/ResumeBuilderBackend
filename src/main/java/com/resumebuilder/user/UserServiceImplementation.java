@@ -1,27 +1,23 @@
 package com.resumebuilder.user;
+
 import java.security.Principal;
 import java.security.SecureRandom;
-import java.util.HashMap;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+
 import java.util.Optional;
 import jakarta.mail.internet.MimeMessage;
-import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.resumebuilder.auth.SignupRequest;
 import com.resumebuilder.exception.UserNotFoundException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.resumebuilder.activityhistory.ActivityHistory;
-import com.resumebuilder.activityhistory.ActivityHistoryRepository;
-import com.resumebuilder.activityhistory.ActivityHistoryService;
+import com.resumebuilder.reportingmanager.ReportingManager;
+import com.resumebuilder.reportingmanager.ReportingManagerRepository;
 import com.resumebuilder.security.approle.ERole;
 import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.security.response.MessageResponse;
@@ -30,33 +26,52 @@ import com.resumebuilder.security.response.MessageResponse;
 @Service
 public class UserServiceImplementation implements UserService{
 	
-	 @Autowired
-	 private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	 @Autowired
-	 private UserRoleRepository roleRepository;
+	    private UserRoleRepository roleRepository;
 	 
 	 @Autowired
 	 private JavaMailSender mailSender;
+	 
+	 @Autowired
+	 private ReportingManagerRepository reportingManagerRepository;
+	 
+	 @Autowired
+	 private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private ActivityHistoryService activityHistoryService;
-	
-	@Autowired
-	private ActivityHistoryRepository activityHistoryRepository;
-	
-	
+	 /**
+	     * Retrieve a list of all users.
+	     *
+	     * @return List of User entities.
+	     */
+	 
 	@Override
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
+	
+	/**
+     * Find a user by their user ID.
+     *
+     * @param userId User ID.
+     * @return The User entity if found, or throw UserNotFoundException.
+     */
 
 	public User findUserByIdUser(Long userId) {
 		
-		Optional<User> opt =userRepository.findById(userId);
-		System.out.println("obj"+opt);
-			return opt.get();
+
+		Optional<User> opt =userRepository.findById(userId);		
+			return opt.get();	
 	}
+	
+	/**
+     * Find a user by their username (email).
+     *
+     * @param userName Username (email).
+     * @return The User entity if found, or throw UserNotFoundException.
+     */
 
 	@Override
 	public User findUserByUsername(String userName) {
@@ -65,103 +80,230 @@ public class UserServiceImplementation implements UserService{
 		return opt.get();
 	}
 
+	/**
+     * Add a new user or update an existing one.
+     *
+     * @param signUpRequest SignupRequest containing user details.
+     * @param principal      Principal representing the authenticated user.
+     * @return ResponseEntity with a success message or error.
+     * @throws UserNotFoundException if adding or updating the user fails.
+     */
+	
 	//add the new user
 	@Override
-	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal)throws UserNotFoundException {
-		 try {
-//			 User currentuser = userRepository.findByEmailId(principal.getName());
-//				User saveUser = new User();
-//				saveUser.setFull_name(user.getFull_name());
-//				saveUser.setEmail(user.getEmail());
-//				saveUser.setPassword(user.getPassword());
-//				saveUser.setEmployee_Id(user.getEmployee_Id());
-//				saveUser.setCurrent_role(user.getCurrent_role());
-//				saveUser.setAppRole(user.getAppRole());
-//				saveUser.setUser_image(user.getUser_image());
-//				saveUser.setGender(user.getGender());
-//				saveUser.setMobile_number(user.getMobile_number());
-//				saveUser.setLocation(user.getLocation());
-//				saveUser.setDate_of_joining(user.getDate_of_joining());
-//				saveUser.setDate_of_birth(user.getDate_of_birth());
-//				saveUser.setLinkedin_lnk(user.getLinkedin_lnk());
-//				saveUser.setPortfolio_link(user.getPortfolio_link());
-//				saveUser.setBlogs_link(user.getBlogs_link());
-//				saveUser.setModified_by(currentuser.getFull_name());
-//				
-//				 return userRepository.save(saveUser);
-			 
-			 User currentuser = userRepository.findByEmailId(principal.getName());
-			 
-			 if (currentuser == null) {
-		            throw new UserNotFoundException("Current user not found.");
-		        }
+	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal) throws UserNotFoundException {
 
-			 User user = new User(signUpRequest.getEmail(), generateRandomPassword());
-		        user.setFull_name(signUpRequest.getFull_name());
-		        user.setEmployee_Id(signUpRequest.getEmployee_Id());
-		        user.setCurrent_role(signUpRequest.getCurrent_role());
-		        user.setUser_image(signUpRequest.getUser_image());
-		        user.setGender(signUpRequest.getGender());
-		        user.setMobile_number(signUpRequest.getMobile_number());
-		        user.setLocation(signUpRequest.getLocation());
-		        user.setDate_of_joining(signUpRequest.getDate_of_joining());
-		        user.setDate_of_birth(signUpRequest.getDate_of_birth());
-		        user.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
-		        user.setPortfolio_link(signUpRequest.getPortfolio_link());
-		        user.setBlogs_link(signUpRequest.getBlogs_link());
-		        user.setModified_by(currentuser.getFull_name());
-		        String strRoles = signUpRequest.getRole();
+		try {
+	        User currentuser = userRepository.findByEmailId(principal.getName());	        
+	        if (currentuser == null) {
+	            throw new UserNotFoundException("Current user not found.");
+	        }
+	        // Check if a user with the same email exists (soft-deleted or not)
+	        User existingUser = userRepository.findByEmailId(signUpRequest.getEmail());
 
-		        if (strRoles == null) {
-		            UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
-		            user.setAppRole(userRole);
-		        } else {
-		            switch (strRoles) {
-		                case "admin":
-		                    UserRole adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
-		                    user.setAppRole(adminRole);
+	        if (existingUser != null) {
+	            // If an existing user with the same email exists
+	            if (existingUser.is_deleted()) {
+	                // If it's soft-deleted, create a new user without overwriting the existing soft-deleted user
+	                User newUser = new User(signUpRequest.getEmail(), generateRandomPassword());
+	                newUser.setFull_name(signUpRequest.getFull_name());
+	                newUser.setEmployee_Id(signUpRequest.getEmployee_Id());
+	                newUser.setCurrent_role(signUpRequest.getCurrent_role());
+	                newUser.setUser_image(signUpRequest.getUser_image());
+	                newUser.setGender(signUpRequest.getGender());
+	                newUser.setMobile_number(signUpRequest.getMobile_number());
+	                newUser.setLocation(signUpRequest.getLocation());
+	                newUser.setDate_of_joining(signUpRequest.getDate_of_joining());
+	                newUser.setDate_of_birth(signUpRequest.getDate_of_birth());
+	                newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
+	                newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
+	                newUser.setBlogs_link(signUpRequest.getBlogs_link());
+	                newUser.setModified_by(currentuser.getUser_id());
+	                String strRoles = signUpRequest.getRole();
+	                UserRole appRole;
 
-		                    break;
-		                case "manager":
-		                    UserRole managerRole = roleRepository.findByName(ERole.ROLE_MANAGER);
-		                    user.setAppRole(managerRole);
+	                if (strRoles == null) {
+	                    appRole = roleRepository.findByName(ERole.ROLE_USER);
+	                } else {
+	                    switch (strRoles) {
+	                        case "admin":
+	                            appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
+	                            break;
+	                        case "manager":
+	                            appRole = roleRepository.findByName(ERole.ROLE_MANAGER);
+	                            break;
+	                        default:
+	                            appRole = roleRepository.findByName(ERole.ROLE_USER);
+	                    }
+	                }
 
-		                    break;
-		                default:
-		                    UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
-		                    user.setAppRole(userRole);
+	                newUser.setAppRole(appRole);
+	                String encodedPassword = passwordEncoder.encode(newUser.getPassword());
+	                newUser.setPassword(encodedPassword);
+	                newUser.set_deleted(false); // Mark the user as not soft-deleted
+	                User user = userRepository.save(newUser);
+	                for(Long id: signUpRequest.getManagerIds()) {	           	                	
+	                	User manager = userRepository.findById(id).get();	                	
+	                	System.out.println("manager id - "+manager);
+	                	 ReportingManager reportingManager = new ReportingManager();	      
+	                	 reportingManager.setEmployee(user);
+	                	 reportingManager.setManager(manager);
+	                	 reportingManagerRepository.save(reportingManager);	                		                	 
+	                }
+	               	                	                
+	                // Send the email with the generated password
+	                sendEmailPassword(newUser, newUser.getPassword());
 
-		            }
-		        }
-				 UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
-				
-				 String activityType = "Add Employee";
-			     String description = "New Employee Added";
-			     String newData = userToJsonConverter.convertUserToJSON(user);
-			     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
-				
+	                return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
+	            } else {
+	                // User with the same email already exists and is not soft-deleted
+	                throw new UserNotFoundException("User with this email already exists.");
+	            }
+	        } else {
+	            // Create a new user
+	            String password = generateRandomPassword();
+	            User newUser = new User(signUpRequest.getEmail(), password);
+	            newUser.setFull_name(signUpRequest.getFull_name());
+	            newUser.setEmployee_Id(signUpRequest.getEmployee_Id());
+	            newUser.setCurrent_role(signUpRequest.getCurrent_role());
+	            newUser.setUser_image(signUpRequest.getUser_image());
+	            newUser.setGender(signUpRequest.getGender());
+	            newUser.setMobile_number(signUpRequest.getMobile_number());
+	            newUser.setLocation(signUpRequest.getLocation());
+	            newUser.setDate_of_joining(signUpRequest.getDate_of_joining());
+	            newUser.setDate_of_birth(signUpRequest.getDate_of_birth());
+	            newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
+	            newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
+	            newUser.setBlogs_link(signUpRequest.getBlogs_link());
+	            newUser.setModified_by(currentuser.getUser_id());
 
+	            String strRoles = signUpRequest.getRole();
+	            UserRole appRole;
 
-		        userRepository.save(user);
-		        
-		     // Send the email with the generated password
-		        sendEmailPassword(user, user.getPassword());
+	            if (strRoles == null) {
+	                appRole = roleRepository.findByName(ERole.ROLE_USER);
+	            } else {
+	                switch (strRoles) {
+	                    case "admin":
+	                        appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
+	                        break;
+	                    case "manager":
+	                        appRole = roleRepository.findByName(ERole.ROLE_MANAGER);
+	                        break;
+	                    default:
+	                        appRole = roleRepository.findByName(ERole.ROLE_USER);
+	                }
+	            }
 
-		        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
+	            newUser.setAppRole(appRole);
+	            String encodedPassword = passwordEncoder.encode(newUser.getPassword());
+	            newUser.setPassword(encodedPassword);
 
-				
-			} catch (Exception e) {
-				throw new UserNotFoundException("Failed to add user data."+e.getMessage());
-			}     
+	            User user = userRepository.save(newUser);
+                for(Long id: signUpRequest.getManagerIds()) {             	
+                	User manager = userRepository.findById(id).get();
+                	 ReportingManager reportingManager = new ReportingManager();      
+                	 reportingManager.setEmployee(user);
+                	 reportingManager.setManager(manager);
+                	 reportingManagerRepository.save(reportingManager);              	 
+                }
+
+	            // Send the email with the generated password
+	            sendEmailPassword(newUser, password);
+
+	            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
+	        }
+	    } catch (Exception e) {
+	        throw new UserNotFoundException("Failed to add/update user data. " + e.getMessage());
+	    }
 	}
+
+	
+	
+//	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal)throws UserNotFoundException {
+//		 try {
+//			 
+//			 User currentuser = userRepository.findByEmailId(principal.getName());
+//			 
+//			 if (currentuser == null) {
+//		            throw new UserNotFoundException("Current user not found.");
+//		        }
+//
+//			 String password = generateRandomPassword();
+//			 
+//			 User user = new User(signUpRequest.getEmail(), generateRandomPassword());
+//		        user.setFull_name(signUpRequest.getFull_name());
+//		        user.setEmployee_Id(signUpRequest.getEmployee_Id());
+//		        user.setCurrent_role(signUpRequest.getCurrent_role());
+//		        user.setUser_image(signUpRequest.getUser_image());
+//		        user.setGender(signUpRequest.getGender());
+//		        user.setMobile_number(signUpRequest.getMobile_number());
+//		        user.setLocation(signUpRequest.getLocation());
+//		        user.setDate_of_joining(signUpRequest.getDate_of_joining());
+//		        user.setDate_of_birth(signUpRequest.getDate_of_birth());
+//		        user.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
+//		        user.setPortfolio_link(signUpRequest.getPortfolio_link());
+//		        user.setBlogs_link(signUpRequest.getBlogs_link());
+//		        user.setModified_by(currentuser.getFull_name());
+//		        String strRoles = signUpRequest.getRole();
+//
+//		        if (strRoles == null) {
+//		            UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
+//		            user.setAppRole(userRole);
+//		        } else {
+//		            switch (strRoles) {
+//		                case "admin":
+//		                    UserRole adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
+//		                    user.setAppRole(adminRole);
+//
+//		                    break;
+//		                case "manager":
+//		                    UserRole managerRole = roleRepository.findByName(ERole.ROLE_MANAGER);
+//		                    user.setAppRole(managerRole);
+//
+//		                    break;
+//		                default:
+//		                    UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
+//		                    user.setAppRole(userRole);
+//
+//		            }
+//		        }
+//		        String encodedPassword = passwordEncoder.encode(user.getPassword());
+//		        user.setPassword(encodedPassword);
+//
+//		        userRepository.save(user);
+//
+//		        // Send the email with the generated password
+//		        sendEmailPassword(user, password);
+//
+//		        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
+//		    } catch (Exception e) {
+//		        throw new UserNotFoundException("Failed to add user data." + e.getMessage());
+//		    } 
+//	}
     
+	/**
+     * Edit an existing user.
+     *
+     * @param userId      User ID of the user to edit.
+     * @param updatedUser User object containing updated details.
+     * @param principal   Principal representing the authenticated user.
+     * @return Updated User entity.
+     */
 	
  // Update the existing user
     @Override
 	public User editUser(Long userId, User updatedUser, Principal principal) {
     	User currentuser = userRepository.findByEmailId(principal.getName());
-    	User existingUser = userRepository.findById(userId)
+    	// Check if the user exists
+        User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        // Check if the user is soft-deleted
+        if (existingUser.is_deleted()) {
+            throw new UserNotFoundException("User does not exist.");
+        }
+        
         existingUser.setFull_name(updatedUser.getFull_name());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setDate_of_birth(updatedUser.getDate_of_birth());
@@ -176,62 +318,27 @@ public class UserServiceImplementation implements UserService{
         existingUser.setLinkedin_lnk(updatedUser.getLinkedin_lnk());
         existingUser.setPortfolio_link(updatedUser.getPortfolio_link());
         existingUser.setBlogs_link(updatedUser.getBlogs_link());
-
-        existingUser.setModified_by(currentuser.getFull_name());
-        
-     // Compare the fields and identify changes
-        Map<String, String> changes = new HashMap<>();
-        if (!Objects.equals(existingUser.getFull_name(), updatedUser.getFull_name())) {
-            changes.put("full_name", updatedUser.getFull_name());
-        }
-        if (!Objects.equals(existingUser.getEmail(), updatedUser.getEmail())) {
-            changes.put("email", updatedUser.getEmail());
-        }
-        if (!Objects.equals(existingUser.getDate_of_birth(), updatedUser.getDate_of_birth())) {
-            changes.put("Date of Birth", updatedUser.getDate_of_birth());
-        }
-        if (!Objects.equals(existingUser.getGender(), updatedUser.getGender())) {
-            changes.put("Gender", updatedUser.getGender());
-        }
-        if (!Objects.equals(existingUser.getLocation(), updatedUser.getLocation())) {
-            changes.put("Location", updatedUser.getLocation());
-        }
-        
-        System.out.println("changes for user"+changes);
-        
-        	
-         String activityType = "Update Employee";
-	     String description = "Change in Employee Data";
-	     
-	     UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
-	           
-		try {
-			 String newData = userToJsonConverter.convertChangesToJson(changes);
-			 String oldData = userToJsonConverter.convertUserToJSON(existingUser);
-			 
-			 activityHistoryService.
-			    addActivity
-			    (activityType, description,newData ,oldData, currentuser.getFull_name());
-			}
-		catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-      
+        existingUser.setModified_by(currentuser.getUser_id());
         return userRepository.save(existingUser);
-        }
-	
+	}
 
-    
-	
-
-
+    /**
+     * Get a user by their email.
+     *
+     * @param email Email address of the user.
+     * @return The User entity if found, or null if not found.
+     */
 
 	@Override
 	public User getUserByEmail(String email) {
 		return userRepository.findByEmailId(email);
 	}
 	
+	 /**
+     * Generates a random password with specified complexity.
+     *
+     * @return A randomly generated password.
+     */
 	
 	public String generateRandomPassword() {
 	    SecureRandom random = new SecureRandom();
@@ -255,6 +362,13 @@ public class UserServiceImplementation implements UserService{
 	    return password.toString();
 	}
 	
+	/**
+     * Sends an email to a user with their generated password.
+     *
+     * @param user              The user to send the email to.
+     * @param generatePassword The generated password.
+     * @throws Exception If there is an error sending the email.
+     */
 	
 	public void sendEmailPassword(User user, String generatePassword) throws Exception {
         String senderName = "QW Resume Builder";
@@ -273,28 +387,36 @@ public class UserServiceImplementation implements UserService{
         helper.setText(content, true);
         mailSender.send(message);
     }
-	
-	 //delete the user 
+
+	/**
+     * Delete a user by their user ID.
+     *
+     * @param userId    User ID of the user to delete.
+     * @param principal Principal representing the authenticated user.
+     */
 	
 	@Override
 	public void deleteUserById(Long userId, Principal principal) {
-		// TODO Auto-generated method stub
-		User currentuser = userRepository.findByEmailId(principal.getName());
 		User existingUser = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));   
-		 String activityType = "Delete Employee";
-	     String description = "Change in Employee Data";
-	     
-	    activityHistoryService.addActivity(activityType, description,"user with"+userId + "deleted", null, currentuser.getFull_name());
-		
+                .orElseThrow(() -> new UserNotFoundException("User not found"));     
         userRepository.delete(existingUser);
+		
 	}
 	
+
 	public boolean checkUserExists(String UserId) {
 		boolean result=false;
 		result=userRepository.existsById(Long.parseLong(UserId));
 		return result;
 	}
+
+//	@Override
+//	public List<User> getManagers() {
+//        String roleName = "ROLE_MANAGER"; // The appRole filter
+//        List<User> managers = userRepository.findByAppRoleName(roleName);
+//        return managers;
+//    }
+
     
 }
 

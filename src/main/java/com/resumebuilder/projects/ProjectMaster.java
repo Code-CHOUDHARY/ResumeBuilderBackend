@@ -1,11 +1,15 @@
 package com.resumebuilder.projects;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.resumebuilder.user.User;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,8 +44,10 @@ public class ProjectMaster {
 	private String project_summary;
 	private String technology_stack;
 	private String roles_and_responsibility;
-	private String modified_by;
-	private Date modified_on;
+	private Long modified_by;
+	@UpdateTimestamp
+	@Column(name = "modified_on")
+	private LocalDateTime modified_on;
 	private boolean is_deleted;
 		
 	
