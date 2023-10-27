@@ -84,11 +84,17 @@ public class ResumeTemplatesController {
 	   public ResponseEntity<?> getAllTemplates(){
 		 List<ResumeTemplates> list=service.getAllTemplates();
 		 if(list.isEmpty()) {
-			 return null;
+			 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ResumeTemplateExceptions("At Present No Any Templates Present"));
 		 }else {
 			 
 			 return  ResponseEntity.ok(list);
 		 }
+	 }
+	 
+	 @GetMapping("/replaceTemplate/{templateId}/{userId}")
+	 public ResponseEntity<?> replaceTemplate(@PathVariable String templateId,@PathVariable String userId){
+		 String genratedHtmString=service.replaceTemplateData(templateId, userId);
+		 return ResponseEntity.ok(genratedHtmString);
 	 }
 	 
 }

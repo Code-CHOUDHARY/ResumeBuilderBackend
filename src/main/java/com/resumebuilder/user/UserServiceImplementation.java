@@ -289,6 +289,12 @@ public class UserServiceImplementation implements UserService{
 		
         userRepository.delete(existingUser);
 	}
+	
+	public boolean checkUserExists(String UserId) {
+		boolean result=false;
+		result=userRepository.existsById(Long.parseLong(UserId));
+		return result;
+	}
     
 }
 

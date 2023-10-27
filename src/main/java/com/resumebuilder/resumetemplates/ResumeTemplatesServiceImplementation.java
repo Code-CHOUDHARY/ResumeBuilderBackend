@@ -1,14 +1,25 @@
 package com.resumebuilder.resumetemplates;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.resumebuilder.exception.ResumeTemplateExceptions;
+import com.resumebuilder.exception.UserNotFoundException;
+import com.resumebuilder.professionalexperience.ProfessionalExperienceService;
+import com.resumebuilder.user.User;
+import com.resumebuilder.user.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 @Service
@@ -17,6 +28,10 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	
 	@Autowired
 	private ResumeTemplatesRepository repo;
+	@Autowired
+    private ProfessionalExperienceService expService;
+	 @Autowired
+	 private UserService userService;
 	
 	 private static final Logger logger = LogManager.getLogger(ResumeTemplatesServiceImplementation.class); 
 
@@ -97,8 +112,60 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 		}
 		return flag;
 	}
+
+	@Override
+	public String replaceTemplateData(String TemplateId, String UserId) {
+		ResumeTemplates template=getTemplateById(TemplateId);
+		User user=userService.findUserByIdUser(Long.parseLong(UserId));
+		return expService.getTotalExperience(UserId);
+	}
  
+
+	public Map<String,Object> getReplacerMap(String obj) throws JsonMappingException, JsonProcessingException{
+//		Gson json=new Gson();
+//		 User user = json.fromJson(obj, User.class);
+		 ObjectMapper mapper = new ObjectMapper();
+		 mapper.registerModule(new JavaTimeModule());
+		 mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		User user=mapper.readValue(obj, User.class);
+		System.out.println("Role"+user.getCurrent_role());
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("<%Name%>", user.getFull_name());
+		map.put("<%Education%>",user.getEducations().toString());
+		map.put("<%DateOfBirth%>",user.getDate_of_birth());
+		map.put("<%CurrentRole%>", user.getCurrent_role());
+		map.put("<%Email%>", user.getEmail());
+		map.put("<%Gender%>", user.getGender());
+		map.put("<%CurrentLocation%>", user.getLocation());
+		map.put("<%Mobile%>", user.getMobile_number());
+		map.put("<%Projects%>", user.getProjects().toString());
+		map.put("<%LinkedIn%>", user.getLinkedin_lnk());
+		map.put("<%Blogs%>", user.getBlogs_link());
+		map.put("<%Total Experience%>",expService.getTotalExperience(user.getUser_id().toString()));
+		return map;
+		
+	}
 	
 	
+//	public String countExperience(String userId) {
+//		String totalExperience="";
+//		// check weather the user Exists or not
+//		try {
+//			if(userService.checkUserExists(userId)){
+//				String exp= expService.getTotalExperience(userId);
+//				totalExperience=exp;
+//			}else {
+//				logger.info("unable find the user-->"+userId);
+//			}
+//		} catch (UserNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			logger.info("unable find the user-->"+userId);
+//			totalExperience="";
+//		}catch(Exception e) {
+//			logger.info("error while counting experienc-->/n"+e);
+//		}
+//	   	return totalExperience;
+//	}
+//	
 	
 }

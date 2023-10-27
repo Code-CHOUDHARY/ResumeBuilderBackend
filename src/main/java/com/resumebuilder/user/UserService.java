@@ -28,7 +28,7 @@ public interface UserService {
 	public void deleteUserById(Long userId, Principal principal);
 
 	public User getUserByEmail(String email);
-
+	public boolean checkUserExists(String UserId);
 	
 
 }
