@@ -195,16 +195,19 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 	
 	
 	@Override
-	public void deleteProjectMasterAndAssignProject(Long projectId, Long emp_project_id) {
-	    ProjectMaster project = projectMasterRepository.findById(projectId).orElse(null);
+	public void deleteProjectMasterAndAssignProject(Long projectId, Long emp_project_id, Principal principal) {
+		User currentUser = userRepository.findByEmail_Id(principal.getName());
+		ProjectMaster project = projectMasterRepository.findById(projectId).orElse(null);
 	    if (project != null) {
 	        project.set_deleted(true);
+	        project.setModified_by(currentUser.getUser_id());
 	        projectMasterRepository.save(project);
 	    }
 
 	    EmployeeProject assignProject = employeeProjectRepository.findById(emp_project_id).orElse(null);
 	    if (assignProject != null) {
 	    	assignProject.set_deleted(true);
+	    	assignProject.setModified_by(currentUser.getUser_id());
 	        employeeProjectRepository.save(assignProject);
 	    }
 	}
