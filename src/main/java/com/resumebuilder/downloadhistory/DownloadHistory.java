@@ -2,8 +2,6 @@ package com.resumebuilder.downloadhistory;
 
 import java.util.Date;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import com.resumebuilder.user.User;
 
 import jakarta.persistence.Entity;
@@ -31,7 +29,6 @@ public class DownloadHistory {
 	private String doc_link;
 	private String pdf_link;
 	private String modified_by;
-	@CreationTimestamp
 	private Date modified_on;
 	private boolean is_deleted;
 	
