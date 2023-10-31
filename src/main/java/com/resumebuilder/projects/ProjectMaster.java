@@ -1,8 +1,10 @@
 package com.resumebuilder.projects;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,6 +17,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -51,7 +54,7 @@ public class ProjectMaster {
 	private boolean is_deleted;
 		
 	
-	@ManyToMany(mappedBy = "projects")
-    private Set<User> users = new HashSet<>();
+//	@OneToMany(mappedBy = "projects")
+//    private List<User> users=new ArrayList<>();
 
 }
