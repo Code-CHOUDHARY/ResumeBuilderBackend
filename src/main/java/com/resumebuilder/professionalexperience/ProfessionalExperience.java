@@ -28,11 +28,11 @@ public class ProfessionalExperience {
 	private String job_title;
 	private String organization_name;
 	private String location;
-	private Date start_date;
-	private Date end_date;
+	private String start_date;
+	private String end_date;
 	private boolean current;
 	private boolean show_dates;
-	private String show_duration;
+	private boolean show_duration;
 	private boolean show_nothing;
 	private boolean is_deleted;
 	
