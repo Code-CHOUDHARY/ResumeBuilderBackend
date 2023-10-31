@@ -89,6 +89,24 @@ public class GlobalExceptionHandler {
     public CustomErrorResponse handleMultipleDataEntryException(MultipleDataEntryException ex) {
         return new CustomErrorResponse(ex.getMessage());
     }
-
-
+    
+    @ExceptionHandler(ProfessionalExperienceException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public CustomErrorResponse handleProfessionalExperienceException(ProfessionalExperienceException ex) {
+        return new CustomErrorResponse(ex.getMessage());
+    }
+    
+    @ExceptionHandler(ExperienceNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ResponseEntity<Object> handleExperienceNotFoundException(ExperienceNotFoundException ex) {
+		CustomErrorResponse errorResponse = new CustomErrorResponse("Project data is incomplete", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+    
+    @ExceptionHandler(ResumeNotFoundException.class)
+    public ResponseEntity<String> handleResumeNotFound(ResumeNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }
