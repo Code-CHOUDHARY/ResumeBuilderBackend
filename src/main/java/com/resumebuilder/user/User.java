@@ -84,19 +84,18 @@ public class User {
 	  private Set<Roles> roles = new HashSet<>();
 
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "manager_project_mapping",
-            joinColumns = {@JoinColumn(name = "manager_employee_Id")},
-            inverseJoinColumns = {@JoinColumn(name = "project_master_id")})
-    private Set<ProjectMaster> projects = new HashSet<>();
+//	@ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "manager_project_mapping",
+//            joinColumns = {@JoinColumn(name = "manager_employee_Id")},
+//            inverseJoinColumns = {@JoinColumn(name = "project_master_id")})
+//    private Set<ProjectMaster> projects = new HashSet<>();
 	
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "employee_project_mapping",
-            joinColumns = {@JoinColumn(name = "employee_Id")},
-            inverseJoinColumns = {@JoinColumn(name = "emp_project_id")})
-    private Set<EmployeeProject> assignedProjects = new HashSet<>();
-	
+	 @ManyToMany
+	    @JoinTable(name = "user_project",
+	               joinColumns = @JoinColumn(name = "user_id"),
+	               inverseJoinColumns = @JoinColumn(name = "project_id"))
+	    private Set<EmployeeProject> assignedProjects = new HashSet<>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Education> educations = new ArrayList<>();

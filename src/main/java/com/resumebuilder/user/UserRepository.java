@@ -59,8 +59,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	    List<User> findEmployees();
 
 		//Optional<User> findById(User reportingManager);
-		Optional<User> findById(Long id);
+//		Optional<User> findById(Long id);
 		
+//		  List<User> findByIdIn(List<Long> ids);
 		
 		@Query("SELECT u.full_name FROM User u WHERE u.user_id = :userId")
 	    String findFullNameById(@Param("userId") Long userId);
