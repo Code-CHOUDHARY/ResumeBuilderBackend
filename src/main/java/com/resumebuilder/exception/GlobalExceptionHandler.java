@@ -95,12 +95,6 @@ public class GlobalExceptionHandler {
     public CustomErrorResponse handleProjectException(ProjectException ex) {
         return new CustomErrorResponse(ex.getMessage());
     }
-    
-    @ExceptionHandler(EducationException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public CustomErrorResponse handleEducationException(EducationException ex) {
-        return new CustomErrorResponse(ex.getMessage());
-    }
 
 
 }
