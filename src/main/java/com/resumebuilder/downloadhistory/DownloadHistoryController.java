@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,8 @@ public class DownloadHistoryController {
      * @return The added download history record.
      */
     @PostMapping("/add")
-    public DownloadHistory addDownloadHistory(@RequestBody DownloadHistory downloadHistory) {
-        return downloadHistoryService.saveDownloadHistory(downloadHistory);
+    public DownloadHistory addDownloadHistory(@RequestBody DownloadHistory downloadHistory,Principal principal ) {
+        return downloadHistoryService.saveDownloadHistory(downloadHistory,principal);
     }
 	
     /**
