@@ -29,7 +29,7 @@ public class DownloadHistory {
 	private String version;
 	private String doc_link;
 	private String pdf_link;
-	private String modified_by;
+	private Long modified_by;
 	private Date modified_on;
 	@Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
 	private boolean is_deleted;
