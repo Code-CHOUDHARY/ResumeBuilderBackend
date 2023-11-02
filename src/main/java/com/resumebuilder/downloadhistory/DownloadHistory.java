@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.resumebuilder.user.User;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +31,7 @@ public class DownloadHistory {
 	private String pdf_link;
 	private String modified_by;
 	private Date modified_on;
+	@Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
 	private boolean is_deleted;
 	
 	@ManyToOne

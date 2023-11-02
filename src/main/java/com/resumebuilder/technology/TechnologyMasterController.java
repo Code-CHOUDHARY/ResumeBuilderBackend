@@ -2,8 +2,11 @@ package com.resumebuilder.technology;
 
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.resumebuilder.exception.RoleException;
@@ -34,6 +38,10 @@ public class TechnologyMasterController {
 	@Autowired
 	private TechnologyMasterServcie technologyMasterService;
 	
+	@Autowired
+	private TechnologyMasterRepository technologyMasterRepo;
+	
+	public static final Logger logger = LoggerFactory.getLogger(TechnologyMasterController.class);
 	/**
      * Adds a new technology record.
      *
@@ -105,6 +113,27 @@ public class TechnologyMasterController {
         }
        
     }
+	
+	@PreAuthorize("hasRole('USER')")
+	@GetMapping("/suggestions")
+	public List<String> suggestSkills(@RequestParam("input") String input) {
+		try {
+			if (input.length() == 1) {
+				// Perform a case-insensitive search for skills starting with the input
+				
+				List<String> suggestions = technologyMasterRepo.findSkillsStartingWith(input);
+				logger.info("Input: {}, Suggestions: {}", input, suggestions);
+				return suggestions;
+			} else {
+				return Collections.emptyList(); // Return an empty list for inputs other than a single character
+			}
+		} catch (Exception e) {
+			logger.error("Error occurred while fetching skill suggestions: {}", e.getMessage());
+			throw new RuntimeException("An error occurred while fetching skill suggestions.");
+		}
+	}
+
+
 
 	 /**
      * Get a list of all technologies.
