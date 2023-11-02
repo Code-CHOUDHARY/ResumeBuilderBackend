@@ -27,7 +27,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -71,9 +70,6 @@ public class User {
 	private String portfolio_link;
 	@Column
 	private String blogs_link;
-	@Lob
-    @Column(length = 1000) 
-    private String professional_summary;
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
 	@Column
@@ -101,9 +97,6 @@ public class User {
 	               inverseJoinColumns = @JoinColumn(name = "project_id"))
 	    private Set<EmployeeProject> assignedProjects = new HashSet<>();
 	
-//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//	private List<EmployeeProject> employeeProject = new ArrayList<>();
-
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Education> educations = new ArrayList<>();
 

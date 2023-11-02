@@ -6,11 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Base64;
-import java.util.UUID;
-
 import org.apache.commons.compress.utils.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,37 +15,29 @@ import io.jsonwebtoken.io.IOException;
 @Service
 public class ProfileImageService {
 	
-	@Autowired
-	private UserRepository userRepository;
-	
-	public static final String baseDirectory = "upload/";
-	
-	public String uploadProfileImage(MultipartFile imageFile, Long userId) throws IOException, java.io.IOException {
-        String originalFileName = imageFile.getOriginalFilename();
-        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+//	@Value("${upload/profileImage}")
+//    private String projectPath;
+	//public static final String projectPath = "upload/profileImage";
+
+	public static final String baseDirectory = "upload/profileImage/";
+
+    public String uploadProfileImage(MultipartFile imageFile, Long userId) throws IOException, java.io.IOException {
+        String originalFileName = imageFile.getOriginalFilename(); // Get the original file name
+        String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // Extract the file extension
         String[] allowedExtensions = {".jpg", ".jpeg", ".png", ".svg"};
 
         if (!Arrays.asList(allowedExtensions).contains(extension.toLowerCase())) {
             throw new IOException("Invalid file extension");
         }
+        
+        String fileName = "user_profile_" + userId + extension; // Generate a unique name for each user based on the user ID and the original extension
+        String imagePath = baseDirectory + fileName;
 
-        // Create the directory structure based on user's employee_id
-        String userDirectory = baseDirectory + userId + "/";
-        String profileImageDirectory = userDirectory + "profileImage/";
-
-        File userDir = new File(userDirectory);
-        File profileDir = new File(profileImageDirectory);
-
-        if (!userDir.exists()) {
-            userDir.mkdirs();
+        // Create the base directory if it doesn't exist
+        File baseDir = new File(baseDirectory);
+        if (!baseDir.exists()) {
+            baseDir.mkdirs();
         }
-
-        if (!profileDir.exists()) {
-            profileDir.mkdirs();
-        }
-
-        String uniqueFileName = UUID.randomUUID().toString() + extension;
-        String imagePath = profileImageDirectory + uniqueFileName;
 
         File file = new File(imagePath);
         try (InputStream inputStream = imageFile.getInputStream();
@@ -60,51 +48,24 @@ public class ProfileImageService {
                 outputStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException e) {
+            // Handle the exception
             e.printStackTrace();
         }
-        
-     // Update the user's user_image field with the image path
-        String imagePathInDatabase = profileImageDirectory + uniqueFileName;
-        User user = userRepository.findById(userId).orElse(null);
-        if (user != null) {
-            user.setUser_image(imagePathInDatabase);
-            userRepository.save(user);
-        }
 
-        return uniqueFileName;
+        return fileName;
     }
     
     
-//    public byte[] getProfileImage(Long userId) throws IOException, FileNotFoundException, java.io.IOException {
-//        String[] allowedExtensions = {".jpg", ".jpeg", ".png", ".svg"};
-//        String imagePath = null;
-//
-//        for (String extension : allowedExtensions) {
-//            String fileName = "user_profile_" + userId + extension;
-//            imagePath = baseDirectory + fileName;
-//            File imageFile = new File(imagePath);
-//
-//            if (imageFile.exists()) {
-//                try (FileInputStream fileInputStream = new FileInputStream(imageFile)) {
-//                    return IOUtils.toByteArray(fileInputStream);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                    throw e;
-//                }
-//            }
-//        }
-//
-//        throw new FileNotFoundException("Profile image not found");
-//    }
-	
-	public byte[] getProfileImageByUserId(Long userId) throws IOException, FileNotFoundException, java.io.IOException {
-        User user = userRepository.findById(userId).orElse(null);
-        if (user != null) {
-            String imagePath = user.getUser_image();
+    public byte[] getProfileImage(Long userId) throws IOException, FileNotFoundException, java.io.IOException {
+        String[] allowedExtensions = {".jpg", ".jpeg", ".png", ".svg"};
+        String imagePath = null;
 
-            if (imagePath != null && !imagePath.isEmpty()) {
-                File imageFile = new File(imagePath);
+        for (String extension : allowedExtensions) {
+            String fileName = "user_profile_" + userId + extension;
+            imagePath = baseDirectory + fileName;
+            File imageFile = new File(imagePath);
 
+            if (imageFile.exists()) {
                 try (FileInputStream fileInputStream = new FileInputStream(imageFile)) {
                     return IOUtils.toByteArray(fileInputStream);
                 } catch (IOException e) {
@@ -116,6 +77,5 @@ public class ProfileImageService {
 
         throw new FileNotFoundException("Profile image not found");
     }
-
 
 }
