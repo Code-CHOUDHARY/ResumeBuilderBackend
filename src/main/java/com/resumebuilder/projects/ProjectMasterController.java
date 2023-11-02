@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.resumebuilder.DTO.ProjectDto;
 import com.resumebuilder.exception.ProjectException;
 import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.projects.responce.APIResponse;
@@ -36,6 +37,8 @@ public class ProjectMasterController {
 	@Autowired 
 	private UserRepository userRepository;
 	
+	@Autowired
+	private ProjectMasterServiceImplementation projectMasterServiceImplementation;
 	
 	@GetMapping("/employeesList")
     public List<User> getEmployees() {
@@ -86,4 +89,36 @@ public ResponseEntity<List<ProjectMaster>> getProjects(){
 		}
 
 }
+	
+	@PostMapping("/saveorupdate/employeeproject")
+    public ProjectMaster saveOrUpdateProject(@RequestBody ProjectDto projectDTO, Principal principal) {
+        return projectMasterService.saveOrUpdateEmployeeProject(projectDTO, principal);
+    }
+	
+	
+	/**
+     * Endpoint for delete an assigned project.
+     * 
+     * @param projectId        The ID of the project used for delete project in manager side.
+     * @param emp_project_id The ID of the assigned project used for delete assign project.
+     * @param principal      The Principal object representing the user.
+     * @return A response entity containing the edited project.
+     * @throws Exception If an error occurs during editing.
+     */
+	
+	// Soft delete a project and its assignment
+    @DeleteMapping("/delete/{emp_project_id}")
+    public ResponseEntity<String> deleteAssignProject(@PathVariable Long emp_project_id, Principal principal) {
+    	projectMasterService.deleteAssignProjectByEmployee(emp_project_id, principal);
+        return ResponseEntity.ok("Project deleted successfully.");
+    }
+    
+    
+    //list of assign projects 
+    @GetMapping("/assignProjectsList/{userId}")
+    public List<EmployeeProject> getAssignedProjectsByUserId(@PathVariable Long userId) {
+        return projectMasterServiceImplementation.getAssignedProjectsByUserId(userId);
+    }
+    
+	
 }
