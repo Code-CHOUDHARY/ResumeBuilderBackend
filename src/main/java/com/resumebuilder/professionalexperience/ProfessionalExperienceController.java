@@ -1,8 +1,10 @@
 package com.resumebuilder.professionalexperience;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,13 +50,24 @@ public class ProfessionalExperienceController {
     // Add a new experience
     @PostMapping("/add")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<ProfessionalExperience> addExperience(@Valid @RequestBody ProfessionalExperience experience) {
+    public ResponseEntity<ProfessionalExperience> addExperience(@Valid @RequestBody ProfessionalExperience experience,Principal principal) {
         try {
-            ProfessionalExperience addedExperience = experienceService.addExperience(experience);
+            ProfessionalExperience addedExperience = experienceService.addExperience(experience,principal);
             return ResponseEntity.status(HttpStatus.CREATED).body(addedExperience);
         } catch (ProfessionalExperienceException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } 
+    }
+    
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<ProfessionalExperience> updateExperience(@PathVariable Long id, @Valid @RequestBody ProfessionalExperience updatedExperience) {
+    	try {
+            ProfessionalExperience updated = experienceService.updateExperienceById(id, updatedExperience);
+            return ResponseEntity.ok(updated);
+        } catch (ExperienceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
     
     // Get all experiences

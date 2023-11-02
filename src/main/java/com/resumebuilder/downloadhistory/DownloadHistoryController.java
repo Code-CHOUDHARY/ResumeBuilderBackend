@@ -44,8 +44,8 @@ public class DownloadHistoryController {
      * @return The added download history record.
      */
     @PostMapping("/add")
-    public DownloadHistory addDownloadHistory(@RequestBody DownloadHistory downloadHistory,Principal principal ) {
-        return downloadHistoryService.saveDownloadHistory(downloadHistory,principal);
+    public DownloadHistory addDownloadHistory(@RequestBody DownloadHistory downloadHistory, Principal principal) {	
+    	return downloadHistoryService.saveDownloadHistory(downloadHistory,principal);        
     }
 	
     /**
@@ -93,6 +93,8 @@ public class DownloadHistoryController {
 
             if (resource.exists()) {
                 if (resource.getFile().delete()) {
+                	DownloadHistory history = new DownloadHistory();
+                	history.set_deleted(true);
                     return ResponseEntity.ok("File deleted successfully!");
                 } else {
                     return ResponseEntity.badRequest().body("File deletion failed.");

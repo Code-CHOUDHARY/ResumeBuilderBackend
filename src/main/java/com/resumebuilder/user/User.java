@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.education.Education;
+import com.resumebuilder.professionalexperience.ProfessionalExperience;
 import com.resumebuilder.projects.EmployeeProject;
 import com.resumebuilder.projects.ProjectMaster;
 import com.resumebuilder.reportingmanager.ReportingManager;
@@ -38,11 +39,11 @@ import lombok.*;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name="User")
+@Table(name = "User")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long user_id;	
+	private Long user_id;
 	@Column
 	private String full_name;
 	@Column(name = "email_id")
@@ -81,11 +82,11 @@ public class User {
 	@Column
 	private boolean is_deleted;
 
-	 @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	  @JoinTable(  name = "user_roles", 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "user_roles",
 //	        joinColumns = @JoinColumn(name = "user_id"), 
-	        inverseJoinColumns = @JoinColumn(name = "role_id"))
-	  private Set<Roles> roles = new HashSet<>();
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Roles> roles = new HashSet<>();
 
 	
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -94,38 +95,39 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "project_master_id")})
     private Set<ProjectMaster> projects = new HashSet<>();
 	
-	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "employee_project_mapping",
-            joinColumns = {@JoinColumn(name = "employee_Id")},
-            inverseJoinColumns = {@JoinColumn(name = "emp_project_id")})
+
+
+//	@ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "manager_project_mapping",
+//            joinColumns = {@JoinColumn(name = "manager_employee_Id")},
+//            inverseJoinColumns = {@JoinColumn(name = "project_master_id")})
+//    private Set<ProjectMaster> projects = new HashSet<>();
+
+	@ManyToMany
+	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
     private Set<EmployeeProject> assignedProjects = new HashSet<>();
 	
+
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //	private List<EmployeeProject> employeeProject = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Education> educations = new ArrayList<>();
 
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "employee_technology_mapping",
-	    joinColumns = @JoinColumn(name = "employee_Id"),
-	    inverseJoinColumns = @JoinColumn(name = "technology_id")
-	)
+	@JoinTable(name = "employee_technology_mapping", joinColumns = @JoinColumn(name = "employee_Id"), inverseJoinColumns = @JoinColumn(name = "technology_id"))
 	private Set<TechnologyMaster> technologies = new HashSet<>();
-	
-	 	@OneToMany(mappedBy = "user") // A user can be associated with many activities
-	    private List<ActivityHistory> activityHistories; // Reference to the ActivityHistory entity
 
+	@OneToMany(mappedBy = "user") // A user can be associated with many activities
+	private List<ActivityHistory> activityHistories; // Reference to the ActivityHistory entity
+	
+	
 	public User(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
 	}
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserRole appRole;
-   
-   
+
 }
