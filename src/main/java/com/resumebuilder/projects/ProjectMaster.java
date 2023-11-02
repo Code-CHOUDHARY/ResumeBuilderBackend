@@ -1,7 +1,7 @@
 package com.resumebuilder.projects;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +14,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -25,9 +27,9 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="Project_master")
+@Table(name = "Project_master")
 public class ProjectMaster {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long project_master_id;
@@ -42,16 +44,21 @@ public class ProjectMaster {
 	private String client_name;
 	private String organization_name;
 	private String project_summary;
+	private String technologies;
 	private String technology_stack;
 	private String roles_and_responsibility;
 	private Long modified_by;
+	private Long assign_by;
 	@UpdateTimestamp
 	@Column(name = "modified_on")
 	private LocalDateTime modified_on;
 	private boolean is_deleted;
-		
-	
+
 	@ManyToMany(mappedBy = "projects")
-    private Set<User> users = new HashSet<>();
+	private Set<User> users = new HashSet<>();
+
+//	@ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
 }
