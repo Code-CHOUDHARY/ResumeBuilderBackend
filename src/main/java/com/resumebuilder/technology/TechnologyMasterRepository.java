@@ -15,5 +15,16 @@ public interface TechnologyMasterRepository extends JpaRepository<TechnologyMast
 	@Query(value = "select * from technology_master where technology_name =:technology_name",nativeQuery = true)
 	List<TechnologyMaster> findByTechnologiesName(String technology_name);
 	
+	/**
+	 * Custom query to retrieve technology names from the TechnologyMaster entity
+	 * that start with a given input character (case-insensitive).
+	 *
+	 * @param input The input character for matching technology names.
+	 * @return A list of technology names matching the input character.
+	 */
+	
+	@Query("SELECT t.technology_name FROM TechnologyMaster t WHERE LOWER(t.technology_name) LIKE LOWER(CONCAT(?1, '%'))")
+    List<String> findSkillsStartingWith(String input);
+	
 
 }
