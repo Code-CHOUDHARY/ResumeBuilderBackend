@@ -19,11 +19,11 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 		//List<User>users=this.userRepo.findByIdIn(projects.getUserids());
 		List<User>users=this.userRepo.findAllById(projects.userids);
 			System.out.println(users);
-		EmployeeProject project=	 EmployeeProject.builder().projectTitle(projects.getProjectTitle())
-	          .startDate(projects.getStartDate())
-	          .endDate(projects.getEndDate())
+		EmployeeProject project=	 EmployeeProject.builder().project_title(projects.getProjectTitle())
+	          .start_date(projects.getStartDate())
+	          .end_date(projects.getEndDate())
 	          .current(projects.isCurrent())
-	          .showDates(projects.isShowDates())
+	          .show_dates(projects.isShowDates())
 	          .show_duration(projects.getShow_duration())
 	          .show_nothing(projects.isShow_nothing())
 	          .project_url(projects.getProject_url())
@@ -45,11 +45,11 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 		//List<User>users=this.userRepo.findByIdIn(projects.getUserids());
 			EmployeeProject project=this.projectRepo.findById(project_id).orElseThrow(()->new DataMissingException("Project", "ProjectId", project_id));
 			
-			project=	EmployeeProject.builder().projectTitle(projects.getProjectTitle())
-	          .startDate(projects.getStartDate())
-	          .endDate(projects.getEndDate())
+			project=	EmployeeProject.builder().project_title(projects.getProjectTitle())
+	          .start_date(projects.getStartDate())
+	          .end_date(projects.getEndDate())
 	          .current(projects.isCurrent())
-	          .showDates(projects.isShowDates())
+	          .show_dates(projects.isShowDates())
 	          .show_duration(projects.getShow_duration())
 	          .show_nothing(projects.isShow_nothing())
 	          .project_url(projects.getProject_url())
