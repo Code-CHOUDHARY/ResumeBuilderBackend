@@ -1,5 +1,8 @@
 package com.resumebuilder.downloadhistory;
 
-public class DownloadHistoryServiceImplementation {
+import org.springframework.stereotype.Service;
+
+@Service
+public class DownloadHistoryServiceImplementation implements DownloadHistoryService{
 
 }

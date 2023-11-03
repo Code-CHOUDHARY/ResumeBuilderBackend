@@ -1,16 +1,20 @@
 package com.resumebuilder.resumetemplates;
 
+import java.time.Period;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.io.JsonEOFException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -115,57 +119,106 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 
 	@Override
 	public String replaceTemplateData(String TemplateId, String UserId) {
+		StringBuilder htmlOutPut=new StringBuilder();
+		try {
 		ResumeTemplates template=getTemplateById(TemplateId);
 		User user=userService.findUserByIdUser(Long.parseLong(UserId));
-		return expService.getTotalExperience(UserId);
+		//stores each section template as list
+		List<String> templateList=List.of(template.getProfile_summary(),template.getProfessional_experience(),template.getProjects(),template.getCertificates());
+		Map<String,Object> relationalMap=null;
+		
+			//get all relations of placeholder-userData
+         relationalMap=getReplacerMap(user.toString());
+         if(relationalMap.size()>0) {
+        	 
+        	 for(String templateString:templateList) {
+        		 
+        		 String out=replacePlaceholder(templateString, relationalMap);
+        		 htmlOutPut.append(out);
+        	 }
+         }else {
+        	 new ResumeTemplateExceptions("unable to get User Details");
+         }
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return htmlOutPut.toString();
 	}
  
 
 	public Map<String,Object> getReplacerMap(String obj) throws JsonMappingException, JsonProcessingException{
 //		Gson json=new Gson();
 //		 User user = json.fromJson(obj, User.class);
-		 ObjectMapper mapper = new ObjectMapper();
-		 mapper.registerModule(new JavaTimeModule());
-		 mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-		User user=mapper.readValue(obj, User.class);
-		System.out.println("Role"+user.getCurrent_role());
 		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("<%Name%>", user.getFull_name());
-		map.put("<%Education%>",user.getEducations().toString());
-		map.put("<%DateOfBirth%>",user.getDate_of_birth());
-		map.put("<%CurrentRole%>", user.getCurrent_role());
-		map.put("<%Email%>", user.getEmail());
-		map.put("<%Gender%>", user.getGender());
-		map.put("<%CurrentLocation%>", user.getLocation());
-		map.put("<%Mobile%>", user.getMobile_number());
-		map.put("<%Projects%>", user.getProjects().toString());
-		map.put("<%LinkedIn%>", user.getLinkedin_lnk());
-		map.put("<%Blogs%>", user.getBlogs_link());
-		map.put("<%Total Experience%>",expService.getTotalExperience(user.getUser_id().toString()));
-		return map;
+		 try {
+			ObjectMapper mapper = new ObjectMapper();
+			 mapper.registerModule(new JavaTimeModule());
+			 mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+			User user=mapper.readValue(obj, User.class);
+			
+			map.put("<%Name%>", user.getFull_name());
+			map.put("<%Education%>",user.getEducations().toString());
+			map.put("<%DateOfBirth%>",user.getDate_of_birth());
+			map.put("<%CurrentRole%>", user.getCurrent_role());
+			map.put("<%Email%>", user.getEmail());
+			map.put("<%Gender%>", user.getGender());
+			map.put("<%CurrentLocation%>", user.getLocation());
+			map.put("<%Mobile%>", user.getMobile_number());
+			map.put("<%Projects%>", user.getProjects().toString());
+			map.put("<%LinkedIn%>", user.getLinkedin_lnk());
+			map.put("<%Blogs%>", user.getBlogs_link());
+			map.put("<%Total Experience%>",countExperience(user.getUser_id().toString()));
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error while parsing user object");
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		 return map;
 	}
 	
 	
-//	public String countExperience(String userId) {
-//		String totalExperience="";
-//		// check weather the user Exists or not
-//		try {
-//			if(userService.checkUserExists(userId)){
-//				String exp= expService.getTotalExperience(userId);
-//				totalExperience=exp;
-//			}else {
-//				logger.info("unable find the user-->"+userId);
-//			}
-//		} catch (UserNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			logger.info("unable find the user-->"+userId);
-//			totalExperience="";
-//		}catch(Exception e) {
-//			logger.info("error while counting experienc-->/n"+e);
-//		}
-//	   	return totalExperience;
-//	}
-//	
+	public String countExperience(String userId) {
+		String totalExperience="";
+		// check weather the user Exists or not
+		String months=expService.getTotalExperience(userId);
+		Period period = Period.ofMonths( Integer.parseInt(months)).normalized();
+		if(period.getYears()<=0) {
+			totalExperience=period.getMonths() +" Months";
+		}else if(period.getMonths()<=0){
+			totalExperience=period.getYears() +" Years";
+		}else {
+			totalExperience=period.getYears() +" Years "+period.getMonths()+" Months";
+		}
+		
+	   	return totalExperience;
+	}
+	
+	
+	public String replacePlaceholder(String template, Map<String, Object> map) {
+		
+		if (template != null && template != "") {
+			for (Entry<String, Object> entry : map.entrySet()) {
+				
+				String key = entry.getKey();
+				String value = (String) entry.getValue();
+				System.out.println(key+"------------"+value);
+				if (template.contains(key)) {
+					if (value == null || value == "") {
+						template = template.replaceAll(key, "");
+					} else {
+						template = template.replaceAll(key, value);
+					}
+				}
+			}
+		}
+		return template;
+	}
 	
 }
