@@ -115,7 +115,7 @@ public ResponseEntity<List<ProjectMaster>> getProjects(){
     
     
     //list of assign projects 
-    @GetMapping("/assignProjectsList/{userId}")
+    @GetMapping("/employeeProjectsList/{userId}")
     public List<EmployeeProject> getAssignedProjectsByUserId(@PathVariable Long userId) {
         return projectMasterServiceImplementation.getAssignedProjectsByUserId(userId);
     }

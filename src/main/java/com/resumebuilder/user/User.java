@@ -101,11 +101,6 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "emp_project_id")})
     private Set<EmployeeProject> assignedProjects = new HashSet<>();
 	
-//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//	private List<EmployeeProject> employeeProject = new ArrayList<>();
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Education> educations = new ArrayList<>();
 
 	
 	@ManyToMany(cascade = CascadeType.ALL)

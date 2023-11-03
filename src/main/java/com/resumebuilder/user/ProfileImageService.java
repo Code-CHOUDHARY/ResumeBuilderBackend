@@ -22,7 +22,8 @@ public class ProfileImageService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public static final String baseDirectory = "upload/";
+	public static String fileSeparator = System.getProperty("file.separator");
+	public static final String baseDirectory = "upload"+fileSeparator;
 	
 	public String uploadProfileImage(MultipartFile imageFile, Long userId) throws IOException, java.io.IOException {
         String originalFileName = imageFile.getOriginalFilename();
@@ -34,8 +35,8 @@ public class ProfileImageService {
         }
 
         // Create the directory structure based on user's employee_id
-        String userDirectory = baseDirectory + userId + "/";
-        String profileImageDirectory = userDirectory + "profileImage/";
+        String userDirectory = baseDirectory + userId + fileSeparator;
+        String profileImageDirectory = userDirectory + "profileImage"+fileSeparator;
 
         File userDir = new File(userDirectory);
         File profileDir = new File(profileImageDirectory);

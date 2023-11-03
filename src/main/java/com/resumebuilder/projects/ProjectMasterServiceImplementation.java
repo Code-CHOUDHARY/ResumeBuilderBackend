@@ -3,26 +3,10 @@ package com.resumebuilder.projects;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.resumebuilder.DTO.ProjectDto;
-import com.resumebuilder.DTO.ProjectMasterDto;
-import com.resumebuilder.exception.DataMissingException;
-import com.resumebuilder.exception.ProjectException;
-import com.resumebuilder.exception.ProjectNotFoundException;
-import com.resumebuilder.exception.RoleException;
-import com.resumebuilder.exception.UserNotFoundException;
-import com.resumebuilder.projects.ProjectMaster.ProjectMasterBuilder;
-import com.resumebuilder.reportingmanager.ReportingManager;
-import com.resumebuilder.security.approle.ERole;
-import com.resumebuilder.security.approle.UserRole;
-import com.resumebuilder.security.response.MessageResponse;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 
@@ -236,6 +220,7 @@ if(project!=null) {
 		}
 	}
 
+	@Transactional
 	public List<EmployeeProject> getAssignedProjectsByUserId(Long userId) {
 		return employeeProjectRepository.findByUsersUserId(userId);
 	}
