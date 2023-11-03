@@ -95,6 +95,11 @@ public class GlobalExceptionHandler {
     public CustomErrorResponse handleProjectException(ProjectException ex) {
         return new CustomErrorResponse(ex.getMessage());
     }
-
+    
+    @ExceptionHandler(CertificateNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CustomErrorResponse handleCertificateNotFoundException(CertificateNotFoundException ex) {
+        return new CustomErrorResponse(ex.getMessage());
+    }
 
 }

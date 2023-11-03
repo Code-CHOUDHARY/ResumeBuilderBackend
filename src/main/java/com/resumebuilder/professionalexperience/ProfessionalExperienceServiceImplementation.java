@@ -35,7 +35,6 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 		
 	User user = userRepository.findByEmail_Id(principal.getName());
 		
-		System.out.println(experience.getUser());
 		
 		if (experience == null) {
 			throw new ProfessionalExperienceException("Professional Experience data is empty.");
@@ -97,8 +96,9 @@ public class ProfessionalExperienceServiceImplementation implements Professional
         existingExperience.setOrganization_name(updatedExperience.getOrganization_name());
         existingExperience.setLocation(updatedExperience.getLocation());
         existingExperience.setStart_date(updatedExperience.getStart_date());
-        existingExperience.setEnd_date(updatedExperience.getEnd_date());        
-		
+        existingExperience.setEnd_date(updatedExperience.getEnd_date());     
+        existingExperience.set_deleted(updatedExperience.is_deleted());
+        
 		return experienceRepo.save(existingExperience);
 	}
 
