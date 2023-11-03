@@ -23,18 +23,26 @@ public class EducationServiceImplementation implements EducationService{
     @Autowired
     private UserRepository userRepository;
 
+    
     @Override
     public Education addEducation(Education education, Principal principal) {
         try {
             User user = userRepository.findByEmailId(principal.getName());
-            Education newEducation = educationRepository.findByDegree(education.getDegree());
 
-            if (newEducation != null) {
-                if (newEducation.is_deleted()) {
+            // Check if an education entry with the same degree and user ID exists
+            Education existingEducation = educationRepository.findByDegreeAndUser(education.getDegree(), user);
+
+            if (existingEducation != null) {
+                // Check if it's a soft-deleted entry
+                if (existingEducation.is_deleted()) {
+                    // Restore the soft-deleted entry
+                	Education newEducation = new Education();
                 	newEducation.setSchool_college(education.getSchool_college());
+                	newEducation.setDegree(education.getDegree());
                 	newEducation.setStart_date(education.getStart_date());
                 	newEducation.setEnd_date(education.getEnd_date());
                 	newEducation.setShow_dates(false);
+                	newEducation.setUser(user);
 
                     // Calculate and set showDuration
                     String showDuration = calculateShowDuration(newEducation.getStart_date(), newEducation.getEnd_date());
@@ -44,28 +52,40 @@ public class EducationServiceImplementation implements EducationService{
                     newEducation.setModified_by(user.getUser_id());
                     newEducation.setModified_on(LocalDateTime.now());
                     newEducation.set_deleted(false);
-                    newEducation.setUser(user);
+
                     educationRepository.save(newEducation);
 
                     return newEducation;
                 } else {
-                    throw new EducationException("Education with the same degree already exists: " + education.getDegree());
+                    throw new EducationException("Education with the same degree already exist.");
                 }
             } else {
-                education.setModified_by(user.getUser_id());
-                education.setModified_on(LocalDateTime.now());
-                education.set_deleted(false);
-                education.setUser(user);
-                // Calculate and set showDuration
-                String showDuration = calculateShowDuration(education.getStart_date(), education.getEnd_date());
-                education.setShow_duration(showDuration);
-                education = educationRepository.save(education);
-                return education;
+            	
+            	//create new education entry
+            	//Education createEducation = new Education();
+            	// Calculate and set showDuration
+              String showDuration = calculateShowDuration(education.getStart_date(), education.getEnd_date());
+              education.setShow_duration(showDuration);
+              education.setModified_by(user.getUser_id());
+              education.setModified_on(LocalDateTime.now());
+              education.setSchool_college(education.getSchool_college());
+              education.setDegree(education.getDegree());
+              education.setStart_date(education.getStart_date());
+              education.setEnd_date(education.getEnd_date());
+              education.setShow_dates(false);
+              education.setShow_nothing(false);
+              education.setUser(user);
+              education.set_deleted(false);
+              education = educationRepository.save(education);
+            	
+            	return education;
+
             }
         } catch (Exception e) {
-            throw new EducationException(e.getMessage());
+            throw new EducationException("Education with the same degree already exist.");
         }
     }
+
     
    
 
@@ -101,35 +121,41 @@ public class EducationServiceImplementation implements EducationService{
 
 
     @Override
-    public Education updateEducation(Long id, Education updateEducation, Principal principal) {
+    public Education updateEducation(Long educationId, Education updatedEducation, Principal principal) {
         try {
+            // Find the user associated with the authenticated principal
             User user = userRepository.findByEmailId(principal.getName());
-            Optional<Education> optionalExistingEducation = educationRepository.findById(id);
 
-            if (optionalExistingEducation.isPresent()) {
-                Education existingEducation = optionalExistingEducation.get();
-                
-                if (existingEducation.is_deleted()) {
-                    throw new EducationException("Education does not exist.");
-                }
+            // Find the existing education entry by its ID
+            Education existingEducation = educationRepository.findById(educationId).orElse(null);
 
-                // Update the education details
-                existingEducation.setSchool_college(updateEducation.getSchool_college());
-                existingEducation.setStart_date(updateEducation.getStart_date());
-                existingEducation.setEnd_date(updateEducation.getEnd_date());
-
-                // Calculate and set showDuration
-                String showDuration = calculateShowDuration(existingEducation.getStart_date(), existingEducation.getEnd_date());
-                existingEducation.setShow_duration(showDuration);
-
-                existingEducation.setModified_by(user.getUser_id());
-                existingEducation.setModified_on(LocalDateTime.now());
-
-                educationRepository.save(existingEducation);
-                return existingEducation;
-            } else {
+            if (existingEducation == null) {
                 throw new EducationException("Education does not exist.");
             }
+
+            // Check if the existing education entry belongs to the current user
+            if (!existingEducation.getUser().equals(user)) {
+                throw new EducationException("You are not authorized to update this education entry");
+            }
+
+            // Update the fields of the existing education entry
+            existingEducation.setDegree(updatedEducation.getDegree());
+            existingEducation.setSchool_college(updatedEducation.getSchool_college());
+            existingEducation.setStart_date(updatedEducation.getStart_date());
+            existingEducation.setEnd_date(updatedEducation.getEnd_date());
+
+            // Calculate and set showDuration
+            String showDuration = calculateShowDuration(existingEducation.getStart_date(), existingEducation.getEnd_date());
+            existingEducation.setShow_duration(showDuration);
+
+            existingEducation.setShow_nothing(updatedEducation.isShow_nothing());
+            existingEducation.setModified_by(user.getUser_id());
+            existingEducation.setModified_on(LocalDateTime.now());
+
+            // Save the updated education entry
+            existingEducation = educationRepository.save(existingEducation);
+
+            return existingEducation;
         } catch (Exception e) {
             throw new EducationException(e.getMessage());
         }

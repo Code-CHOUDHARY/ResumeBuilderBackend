@@ -23,5 +23,11 @@ public interface EducationRepository extends JpaRepository<Education, Long>{
 	 
 	 @Query("SELECT e FROM Education e WHERE e.user = :user AND e.degree = :degree")
 	 Education findByUserAndDegree(@Param("user") User user, @Param("degree") String degree);
+	 
+	 @Query("SELECT e FROM Education e WHERE e.degree = :degree AND e.user = :user")
+	 Education findByDegreeAndUser(@Param("degree") String degree, @Param("user") User user);
+	 
+	 @Query("SELECT e FROM Education e WHERE e.degree = :degree AND e.user = :user AND e.is_deleted = true")
+	 Education findSoftDeletedByDegreeAndUser(@Param("degree") String degree, @Param("user") User user);
 
 }
