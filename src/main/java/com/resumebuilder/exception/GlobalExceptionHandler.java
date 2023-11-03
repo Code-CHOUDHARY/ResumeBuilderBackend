@@ -96,11 +96,17 @@ public class GlobalExceptionHandler {
         return new CustomErrorResponse(ex.getMessage());
     }
     
+
     @ExceptionHandler(EducationException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public CustomErrorResponse handleEducationException(EducationException ex) {
         return new CustomErrorResponse(ex.getMessage());
     }
 
+    @ExceptionHandler(CertificateNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CustomErrorResponse handleCertificateNotFoundException(CertificateNotFoundException ex) {
+        return new CustomErrorResponse(ex.getMessage());
+    }
 
 }

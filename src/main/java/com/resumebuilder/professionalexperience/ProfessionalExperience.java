@@ -32,12 +32,12 @@ public class ProfessionalExperience {
 	private String end_date;
 	private boolean current;
 	private boolean show_dates;
-	private String show_duration;
+	private boolean show_duration;
 	private boolean show_nothing;
 	private boolean is_deleted;
 	
 	@ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "user_id")
     private User user; // Reference to the User entity
 
 }
