@@ -33,8 +33,10 @@ import java.util.*;
 public class BulkUploadEmployeeService {
 
     public static final Logger logger = LogManager.getLogger(BulkUploadEmployeeService.class);
+    
+    public static String fileSeparator = System.getProperty("file.separator");
 
-    public static final String EXCEL_TEMPLATE_DIRECTORY = "upload/template/employee";
+    public static final String EXCEL_TEMPLATE_DIRECTORY = "upload"+fileSeparator+"template"+fileSeparator+"employee";
 
     @Autowired
     private JavaMailSender mailSender;
