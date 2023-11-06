@@ -38,6 +38,4 @@ public class Certifications {
     @JoinColumn(name = "employee_id")
     private User user; // Reference to the User entity
 
-
-
 }

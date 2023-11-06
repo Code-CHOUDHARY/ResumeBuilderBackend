@@ -1,6 +1,8 @@
 package com.resumebuilder.certifications;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,5 +93,44 @@ public class CertificationsServiceImplementation implements CertificationsServic
 	           // Add checks for other fields as needed
 	           false;
 	}
+	
+	@Override
+	public void deleteCertificate(Long certificateId, Principal principal) {
+		Certifications certificate = certificationsRepository.findById(certificateId)
+                .orElseThrow(() -> new CertificateNotFoundException("Certificate not found"));
+
+        // Check if the user is authorized to delete this certificate (e.g., based on user ID or role)
+        if (!isAuthorizedToDeleteCertificate(certificate, principal)) {
+            throw new CertificateNotFoundException("You are not authorized to delete this certificate");
+        }
+
+        // Set the 'deleted' flag to true to mark it as soft-deleted
+        certificate.set_deleted(true);
+
+        // Save the updated certificate
+        certificationsRepository.save(certificate);
+    }
+
+    // You may need to implement a method to check if the user is authorized to delete the certificate
+    private boolean isAuthorizedToDeleteCertificate(Certifications certificate, Principal principal) {
+        // Implement your authorization logic here (e.g., based on user roles or ownership)
+        // For example, you can compare the certificate's user with the authenticated user.
+        User user = userRepository.findByEmail_Id(principal.getName());
+        return certificate.getUser().equals(user);
+    }
+
+	@Override
+	public Optional<Certifications> getCertificationsById(Long certificationId) {
+		// TODO Auto-generated method stub
+		
+		 Optional<Certifications> certifications = certificationsRepository.findByCertification_id(certificationId);
+		 if (certifications.isPresent()) {
+	            return Optional.of(certifications.get());
+	        } else {
+	            // Handle the case where no certification is found
+	            throw new CertificateNotFoundException("certification not found for the given certification ID");
+	        }
+	}
+
 
 }
