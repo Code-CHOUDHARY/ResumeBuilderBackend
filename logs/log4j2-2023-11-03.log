@@ -2747,3 +2747,22 @@
 2023-11-03 17:18:16.473  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2023-11-03 17:18:16.474  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
 2023-11-03 17:18:16.475  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] o.s.w.s.DispatcherServlet                : Completed initialization in 1 ms
+2023-11-03 19:08:35.165  INFO dell-OptiPlex-3060 --- [(179)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2023-11-03 19:08:35.168  INFO dell-OptiPlex-3060 --- [(179)-127.0.0.1] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-03 19:08:35.168  INFO dell-OptiPlex-3060 --- [(179)-127.0.0.1] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-03 19:08:35.169  INFO dell-OptiPlex-3060 --- [(179)-127.0.0.1] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-03 19:08:35.171  WARN dell-OptiPlex-3060 --- [(179)-127.0.0.1] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-25 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+2023-11-03 19:08:35.172  INFO dell-OptiPlex-3060 --- [(179)-127.0.0.1] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-03 19:08:35.192  INFO dell-OptiPlex-3060 --- [(179)-127.0.0.1] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-03 19:08:35.205  INFO dell-OptiPlex-3060 --- [(179)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-03 19:08:35.206  INFO dell-OptiPlex-3060 --- [(179)-127.0.0.1] c.z.h.HikariDataSource                   : HikariPool-25 - Shutdown initiated...
+2023-11-03 19:08:35.217  INFO dell-OptiPlex-3060 --- [(179)-127.0.0.1] c.z.h.HikariDataSource                   : HikariPool-25 - Shutdown completed.

@@ -76,25 +76,6 @@ public class ProfileImageService {
     }
 
 	
-//	public byte[] getProfileImageByUserId(Long userId) throws IOException, FileNotFoundException, java.io.IOException {
-//        User user = userRepository.findById(userId).orElse(null);
-//        if (user != null) {
-//            String imagePath = user.getUser_image();
-//
-//            if (imagePath != null && !imagePath.isEmpty()) {
-//                File imageFile = new File(imagePath);
-//
-//                try (FileInputStream fileInputStream = new FileInputStream(imageFile)) {
-//                    return IOUtils.toByteArray(fileInputStream);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                    throw e;
-//                }
-//            }
-//        }
-//
-//        throw new FileNotFoundException("Profile image not found");
-//    }
 
 	public byte[] getProfileImageByUserId(Long userId) throws IOException, FileNotFoundException, java.io.IOException {
 	    User user = userRepository.findById(userId).orElse(null);
