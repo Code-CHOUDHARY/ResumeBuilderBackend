@@ -1,8 +1,11 @@
 package com.resumebuilder.bulkupload;
 
 import com.resumebuilder.DTO.EmployeeBulkUploadDto;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserToJsonConverter;
+
 import jakarta.mail.internet.MimeMessage;
 import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
@@ -44,6 +47,9 @@ public class BulkUploadEmployeeService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private ActivityHistoryService activityHistoryService;
     
     
     /**
@@ -305,6 +311,15 @@ public class BulkUploadEmployeeService {
         newUser.setModified_on(LocalDateTime.now());
 
         User user = userRepository.save(newUser);
+        
+         String activityType = "Bulk upload";
+	     String description = "Bulk upload of employees";
+	     
+	     UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+	     
+	     String newData = userToJsonConverter.convertUserToJSON(newUser);
+	     
+	     activityHistoryService.addActivity(activityType, description, newData, null, currentUser.getFull_name());
         
         // Send the email with the generated password
         sendEmailPassword(newUser, generatedPassword);

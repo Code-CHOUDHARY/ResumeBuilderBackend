@@ -30,10 +30,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.DTO.RolesDto;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.roles.Roles;
 import com.resumebuilder.roles.RolesRepository;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserToJsonConverter;
+
 import io.jsonwebtoken.io.IOException;
 import jakarta.transaction.Transactional;
 
@@ -53,6 +56,9 @@ public class BulkUploadRoleService {
 
         @Autowired
         private RolesRepository rolesRepository;
+        
+        @Autowired
+        private ActivityHistoryService activityHistoryService;
         
         
         /**
@@ -175,6 +181,13 @@ public class BulkUploadRoleService {
             newRole.setModified_by(currentUser.getUser_id());
             logger.info("Role modified by- "+currentUser.getFull_name());
             newRole.setModified_on(LocalDateTime.now());
+            
+
+            String activityType = "Bulk upload";
+   	     	String description = "Bulk upload of Roles";
+   	     
+   	     activityHistoryService.addActivity(activityType, description, bulkUploadDto.getRole_name(), null, currentUser.getFull_name());
+            
             rolesRepository.save(newRole);
         }
         
