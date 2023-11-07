@@ -438,7 +438,7 @@ public class UserServiceImplementation implements UserService{
 			 
 			 activityHistoryService.
 			    addActivity
-			    (activityType, description,newData ,oldData, null);
+			    (activityType, description,newData ,oldData, principal.getName());
 			}
 		catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
