@@ -55,7 +55,7 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 				          .project_summary(projects.getProject_summary())
 				          .technology_stack(projects.getTechnology_stack())
 				          .roles_and_responsibility(projects.getRoles_and_responsibility())
-				          .modified_by(user.getUser_id()).build();
+				          .modified_by(user.getFull_name()).build();
 		    
 			return projectMasterRepository.save(projectMaster);
 			
@@ -85,7 +85,7 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 		project.setProject_summary(projects.getProject_summary());
 		project.setTechnology_stack(projects.getTechnology_stack());
 		project.setRoles_and_responsibility(projects.getRoles_and_responsibility());
-		project.setModified_by(user.getUser_id());
+		project.setModified_by(user.getFull_name());
 		return this.projectMasterRepository.save(project);
 	} catch (Exception e) {
 		
@@ -151,7 +151,7 @@ if(project!=null) {
 
 		// Create or update the project
 		ProjectMaster project = projectDTOToEntity(projectDTO, principal);
-		project.setModified_by(user.getUser_id());
+		project.setModified_by(user.getFull_name());
 		project.setModified_on(LocalDateTime.now());
 		project = projectMasterRepository.save(project);
 
@@ -170,8 +170,8 @@ if(project!=null) {
 		employeeProject.setProject_summary(project.getProject_summary());
 		employeeProject.setTechnology_stack(project.getTechnology_stack());
 		employeeProject.setRoles_and_responsibility(project.getRoles_and_responsibility());
-		employeeProject.setAssign_by(user.getUser_id());
-		employeeProject.setModified_by(user.getUser_id());
+		employeeProject.setAssign_by(user.getFull_name());
+		employeeProject.setModified_by(user.getFull_name());
 		employeeProject.setModified_on(LocalDateTime.now());
 
 		// Save the EmployeeProject
@@ -203,7 +203,7 @@ if(project!=null) {
 		project.setTechnology_stack(projectDTO.getTechnology_stack());
 		project.setRoles_and_responsibility(projectDTO.getRoles_and_responsibility());
 		// project.setAssign_by(user.getUser_id());
-		project.setModified_by(user.getUser_id());
+		project.setModified_by(user.getFull_name());
 		project.setModified_on(LocalDateTime.now());
 		return project;
 	}
@@ -215,7 +215,7 @@ if(project!=null) {
 		EmployeeProject assignProject = employeeProjectRepository.findById(emp_project_id).orElse(null);
 		if (assignProject != null) {
 			assignProject.set_deleted(true);
-			assignProject.setModified_by(currentUser.getUser_id());
+			assignProject.setModified_by(currentUser.getFull_name());
 			employeeProjectRepository.save(assignProject);
 		}
 	}

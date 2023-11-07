@@ -184,7 +184,7 @@ public class BulkUploadTechnologyService {
 
     private void createTechnology(TechnologyMaster newTechnology, TechnologyDto bulkUploadDto, User currentUser) {
     	newTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
-    	newTechnology.setModified_by(currentUser.getUser_id());
+    	newTechnology.setModified_by(currentUser.getFull_name());
     	newTechnology.setModified_on(LocalDateTime.now());
     	
     	 String activityType = "Bulk upload";
@@ -205,7 +205,7 @@ public class BulkUploadTechnologyService {
 
     private void updateTechnology(TechnologyMaster existingTechnology, TechnologyDto bulkUploadDto, User currentUser) {
     	existingTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
-    	existingTechnology.setModified_by(currentUser.getUser_id());
+    	existingTechnology.setModified_by(currentUser.getFull_name());
     	existingTechnology.setModified_on(LocalDateTime.now());
     	
     		

@@ -55,12 +55,12 @@ public class EmployeeProject {
 	private String technology_stack;
 	private String roles_and_responsibility;
 	@Column(name = "assign_by")
-	private Long assign_by;
+	private String assign_by;
 	@UpdateTimestamp
 	@Column(name = "modified_on")
 	private LocalDateTime modified_on;
 	private boolean is_deleted;
-	private Long modified_by;
+	private String modified_by;
 
 	@ManyToMany(mappedBy = "assignedProjects")
 	private Set<User> users = new HashSet<>();

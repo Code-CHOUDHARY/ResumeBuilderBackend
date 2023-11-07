@@ -63,7 +63,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 			if(existingTechnology != null) {
 				if(existingTechnology.is_deleted()) {
 					existingTechnology.set_deleted(false);
-					existingTechnology.setModified_by(user.getUser_id());
+					existingTechnology.setModified_by(user.getFull_name());
 					return technologyMasterRepository.save(existingTechnology);
 				}else {
 					throw new TechnologyException("Technology with the same name already exist.");
@@ -73,7 +73,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 			TechnologyMaster saveTechnology = new TechnologyMaster();
 			saveTechnology.setTechnology_name(technology.getTechnology_name());
 			saveTechnology.set_deleted(false);
-			saveTechnology.setModified_by(user.getUser_id());
+			saveTechnology.setModified_by(user.getFull_name());
 
 	    if (technology.getTechnology_name() == null || technology.getTechnology_name().isEmpty()) {
 	        throw new TechnologyException("Technology name cannot be null or empty");
@@ -114,7 +114,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 
 	        // Update the role properties
 	        existingTechnology.setTechnology_name(updatedTechnology.getTechnology_name());
-	        existingTechnology.setModified_by(user.getUser_id());
+	        existingTechnology.setModified_by(user.getFull_name());
 
                 
                 String activityType = "Edit Technology";

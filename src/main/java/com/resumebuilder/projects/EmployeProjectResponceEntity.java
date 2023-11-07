@@ -47,7 +47,7 @@ public class EmployeProjectResponceEntity {
 	private String roles_and_responsibility;
 	
 	@Column(name = "assign_by")
-	private Long assign_by;
+	private String assign_by;
 	
 	@UpdateTimestamp
 	@Column(name = "modified_on")
@@ -55,6 +55,6 @@ public class EmployeProjectResponceEntity {
 	
 	private boolean is_deleted;
 	
-	private Long modified_by;
+	private String modified_by;
 	List<Long>userids;
 }

@@ -29,7 +29,7 @@ public class TechnologyMaster {
 	private Long technology_id;
 	private String technology_name;
 	@Column(name = "modified_by")
-	private Long modified_by;
+	private String modified_by;
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
 	@Column(name="is_deleted", columnDefinition = "BOOLEAN DEFAULT false")

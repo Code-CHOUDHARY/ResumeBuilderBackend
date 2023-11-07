@@ -142,7 +142,7 @@ public class UserServiceImplementation implements UserService{
 	                newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
 	                newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 	                newUser.setBlogs_link(signUpRequest.getBlogs_link());
-	                newUser.setModified_by(currentuser.getUser_id());
+	                newUser.setModified_by(currentuser.getFull_name());
 	                String strRoles = signUpRequest.getRole();
 	                UserRole appRole;
 
@@ -210,7 +210,7 @@ public class UserServiceImplementation implements UserService{
 	            newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
 	            newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 	            newUser.setBlogs_link(signUpRequest.getBlogs_link());
-	            newUser.setModified_by(currentuser.getUser_id());
+	            newUser.setModified_by(currentuser.getFull_name());
 
 	            String strRoles = signUpRequest.getRole();
 	            UserRole appRole;
@@ -256,7 +256,7 @@ public class UserServiceImplementation implements UserService{
 				 String activityType = "Add Employee";
 			     String description = "New Employee Added";
 			     String newData = userToJsonConverter.convertUserToJSON(newUser);
-			     activityHistoryService.addActivity(activityType, description, newData, null, principal.getName());
+			     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
 
 	            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
 	        }
@@ -403,7 +403,7 @@ public class UserServiceImplementation implements UserService{
         if (updatedUser.getBlogs_link() != null) {
             existingUser.setBlogs_link(updatedUser.getBlogs_link());
         }
-        existingUser.setModified_by(currentuser.getUser_id());
+        existingUser.setModified_by(currentuser.getFull_name());
         
         
         // Compare the fields and identify changes
@@ -438,7 +438,7 @@ public class UserServiceImplementation implements UserService{
 			 
 			 activityHistoryService.
 			    addActivity
-			    (activityType, description,newData ,oldData, principal.getName());
+			    (activityType, description,newData ,oldData, currentuser.getFull_name());
 			}
 		catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
