@@ -2,16 +2,31 @@ package com.resumebuilder.projects;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.resumebuilder.DTO.ProjectDto;
+import com.resumebuilder.DTO.ProjectMasterDto;
+import com.resumebuilder.exception.DataMissingException;
 import com.resumebuilder.exception.ProjectException;
+import com.resumebuilder.exception.ProjectNotFoundException;
 import com.resumebuilder.exception.RoleException;
+import com.resumebuilder.exception.UserNotFoundException;
+import com.resumebuilder.projects.ProjectMaster.ProjectMasterBuilder;
+import com.resumebuilder.reportingmanager.ReportingManager;
+import com.resumebuilder.security.approle.ERole;
+import com.resumebuilder.security.approle.UserRole;
+import com.resumebuilder.security.response.MessageResponse;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProjectMasterServiceImplementation implements ProjectMasterService{
@@ -22,6 +37,8 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 	@Autowired
 	private UserRepository userRepository;
 	
+	
+	
 	@Autowired
 	private EmployeeProjectRepository employeeProjectRepository;
 	
@@ -31,31 +48,30 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
      * @param The project to be added.
      * @principal represent user identity.
      * @return Save the project.
+	 * @throws Exception 
      */
 	
 	@Override
-	public ProjectMaster addProject(ProjectMaster projectMaster, Principal principal) {
+	public ProjectMaster addProject(ProjectMaster projects, Principal principal) {
 		try {
+		
 			User user = userRepository.findByEmail_Id(principal.getName());
-			ProjectMaster pm = new ProjectMaster();
-			pm.setProject_title(projectMaster.getProject_title());
-			pm.setProject_summary(projectMaster.getProject_summary());
-			pm.setStart_date(projectMaster.getStart_date());
-			pm.setEnd_date(projectMaster.getEnd_date());
-			pm.setOrganization_name(projectMaster.getOrganization_name());
-			pm.setClient_name(projectMaster.getClient_name());
-			pm.setModified_by(user.getUser_id());
-			pm.setModified_on(projectMaster.getModified_on());
-			pm.setCurrent(false);
-			pm.setProject_url(projectMaster.getProject_url());
-			pm.setRoles_and_responsibility(projectMaster.getRoles_and_responsibility());
-			pm.setShow_dates(false);
-			pm.setShow_duration(projectMaster.getShow_duration());
-			pm.setShow_nothing(false);
-			pm.setTechnology_stack(projectMaster.getTechnology_stack());
-		    
-			user.getProjects().add(pm);
-		    userRepository.save(user);
+			ProjectMaster projectMaster = ProjectMaster.builder()
+					.project_title(projects.getProject_title())
+					.project_master_id(projects.getProject_master_id())
+					   .start_date(projects.getStart_date())
+				          .end_date(projects.getEnd_date())
+				          .current(projects.isCurrent())
+				          .show_dates(projects.isShow_dates())
+				          .show_duration(projects.getShow_duration())
+				          .show_nothing(projects.isShow_nothing())
+				          .project_url(projects.getProject_url())
+				          .client_name(projects.getProject_url())
+				          .organization_name(projects.getOrganization_name())
+				          .project_summary(projects.getProject_summary())
+				          .technology_stack(projects.getTechnology_stack())
+				          .roles_and_responsibility(projects.getRoles_and_responsibility())
+				          .modified_by(user.getUser_id()).build();
 		    
 			return projectMasterRepository.save(projectMaster);
 			
@@ -64,152 +80,164 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 		}
 		
 	}
-	
-	/**
-     * Assign a project to a user.
-     *
-     * @param userId     The ID of the user to whom the project will be assigned.
-     * @param projectId  The ID of the project to be assigned.
-     * @param principal  Represents user identity.
-     */
 
 	@Override
-	public void assignProjectToUser(Long userId, Long projectId, Principal principal) {
-		//User user = userRepository.findById(userId).orElse(null);
+	public ProjectMaster updateproject(ProjectMasterResponce projects, Long projectId, Principal principal) {
+		// TODO Auto-generated method stub
+		try {
+		User user = userRepository.findByEmail_Id(principal.getName());
+		ProjectMaster project=this.projectMasterRepository.findByIsDeletedAndId(false, projectId);
 		
-		User currentUser = userRepository.findByEmail_Id(principal.getName());
-        ProjectMaster projectMaster = projectMasterRepository.findById(projectId).orElse(null);
-       
-        if(projectMaster == null) {
-        	throw new IllegalArgumentException("Project not found with ID: " + projectId);
-        }
-        
-        if (projectMaster.is_deleted()) {
-            throw new ProjectException("Project does not exist.");
-        }
-        
-        EmployeeProject employeeProject = new EmployeeProject();
-        employeeProject.setProject_summary(projectMaster.getProject_summary());
-        employeeProject.setProject_title(projectMaster.getProject_title());
-        employeeProject.setOrganization_name(projectMaster.getOrganization_name());
-        employeeProject.setProject_url(projectMaster.getProject_url());
-        employeeProject.setTechnology_stack(projectMaster.getTechnology_stack());
-        employeeProject.setAssign_by(currentUser.getUser_id());
-        employeeProject.setModified_on(LocalDateTime.now());
-        
-        User user = userRepository.findById(userId).orElse(null);
-        
-        if(user==null) {
-        	throw new IllegalArgumentException("User not found with ID: " + userId);
-        }
-        
-        user.getAssignedProjects().add(employeeProject);
-        userRepository.save(user);
+		project.setProject_title(projects.getProject_title());
+		project.setStart_date(projects.getStart_date());
+		project.setEnd_date(projects.getEnd_date());
+		project.setCurrent(projects.isCurrent());
+		project.setShow_dates(projects.isShow_dates());
+		project.setShow_duration(projects.getShow_duration());
+		project.setShow_nothing(projects.isShow_nothing());
+		project.setProject_url(projects.getProject_url());
+		project.setClient_name(projects.getProject_url());
+		project.setOrganization_name(projects.getOrganization_name());
+		project.setProject_summary(projects.getProject_summary());
+		project.setTechnology_stack(projects.getTechnology_stack());
+		project.setRoles_and_responsibility(projects.getRoles_and_responsibility());
+		project.setModified_by(user.getUser_id());
+		return this.projectMasterRepository.save(project);
+	} catch (Exception e) {
+		
+		System.out.println("data not found");
+		return null;
+	}
+	
 		
 	}
+
+	@Override
+	public String deleteproject(Long id) {
+		try {
+			ProjectMaster project=this.projectMasterRepository.findByIsDeletedAndId(false, id);
+		System.out.println("Project data=="+project);
+if(project!=null) {
+         project.set_deleted(true);
+
+         this.projectMasterRepository.save(project);
+         return "deleted";
+	}
+
+		} catch (Exception e) {
+			System.out.println("data not found");
+		}
+return "Data Not Found";
 	
+   
+	}
+
+	@Override
+	public List<ProjectMaster> getProjectdata( ) {
+		// TODO Auto-generated method stub
+		try {
+			List<ProjectMaster> project=this.projectMasterRepository.findbyisdeleteMasters(false);
+		System.out.println("Project data=="+project);
+if(project!=null) {
+         
+
+         
+         return project;
+	}
+
+		} catch (Exception e) {
+			System.out.println("data not found");
+		}
+		return null;
+	}
+
 	/**
-     * Edit an assigned project.
-     *
-     * @param userId        The ID of the user to whom the project is assigned.
-     * @param emp_project_id The ID of the assigned project.
-     * @param updatedProject The updated project details.
-     * @param principal      Represents user identity.
-     * @return The edited project.
-     * @throws Exception If an error occurs during editing.
-     */
-	
-	
-	@Override
-	public EmployeeProject editAssignedProject(Long userId, Long emp_project_id, EmployeeProject updatedProject, Principal principal) throws Exception {
-	   try {
-		   User currentUser = userRepository.findByEmail_Id(principal.getName());   // Get the current user
-	   
-	    User user = userRepository.findById(userId).orElse(null);  // Get the user to whom the project is assigned
+	 * Add or update project for employee.
+	 *
+	 * @param The project to be added.
+	 * @principal represent user identity.
+	 * @return Save the project.
+	 * @throws Exception
+	 */
 
-	    if (user == null) {
-	        throw new IllegalArgumentException("User not found with ID: " + userId);
-	    }
-	    
-	    // Find the assigned project by its ID
-	    Optional<EmployeeProject> optionalExistingProject = employeeProjectRepository.findById(emp_project_id);
+	@Transactional
+	public ProjectMaster saveOrUpdateEmployeeProject(ProjectDto projectDTO, Principal principal) {
+		// Get the currently logged-in user
+		User user = userRepository.findByEmail_Id(principal.getName());
 
-	    if (optionalExistingProject.isPresent()) {
-	        EmployeeProject existingProject = optionalExistingProject.get();
-	        
-	        if (existingProject.is_deleted()) {
-	        	throw new ProjectException("Assigned project is not exist with ID: " + emp_project_id);
-	        }
+		// Create or update the project
+		ProjectMaster project = projectDTOToEntity(projectDTO, principal);
+		project.setModified_by(user.getUser_id());
+		project.setModified_on(LocalDateTime.now());
+		project = projectMasterRepository.save(project);
 
-	        // Update the project details with the provided updatedProject
-	        existingProject.setProject_summary(updatedProject.getProject_summary());
-	        existingProject.setProject_title(updatedProject.getProject_title());
-	        existingProject.setOrganization_name(updatedProject.getOrganization_name());
-	        existingProject.setProject_url(updatedProject.getProject_url());
-	        existingProject.setTechnology_stack(updatedProject.getTechnology_stack());
-	        existingProject.setModified_by(currentUser.getUser_id());
+		// Create the corresponding EmployeeProject and store the relationship
+		EmployeeProject employeeProject = new EmployeeProject();
+		employeeProject.setProject_title(project.getProject_title());
+		employeeProject.setStart_date(project.getStart_date());
+		employeeProject.setEnd_date(project.getEnd_date());
+		employeeProject.setCurrent(false);
+		employeeProject.setShow_dates(false);
+		employeeProject.setShow_duration(project.getShow_duration());
+		employeeProject.setShow_nothing(false);
+		employeeProject.setClient_name(project.getClient_name());
+		employeeProject.setOrganization_name(project.getOrganization_name());
+		employeeProject.setProject_url(project.getProject_url());
+		employeeProject.setProject_summary(project.getProject_summary());
+		employeeProject.setTechnology_stack(project.getTechnology_stack());
+		employeeProject.setRoles_and_responsibility(project.getRoles_and_responsibility());
+		employeeProject.setAssign_by(user.getUser_id());
+		employeeProject.setModified_by(user.getUser_id());
+		employeeProject.setModified_on(LocalDateTime.now());
 
-	        return employeeProjectRepository.save(existingProject);
-	    }
-	   }catch(Exception e) {
-		   throw new ProjectException("Assign project does not exist.");
-	    }
-	return updatedProject;
+		// Save the EmployeeProject
+		employeeProject = employeeProjectRepository.save(employeeProject);
+
+		// Update the relationship between the user and EmployeeProject
+		user.getAssignedProjects().add(employeeProject);
+		userRepository.save(user);
+
+		return project;
 	}
 
+	private ProjectMaster projectDTOToEntity(ProjectDto projectDTO, Principal principal) {
+		User user = userRepository.findByEmail_Id(principal.getName());
+		// Convert the ProjectDTO to a ProjectMaster entity
+		ProjectMaster project = new ProjectMaster();
+		project.setProject_master_id(projectDTO.getProject_master_id());
+		project.setProject_title(projectDTO.getProject_title());
+		project.setStart_date(projectDTO.getStart_date());
+		project.setEnd_date(projectDTO.getEnd_date());
+		project.setCurrent(false);
+		project.setShow_dates(false);
+		project.setShow_duration(projectDTO.getShow_duration());
+		project.setShow_nothing(false);
+		project.setClient_name(projectDTO.getClient_name());
+		project.setOrganization_name(projectDTO.getOrganization_name());
+		project.setProject_url(projectDTO.getProject_url());
+		project.setProject_summary(projectDTO.getProject_summary());
+		project.setTechnology_stack(projectDTO.getTechnology_stack());
+		project.setRoles_and_responsibility(projectDTO.getRoles_and_responsibility());
+		// project.setAssign_by(user.getUser_id());
+		project.setModified_by(user.getUser_id());
+		project.setModified_on(LocalDateTime.now());
+		return project;
+	}
 
-//	@Override
-//	public EmployeeProject editAssignedProject(Long userId, Long emp_project_id, EmployeeProject updatedProject, Principal principal) throws Exception {
-//	    
-//		User currentUser = userRepository.findByEmail_Id(principal.getName());   // Get the current user
-//		User user = userRepository.findById(userId).orElse(null);  // Get the user to whom the project is assigned
-//
-//	    if (user == null) {
-//	        throw new IllegalArgumentException("User not found with ID: " + userId);
-//	    }
-//
-//	    // Find the assigned project by its ID
-////	    EmployeeProject existingProject = user.getAssignedProjects().stream()
-////	            .filter(project -> project.getEmp_project_id().equals(emp_project_id))
-////	            .findFirst()
-////	            .orElse(null);
-//
-////	    if (existingProject == null) {
-////	        throw new IllegalArgumentException("Assigned project not found with ID: " + emp_project_id);
-////	    }
-//	    
-//	 // Find the assigned project by its ID
-//	    EmployeeProject existingProject = employeeProjectRepository.findById(emp_project_id)
-//	    		.orElseThrow(()-> new Exception("Assigned project not found with ID: " + emp_project_id));
-//
-//	    // Update the project details with the provided updatedProject
-//	    existingProject.setProject_summary(updatedProject.getProject_summary());
-//	    existingProject.setProject_title(updatedProject.getProject_title());
-//	    existingProject.setOrganization_name(updatedProject.getOrganization_name());
-//	    existingProject.setProject_url(updatedProject.getProject_url());
-//	    existingProject.setTechnology_stack(updatedProject.getTechnology_stack());
-//	    existingProject.setModified_by(currentUser.getFull_name());
-//
-//	    return employeeProjectRepository.save(existingProject);
-//	}
-	
-	
 	@Override
-	public void deleteProjectMasterAndAssignProject(Long projectId, Long emp_project_id, Principal principal) {
+	public void deleteAssignProjectByEmployee(Long emp_project_id, Principal principal) {
 		User currentUser = userRepository.findByEmail_Id(principal.getName());
-		ProjectMaster project = projectMasterRepository.findById(projectId).orElse(null);
-	    if (project != null) {
-	        project.set_deleted(true);
-	        project.setModified_by(currentUser.getUser_id());
-	        projectMasterRepository.save(project);
-	    }
 
-	    EmployeeProject assignProject = employeeProjectRepository.findById(emp_project_id).orElse(null);
-	    if (assignProject != null) {
-	    	assignProject.set_deleted(true);
-	    	assignProject.setModified_by(currentUser.getUser_id());
-	        employeeProjectRepository.save(assignProject);
-	    }
+		EmployeeProject assignProject = employeeProjectRepository.findById(emp_project_id).orElse(null);
+		if (assignProject != null) {
+			assignProject.set_deleted(true);
+			assignProject.setModified_by(currentUser.getUser_id());
+			employeeProjectRepository.save(assignProject);
+		}
 	}
 
+	public List<EmployeeProject> getAssignedProjectsByUserId(Long userId) {
+		return employeeProjectRepository.findByUsersUserId(userId);
+	}
+	
 }

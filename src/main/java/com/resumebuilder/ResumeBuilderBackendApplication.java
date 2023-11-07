@@ -3,10 +3,14 @@ package com.resumebuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import com.resumebuilder.config.Licenseconfig;
+import com.syncfusion.licensing.SyncfusionLicenseProvider;
 
 import jakarta.annotation.PostConstruct;
 
@@ -14,6 +18,9 @@ import jakarta.annotation.PostConstruct;
 @EnableJpaAuditing
 @ComponentScan	 
 public class ResumeBuilderBackendApplication  {
+	
+	@Autowired
+	private Licenseconfig licenseCOnfig;
 	
 	public static final Logger logger = LoggerFactory.getLogger(ResumeBuilderBackendApplication.class);
 
@@ -28,4 +35,10 @@ public class ResumeBuilderBackendApplication  {
 //        SyncfusionLicenseProvider.registerLicense(licenseCOnfig.getSyncfusionLicenseKey());
 //		log.info("Successfully registered the license key : "+licenseCOnfig.getSyncfusionLicenseKey());
 //	}	
+	@PostConstruct
+    public void registerSyncfusionLicense() {
+        // Register Syncfusion license using the property from SyncfusionConfig
+        SyncfusionLicenseProvider.registerLicense(licenseCOnfig.getSyncfusionLicenseKey());
+        logger.info("Successfully registered the license key : "+licenseCOnfig.getSyncfusionLicenseKey());
+	}	
 }

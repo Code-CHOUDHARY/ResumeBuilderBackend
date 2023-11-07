@@ -19,14 +19,12 @@ public class RolesServiceImplementation implements RolesService{
 	private RolesRepository rolesRepository;
 	@Autowired
     private UserRepository userRepository;
-    private final ApplicationEventPublisher eventPublisher;
     @Autowired
     private ActivityHistoryService activityHistoryService;
     
     @Autowired
     public RolesServiceImplementation(RolesRepository roleRepository, ApplicationEventPublisher eventPublisher) {
         this.rolesRepository = roleRepository;
-        this.eventPublisher = eventPublisher;
     }
     
     /**
@@ -57,7 +55,7 @@ public class RolesServiceImplementation implements RolesService{
                     newRole.set_deleted(false);
                     
                     // Save the new role to the database
-                    newRole = rolesRepository.save(newRole);
+                    rolesRepository.save(newRole);
 
                     String activityType = "Add Role";
                     String description = "New Role Added";

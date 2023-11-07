@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2023-10-30 09:55:44.828  INFO dell-OptiPlex-3060 --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
 2023-10-30 09:55:44.899  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.7 with PID 4446 (/home/dell/Myworks/Resume_Builder/Resume Builder App/Resume%20Builder%20Backend/target/classes started by dell in /home/dell/Myworks/Resume_Builder/Resume Builder App/Resume%20Builder%20Backend)
 2023-10-30 09:55:44.908  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
@@ -13452,3 +13453,23 @@ Caused by: java.sql.SQLException: Incorrect integer value: '' for column 'modifi
 2023-10-30 18:49:45.735  INFO dell-OptiPlex-3060 --- [(431)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-10-30 18:49:45.736  INFO dell-OptiPlex-3060 --- [(431)-127.0.0.1] c.z.h.HikariDataSource                   : HikariPool-56 - Shutdown initiated...
 2023-10-30 18:49:45.746  INFO dell-OptiPlex-3060 --- [(431)-127.0.0.1] c.z.h.HikariDataSource                   : HikariPool-56 - Shutdown completed.
+=======
+2023-10-31 10:58:22.245  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-10-31 10:58:22.252  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-10-31 10:58:22.253  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-10-31 10:58:22.256  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-37 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2023-10-31 10:58:22.256  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-10-31 10:58:22.258  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-10-31 10:58:22.262  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-31 10:58:22.263  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] c.z.h.HikariDataSource                   : HikariPool-37 - Shutdown initiated...
+2023-10-31 10:58:22.266  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] c.z.h.HikariDataSource                   : HikariPool-37 - Shutdown completed.
+>>>>>>> 384b5ec002427391dba609d912a77b044f623d0c

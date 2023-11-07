@@ -54,12 +54,20 @@ public interface UserRepository extends JpaRepository<User, Long>{
 		
 		@Query(value = "SELECT * FROM user u WHERE u.app_role_id = (SELECT id FROM app_roles WHERE name = 'ROLE_MANAGER')", nativeQuery = true)
 	    List<User> findManagers();
+		
+		@Query(value = "SELECT * FROM user u WHERE u.app_role_id = (SELECT id FROM app_roles WHERE name = 'ROLE_USER')", nativeQuery = true)
+	    List<User> findEmployees();
 
 		//Optional<User> findById(User reportingManager);
-		Optional<User> findById(Long id);
+//		Optional<User> findById(Long id);
 		
+//		  List<User> findByIdIn(List<Long> ids);
 		
 		@Query("SELECT u.full_name FROM User u WHERE u.user_id = :userId")
 	    String findFullNameById(@Param("userId") Long userId);
+		
+//		@Query("SELECT u FROM User u WHERE u.user_id = :userId")
+		@Query("SELECT u FROM User u LEFT JOIN FETCH u.assignedProjects ap WHERE u.user_id = :userId")
+	    User findByUserId(@Param("userId") Long userId);
 		
 }

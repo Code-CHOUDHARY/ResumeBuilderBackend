@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public CustomErrorResponse handleUserNotFoundException(UserNotFoundException ex) {
-        return new CustomErrorResponse("User not found. ", ex.getMessage());
+        return new CustomErrorResponse("User Exception. ", ex.getMessage());
     }
 	
 	@ExceptionHandler(DataMissingException.class)
@@ -93,6 +93,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ProjectException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public CustomErrorResponse handleProjectException(ProjectException ex) {
+        return new CustomErrorResponse(ex.getMessage());
+    }
+    
+    @ExceptionHandler(EducationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public CustomErrorResponse handleEducationException(EducationException ex) {
         return new CustomErrorResponse(ex.getMessage());
     }
 

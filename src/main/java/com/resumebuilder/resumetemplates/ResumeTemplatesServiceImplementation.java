@@ -161,7 +161,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			User user=mapper.readValue(obj, User.class);
 			
 			map.put("<%Name%>", user.getFull_name());
-			map.put("<%Education%>",user.getEducations().toString());
+			map.put("<%Education%>","");
 			map.put("<%DateOfBirth%>",user.getDate_of_birth());
 			map.put("<%CurrentRole%>", user.getCurrent_role());
 			map.put("<%Email%>", user.getEmail());
