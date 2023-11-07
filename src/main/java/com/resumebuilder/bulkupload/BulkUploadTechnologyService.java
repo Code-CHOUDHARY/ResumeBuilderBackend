@@ -46,7 +46,8 @@ import jakarta.transaction.Transactional;
 @Service
 public class BulkUploadTechnologyService {
 	
-	public static final String EXCEL_TEMPLATE_DIRECTORY = "upload/template/technology"; 
+	public static String fileSeparator = System.getProperty("file.separator");
+	public static final String EXCEL_TEMPLATE_DIRECTORY = "upload"+fileSeparator+"template"+fileSeparator+"technology"; 
 	 public static final Logger logger = LogManager.getLogger(BulkUploadRoleService.class);
 
 	@Autowired

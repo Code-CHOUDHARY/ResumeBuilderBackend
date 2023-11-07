@@ -29,7 +29,8 @@ public class EducationController {
     public ResponseEntity<?> addEducation(@RequestBody Education education, Principal principal) {
         try {
             Education addedEducation = educationService.addEducation(education, principal);
-            return ResponseEntity.ok(addedEducation);
+
+            return ResponseEntity.ok("Education added successfully.");
         } catch (EducationException e) {
             CustomErrorResponse errorResponse = new CustomErrorResponse(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorResponse);
@@ -38,13 +39,9 @@ public class EducationController {
 	
 	@PreAuthorize("hasAnyRole('USER','MANAGER')")
 	@PutMapping("/editEducation/{educationId}")
-    public ResponseEntity<Education> updateEducation(@PathVariable Long educationId, @RequestBody Education updateEducation,Principal principal) {
-        try {
-            Education updatedEducation = educationService.updateEducation(educationId, updateEducation, principal);
-            return new ResponseEntity<>(updatedEducation, HttpStatus.OK);
-        } catch (EducationException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
+    public Education updateEducation(@PathVariable Long educationId, @RequestBody Education updatedEducation, Principal principal) {
+        return educationService.updateEducation(educationId, updatedEducation, principal);
     }
 
 	@PreAuthorize("hasAnyRole('USER','MANAGER')")

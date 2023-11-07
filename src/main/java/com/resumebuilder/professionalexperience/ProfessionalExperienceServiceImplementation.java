@@ -1,17 +1,5 @@
 package com.resumebuilder.professionalexperience;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.resumebuilder.exception.UserNotFoundException;
-import com.resumebuilder.resumetemplates.ResumeTemplatesServiceImplementation;
-import com.resumebuilder.user.UserService;
-
-import lombok.extern.slf4j.Slf4j;
-
-
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -22,23 +10,22 @@ import org.springframework.stereotype.Service;
 
 import com.resumebuilder.exception.ExperienceNotFoundException;
 import com.resumebuilder.exception.ProfessionalExperienceException;
+import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserService;
 
 @Service
 public class ProfessionalExperienceServiceImplementation implements ProfessionalExperienceService {
 	
 	@Autowired
 	private ProfessionalExperienceRepository experienceRepo;
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private UserService userService;
-	
-	 private static final Logger logger = LogManager.getLogger(ProfessionalExperienceServiceImplementation.class); 
-
 	/**
      * Add a new experience.
      *
@@ -46,15 +33,12 @@ public class ProfessionalExperienceServiceImplementation implements Professional
      * @return The added experience.
      * @throws ProfessionalExperienceException if the experience cannot be added.
      */	
-
-	
 	
 	@Override
 	public ProfessionalExperience addExperience(ProfessionalExperience experience,Principal principal) {
 		
 	User user = userRepository.findByEmail_Id(principal.getName());
 		
-		System.out.println(experience.getUser());
 		
 		if (experience == null) {
 			throw new ProfessionalExperienceException("Professional Experience data is empty.");
@@ -116,11 +100,12 @@ public class ProfessionalExperienceServiceImplementation implements Professional
         existingExperience.setOrganization_name(updatedExperience.getOrganization_name());
         existingExperience.setLocation(updatedExperience.getLocation());
         existingExperience.setStart_date(updatedExperience.getStart_date());
-        existingExperience.setEnd_date(updatedExperience.getEnd_date());        
-		
+        existingExperience.setEnd_date(updatedExperience.getEnd_date());     
+        existingExperience.set_deleted(updatedExperience.is_deleted());
+        
 		return experienceRepo.save(existingExperience);
 	}
-
+	
 	public String getTotalExperience(String userId) {
 		String totalExperience="";
 		// check weather the user Exists or not
@@ -129,17 +114,16 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 				Integer exp= experienceRepo.getTotalExperience(userId);
 				totalExperience=exp.toString();
 			}else {
-				logger.info("unable find the user-->"+userId);
+				System.out.println("unable find the user-->"+userId);
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			logger.info("unable find the user-->"+userId);
+			System.out.println("unable find the user-->"+userId);
 			totalExperience="";
 		}catch(Exception e) {
-			logger.info("error while counting experienc-->/n"+e);
+			System.out.println("error while counting experienc-->/n"+e);
 		}
 	   	return totalExperience;
 	}
 
 }
-

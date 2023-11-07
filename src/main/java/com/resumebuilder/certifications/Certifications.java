@@ -1,9 +1,9 @@
 package com.resumebuilder.certifications;
 
-import java.util.Date;
-
+import java.util.Date;import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.resumebuilder.user.User;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,7 +37,5 @@ public class Certifications {
 	@ManyToOne
     @JoinColumn(name = "employee_id")
     private User user; // Reference to the User entity
-
-
 
 }

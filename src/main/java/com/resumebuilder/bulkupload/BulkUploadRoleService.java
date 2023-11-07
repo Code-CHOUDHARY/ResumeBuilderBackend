@@ -46,7 +46,9 @@ public class BulkUploadRoleService {
 	
 	 public static final Logger logger = LogManager.getLogger(BulkUploadRoleService.class);
 
-    public static final String EXCEL_TEMPLATE_DIRECTORY = "upload/template/role";
+	 public static String fileSeparator = System.getProperty("file.separator");
+	 
+    public static final String EXCEL_TEMPLATE_DIRECTORY = "upload"+fileSeparator+"template"+fileSeparator+"role";
 
         @Autowired
         private UserRepository userRepository;
