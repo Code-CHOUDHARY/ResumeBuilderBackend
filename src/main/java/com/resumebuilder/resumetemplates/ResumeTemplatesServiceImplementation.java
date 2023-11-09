@@ -1,5 +1,6 @@
 package com.resumebuilder.resumetemplates;
 
+import java.security.Principal;
 import java.time.Period;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.ResumeTemplateExceptions;
 import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.professionalexperience.ProfessionalExperienceService;
@@ -36,6 +38,8 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
     private ProfessionalExperienceService expService;
 	 @Autowired
 	 private UserService userService;
+	 @Autowired
+	private ActivityHistoryService activityHistoryService;
 	
 	 private static final Logger logger = LogManager.getLogger(ResumeTemplatesServiceImplementation.class); 
 
@@ -47,7 +51,8 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	}
 
 	@Override
-	public ResumeTemplates addTemplate(ResumeTemplates req) {
+	public ResumeTemplates addTemplate(ResumeTemplates req,Principal p) {
+		
 		ResumeTemplates template=ResumeTemplates.builder()
 				                  .template_name(req.getTemplate_name())
 				                  .modified_by(req.getModified_by())
@@ -58,11 +63,16 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 				                  .certificates(req.getCertificates())
 				                  .is_deleted(false).build();
 		ResumeTemplates savedTemplate=this.repo.save(template);	
+		if(savedTemplate!=null) {
+			
+		  activityHistoryService.addActivity("AddTemplates", "New template Added with Name "+savedTemplate.getTemplate_name(),savedTemplate.getTemplate_name(), null, userService.findUserByUsername(p.getName()).getFull_name());
+
+		}
 		return savedTemplate;
 	}
 
 	@Override
-	public ResumeTemplates updateTemplate(String tempId,ResumeTemplates req) {
+	public ResumeTemplates updateTemplate(String tempId,ResumeTemplates req,Principal p) {
 		ResumeTemplates template=getTemplateById(tempId);
 		if(template!=null) {
 			template.set_deleted(false);
@@ -74,6 +84,11 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			template.setProjects(req.getProjects());
 			template.setTemplate_name(req.getTemplate_name());
 			ResumeTemplates updateTemplate=repo.save(template);
+			if(updateTemplate!=null) {
+				
+				  activityHistoryService.addActivity("UpdateTemplate", "Template updated with Name "+updateTemplate.getTemplate_name(),updateTemplate.getTemplate_name(), null, userService.findUserByUsername(p.getName()).getFull_name());
+
+				}
 			return updateTemplate;
 		}else {
 			new ResumeTemplateExceptions("Unable to Update Resume Template");
@@ -94,6 +109,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 		if(template != null) {
 			repo.deleteById(Long.parseLong(tempId));
 			flag=true;
+			
 		}else {
 			
 			new ResumeTemplateExceptions("Unable to Delete Resume Template");
@@ -102,7 +118,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	}
  
 	@Override
-	public boolean deleteTemplate(String tempId) {
+	public boolean deleteTemplate(String tempId,Principal p) {
 		boolean flag=false;
 		ResumeTemplates template=getTemplateById(tempId);
 		if(template != null) {
@@ -110,6 +126,11 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			template.set_deleted(true);
 			repo.save(template);
 			flag=true;
+			if(flag) {
+				
+				  activityHistoryService.addActivity("Template Deleted", "Template Deleted with Name "+template.getTemplate_name(),template.getTemplate_name(), null, userService.findUserByUsername(p.getName()).getFull_name());
+
+				}
 		}else {
 			
 			new ResumeTemplateExceptions("Unable to Delete Resume Template");

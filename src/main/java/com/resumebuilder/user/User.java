@@ -1,27 +1,24 @@
 package com.resumebuilder.user;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.resumebuilder.activityhistory.ActivityHistory;
-import com.resumebuilder.education.Education;
-import com.resumebuilder.professionalexperience.ProfessionalExperience;
 import com.resumebuilder.projects.EmployeeProject;
 import com.resumebuilder.projects.ProjectMaster;
-import com.resumebuilder.reportingmanager.ReportingManager;
 import com.resumebuilder.roles.Roles;
 //import com.resumebuilder.security.approle.AppRole;
 import com.resumebuilder.security.approle.UserRole;
+import com.resumebuilder.teamactivity.TeamActivity;
 import com.resumebuilder.technology.TechnologyMaster;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,9 +29,9 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -129,5 +126,8 @@ public class User {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserRole appRole;
+	
+	@OneToMany(mappedBy = "activity_by")
+	private Set<TeamActivity> teamActivities=new HashSet<>();
 
 }
