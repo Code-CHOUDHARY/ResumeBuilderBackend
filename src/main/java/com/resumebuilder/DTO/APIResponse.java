@@ -1,4 +1,4 @@
-package com.resumebuilder.projects.responce;
+package com.resumebuilder.DTO;
 
 import org.springframework.http.HttpStatus;
 

@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.resumebuilder.DTO.APIResponse;
 import com.resumebuilder.DTO.ProjectDto;
 import com.resumebuilder.exception.ProjectException;
 import com.resumebuilder.exception.UserNotFoundException;
-import com.resumebuilder.projects.responce.APIResponse;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 
@@ -115,10 +115,10 @@ public ResponseEntity<List<ProjectMaster>> getProjects(){
     
     
     //list of assign projects 
-    @GetMapping("/employeeProjectsList/{userId}")
-    public List<EmployeeProject> getAssignedProjectsByUserId(@PathVariable Long userId) {
-        return projectMasterServiceImplementation.getAssignedProjectsByUserId(userId);
-    }
-    
+//    @GetMapping("/employeeProjectsList/{userId}")
+//    public List<EmployeeProject> getAssignedProjectsByUserId(@PathVariable Long userId) {
+//        return projectMasterServiceImplementation.getAssignedProjectsByUserId(userId);
+//    }
+//    
 	
 }

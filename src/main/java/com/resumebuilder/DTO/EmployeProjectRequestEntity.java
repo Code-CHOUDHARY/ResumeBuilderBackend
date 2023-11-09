@@ -1,9 +1,10 @@
-package com.resumebuilder.projects;
+package com.resumebuilder.DTO;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.resumebuilder.user.User;
@@ -15,22 +16,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeProjectResponceEntity {
+public class EmployeProjectRequestEntity {
 	
 	private String projectTitle;
-	
-
 	private Date startDate;
-	
-
 	private Date endDate;
-	
-
 	private boolean current;
-	
 	private boolean showDates;
 	
-	private String show_duration;
+	private boolean show_duration;
 	
 	private boolean show_nothing;
 	
@@ -46,15 +40,13 @@ public class EmployeProjectResponceEntity {
 	
 	private String roles_and_responsibility;
 	
-	@Column(name = "assign_by")
-	private String assign_by;
+	private Long assign_by;
 	
-	@UpdateTimestamp
-	@Column(name = "modified_on")
-	private LocalDateTime modified_on;
+	@CurrentTimestamp()
+	private Date modified_on;
 	
 	private boolean is_deleted;
 	
-	private String modified_by;
-	List<Long>userids;
+	private Long modified_by;
+	
 }

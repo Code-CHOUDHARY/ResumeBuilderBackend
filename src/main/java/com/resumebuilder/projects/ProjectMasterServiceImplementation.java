@@ -162,7 +162,7 @@ if(project!=null) {
 		employeeProject.setEnd_date(project.getEnd_date());
 		employeeProject.setCurrent(false);
 		employeeProject.setShow_dates(false);
-		employeeProject.setShow_duration(project.getShow_duration());
+		//employeeProject.setShow_duration(project.getShow_duration());
 		employeeProject.setShow_nothing(false);
 		employeeProject.setClient_name(project.getClient_name());
 		employeeProject.setOrganization_name(project.getOrganization_name());
@@ -170,15 +170,15 @@ if(project!=null) {
 		employeeProject.setProject_summary(project.getProject_summary());
 		employeeProject.setTechnology_stack(project.getTechnology_stack());
 		employeeProject.setRoles_and_responsibility(project.getRoles_and_responsibility());
-		employeeProject.setAssign_by(user.getFull_name());
-		employeeProject.setModified_by(user.getFull_name());
+//		employeeProject.setAssign_by(user.getFull_name());
+//		employeeProject.setModified_by(user.getFull_name());
 		employeeProject.setModified_on(LocalDateTime.now());
 
 		// Save the EmployeeProject
 		employeeProject = employeeProjectRepository.save(employeeProject);
 
 		// Update the relationship between the user and EmployeeProject
-		user.getAssignedProjects().add(employeeProject);
+		//user.getAssignedProjects().add(employeeProject);
 		userRepository.save(user);
 
 		return project;
@@ -215,14 +215,15 @@ if(project!=null) {
 		EmployeeProject assignProject = employeeProjectRepository.findById(emp_project_id).orElse(null);
 		if (assignProject != null) {
 			assignProject.set_deleted(true);
-			assignProject.setModified_by(currentUser.getFull_name());
+			//assignProject.setModified_by(currentUser.getFull_name());
 			employeeProjectRepository.save(assignProject);
 		}
-	}
-
-	@Transactional
-	public List<EmployeeProject> getAssignedProjectsByUserId(Long userId) {
-		return employeeProjectRepository.findByUsersUserId(userId);
-	}
 	
+	}
+//
+//	@Transactional
+//	public List<EmployeeProject> getAssignedProjectsByUserId(Long userId) {
+//		return employeeProjectRepository.findByUsersUserId(userId);
+//	}
+//	
 }
