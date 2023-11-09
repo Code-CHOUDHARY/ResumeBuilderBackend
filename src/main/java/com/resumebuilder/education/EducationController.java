@@ -29,7 +29,6 @@ public class EducationController {
     public ResponseEntity<?> addEducation(@RequestBody Education education, Principal principal) {
         try {
             Education addedEducation = educationService.addEducation(education, principal);
-
             return ResponseEntity.ok("Education added successfully.");
         } catch (EducationException e) {
             CustomErrorResponse errorResponse = new CustomErrorResponse(e.getMessage());
@@ -39,7 +38,6 @@ public class EducationController {
 	
 	@PreAuthorize("hasAnyRole('USER','MANAGER')")
 	@PutMapping("/editEducation/{educationId}")
-
     public Education updateEducation(@PathVariable Long educationId, @RequestBody Education updatedEducation, Principal principal) {
         return educationService.updateEducation(educationId, updatedEducation, principal);
     }

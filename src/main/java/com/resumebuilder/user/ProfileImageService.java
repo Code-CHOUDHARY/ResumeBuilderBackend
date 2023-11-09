@@ -6,8 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.UUID;
-
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,6 @@ public class ProfileImageService {
 
         if (!userDir.exists()) {
             userDir.mkdirs();
-
         }
 
         if (!profileDir.exists()) {

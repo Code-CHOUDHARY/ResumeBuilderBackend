@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +19,12 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 	
 	@Autowired
 	private ProfessionalExperienceRepository experienceRepo;
-	@Autowired
-	private UserService userService;
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserService userService;
 	
 	/**
      * Add a new experience.
@@ -105,7 +105,7 @@ public class ProfessionalExperienceServiceImplementation implements Professional
         
 		return experienceRepo.save(existingExperience);
 	}
-	
+
 	public String getTotalExperience(String userId) {
 		String totalExperience="";
 		// check weather the user Exists or not
@@ -125,5 +125,4 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 		}
 	   	return totalExperience;
 	}
-
 }

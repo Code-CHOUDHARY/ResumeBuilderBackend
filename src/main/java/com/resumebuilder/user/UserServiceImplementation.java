@@ -3,9 +3,9 @@ package com.resumebuilder.user;
 import java.io.File;
 import java.security.Principal;
 import java.security.SecureRandom;
-
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import java.util.Optional;
 import jakarta.mail.internet.MimeMessage;
 
@@ -18,6 +18,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.resumebuilder.activityhistory.ActivityHistoryRepository;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.auth.SignupRequest;
 import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.reportingmanager.ReportingManager;
@@ -25,6 +29,8 @@ import com.resumebuilder.reportingmanager.ReportingManagerRepository;
 import com.resumebuilder.security.approle.ERole;
 import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.security.response.MessageResponse;
+
+import io.jsonwebtoken.lang.Objects;
 
 
 @Service
@@ -46,6 +52,12 @@ public class UserServiceImplementation implements UserService{
 	 
 	 @Autowired
 	 private PasswordEncoder passwordEncoder;
+	 
+	 	@Autowired
+		private ActivityHistoryService activityHistoryService;
+		
+		@Autowired
+		private ActivityHistoryRepository activityHistoryRepository;
 
 	 /**
 	     * Retrieve a list of all users.
@@ -66,8 +78,6 @@ public class UserServiceImplementation implements UserService{
      */
 
 	public User findUserByIdUser(Long userId) {
-		
-
 		Optional<User> opt =userRepository.findById(userId);		
 			return opt.get();	
 	}
@@ -130,7 +140,7 @@ public class UserServiceImplementation implements UserService{
 	                newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
 	                newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 	                newUser.setBlogs_link(signUpRequest.getBlogs_link());
-	                newUser.setModified_by(currentuser.getUser_id());
+	                newUser.setModified_by(currentuser.getFull_name());
 	                String strRoles = signUpRequest.getRole();
 	                UserRole appRole;
 
@@ -198,7 +208,7 @@ public class UserServiceImplementation implements UserService{
 	            newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
 	            newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 	            newUser.setBlogs_link(signUpRequest.getBlogs_link());
-	            newUser.setModified_by(currentuser.getUser_id());
+	            newUser.setModified_by(currentuser.getFull_name());
 
 	            String strRoles = signUpRequest.getRole();
 	            UserRole appRole;
@@ -236,6 +246,15 @@ public class UserServiceImplementation implements UserService{
 
 	            // Send the email with the generated password
 	            sendEmailPassword(newUser, password);
+	            
+	            // Activity history logic
+	            
+	            UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+				
+				 String activityType = "Add Employee";
+			     String description = "New Employee Added";
+			     String newData = userToJsonConverter.convertUserToJSON(newUser);
+			     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
 
 	            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
 	        }
@@ -345,7 +364,8 @@ public class UserServiceImplementation implements UserService{
     	User currentuser = userRepository.findByEmailId(principal.getName());
     	// Check if the user exists
         User existingUser = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));	
+      
 
         // Check if the user is soft-deleted
         if (existingUser.is_deleted()) {
@@ -381,7 +401,50 @@ public class UserServiceImplementation implements UserService{
         if (updatedUser.getBlogs_link() != null) {
             existingUser.setBlogs_link(updatedUser.getBlogs_link());
         }
-        existingUser.setModified_by(currentuser.getUser_id());
+
+        existingUser.setModified_by(currentuser.getFull_name());
+        
+        
+        // Compare the fields and identify changes
+        Map<String, String> changes = new HashMap<>();
+        if (!Objects.nullSafeEquals(existingUser.getFull_name(), updatedUser.getFull_name())) {
+            changes.put("full_name", updatedUser.getFull_name());
+        }
+        if (!Objects.nullSafeEquals(existingUser.getEmail(), updatedUser.getEmail())) {
+            changes.put("email", updatedUser.getEmail());
+        }
+        if (!Objects.nullSafeEquals(existingUser.getDate_of_birth(), updatedUser.getDate_of_birth())) {
+            changes.put("Date of Birth", updatedUser.getDate_of_birth());
+        }
+        if (!Objects.nullSafeEquals(existingUser.getGender(), updatedUser.getGender())) {
+            changes.put("Gender", updatedUser.getGender());
+        }
+        if (!Objects.nullSafeEquals(existingUser.getLocation(), updatedUser.getLocation())) {
+            changes.put("Location", updatedUser.getLocation());
+        }
+        
+        System.out.println("changes for user"+changes);
+        
+        	
+         String activityType = "Update Employee";
+	     String description = "Change in Employee Data";
+	     
+	     UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+	           
+		try {
+			 String newData = userToJsonConverter.convertChangesToJson(changes);
+			 String oldData = userToJsonConverter.convertUserToJSON(existingUser);
+			 
+			 activityHistoryService.
+			    addActivity
+			    (activityType, description,newData ,oldData, currentuser.getFull_name());
+			}
+		catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
         return userRepository.save(existingUser);
 	}
 
@@ -461,7 +524,13 @@ public class UserServiceImplementation implements UserService{
 	@Override
 	public void deleteUserById(Long userId, Principal principal) {
 		User existingUser = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));     
+                .orElseThrow(() -> new UserNotFoundException("User not found"));  
+		
+		 String activityType = "Delete Employee";
+	     String description = "Change in Employee Data";
+	     
+	    activityHistoryService.addActivity(activityType, description,"user with"+userId + "deleted", null, principal.getName());
+		
         userRepository.delete(existingUser);
 		
 	}

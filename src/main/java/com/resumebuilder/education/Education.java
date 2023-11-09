@@ -50,14 +50,14 @@ public class Education {
 	private String show_duration;
 	private boolean show_nothing;
 	private boolean is_deleted;
-	private Long Modified_by;
+
+	private String Modified_by;
 	@UpdateTimestamp
 	@Column(name = "modified_on")
 	private LocalDateTime modified_on;
 	
 
 	@ManyToOne
-
     @JoinColumn(name = "user_id")
     private User user;
 

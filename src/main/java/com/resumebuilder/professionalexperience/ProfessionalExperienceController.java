@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.resumebuilder.exception.ExperienceNotFoundException;
 import com.resumebuilder.exception.ProfessionalExperienceException;
 
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -128,5 +127,6 @@ public class ProfessionalExperienceController {
         }
     }
 
+    
 }
     

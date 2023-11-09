@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.DTO.RolesDto;
 import com.resumebuilder.DTO.TechnologyDto;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.DataProcessingException;
 import com.resumebuilder.roles.Roles;
 import com.resumebuilder.roles.RolesRepository;
@@ -55,6 +56,9 @@ public class BulkUploadTechnologyService {
 	
 	@Autowired
     private TechnologyMasterRepository technologyRepository;
+	
+	@Autowired
+	private ActivityHistoryService activityHistoryService;
 		
 	/**
      * Process the uploaded Excel file containing technology data.
@@ -180,8 +184,14 @@ public class BulkUploadTechnologyService {
 
     private void createTechnology(TechnologyMaster newTechnology, TechnologyDto bulkUploadDto, User currentUser) {
     	newTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
-    	newTechnology.setModified_by(currentUser.getUser_id());
+    	newTechnology.setModified_by(currentUser.getFull_name());
     	newTechnology.setModified_on(LocalDateTime.now());
+    	
+    	 String activityType = "Bulk upload";
+	     String description = "Bulk upload of technologies";
+	     
+	     activityHistoryService.addActivity(activityType, description, bulkUploadDto.getTechnology_name(), null, currentUser.getFull_name());
+    	
         technologyRepository.save(newTechnology);
     }
     
@@ -195,8 +205,11 @@ public class BulkUploadTechnologyService {
 
     private void updateTechnology(TechnologyMaster existingTechnology, TechnologyDto bulkUploadDto, User currentUser) {
     	existingTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
-    	existingTechnology.setModified_by(currentUser.getUser_id());
+    	existingTechnology.setModified_by(currentUser.getFull_name());
     	existingTechnology.setModified_on(LocalDateTime.now());
+    	
+    		
+    	
         technologyRepository.save(existingTechnology);
     }
     

@@ -1,14 +1,22 @@
 package com.resumebuilder.projects;
 
+
+import java.security.Principal;
+import java.util.List;
+
+import com.resumebuilder.DTO.EmployeProjectRequestEntity;
+import com.resumebuilder.DTO.EmployeeProjectResponceEntity;
+
 public interface EmployProjectService {
 
 	
-	EmployeeProject addEmployeeProject(EmployeProjectResponceEntity employeeProjectData);
+	EmployeeProject addEmployeeProject(EmployeProjectRequestEntity employeeProjectData,Long id,Principal princi);
 	     
-	EmployeeProject updateEmployeeProject(EmployeProjectResponceEntity projects,Long project_id);  
+	EmployeeProject updateEmployeeProject(EmployeProjectRequestEntity projects,Long project_id,Principal principal);  
 	
-	void deleteEmployeeProject(Long project_id);
+	String deleteEmployeeProject(Long project_id);
 	
-	EmployeeProject getAllEmplyeeProjects();
+	List<EmployeeProjectResponceEntity> getAllEmplyeeProjects();
 	
+	EmployeeProjectResponceEntity getbyid(Long id);
  }

@@ -67,7 +67,8 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	    String findFullNameById(@Param("userId") Long userId);
 		
 //		@Query("SELECT u FROM User u WHERE u.user_id = :userId")
-		@Query("SELECT u FROM User u LEFT JOIN FETCH u.assignedProjects ap WHERE u.user_id = :userId")
-	    User findByUserId(@Param("userId") Long userId);
+
+//		@Query("SELECT u FROM User u LEFT JOIN FETCH u.assignedProjects ap WHERE u.user_id = :userId")
+//	    User findByUserId(@Param("userId") Long userId);
 		
 }

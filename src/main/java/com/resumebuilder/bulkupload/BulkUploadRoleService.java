@@ -30,10 +30,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.DTO.RolesDto;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.roles.Roles;
 import com.resumebuilder.roles.RolesRepository;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserToJsonConverter;
+
 import io.jsonwebtoken.io.IOException;
 import jakarta.transaction.Transactional;
 
@@ -55,6 +58,9 @@ public class BulkUploadRoleService {
 
         @Autowired
         private RolesRepository rolesRepository;
+        
+        @Autowired
+        private ActivityHistoryService activityHistoryService;
         
         
         /**
@@ -174,9 +180,16 @@ public class BulkUploadRoleService {
         
         private void createRole(Roles newRole, RolesDto bulkUploadDto, User currentUser) {
             newRole.setRole_name(bulkUploadDto.getRole_name());
-            newRole.setModified_by(currentUser.getUser_id());
+            newRole.setModified_by(currentUser.getFull_name());
             logger.info("Role modified by- "+currentUser.getFull_name());
             newRole.setModified_on(LocalDateTime.now());
+            
+
+            String activityType = "Bulk upload";
+   	     	String description = "Bulk upload of Roles";
+   	     
+   	     activityHistoryService.addActivity(activityType, description, bulkUploadDto.getRole_name(), null, currentUser.getFull_name());
+            
             rolesRepository.save(newRole);
         }
         
@@ -190,7 +203,7 @@ public class BulkUploadRoleService {
 
         private void updateRole(Roles existingRole, RolesDto bulkUploadDto, User currentUser) {
             existingRole.setRole_name(bulkUploadDto.getRole_name());
-            existingRole.setModified_by(currentUser.getUser_id());
+            existingRole.setModified_by(currentUser.getFull_name());
             existingRole.setModified_on(LocalDateTime.now());
             rolesRepository.save(existingRole);
         }
