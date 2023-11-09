@@ -12,4 +12,5 @@ public interface ProfessionalExperienceRepository extends JpaRepository<Professi
 	
 	 @Query("SELECT ex FROM ProfessionalExperience ex WHERE ex.is_deleted = false AND ex.user.user_id = :user_id")
 	 List<ProfessionalExperience> findByUserId(String user_id);
+
 }

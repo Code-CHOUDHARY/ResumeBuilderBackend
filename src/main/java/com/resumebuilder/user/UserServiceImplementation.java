@@ -78,7 +78,7 @@ public class UserServiceImplementation implements UserService{
      */
 
 	public User findUserByIdUser(Long userId) {
-		
+	
 		Optional<User> opt =userRepository.findById(userId);		
 			return opt.get();	
 
