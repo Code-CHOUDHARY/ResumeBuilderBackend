@@ -22,6 +22,7 @@ public class ProfileImageService {
 	@Autowired
 	private UserRepository userRepository;
 	
+
 	public static String fileSeparator = System.getProperty("file.separator");
 	public static final String baseDirectory = "upload"+fileSeparator;
 	
@@ -35,6 +36,7 @@ public class ProfileImageService {
         }
 
         // Create the directory structure based on user's employee_id
+
         String userDirectory = baseDirectory + userId + fileSeparator;
         String profileImageDirectory = userDirectory + "profileImage"+fileSeparator;
 
@@ -75,6 +77,7 @@ public class ProfileImageService {
         return uniqueFileName;
     }
 
+
 	
 
 	public byte[] getProfileImageByUserId(Long userId) throws IOException, FileNotFoundException, java.io.IOException {
@@ -107,6 +110,7 @@ public class ProfileImageService {
             String imagePath = user.getUser_image();
 
             if (imagePath != null && !imagePath.isEmpty()) {
+
                 // Rename the image file to mark it as deleted (e.g., by adding "_deleted" to the filename)
                 File imageFile = new File(imagePath);
                 String deletedImagePath = imagePath.replaceFirst("\\.", "_deleted.");
@@ -136,5 +140,6 @@ public class ProfileImageService {
             throw new RuntimeException("User not found");
         }
     }
+
 
 }

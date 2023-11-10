@@ -14,6 +14,7 @@ public interface EmployeeProjectRepository extends JpaRepository<EmployeeProject
 
 	void save(User user);
 	
+
 //	@Query("SELECT ep FROM EmployeeProject ep JOIN ep.users u WHERE u.user_id = :user_id")
 //	List<EmployeeProject> findByUsersUserId(Long user_id);
 	 @Query("SELECT e FROM EmployeeProject e WHERE is_deleted = :is_deleted AND e.emp_project_id= :emp_project_id")

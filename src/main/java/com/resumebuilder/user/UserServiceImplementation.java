@@ -78,10 +78,8 @@ public class UserServiceImplementation implements UserService{
      */
 
 	public User findUserByIdUser(Long userId) {
-	
 		Optional<User> opt =userRepository.findById(userId);		
 			return opt.get();	
-
 	}
 	
 	/**
@@ -403,6 +401,7 @@ public class UserServiceImplementation implements UserService{
         if (updatedUser.getBlogs_link() != null) {
             existingUser.setBlogs_link(updatedUser.getBlogs_link());
         }
+
         existingUser.setModified_by(currentuser.getFull_name());
         
         
@@ -536,12 +535,20 @@ public class UserServiceImplementation implements UserService{
 		
 	}
 	
+
+	public boolean checkUserExists(String UserId) {
+		boolean result=false;
+		result=userRepository.existsById(Long.parseLong(UserId));
+		return result;
+	}
+
 //	@Override
 //	public List<User> getManagers() {
 //        String roleName = "ROLE_MANAGER"; // The appRole filter
 //        List<User> managers = userRepository.findByAppRoleName(roleName);
 //        return managers;
 //    }
+
     
 }
 

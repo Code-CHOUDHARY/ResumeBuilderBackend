@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.resumebuilder.DTO.APIResponse;
 import com.resumebuilder.DTO.ProjectDto;
 import com.resumebuilder.exception.ProjectException;
@@ -74,7 +75,6 @@ public ResponseEntity<String> deleteProject(@PathVariable(name = "projectId")Lon
 		String project=	this.projectMasterService.deleteproject(id);
 
 	 return new ResponseEntity<>(project, HttpStatus.ACCEPTED);
-
 }
 	@GetMapping("/getProjects")
 	@PreAuthorize("hasRole('MANAGER')")

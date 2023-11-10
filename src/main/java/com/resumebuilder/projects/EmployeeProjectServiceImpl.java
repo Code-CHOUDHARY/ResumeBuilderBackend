@@ -1,5 +1,6 @@
 package com.resumebuilder.projects;
 
+
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -180,5 +181,4 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 		return emppr;
 	}
 
-	
 }

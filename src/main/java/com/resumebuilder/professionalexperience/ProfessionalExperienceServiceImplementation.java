@@ -4,14 +4,15 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resumebuilder.exception.ExperienceNotFoundException;
 import com.resumebuilder.exception.ProfessionalExperienceException;
+import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserService;
 
 @Service
 public class ProfessionalExperienceServiceImplementation implements ProfessionalExperienceService {
@@ -21,6 +22,9 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserService userService;
 	
 	/**
      * Add a new experience.
@@ -102,4 +106,23 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 		return experienceRepo.save(existingExperience);
 	}
 
+	public String getTotalExperience(String userId) {
+		String totalExperience="";
+		// check weather the user Exists or not
+		try {
+			if(userService.checkUserExists(userId)){
+				Integer exp= experienceRepo.getTotalExperience(userId);
+				totalExperience=exp.toString();
+			}else {
+				System.out.println("unable find the user-->"+userId);
+			}
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("unable find the user-->"+userId);
+			totalExperience="";
+		}catch(Exception e) {
+			System.out.println("error while counting experienc-->/n"+e);
+		}
+	   	return totalExperience;
+	}
 }

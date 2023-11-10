@@ -2,16 +2,24 @@ package com.resumebuilder.teamactivity;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.resumebuilder.user.User;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
@@ -23,18 +31,31 @@ public class TeamActivity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(length = 20)
 	private Long team_acivity_id;
+	
 	private String employee_name;
-	private String employee_id;
+	
+	@Column(length = 20)
+	private Long employee_id;
 	private String current_role;
-	private String activity_by;
+	
+	@CreationTimestamp
 	private Date activity_on;
+	
+	@Column(columnDefinition = "TEXT")
 	private String description;
+	
+	@Column(columnDefinition = "TEXT")
 	private String old_data;
+	
+	@Column(columnDefinition = "TEXT")
 	private String new_data;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "employee_id", referencedColumnName = "employee_Id", insertable = false, updatable = false)
-//	private User user; // Reference to the User entity
 
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
+	private User activity_by; // Reference to the User entity
+
+	
 }

@@ -3,10 +3,12 @@ package com.resumebuilder.projects;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.resumebuilder.user.User;
 
@@ -32,12 +34,12 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Table(name = "employee_project")
 public class EmployeeProject {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Long emp_project_id;
 	private String project_title;
 	private Date start_date;
@@ -53,6 +55,7 @@ public class EmployeeProject {
 	private String technologies;
 	private String technology_stack;
 	private String roles_and_responsibility;
+
 	private Long assign_by;
 	@CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -60,6 +63,7 @@ public class EmployeeProject {
 	private LocalDateTime modified_on;
 	private boolean is_deleted;
 	private Long modified_by;
+
 
 //	@ManyToMany(mappedBy = "assignedProjects")
 //	private Set<User> users = new HashSet<>();

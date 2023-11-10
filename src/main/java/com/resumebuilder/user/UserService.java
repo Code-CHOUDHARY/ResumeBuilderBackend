@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.resumebuilder.auth.SignupRequest;
+import com.resumebuilder.exception.UserNotFoundException;
 
 import jakarta.validation.Valid;
 
@@ -14,7 +15,7 @@ public interface UserService {
 
 	public List<User> getAllUsers();
 	
-	public User findUserByIdUser(Long id);
+	public User findUserByIdUser(Long id) throws UserNotFoundException;
 
 	public User findUserByUsername(String userName);
 
@@ -28,7 +29,9 @@ public interface UserService {
 	public void deleteUserById(Long userId, Principal principal);
 
 	public User getUserByEmail(String email);
-	//public List<User> getManagers();
+
+	public boolean checkUserExists(String UserId);
+
 	
 
 }

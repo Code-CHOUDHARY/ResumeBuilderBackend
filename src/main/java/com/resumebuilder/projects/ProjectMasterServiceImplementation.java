@@ -3,6 +3,7 @@ package com.resumebuilder.projects;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,7 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 				          .project_summary(projects.getProject_summary())
 				          .technology_stack(projects.getTechnology_stack())
 				          .roles_and_responsibility(projects.getRoles_and_responsibility())
+
 				          .modified_by(user.getFull_name()).build();
 		    
 			return projectMasterRepository.save(projectMaster);
@@ -127,6 +129,7 @@ if(project!=null) {
 
          
          return project;
+
 	}
 
 		} catch (Exception e) {
@@ -151,6 +154,7 @@ if(project!=null) {
 
 		// Create or update the project
 		ProjectMaster project = projectDTOToEntity(projectDTO, principal);
+
 		project.setModified_by(user.getFull_name());
 		project.setModified_on(LocalDateTime.now());
 		project = projectMasterRepository.save(project);
@@ -162,6 +166,7 @@ if(project!=null) {
 		employeeProject.setEnd_date(project.getEnd_date());
 		employeeProject.setCurrent(false);
 		employeeProject.setShow_dates(false);
+
 		//employeeProject.setShow_duration(project.getShow_duration());
 		employeeProject.setShow_nothing(false);
 		employeeProject.setClient_name(project.getClient_name());
@@ -170,6 +175,7 @@ if(project!=null) {
 		employeeProject.setProject_summary(project.getProject_summary());
 		employeeProject.setTechnology_stack(project.getTechnology_stack());
 		employeeProject.setRoles_and_responsibility(project.getRoles_and_responsibility());
+
 //		employeeProject.setAssign_by(user.getFull_name());
 //		employeeProject.setModified_by(user.getFull_name());
 		employeeProject.setModified_on(LocalDateTime.now());
@@ -178,6 +184,7 @@ if(project!=null) {
 		employeeProject = employeeProjectRepository.save(employeeProject);
 
 		// Update the relationship between the user and EmployeeProject
+
 		//user.getAssignedProjects().add(employeeProject);
 		userRepository.save(user);
 
@@ -203,6 +210,7 @@ if(project!=null) {
 		project.setTechnology_stack(projectDTO.getTechnology_stack());
 		project.setRoles_and_responsibility(projectDTO.getRoles_and_responsibility());
 		// project.setAssign_by(user.getUser_id());
+
 		project.setModified_by(user.getFull_name());
 		project.setModified_on(LocalDateTime.now());
 		return project;

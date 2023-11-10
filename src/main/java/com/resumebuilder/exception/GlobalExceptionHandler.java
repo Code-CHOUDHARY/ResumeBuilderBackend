@@ -97,6 +97,7 @@ public class GlobalExceptionHandler {
     }
     
 
+
     @ExceptionHandler(EducationException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public CustomErrorResponse handleEducationException(EducationException ex) {

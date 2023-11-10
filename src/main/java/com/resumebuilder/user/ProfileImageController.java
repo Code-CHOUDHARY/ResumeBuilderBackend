@@ -1,5 +1,6 @@
 package com.resumebuilder.user;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import java.io.FileNotFoundException;
@@ -32,6 +33,7 @@ public class ProfileImageController {
 	}
     
 	 @GetMapping(value = "/getProfileImage/{userId}", produces = MediaType.IMAGE_JPEG_VALUE)
+
 	 public ResponseEntity<?> getProfileImageByUserId(@PathVariable Long userId) throws IOException, java.io.IOException {
 		 try {
 		        byte[] profileImage = profileImageService.getProfileImageByUserId(userId);

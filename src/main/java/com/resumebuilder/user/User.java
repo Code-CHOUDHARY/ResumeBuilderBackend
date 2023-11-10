@@ -8,8 +8,6 @@ import java.util.Set;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.projects.EmployeeProject;
 import com.resumebuilder.projects.ProjectMaster;
@@ -101,6 +99,7 @@ public class User {
 //            joinColumns = {@JoinColumn(name = "manager_employee_Id")},
 //            inverseJoinColumns = {@JoinColumn(name = "project_master_id")})
 //    private Set<ProjectMaster> projects = new HashSet<>();
+
 //
 //	@ManyToMany
 //	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
@@ -124,6 +123,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
+
   
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserRole appRole;

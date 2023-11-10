@@ -56,7 +56,7 @@ public class UserController {
     public ResponseEntity<User> findUserByIdHandler(@PathVariable Long id) {
 
         User user = userService.findUserByIdUser(id);
-
+       
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 

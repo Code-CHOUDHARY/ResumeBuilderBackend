@@ -1,14 +1,31 @@
 package com.resumebuilder.resumetemplates;
 
+import java.security.Principal;
+import java.time.Period;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.io.JsonEOFException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.ResumeTemplateExceptions;
+import com.resumebuilder.exception.UserNotFoundException;
+import com.resumebuilder.professionalexperience.ProfessionalExperienceService;
+import com.resumebuilder.user.User;
+import com.resumebuilder.user.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 @Service
@@ -17,6 +34,12 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	
 	@Autowired
 	private ResumeTemplatesRepository repo;
+	@Autowired
+    private ProfessionalExperienceService expService;
+	 @Autowired
+	 private UserService userService;
+	 @Autowired
+	private ActivityHistoryService activityHistoryService;
 	
 	 private static final Logger logger = LogManager.getLogger(ResumeTemplatesServiceImplementation.class); 
 
@@ -28,7 +51,8 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	}
 
 	@Override
-	public ResumeTemplates addTemplate(ResumeTemplates req) {
+	public ResumeTemplates addTemplate(ResumeTemplates req,Principal p) {
+		
 		ResumeTemplates template=ResumeTemplates.builder()
 				                  .template_name(req.getTemplate_name())
 				                  .modified_by(req.getModified_by())
@@ -39,11 +63,16 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 				                  .certificates(req.getCertificates())
 				                  .is_deleted(false).build();
 		ResumeTemplates savedTemplate=this.repo.save(template);	
+		if(savedTemplate!=null) {
+			
+		  activityHistoryService.addActivity("AddTemplates", "New template Added with Name "+savedTemplate.getTemplate_name(),savedTemplate.getTemplate_name(), null, userService.findUserByUsername(p.getName()).getFull_name());
+
+		}
 		return savedTemplate;
 	}
 
 	@Override
-	public ResumeTemplates updateTemplate(String tempId,ResumeTemplates req) {
+	public ResumeTemplates updateTemplate(String tempId,ResumeTemplates req,Principal p) {
 		ResumeTemplates template=getTemplateById(tempId);
 		if(template!=null) {
 			template.set_deleted(false);
@@ -55,6 +84,11 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			template.setProjects(req.getProjects());
 			template.setTemplate_name(req.getTemplate_name());
 			ResumeTemplates updateTemplate=repo.save(template);
+			if(updateTemplate!=null) {
+				
+				  activityHistoryService.addActivity("UpdateTemplate", "Template updated with Name "+updateTemplate.getTemplate_name(),updateTemplate.getTemplate_name(), null, userService.findUserByUsername(p.getName()).getFull_name());
+
+				}
 			return updateTemplate;
 		}else {
 			new ResumeTemplateExceptions("Unable to Update Resume Template");
@@ -75,6 +109,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 		if(template != null) {
 			repo.deleteById(Long.parseLong(tempId));
 			flag=true;
+			
 		}else {
 			
 			new ResumeTemplateExceptions("Unable to Delete Resume Template");
@@ -83,7 +118,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	}
  
 	@Override
-	public boolean deleteTemplate(String tempId) {
+	public boolean deleteTemplate(String tempId,Principal p) {
 		boolean flag=false;
 		ResumeTemplates template=getTemplateById(tempId);
 		if(template != null) {
@@ -91,14 +126,120 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			template.set_deleted(true);
 			repo.save(template);
 			flag=true;
+			if(flag) {
+				
+				  activityHistoryService.addActivity("Template Deleted", "Template Deleted with Name "+template.getTemplate_name(),template.getTemplate_name(), null, userService.findUserByUsername(p.getName()).getFull_name());
+
+				}
 		}else {
 			
 			new ResumeTemplateExceptions("Unable to Delete Resume Template");
 		}
 		return flag;
 	}
+
+	@Override
+	public String replaceTemplateData(String TemplateId, String UserId) {
+		StringBuilder htmlOutPut=new StringBuilder();
+		try {
+		ResumeTemplates template=getTemplateById(TemplateId);
+		User user=userService.findUserByIdUser(Long.parseLong(UserId));
+		//stores each section template as list
+		List<String> templateList=List.of(template.getProfile_summary(),template.getProfessional_experience(),template.getProjects(),template.getCertificates());
+		Map<String,Object> relationalMap=null;
+		
+			//get all relations of placeholder-userData
+         relationalMap=getReplacerMap(user.toString());
+         if(relationalMap.size()>0) {
+        	 
+        	 for(String templateString:templateList) {
+        		 
+        		 String out=replacePlaceholder(templateString, relationalMap);
+        		 htmlOutPut.append(out);
+        	 }
+         }else {
+        	 new ResumeTemplateExceptions("unable to get User Details");
+         }
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return htmlOutPut.toString();
+	}
  
+
+	public Map<String,Object> getReplacerMap(String obj) throws JsonMappingException, JsonProcessingException{
+//		Gson json=new Gson();
+//		 User user = json.fromJson(obj, User.class);
+		Map<String,Object> map=new HashMap<String,Object>();
+		 try {
+			ObjectMapper mapper = new ObjectMapper();
+			 mapper.registerModule(new JavaTimeModule());
+			 mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+			User user=mapper.readValue(obj, User.class);
+			
+			map.put("<%Name%>", user.getFull_name());
+			map.put("<%Education%>","");
+			map.put("<%DateOfBirth%>",user.getDate_of_birth());
+			map.put("<%CurrentRole%>", user.getCurrent_role());
+			map.put("<%Email%>", user.getEmail());
+			map.put("<%Gender%>", user.getGender());
+			map.put("<%CurrentLocation%>", user.getLocation());
+			map.put("<%Mobile%>", user.getMobile_number());
+			map.put("<%Projects%>", user.getProjects().toString());
+			map.put("<%LinkedIn%>", user.getLinkedin_lnk());
+			map.put("<%Blogs%>", user.getBlogs_link());
+			map.put("<%Total Experience%>",countExperience(user.getUser_id().toString()));
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error while parsing user object");
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 return map;
+	}
 	
 	
+	public String countExperience(String userId) {
+		String totalExperience="";
+		// check weather the user Exists or not
+		String months=expService.getTotalExperience(userId);
+		Period period = Period.ofMonths( Integer.parseInt(months)).normalized();
+		if(period.getYears()<=0) {
+			totalExperience=period.getMonths() +" Months";
+		}else if(period.getMonths()<=0){
+			totalExperience=period.getYears() +" Years";
+		}else {
+			totalExperience=period.getYears() +" Years "+period.getMonths()+" Months";
+		}
+		
+	   	return totalExperience;
+	}
+	
+	
+	public String replacePlaceholder(String template, Map<String, Object> map) {
+		
+		if (template != null && template != "") {
+			for (Entry<String, Object> entry : map.entrySet()) {
+				
+				String key = entry.getKey();
+				String value = (String) entry.getValue();
+				System.out.println(key+"------------"+value);
+				if (template.contains(key)) {
+					if (value == null || value == "") {
+						template = template.replaceAll(key, "");
+					} else {
+						template = template.replaceAll(key, value);
+					}
+				}
+			}
+		}
+		return template;
+	}
 	
 }

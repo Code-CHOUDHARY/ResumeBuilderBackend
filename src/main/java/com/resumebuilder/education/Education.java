@@ -50,6 +50,7 @@ public class Education {
 	private String show_duration;
 	private boolean show_nothing;
 	private boolean is_deleted;
+
 	private String Modified_by;
 	@UpdateTimestamp
 	@Column(name = "modified_on")

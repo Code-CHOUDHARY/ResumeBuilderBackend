@@ -47,6 +47,7 @@ public class ProjectMaster {
 	private String technologies;
 	private String technology_stack;
 	private String roles_and_responsibility;
+
 	private String modified_by;
 	private String assign_by;
 	@UpdateTimestamp
