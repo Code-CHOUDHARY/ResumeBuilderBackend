@@ -41,6 +41,7 @@ public class TeamActivityServiceImplementation implements TeamActivityService{
 				res.setEmployee_name(a.getEmployee_name());
 				res.setNew_data(a.getNew_data());
 				res.setOld_data(a.getOld_data());
+				res.setUserId(a.getEmployee_id());
 				responseList.add(res);       
 			}
 			return responseList;
@@ -67,6 +68,7 @@ public class TeamActivityServiceImplementation implements TeamActivityService{
 			res.setEmployee_name(activity.getEmployee_name());
 			res.setNew_data(activity.getNew_data());
 			res.setOld_data(activity.getOld_data());
+			res.setUserId(activity.getEmployee_id());
 			return res;
 		}
 		else throw new TeamActivityHistoryException("unable to Insert team activity");
