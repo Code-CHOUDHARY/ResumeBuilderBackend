@@ -15,6 +15,7 @@ import com.resumebuilder.roles.Roles;
 //import com.resumebuilder.security.approle.AppRole;
 import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.technology.TechnologyMaster;
+import com.resumebuilder.technologyExpertise.TechnologyExpertise;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,6 +30,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -116,6 +118,9 @@ public class User {
 
 	@OneToMany(mappedBy = "user") // A user can be associated with many activities
 	private List<ActivityHistory> activityHistories; // Reference to the ActivityHistory entity
+	
+	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	 private TechnologyExpertise technologyExpertise;
 	
 	
 	public User(String email, String password) {
