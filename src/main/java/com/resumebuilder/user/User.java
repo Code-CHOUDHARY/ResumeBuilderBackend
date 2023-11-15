@@ -78,7 +78,7 @@ public class User {
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
 	@Column
-	private String modified_by;
+	private Long modified_by;
 	@Column
 	private boolean is_deleted;
 

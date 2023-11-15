@@ -50,7 +50,7 @@ public class Education {
 	private String show_duration;
 	private boolean show_nothing;
 	private boolean is_deleted;
-	private String Modified_by;
+	private Long Modified_by;
 	@UpdateTimestamp
 	@Column(name = "modified_on")
 	private LocalDateTime modified_on;
