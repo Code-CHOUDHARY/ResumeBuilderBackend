@@ -105,249 +105,260 @@ public class UserServiceImplementation implements UserService{
      * @throws UserNotFoundException if adding or updating the user fails.
      */
 	
-	//add the new user
+//	//add the new user
+//	@Override
+//	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal) throws UserNotFoundException {
+//
+//		try {
+//	        User currentuser = userRepository.findByEmailId(principal.getName());	        
+//	        if (currentuser == null) {
+//	            throw new UserNotFoundException("Current user not found.");
+//	        }
+//	        // Check if a user with the same email exists (soft-deleted or not)
+//	        User existingUser = userRepository.findByEmailId(signUpRequest.getEmail());
+//
+//	        if (existingUser != null) {
+//	            // If an existing user with the same email exists
+//	            if (existingUser.is_deleted()) {
+//	            	// Check if the email id is unique
+//	                List<User> usersWithDuplicateEmailId = userRepository.findByEmailIdAndNotDeleted(signUpRequest.getEmail());
+//	                if (!usersWithDuplicateEmailId.isEmpty()) {
+//	                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Email ID already exists."));
+//	                }
+//
+//	                // Check if the employee_id is unique
+//	                List<User> usersWithDuplicateEmployeeId = userRepository.findByEmployeeIdAndNotDeleted(signUpRequest.getEmployee_Id());
+//	                if (!usersWithDuplicateEmployeeId.isEmpty()) {
+//	                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Employee ID already exists."));
+//	                }
+//	            		
+//	            	// If it's soft-deleted, create a new user without overwriting the existing soft-deleted user
+//	                User newUser = new User(signUpRequest.getEmail(), generateRandomPassword());
+//	                newUser.setFull_name(signUpRequest.getFull_name());
+//	                newUser.setEmployee_Id(signUpRequest.getEmployee_Id());
+//	                newUser.setCurrent_role(signUpRequest.getCurrent_role());
+//	                newUser.setUser_image(signUpRequest.getUser_image());
+//	                newUser.setGender(signUpRequest.getGender());
+//	                newUser.setMobile_number(signUpRequest.getMobile_number());
+//	                newUser.setLocation(signUpRequest.getLocation());
+//	                newUser.setDate_of_joining(signUpRequest.getDate_of_joining());
+//	                newUser.setDate_of_birth(signUpRequest.getDate_of_birth());
+//	                newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
+//	                newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
+//	                newUser.setBlogs_link(signUpRequest.getBlogs_link());
+//	                newUser.setModified_by(currentuser.getFull_name());
+//	                String strRoles = signUpRequest.getRole();
+//	                UserRole appRole;
+//
+//	                if (strRoles == null) {
+//	                    appRole = roleRepository.findByName(ERole.ROLE_USER);
+//	                } else {
+//	                    switch (strRoles) {
+//	                        case "admin":
+//	                            appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
+//	                            break;
+//	                        case "manager":
+//	                            appRole = roleRepository.findByName(ERole.ROLE_MANAGER);
+//	                            break;
+//	                        default:
+//	                            appRole = roleRepository.findByName(ERole.ROLE_USER);
+//	                    }
+//	                }
+//	                
+//
+//	                newUser.setAppRole(appRole);
+//	                String encodedPassword = passwordEncoder.encode(newUser.getPassword());
+//	                newUser.setPassword(encodedPassword);
+//	                newUser.set_deleted(false); // Mark the user as not soft-deleted
+//	                User user = userRepository.save(newUser);
+//	                
+//	             
+//	                
+//	                for(Long id: signUpRequest.getManagerIds()) {	           	                	
+//	                	User manager = userRepository.findById(id).get();	                	
+//	                	System.out.println("manager id - "+manager);
+//	                	 ReportingManager reportingManager = new ReportingManager();	      
+//	                	 reportingManager.setEmployee(user);
+//	                	 reportingManager.setManager(manager);
+//	                	 reportingManagerRepository.save(reportingManager);	                		                	 
+//	                }
+//	                           	                
+//	                // Send the email with the generated password
+//	                sendEmailPassword(newUser, newUser.getPassword());
+//
+//	                return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
+//	            } else {
+//	                // User with the same email already exists and is not soft-deleted
+//	                throw new UserNotFoundException("Employee is already exists.");
+//	            }
+//	        } else {
+//	        	
+//	        	// Check if the employee_id is unique
+//	            List<User> usersWithDuplicateEmployeeId = userRepository.findByEmployeeIdAndNotDeleted(signUpRequest.getEmployee_Id());
+//	            if (!usersWithDuplicateEmployeeId.isEmpty()) {
+//	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Employee ID already exists."));
+//	            }
+//	        	
+//	            // Create a new user
+//	            String password = generateRandomPassword();
+//	            User newUser = new User(signUpRequest.getEmail(), password);
+//	            newUser.setFull_name(signUpRequest.getFull_name());
+//	            newUser.setEmployee_Id(signUpRequest.getEmployee_Id());
+//	            newUser.setCurrent_role(signUpRequest.getCurrent_role());
+//	            newUser.setUser_image(signUpRequest.getUser_image());
+//	            newUser.setGender(signUpRequest.getGender());
+//	            newUser.setMobile_number(signUpRequest.getMobile_number());
+//	            newUser.setLocation(signUpRequest.getLocation());
+//	            newUser.setDate_of_joining(signUpRequest.getDate_of_joining());
+//	            newUser.setDate_of_birth(signUpRequest.getDate_of_birth());
+//	            newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
+//	            newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
+//	            newUser.setBlogs_link(signUpRequest.getBlogs_link());
+//	            newUser.setModified_by(currentuser.getFull_name());
+//
+//	            String strRoles = signUpRequest.getRole();
+//	            UserRole appRole;
+//
+//	            if (strRoles == null) {
+//	                appRole = roleRepository.findByName(ERole.ROLE_USER);
+//	            } else {
+//	                switch (strRoles) {
+//	                    case "admin":
+//	                        appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
+//	                        break;
+//	                    case "manager":
+//	                        appRole = roleRepository.findByName(ERole.ROLE_MANAGER);
+//	                        break;
+//	                    default:
+//	                        appRole = roleRepository.findByName(ERole.ROLE_USER);
+//	                }
+//	            }
+//	            	            
+//
+//	            newUser.setAppRole(appRole);
+//	            String encodedPassword = passwordEncoder.encode(newUser.getPassword());
+//	            newUser.setPassword(encodedPassword);
+//
+//	            User user = userRepository.save(newUser);
+//	     
+//                for(Long id: signUpRequest.getManagerIds()) {             	
+//                	User manager = userRepository.findById(id).get();
+//                	 ReportingManager reportingManager = new ReportingManager();      
+//                	 reportingManager.setEmployee(user);
+//                	 reportingManager.setManager(manager);
+//                	 reportingManagerRepository.save(reportingManager);              	 
+//                }
+//
+//	            // Send the email with the generated password
+//	            sendEmailPassword(newUser, password);
+//	            
+//	            // Activity history logic
+//	            
+//	            UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+//				
+//				 String activityType = "Add Employee";
+//			     String description = "New Employee Added";
+//			     String newData = userToJsonConverter.convertUserToJSON(newUser);
+//			     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
+//
+//	            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
+//	        }
+//	    } catch (Exception e) {
+//	            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new MessageResponse("Employee with same email id and employee id already exist"));
+//	        }
+//	    
+//	}
+	
 	@Override
 	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal) throws UserNotFoundException {
-
-		try {
-	        User currentuser = userRepository.findByEmailId(principal.getName());	        
-	        if (currentuser == null) {
+	    try {
+	        User currentUser = userRepository.findByEmailId(principal.getName());
+	        if (currentUser == null) {
 	            throw new UserNotFoundException("Current user not found.");
 	        }
-	        // Check if a user with the same email exists (soft-deleted or not)
+
 	        User existingUser = userRepository.findByEmailId(signUpRequest.getEmail());
 
-	        if (existingUser != null) {
-	            // If an existing user with the same email exists
-	            if (existingUser.is_deleted()) {
-	            	// Check if the employee_id is unique
-	            	List<User> usersWithDuplicateEmployeeId = userRepository.findByEmployeeId(signUpRequest.getEmployee_Id());
-	            	if (!usersWithDuplicateEmployeeId.isEmpty()) {
-	            	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Employee ID already exists."));
-	            	}
-	            		
-	            	// If it's soft-deleted, create a new user without overwriting the existing soft-deleted user
-	                User newUser = new User(signUpRequest.getEmail(), generateRandomPassword());
-	                newUser.setFull_name(signUpRequest.getFull_name());
-	                newUser.setEmployee_Id(signUpRequest.getEmployee_Id());
-	                newUser.setCurrent_role(signUpRequest.getCurrent_role());
-	                newUser.setUser_image(signUpRequest.getUser_image());
-	                newUser.setGender(signUpRequest.getGender());
-	                newUser.setMobile_number(signUpRequest.getMobile_number());
-	                newUser.setLocation(signUpRequest.getLocation());
-	                newUser.setDate_of_joining(signUpRequest.getDate_of_joining());
-	                newUser.setDate_of_birth(signUpRequest.getDate_of_birth());
-	                newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
-	                newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
-	                newUser.setBlogs_link(signUpRequest.getBlogs_link());
-	                newUser.setModified_by(currentuser.getFull_name());
-	                String strRoles = signUpRequest.getRole();
-	                UserRole appRole;
-
-	                if (strRoles == null) {
-	                    appRole = roleRepository.findByName(ERole.ROLE_USER);
-	                } else {
-	                    switch (strRoles) {
-	                        case "admin":
-	                            appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
-	                            break;
-	                        case "manager":
-	                            appRole = roleRepository.findByName(ERole.ROLE_MANAGER);
-	                            break;
-	                        default:
-	                            appRole = roleRepository.findByName(ERole.ROLE_USER);
-	                    }
-	                }
-	                
-
-	                newUser.setAppRole(appRole);
-	                String encodedPassword = passwordEncoder.encode(newUser.getPassword());
-	                newUser.setPassword(encodedPassword);
-	                newUser.set_deleted(false); // Mark the user as not soft-deleted
-	                User user = userRepository.save(newUser);
-	                
-	             // Create a directory for the new user
-	                createUserDirectory(signUpRequest.getEmployee_Id());
-	                
-	                for(Long id: signUpRequest.getManagerIds()) {	           	                	
-	                	User manager = userRepository.findById(id).get();	                	
-	                	System.out.println("manager id - "+manager);
-	                	 ReportingManager reportingManager = new ReportingManager();	      
-	                	 reportingManager.setEmployee(user);
-	                	 reportingManager.setManager(manager);
-	                	 reportingManagerRepository.save(reportingManager);	                		                	 
-	                }
-	                           	                
-	                // Send the email with the generated password
-	                sendEmailPassword(newUser, newUser.getPassword());
-
-	                return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
-	            } else {
-	                // User with the same email already exists and is not soft-deleted
-	                throw new UserNotFoundException("User with this email already exists.");
+	        if (existingUser != null && existingUser.is_deleted()) {
+	            if (isDuplicateEmailId(signUpRequest.getEmail())) {
+	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Email ID already exists."));
 	            }
+
+	            if (isDuplicateEmployeeId(signUpRequest.getEmployee_Id())) {
+	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Employee ID already exists."));
+	            }
+
+	            User newUser = createNewUser(signUpRequest);
+	            saveUserAndReportingManagers(newUser, signUpRequest.getManagerIds());
+	            sendEmailPassword(newUser, newUser.getPassword());
+
+	            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
+	        } else if (existingUser != null) {
+	            throw new UserNotFoundException("Employee is already exists.");
 	        } else {
-	        	
-	        	// Check if the employee_id is unique
-	        	List<User> usersWithDuplicateEmployeeId = userRepository.findByEmployeeId(signUpRequest.getEmployee_Id());
-	        	if (!usersWithDuplicateEmployeeId.isEmpty()) {
-	        	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Employee ID already exists."));
-	        	}
-	            // Create a new user
-	            String password = generateRandomPassword();
-	            User newUser = new User(signUpRequest.getEmail(), password);
-	            newUser.setFull_name(signUpRequest.getFull_name());
-	            newUser.setEmployee_Id(signUpRequest.getEmployee_Id());
-	            newUser.setCurrent_role(signUpRequest.getCurrent_role());
-	            newUser.setUser_image(signUpRequest.getUser_image());
-	            newUser.setGender(signUpRequest.getGender());
-	            newUser.setMobile_number(signUpRequest.getMobile_number());
-	            newUser.setLocation(signUpRequest.getLocation());
-	            newUser.setDate_of_joining(signUpRequest.getDate_of_joining());
-	            newUser.setDate_of_birth(signUpRequest.getDate_of_birth());
-	            newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
-	            newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
-	            newUser.setBlogs_link(signUpRequest.getBlogs_link());
-	            newUser.setModified_by(currentuser.getFull_name());
-
-	            String strRoles = signUpRequest.getRole();
-	            UserRole appRole;
-
-	            if (strRoles == null) {
-	                appRole = roleRepository.findByName(ERole.ROLE_USER);
-	            } else {
-	                switch (strRoles) {
-	                    case "admin":
-	                        appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
-	                        break;
-	                    case "manager":
-	                        appRole = roleRepository.findByName(ERole.ROLE_MANAGER);
-	                        break;
-	                    default:
-	                        appRole = roleRepository.findByName(ERole.ROLE_USER);
-	                }
+	            if (isDuplicateEmployeeId(signUpRequest.getEmployee_Id())) {
+	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Employee ID already exists."));
 	            }
-	            	            
 
-	            newUser.setAppRole(appRole);
-	            String encodedPassword = passwordEncoder.encode(newUser.getPassword());
-	            newUser.setPassword(encodedPassword);
+	            User newUser = createNewUser(signUpRequest);
+	            saveUserAndReportingManagers(newUser, signUpRequest.getManagerIds());
+	            sendEmailPassword(newUser, newUser.getPassword());
 
-	            User user = userRepository.save(newUser);
-	         // Create a directory for the new user
-                createUserDirectory(signUpRequest.getEmployee_Id());
-                for(Long id: signUpRequest.getManagerIds()) {             	
-                	User manager = userRepository.findById(id).get();
-                	 ReportingManager reportingManager = new ReportingManager();      
-                	 reportingManager.setEmployee(user);
-                	 reportingManager.setManager(manager);
-                	 reportingManagerRepository.save(reportingManager);              	 
-                }
-
-	            // Send the email with the generated password
-	            sendEmailPassword(newUser, password);
-	            
 	            // Activity history logic
-	            
-	            UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
-				
-				 String activityType = "Add Employee";
-			     String description = "New Employee Added";
-			     String newData = userToJsonConverter.convertUserToJSON(newUser);
-			     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
+	            logActivity("Add Employee", "New Employee Added", newUser, currentUser.getFull_name());
 
 	            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
 	        }
 	    } catch (Exception e) {
-	        throw new UserNotFoundException("Failed to add/update user data. " + e.getMessage());
+	        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+	                .body(new MessageResponse("Employee with same email id and employee id already exist"));
 	    }
 	}
 
-	private void createUserDirectory(String employeeId) {
-		try {
-	        String baseDirectory = File.separator + "upload/";
-	        String sanitizedEmployeeId = employeeId.replaceAll("[^a-zA-Z0-9_]", "_");
-	        String userFolder = baseDirectory + File.separator + sanitizedEmployeeId;
+	private boolean isDuplicateEmailId(String email) {
+	    return !userRepository.findByEmailIdAndNotDeleted(email).isEmpty();
+	}
 
-	        File userDirectory = new File(userFolder);
-	        if (!userDirectory.exists()) {
-	            if (userDirectory.mkdirs()) {
-	                logger.info("User directory created successfully: " + userDirectory.getAbsolutePath());
-	            } else {
-	                logger.error("Failed to create user directory: " + userDirectory.getAbsolutePath());
-	                // Handle the failure to create the directory or log the error message.
-	            }
-	        } else {
-	            logger.info("User directory already exists: " + userDirectory.getAbsolutePath());
-	        }
-	    } catch (Exception e) {
-	        logger.error("Error creating user directory: " + e.getMessage());
-	        // Handle the error or log the error message here.
+	private boolean isDuplicateEmployeeId(String employeeId) {
+	    return !userRepository.findByEmployeeIdAndNotDeleted(employeeId).isEmpty();
+	}
+
+	private User createNewUser(SignupRequest signUpRequest) {
+	    String password = generateRandomPassword();
+	    User newUser = new User(signUpRequest.getEmail(), password);
+	    newUser.setFull_name(signUpRequest.getFull_name());
+	    newUser.setEmployee_Id(signUpRequest.getEmployee_Id());
+	    newUser.setCurrent_role(signUpRequest.getCurrent_role());
+	    newUser.setUser_image(signUpRequest.getUser_image());
+	    newUser.setGender(signUpRequest.getGender());
+	    newUser.setMobile_number(signUpRequest.getMobile_number());
+	    newUser.setLocation(signUpRequest.getLocation());
+	    newUser.setDate_of_joining(signUpRequest.getDate_of_joining());
+	    newUser.setDate_of_birth(signUpRequest.getDate_of_birth());
+	    newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
+	    newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
+	    newUser.setBlogs_link(signUpRequest.getBlogs_link());
+	    return newUser;
+	}
+
+	private void saveUserAndReportingManagers(User newUser, List<Long> managerIds) {
+	    User savedUser = userRepository.save(newUser);
+	    for (Long id : managerIds) {
+	        User manager = userRepository.findById(id).orElseThrow(); // Handle appropriately
+	        ReportingManager reportingManager = new ReportingManager();
+	        reportingManager.setEmployee(savedUser);
+	        reportingManager.setManager(manager);
+	        reportingManagerRepository.save(reportingManager);
 	    }
 	}
-	
-	
-//	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal)throws UserNotFoundException {
-//		 try {
-//			 
-//			 User currentuser = userRepository.findByEmailId(principal.getName());
-//			 
-//			 if (currentuser == null) {
-//		            throw new UserNotFoundException("Current user not found.");
-//		        }
-//
-//			 String password = generateRandomPassword();
-//			 
-//			 User user = new User(signUpRequest.getEmail(), generateRandomPassword());
-//		        user.setFull_name(signUpRequest.getFull_name());
-//		        user.setEmployee_Id(signUpRequest.getEmployee_Id());
-//		        user.setCurrent_role(signUpRequest.getCurrent_role());
-//		        user.setUser_image(signUpRequest.getUser_image());
-//		        user.setGender(signUpRequest.getGender());
-//		        user.setMobile_number(signUpRequest.getMobile_number());
-//		        user.setLocation(signUpRequest.getLocation());
-//		        user.setDate_of_joining(signUpRequest.getDate_of_joining());
-//		        user.setDate_of_birth(signUpRequest.getDate_of_birth());
-//		        user.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
-//		        user.setPortfolio_link(signUpRequest.getPortfolio_link());
-//		        user.setBlogs_link(signUpRequest.getBlogs_link());
-//		        user.setModified_by(currentuser.getFull_name());
-//		        String strRoles = signUpRequest.getRole();
-//
-//		        if (strRoles == null) {
-//		            UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
-//		            user.setAppRole(userRole);
-//		        } else {
-//		            switch (strRoles) {
-//		                case "admin":
-//		                    UserRole adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
-//		                    user.setAppRole(adminRole);
-//
-//		                    break;
-//		                case "manager":
-//		                    UserRole managerRole = roleRepository.findByName(ERole.ROLE_MANAGER);
-//		                    user.setAppRole(managerRole);
-//
-//		                    break;
-//		                default:
-//		                    UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
-//		                    user.setAppRole(userRole);
-//
-//		            }
-//		        }
-//		        String encodedPassword = passwordEncoder.encode(user.getPassword());
-//		        user.setPassword(encodedPassword);
-//
-//		        userRepository.save(user);
-//
-//		        // Send the email with the generated password
-//		        sendEmailPassword(user, password);
-//
-//		        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
-//		    } catch (Exception e) {
-//		        throw new UserNotFoundException("Failed to add user data." + e.getMessage());
-//		    } 
-//	}
+
+	private void logActivity(String activityType, String description, User user, String modifier) throws JsonProcessingException {
+	    UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+	    String newData = userToJsonConverter.convertUserToJSON(user);
+	    activityHistoryService.addActivity(activityType, description, newData, null, modifier);
+	}
+
+
     
 	/**
      * Edit an existing user.
@@ -402,7 +413,7 @@ public class UserServiceImplementation implements UserService{
             existingUser.setBlogs_link(updatedUser.getBlogs_link());
         }
 
-        existingUser.setModified_by(currentuser.getFull_name());
+        existingUser.setModified_by(currentuser.getUser_id());
         
         
         // Compare the fields and identify changes
