@@ -8,6 +8,8 @@ import com.resumebuilder.security.approle.ERole;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 import com.resumebuilder.user.UserRoleRepository;
+import com.resumebuilder.user.UserRolesMapping;
+import com.resumebuilder.user.UserRolesMappingRepository;
 import com.resumebuilder.user.UserToJsonConverter;
 
 import jakarta.mail.internet.MimeMessage;
@@ -47,6 +49,9 @@ public class BulkUploadEmployeeService {
 
     @Autowired
     private JavaMailSender mailSender;
+    
+    @Autowired
+	private UserRolesMappingRepository userRolesMappingRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -313,8 +318,8 @@ public class BulkUploadEmployeeService {
                     bulkUploadDto.getCurrentRole() != null &&
                     bulkUploadDto.getEmail_id() != null &&
                     bulkUploadDto.getGender() != null &&
-                    bulkUploadDto.getMobile_number() != null &&
-                    bulkUploadDto.getLocation() != null &&
+//                    bulkUploadDto.getMobile_number() != null &&
+//                    bulkUploadDto.getLocation() != null &&
                     bulkUploadDto.getAppRoleId() != null) {
 
                 User existingUser = findUserByEmailAndEmployeeId(existingUsers, bulkUploadDto.getEmail_id(), bulkUploadDto.getEmployee_id());
@@ -325,10 +330,12 @@ public class BulkUploadEmployeeService {
 
                 if (bulkUploadDto.getRemark().isEmpty()) {
                     List<Roles> allRoles = rolesRepository.findAll();
-                    Roles currentRole = allRoles.stream()
-                            .filter(role -> role.getRole_name().equals(bulkUploadDto.getCurrentRole()))
-                            .findFirst()
-                            .orElse(null);
+//                    Roles currentRole = allRoles.stream()
+//                            .filter(role -> role.getRole_name().equals(bulkUploadDto.getCurrentRole()))
+//                            .findFirst()
+//                            .orElse(null);
+                    Roles currentRole = rolesRepository.findByRoleName(bulkUploadDto.getCurrentRole());
+
                     if (currentRole != null) {
                         if (existingUser != null) {
                             // User exists, update the existing user
@@ -368,26 +375,6 @@ public class BulkUploadEmployeeService {
                                 bulkUploadDto.setRemark(List.of("Employee ID or email ID is already exists"));
                                 notStoredData.add(bulkUploadDto);
                             }
-                            
-//                            if (!existsByEmail && !existsByEmployeeId && !existBySoftDelete) {
-//                                // Create a new user
-//                                User newUser = new User();
-//                                createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
-//                                bulkUploadDto.setStatus(false);
-//                                storedData.add(bulkUploadDto);
-//                            } else {
-//                            	if (!existsByEmail && !existsByEmployeeId) {
-//                                // Existing user is soft-deleted or active, create a new user
-//                                User newUser = new User();
-//                                createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
-//                                bulkUploadDto.setStatus(false);
-//                                storedData.add(bulkUploadDto);
-//                            	}else {
-//                            		bulkUploadDto.setStatus(true);
-//                                  bulkUploadDto.setRemark(List.of("Employee id or email id is already exists"));
-//                                  notStoredData.add(bulkUploadDto);
-//                            	}
-//                            }
 
                         }
                     } else {
@@ -550,7 +537,10 @@ public class BulkUploadEmployeeService {
      */
 
     private User createUser(User newUser, EmployeeBulkUploadDto bulkUploadDto, String generatedPassword, String encodedPassword, User currentUser) throws Exception {
-        newUser.setFull_name(bulkUploadDto.getFullName());
+        
+    	 Roles currentRole = rolesRepository.findByRoleName(bulkUploadDto.getCurrentRole());
+    	 
+    	newUser.setFull_name(bulkUploadDto.getFullName());
         newUser.setDate_of_joining(bulkUploadDto.getDateOfJoining());
         newUser.setDate_of_birth(bulkUploadDto.getDateOfBirth());
         newUser.setCurrent_role(bulkUploadDto.getCurrentRole());
@@ -572,6 +562,8 @@ public class BulkUploadEmployeeService {
 //        newUser.setAppRole(roleRepository.findByName(ERole.ROLE_USER));
         
         User user = userRepository.save(newUser);
+     // Map the user to the specified role
+        mapUserToRole(user, currentRole);
         
          String activityType = "Bulk upload";
 	     String description = "Bulk upload of employees";
@@ -587,6 +579,13 @@ public class BulkUploadEmployeeService {
         
         return user;
 
+    }
+    
+    private void mapUserToRole(User user, Roles role) {
+        UserRolesMapping userRoleMapping = new UserRolesMapping();
+        userRoleMapping.setUser(user);
+        userRoleMapping.setRole(role);
+        userRolesMappingRepository.save(userRoleMapping);
     }
     
     /**
@@ -715,7 +714,7 @@ public class BulkUploadEmployeeService {
             }
             
             if (!isValidAppRoleId(appRoleId)) {
-                missingDataMsg.add("Application role id is not valid");
+                missingDataMsg.add("Application role does not valid");
             }
             
 //            if (userRepository.existsByEmail(email) || userRepository.existsByEmployeeId(employeeId)) {
