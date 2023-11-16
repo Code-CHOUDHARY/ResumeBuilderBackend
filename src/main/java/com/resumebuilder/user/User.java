@@ -132,5 +132,9 @@ public class User {
   
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserRole appRole;
+	
+	@OneToMany(mappedBy = "user")
+	private List<UserRolesMapping> userRoleMappings;
+
 
 }
