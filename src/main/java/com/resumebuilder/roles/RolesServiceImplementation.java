@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.user.User;
@@ -57,9 +58,12 @@ public class RolesServiceImplementation implements RolesService{
                     // Save the new role to the database
                     rolesRepository.save(newRole);
 
-                    String activityType = "Add Role";
-                    String description = "New Role Added";
-                    activityHistoryService.addActivity(activityType, description, role.getRole_name(), null, user.getFull_name());
+                    ActivityHistory activityHistory = new ActivityHistory();
+                    activityHistory.setActivity_type("Add role");
+                    activityHistory.setDescription("new role addded");
+                    activityHistory.setNew_data(role.getRole_name());
+                    activityHistory.setUser(user);
+                    activityHistoryService.addActivity(activityHistory, principal);
                     
                     return newRole; // Return the newly created role
                 } else {
@@ -72,9 +76,12 @@ public class RolesServiceImplementation implements RolesService{
                 role.set_deleted(false);
                 role = rolesRepository.save(role);
                 
-                String activityType = "Add Role";
-                String description = "New Role Added";
-                activityHistoryService.addActivity(activityType, description, role.getRole_name(), null, user.getFull_name());
+                ActivityHistory activityHistory = new ActivityHistory();
+                activityHistory.setActivity_type("Add role");
+                activityHistory.setDescription("new role addded");
+                activityHistory.setNew_data(role.getRole_name());
+                activityHistory.setUser(user);
+                activityHistoryService.addActivity(activityHistory, principal);
                 
                 return role; // Return the newly created role
             }
@@ -110,10 +117,13 @@ public class RolesServiceImplementation implements RolesService{
 	        existingRole.setRole_name(updatedRole.getRole_name());
 	        existingRole.setModified_by(user.getFull_name());
 	        
-	         String activityType = "Update Role";
-		     String description = "Change in role data";
-		     
-		     activityHistoryService.addActivity(activityType, description, updatedRole.getRole_name(), existingRole.getRole_name(),user.getFull_name());
+	        ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.setActivity_type("Update role");
+            activityHistory.setDescription("Change in role data");
+            activityHistory.setOld_data(existingRole.getRole_name());
+            activityHistory.setNew_data(updatedRole.getRole_name());
+            activityHistory.setUser(user);
+            activityHistoryService.addActivity(activityHistory, principal);
 
 	        return rolesRepository.save(existingRole);
 	    } catch (Exception e) {
@@ -142,10 +152,12 @@ public class RolesServiceImplementation implements RolesService{
             existingRole.setModified_by(user.getFull_name());
 
             
-             String activityType = "Delete Role";
-		     String description = "Deleted a Role";
-		     
-		     activityHistoryService.addActivity(activityType, description, existingRole.getRole_name() + "is Deleted", null, user.getFull_name());
+            ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.setActivity_type("Delete role");
+            activityHistory.setDescription("Role with role name "+existingRole.getRole_name()+" is deleted");
+            activityHistory.setOld_data(existingRole.getRole_name());
+            activityHistory.setUser(user);
+            activityHistoryService.addActivity(activityHistory, principal);
 
             rolesRepository.save(existingRole);
         } catch (Exception e) {

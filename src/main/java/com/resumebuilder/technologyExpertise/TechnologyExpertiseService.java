@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resumebuilder.DTO.TechnologyExpertiseDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.TechnologyException;
 import com.resumebuilder.exception.UserNotFoundException;
+import com.resumebuilder.professionalexperience.JsonConverter;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 
@@ -22,12 +25,15 @@ public class TechnologyExpertiseService {
 	private final TechnologyExpertiseRepository technologyExpertiseRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final ActivityHistoryService activityHistoryService;
 
     @Autowired
-    public TechnologyExpertiseService(TechnologyExpertiseRepository technologyExpertiseRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public TechnologyExpertiseService(TechnologyExpertiseRepository technologyExpertiseRepository, UserRepository userRepository, ModelMapper modelMapper,
+    		ActivityHistoryService activityHistoryService) {
         this.technologyExpertiseRepository = technologyExpertiseRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.activityHistoryService=activityHistoryService;
     }
 
     /**
@@ -36,10 +42,11 @@ public class TechnologyExpertiseService {
      * @param principal    The Principal object representing the authenticated user.
      * @param expertiseDto The DTO containing technology expertise information.
      * @return The added technology expertise as DTO.
+     * @throws Exception 
      * @throws UserNotFoundException If the authenticated user is not found.
      */
     
-    public TechnologyExpertiseDto addTechnologyExpertise(Principal principal, TechnologyExpertiseDto expertiseDto) {
+    public TechnologyExpertiseDto addTechnologyExpertise(Principal principal, TechnologyExpertiseDto expertiseDto) throws Exception {
         String username = principal.getName();
         Optional<User> optionalUser = userRepository.findByEmail(username);
 
@@ -52,10 +59,18 @@ public class TechnologyExpertiseService {
             // Set the user for the technology expertise
             technologyExpertise.setUser(user);
             technologyExpertise.setModified_by(user.getUser_id());
-
+            
             // Save the technology expertise
             TechnologyExpertise savedTechnologyExpertise = technologyExpertiseRepository.save(technologyExpertise);
-
+            
+            ActivityHistory activityHistory = new ActivityHistory();
+//         	String newData = JsonConverter.convertToJson(savedTechnologyExpertise);
+            activityHistory.setActivity_type("Technology Expertise");	            
+            activityHistory.setDescription("Change in Technology Expertise data");
+//            activityHistory.setNew_data(newData);
+            activityHistory.setUser(user);
+            activityHistoryService.addActivity(activityHistory, principal);
+            
             // Map the saved entity back to DTO and return
             return modelMapper.map(savedTechnologyExpertise, TechnologyExpertiseDto.class);
         } else {

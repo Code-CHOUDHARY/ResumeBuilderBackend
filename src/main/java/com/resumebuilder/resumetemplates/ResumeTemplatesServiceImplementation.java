@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.ResumeTemplateExceptions;
 import com.resumebuilder.exception.UserNotFoundException;
@@ -65,8 +66,11 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 		ResumeTemplates savedTemplate=this.repo.save(template);	
 		if(savedTemplate!=null) {
 			
-		  activityHistoryService.addActivity("AddTemplates", "New template Added with Name "+savedTemplate.getTemplate_name(),savedTemplate.getTemplate_name(), null, userService.findUserByUsername(p.getName()).getFull_name());
-
+		  	 ActivityHistory activityHistory = new ActivityHistory();
+	 		 activityHistory.setActivity_type("Add Template");
+	 		 activityHistory.setDescription("Change in Template data");
+	 		 activityHistory.setNew_data("New template Added with Name "+savedTemplate.getTemplate_name());
+	 		 activityHistoryService.addActivity(activityHistory, p); 
 		}
 		return savedTemplate;
 	}
@@ -86,8 +90,12 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			ResumeTemplates updateTemplate=repo.save(template);
 			if(updateTemplate!=null) {
 				
-				  activityHistoryService.addActivity("UpdateTemplate", "Template updated with Name "+updateTemplate.getTemplate_name(),updateTemplate.getTemplate_name(), null, userService.findUserByUsername(p.getName()).getFull_name());
-
+				 
+				  	ActivityHistory activityHistory = new ActivityHistory();
+			 		 activityHistory.setActivity_type("Update Template");
+			 		 activityHistory.setDescription("Change in Template data");
+			 		 activityHistory.setNew_data("Template updated with Name "+updateTemplate.getTemplate_name());
+			 		 activityHistoryService.addActivity(activityHistory, p); 
 				}
 			return updateTemplate;
 		}else {
@@ -128,7 +136,12 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			flag=true;
 			if(flag) {
 				
-				  activityHistoryService.addActivity("Template Deleted", "Template Deleted with Name "+template.getTemplate_name(),template.getTemplate_name(), null, userService.findUserByUsername(p.getName()).getFull_name());
+				 
+				  	ActivityHistory activityHistory = new ActivityHistory();
+			 		 activityHistory.setActivity_type("Delete Template");
+			 		 activityHistory.setDescription("Change in Template data");
+			 		 activityHistory.setNew_data("Template Deleted with Name "+template.getTemplate_name());
+			 		 activityHistoryService.addActivity(activityHistory, p); 
 
 				}
 		}else {

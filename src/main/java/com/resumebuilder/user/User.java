@@ -9,6 +9,7 @@ import java.util.Set;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.professionalexperience.ProfessionalExperience;
 import com.resumebuilder.projects.EmployeeProject;
 import com.resumebuilder.projects.ProjectMaster;
 import com.resumebuilder.roles.Roles;
@@ -116,12 +117,11 @@ public class User {
 	@JoinTable(name = "employee_technology_mapping", joinColumns = @JoinColumn(name = "employee_Id"), inverseJoinColumns = @JoinColumn(name = "technology_id"))
 	private Set<TechnologyMaster> technologies = new HashSet<>();
 
-	@OneToMany(mappedBy = "user") // A user can be associated with many activities
-	private List<ActivityHistory> activityHistories; // Reference to the ActivityHistory entity
+//	@OneToMany(mappedBy = "user") // A user can be associated with many activities
+//	private List<ActivityHistory> activityHistories; // Reference to the ActivityHistory entity
 	
 	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	 private TechnologyExpertise technologyExpertise;
-	
 	
 	public User(String email, String password) {
 		super();
