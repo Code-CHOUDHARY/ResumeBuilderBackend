@@ -336,7 +336,7 @@ public class BulkUploadEmployeeService {
 //                            .findFirst()
 //                            .orElse(null);
                     Roles currentRole = rolesRepository.findByRoleName(bulkUploadDto.getCurrentRole());
-
+                    logger.info("Employee current role --- "+currentRole);
                     if (currentRole != null) {
                         if (existingUser != null) {
                             // User exists, update the existing user
@@ -397,7 +397,11 @@ public class BulkUploadEmployeeService {
         List<EmployeeBulkUploadDto> allData = new ArrayList<>();
         allData.addAll(storedData);
         allData.addAll(notStoredData);
-
+        
+        logger.info("Currect employee data list --- "+storedData);
+        logger.info("According to validation incorrect employee data list  --- "+notStoredData);
+        logger.info("Excel data convert into json with status and remark --- "+allData);
+        
         return allData;
     }
 
@@ -619,6 +623,7 @@ public class BulkUploadEmployeeService {
         existingUser.setAppRole(roleRepository.findById(appRoleId).orElse(null));
         //existingUser.setAppRole(roleRepository.findById(Long.parseLong(bulkUploadDto.getAppRoleId())).orElse(null));
         
+        bulkUploadDto.setRemark(List.of("Update the employee data."));
         return userRepository.save(existingUser);
     }
     
