@@ -26,6 +26,8 @@ import com.resumebuilder.auth.SignupRequest;
 import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.reportingmanager.ReportingManager;
 import com.resumebuilder.reportingmanager.ReportingManagerRepository;
+import com.resumebuilder.roles.Roles;
+import com.resumebuilder.roles.RolesRepository;
 import com.resumebuilder.security.approle.ERole;
 import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.security.response.MessageResponse;
@@ -57,6 +59,12 @@ public class UserServiceImplementation implements UserService {
 
 	@Autowired
 	private ActivityHistoryRepository activityHistoryRepository;
+	
+	@Autowired
+	private RolesRepository rolesRepository;
+	
+	@Autowired
+	private UserRolesMappingRepository usereRolesMappingRepository;
 
 	/**
 	 * Retrieve a list of all users.
@@ -113,11 +121,28 @@ public class UserServiceImplementation implements UserService {
 			if (currentuser == null) {
 				throw new UserNotFoundException("Current user not found.");
 			}
+			
+			// Check if the provided current_role exists in the roles table
+	        String currentRoleName = signUpRequest.getCurrent_role();
+	        Roles currentRole = rolesRepository.findByRoleName(currentRoleName);
+	        if (currentRole == null) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                    .body(new MessageResponse("Current role does not exist."));
+	        }
+			
 			// Check if a user with the same email exists (soft-deleted or not)
 			User existingUser = userRepository.findByEmailId(signUpRequest.getEmail());
 
 			if (existingUser != null) {
 				if (existingUser.is_deleted()) {
+//					List<Roles> allRoles = rolesRepository.findAll();
+//                    Roles currentRole = allRoles.stream()
+//                            .filter(role -> role.getRole_name().equals(signUpRequest.getCurrent_role()))
+//                            .findFirst()
+//                            .orElse(null);
+//                    if (currentRole != null) {
+					
+					
 					boolean usersWithDuplicateEmployeeId = userRepository
 							.existsByEmployeeId(signUpRequest.getEmployee_Id());
 					boolean userWithDuplicateEmailId = userRepository.existsByEmail(signUpRequest.getEmail());
@@ -148,23 +173,28 @@ public class UserServiceImplementation implements UserService {
 								appRole = roleRepository.findByName(ERole.ROLE_USER);
 							} else {
 								switch (strRoles) {
-//								case "admin":
-//									appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
-//									break;
+								case "admin":
+									appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
+									break;
 								case "manager":
 									appRole = roleRepository.findByName(ERole.ROLE_MANAGER);
 									break;
 								default:
-									//appRole = roleRepository.findByName(ERole.ROLE_USER);
-									return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-							                .body(new MessageResponse("Application role not valid."));
+									appRole = roleRepository.findByName(ERole.ROLE_USER);
+//									return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//							                .body(new MessageResponse("Application role not valid."));
 								}
 							}
 							newUser.setAppRole(appRole);
 							String encodedPassword = passwordEncoder.encode(newUser.getPassword());
 							newUser.setPassword(encodedPassword);
 							newUser.set_deleted(false); // Mark the user as not soft-deleted
+
 							User user = userRepository.save(newUser);
+							
+							// Save the user-role relationship
+							UserRolesMapping userRolesMapping = new UserRolesMapping(user, currentRole);
+							usereRolesMappingRepository.save(userRolesMapping);
 
 							for (Long id : signUpRequest.getManagerIds()) {
 								User manager = userRepository.findById(id).get();
@@ -181,6 +211,10 @@ public class UserServiceImplementation implements UserService {
 							return ResponseEntity.status(HttpStatus.OK)
 									.body(new MessageResponse("Employee data added successfully."));
 						}
+//					}else {
+//						return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//								.body(new MessageResponse("Current role does not exists."));
+//					}
 					} else {
 						return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 								.body(new MessageResponse("Employee ID or email id already exists."));
@@ -192,6 +226,13 @@ public class UserServiceImplementation implements UserService {
 					throw new UserNotFoundException("Employee is already exists.");
 				}
 			} else {
+				
+//				List<Roles> allRoles = rolesRepository.findAll();
+//                Roles currentRole = allRoles.stream()
+//                        .filter(role -> role.getRole_name().equals(signUpRequest.getCurrent_role()))
+//                        .findFirst()
+//                        .orElse(null);
+//                if (currentRole != null) {
 
 				// Check if the employee_id is unique
 				boolean usersWithDuplicateEmployeeId = userRepository
@@ -226,16 +267,16 @@ public class UserServiceImplementation implements UserService {
 						appRole = roleRepository.findByName(ERole.ROLE_USER);
 					} else {
 						switch (strRoles) {
-//						case "admin":
-//							appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
-//							break;
+						case "admin":
+							appRole = roleRepository.findByName(ERole.ROLE_ADMIN);
+							break;
 						case "manager":
 							appRole = roleRepository.findByName(ERole.ROLE_MANAGER);
 							break;
 						default:
-							//appRole = roleRepository.findByName(ERole.ROLE_USER);
-							return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					                .body(new MessageResponse("Application role not valid."));
+							appRole = roleRepository.findByName(ERole.ROLE_USER);
+//							return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//					                .body(new MessageResponse("Application role not valid."));
 						}
 					}
 
@@ -244,6 +285,10 @@ public class UserServiceImplementation implements UserService {
 					newUser.setPassword(encodedPassword);
 
 					User user = userRepository.save(newUser);
+					
+					// Save the user-role relationship
+					UserRolesMapping userRolesMapping = new UserRolesMapping(user, currentRole);
+					usereRolesMappingRepository.save(userRolesMapping);
 
 					for (Long id : signUpRequest.getManagerIds()) {
 						User manager = userRepository.findById(id).get();
@@ -270,6 +315,10 @@ public class UserServiceImplementation implements UserService {
 					return ResponseEntity.status(HttpStatus.OK)
 							.body(new MessageResponse("Employee data added successfully."));
 				}
+//				}else {
+//					return ResponseEntity.status(HttpStatus.OK)
+//							.body(new MessageResponse("Current role does not exists."));
+//				}
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 						.body(new MessageResponse("Employee ID or email id already exists."));
