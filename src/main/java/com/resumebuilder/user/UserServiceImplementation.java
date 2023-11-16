@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import jakarta.mail.internet.MimeMessage;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.resumebuilder.activityhistory.ActivityHistoryRepository;
@@ -31,6 +31,7 @@ import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.security.response.MessageResponse;
 
 import io.jsonwebtoken.lang.Objects;
+import jakarta.mail.internet.MimeMessage;
 
 
 @Service
@@ -70,18 +71,15 @@ public class UserServiceImplementation implements UserService{
 		return userRepository.findAll();
 	}
 	
-	/**
-     * Find a user by their user ID.
-     *
-     * @param userId User ID.
-     * @return The User entity if found, or throw UserNotFoundException.
-     */
-
-	public User findUserByIdUser(Long userId) {
 	
-		Optional<User> opt =userRepository.findById(userId);		
+	
+	public User findUserByIdUser(Long userId) {
+		Optional<User> opt=userRepository.findUserWithNonDeletedAssociations(userId);
+		//Optional<User> opt =userRepository.findById(userId);		
+		if (opt.isPresent()) {
 			return opt.get();	
-
+		}
+		return null;
 	}
 	
 	/**

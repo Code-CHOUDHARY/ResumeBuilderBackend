@@ -1,6 +1,9 @@
 package com.resumebuilder.certifications;
 
-import java.util.Date;import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.resumebuilder.user.User;
 
 import jakarta.persistence.Column;
@@ -33,7 +36,7 @@ public class Certifications {
 	private String show_duration;
 	private boolean show_nothing;
 	private boolean is_deleted;
-	
+	@JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "employee_id")
     private User user; // Reference to the User entity

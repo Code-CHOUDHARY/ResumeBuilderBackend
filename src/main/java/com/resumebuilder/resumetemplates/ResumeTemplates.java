@@ -51,11 +51,11 @@ public class ResumeTemplates {
 	private String certificates;
 	
 	
-	private String modified_by;
+	private Long modified_by;
 
 	
 	private Date modified_on;
-	
+
     @Column(columnDefinition = "boolean")
 	private boolean is_deleted;
 	

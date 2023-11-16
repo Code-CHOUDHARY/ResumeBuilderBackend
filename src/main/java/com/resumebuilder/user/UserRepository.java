@@ -69,5 +69,14 @@ public interface UserRepository extends JpaRepository<User, Long>{
 //		@Query("SELECT u FROM User u WHERE u.user_id = :userId")
 //		@Query("SELECT u FROM User u LEFT JOIN FETCH u.assignedProjects ap WHERE u.user_id = :userId")
 //	    User findByUserId(@Param("userId") Long userId);
-		
+		@Query("SELECT DISTINCT u FROM User u " +
+		           "LEFT JOIN FETCH u.employeeProject p " +
+				"WHERE u.user_id = :userId AND (u.is_deleted = false AND (p is null OR p.is_deleted = false))")
+		    Optional<User> findUserWithNonDeletedAssociations(@Param("userId") Long userId);
+//		@Query(value = "SELECT DISTINCT u.* FROM user u " +x
+//	               "LEFT JOIN employee_project p ON u.user_id = p.user_user_id AND p.is_deleted = false " +
+//	               "LEFT JOIN education e ON u.user_id = e.user_id AND e.is_deleted = false " +
+//	               "WHERE u.user_id = :userId AND u.is_deleted = false", nativeQuery = true)
+//	Optional<User> findUserWithNonDeletedAssociations(@Param("userId") Long userId);
+			
 }

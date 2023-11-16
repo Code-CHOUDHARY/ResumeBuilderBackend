@@ -6,11 +6,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.certifications.Certifications;
+import com.resumebuilder.education.Education;
 import com.resumebuilder.projects.EmployeeProject;
 import com.resumebuilder.projects.ProjectMaster;
 import com.resumebuilder.roles.Roles;
@@ -78,6 +81,7 @@ public class User {
 	private LocalDateTime modified_on;
 	@Column
 	private String modified_by;
+	@JsonIgnore
 	@Column
 	private boolean is_deleted;
 
@@ -87,7 +91,7 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Roles> roles = new HashSet<>();
 
-	
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "manager_project_mapping",
             joinColumns = {@JoinColumn(name = "manager_employee_Id")},
@@ -106,15 +110,16 @@ public class User {
 //	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 //    private Set<EmployeeProject> assignedProjects = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<EmployeeProject> employeeProject = new ArrayList<>();
 
 
-
+    @JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "employee_technology_mapping", joinColumns = @JoinColumn(name = "employee_Id"), inverseJoinColumns = @JoinColumn(name = "technology_id"))
 	private Set<TechnologyMaster> technologies = new HashSet<>();
 
+	
 	@OneToMany(mappedBy = "user") // A user can be associated with many activities
 	private List<ActivityHistory> activityHistories; // Reference to the ActivityHistory entity
 	
@@ -127,5 +132,11 @@ public class User {
   
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserRole appRole;
-
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List <Education> education = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List <Certifications> certificate = new ArrayList<>();
 }

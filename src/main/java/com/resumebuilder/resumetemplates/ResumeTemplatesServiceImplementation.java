@@ -1,37 +1,69 @@
 package com.resumebuilder.resumetemplates;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.resumebuilder.DTO.EmployeeProjectResponceEntity;
+import com.resumebuilder.DTO.TemplateDto;
 import com.resumebuilder.exception.ResumeTemplateExceptions;
+import com.resumebuilder.user.User;
+import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class ResumeTemplatesServiceImplementation implements ResumeTemplatesService{
-	
+    @Autowired
+	private UserService userService;
 	@Autowired
 	private ResumeTemplatesRepository repo;
-	
+	@Autowired
+	private ModelMapper mapper;
+@Autowired
+	private UserRepository userrepo;
 	 private static final Logger logger = LogManager.getLogger(ResumeTemplatesServiceImplementation.class); 
 
 	@Override
-	public List<ResumeTemplates> getAllTemplates() {
+	public List<TemplateDto> getAllTemplates() {
 		//repo.findAll()
+		List<ResumeTemplates>temp=repo.findAll();
+		
 		logger.info("this is the getAllTemplates method");
-		return repo.findAllAvailable();
+		   List<TemplateDto> empProj = temp.stream()
+		            .map(proj -> {
+		            	TemplateDto entity = this.mapper.map(proj, TemplateDto.class);
+		                // Fetch user details by ID and set the name
+		                User user = this.userService.findUserByIdUser(proj.getModified_by());
+		          
+		                if (user != null) {
+		                	
+		                	//System.out.println(user1.getFull_name()+user.getFull_name());
+		                	//entity.setAssign_by(user1.getFull_name());
+		                    entity.setModified_by(user.getFull_name());
+		                }
+
+		                return entity;
+		            })
+		            .collect(Collectors.toList());
+		
+		return empProj;
 	}
 
 	@Override
-	public ResumeTemplates addTemplate(ResumeTemplates req) {
+	public ResumeTemplates addTemplate(ResumeTemplates req,Principal principle) {
+		User user=userService.findUserByUsername(principle.getName());
 		ResumeTemplates template=ResumeTemplates.builder()
 				                  .template_name(req.getTemplate_name())
-				                  .modified_by(req.getModified_by())
+				                  .modified_by(user.getUser_id())
 				                  .modified_on(new Date())
 				                  .projects(req.getProjects())
 				                  .profile_summary(req.getProfile_summary())
@@ -43,12 +75,13 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	}
 
 	@Override
-	public ResumeTemplates updateTemplate(String tempId,ResumeTemplates req) {
+	public ResumeTemplates updateTemplate(String tempId,ResumeTemplates req,Principal principle) {
+		User user=userService.findUserByUsername(principle.getName());
 		ResumeTemplates template=getTemplateById(tempId);
 		if(template!=null) {
 			template.set_deleted(false);
 			template.setCertificates(req.getCertificates());
-			template.setModified_by(req.getModified_by());
+			template.setModified_by(user.getUser_id());
 			template.setModified_on(new Date());
 			template.setProfessional_experience(req.getProfessional_experience());
 			template.setProfile_summary(req.getProfile_summary());

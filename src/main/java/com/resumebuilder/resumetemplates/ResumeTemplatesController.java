@@ -1,5 +1,6 @@
 package com.resumebuilder.resumetemplates;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.resumebuilder.DTO.TemplateDto;
 import com.resumebuilder.exception.ResumeTemplateExceptions;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +36,8 @@ public class ResumeTemplatesController {
 	 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	 
 	@PostMapping("/addTemplate")
-	public ResponseEntity<?> addTemplate(@RequestBody  ResumeTemplates request){
-		ResumeTemplates template=service.addTemplate(request);
+	public ResponseEntity<?> addTemplate(@RequestBody  ResumeTemplates request,Principal principle){
+		ResumeTemplates template=service.addTemplate(request,principle);
 		if(template!=null) {
 //			logger.info("Requested user info: {} "+"add template request ",authentication.getName());
 			return ResponseEntity.status(HttpStatus.OK).body("template added Succesfull");
@@ -47,8 +49,8 @@ public class ResumeTemplatesController {
 	}
 	
 	 @PutMapping("/updateTemplate/{templateId}")
-	public ResponseEntity<?> editTemplate(@PathVariable("templateId")String templateId,@RequestBody ResumeTemplates request){
-		 ResumeTemplates updatedTemplate=service.updateTemplate(templateId, request);
+	public ResponseEntity<?> editTemplate(@PathVariable("templateId")String templateId,@RequestBody ResumeTemplates request,Principal principle){
+		 ResumeTemplates updatedTemplate=service.updateTemplate(templateId, request,principle);
 		 if(updatedTemplate!=null) {
 			 return  ResponseEntity.status(HttpStatus.OK).body("template updated Succesfull");
 		 }else {
@@ -82,7 +84,8 @@ public class ResumeTemplatesController {
 	 
 	 @GetMapping("/getallTemplates")
 	   public ResponseEntity<?> getAllTemplates(){
-		 List<ResumeTemplates> list=service.getAllTemplates();
+		 List<TemplateDto> list=service.getAllTemplates();
+		
 		 if(list.isEmpty()) {
 			 return null;
 		 }else {

@@ -51,7 +51,7 @@ public class UserController {
      * @return The user details.
      */
     
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+   
     @GetMapping("/auth/id/{id}")
     public ResponseEntity<User> findUserByIdHandler(@PathVariable Long id) {
 
@@ -66,7 +66,7 @@ public class UserController {
      * @return The user details of the currently logged-in user.
      */
     
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @GetMapping("/auth/user")
     public ResponseEntity<User> getUserById() {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
