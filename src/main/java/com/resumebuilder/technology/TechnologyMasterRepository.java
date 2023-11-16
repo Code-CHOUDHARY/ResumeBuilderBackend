@@ -22,7 +22,8 @@ public interface TechnologyMasterRepository extends JpaRepository<TechnologyMast
 	 * @param input The input character for matching technology names.
 	 * @return A list of technology names matching the input character.
 	 */
-	
+	@Query("SELECT ep FROM TechnologyMaster ep JOIN ep.users u WHERE u.user_id = :user_id")
+	List<TechnologyMaster> findByUsersUserId(Long user_id);
 	@Query("SELECT t.technology_name FROM TechnologyMaster t WHERE LOWER(t.technology_name) LIKE LOWER(CONCAT(?1, '%'))")
     List<String> findSkillsStartingWith(String input);
 	

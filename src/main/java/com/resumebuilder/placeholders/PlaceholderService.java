@@ -15,5 +15,6 @@ public interface PlaceholderService {
 	
 	void addPlaceholder(PlaceholderRequestBody request);
 	
+	PlaceholderMapping getallmappedPlaceholders();
 	PlaceholderRequestBody getplaceholder();
 }

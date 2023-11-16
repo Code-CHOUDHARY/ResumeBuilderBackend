@@ -28,7 +28,10 @@ public class PlaceholderController {
 	}
 	@GetMapping("/getPlaceholders")
 	public ResponseEntity<PlaceholderRequestBody> addPlaceholdders(){
-		
+	  
+		PlaceholderMapping placeholder=this.service.getallmappedPlaceholders();
+	
+		System.out.println("project name=="+placeholder.getProjectMap().get("Project"));
 		
 		
 		return  ResponseEntity.ok(this.service.getplaceholder());
