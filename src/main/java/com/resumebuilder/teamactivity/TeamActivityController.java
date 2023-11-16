@@ -50,8 +50,8 @@ public class TeamActivityController {
 	
 	 @PostMapping("/addActivity")
 	   public ResponseEntity<?> addActivity(@RequestBody TeamActivity req,Principal p){
-		      
-		 req.setActivity_by(userService.findUserByIdUser(20l));
+		 //we are not using this controller method in prod     
+		// req.setActivity_by(userService.findUserByIdUser(20l));
 		 TeamActivityDto activity=service.addTeamTActivity(req,p);
 		if(activity!=null) {
 			

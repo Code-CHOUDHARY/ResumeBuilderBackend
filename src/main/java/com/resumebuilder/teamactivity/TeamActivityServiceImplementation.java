@@ -55,7 +55,6 @@ public class TeamActivityServiceImplementation implements TeamActivityService{
 	
 	public TeamActivityDto addTeamTActivity(TeamActivity req,Principal p) throws TeamActivityHistoryException {
 		req.setActivity_on(new Date());
-		
 		TeamActivity activity=repo.save(req);
 		if(activity!=null) {
 			TeamActivityDto res=new TeamActivityDto();
