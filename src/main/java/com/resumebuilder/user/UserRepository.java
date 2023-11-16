@@ -36,7 +36,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query(value = "select * from user where email_id =:email",nativeQuery = true)
 	User findByEmailId(String email);
 	
-	@Query(value = "select * from user where email_id =:email AND is_deleted = false", nativeQuery = true)
+	@Query(value = "select * from user where email =:email AND is_deleted = false", nativeQuery = true)
 	List<User> findByEmailIdAndNotDeleted(String email);
 	//public User findByEmail_Id(String name);
 	
@@ -98,4 +98,5 @@ public interface UserRepository extends JpaRepository<User, Long>{
 		    @Param("isDeleted") boolean isDeleted
 		);
 
+		
 }
