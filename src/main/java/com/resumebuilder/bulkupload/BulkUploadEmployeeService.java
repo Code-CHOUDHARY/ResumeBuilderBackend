@@ -1,6 +1,7 @@
 package com.resumebuilder.bulkupload;
 
 import com.resumebuilder.DTO.EmployeeBulkUploadDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.roles.Roles;
 import com.resumebuilder.roles.RolesRepository;
@@ -572,8 +573,12 @@ public class BulkUploadEmployeeService {
 	     
 	     String newData = userToJsonConverter.convertUserToJSON(newUser);
 	     
-	     activityHistoryService.addActivity(activityType, description, newData, null, currentUser.getFull_name());
-        
+//	     ActivityHistory activityHistory = new ActivityHistory();
+//		 activityHistory.setActivity_type("Bulk upload");
+//		 activityHistory.setDescription("Bulk upload of employees");
+//		 activityHistory.setNew_data(newData);
+//		
+//		 activityHistoryService.addActivity(activityHistory, null);
         // Send the email with the generated password
         sendEmailPassword(newUser, generatedPassword);
         

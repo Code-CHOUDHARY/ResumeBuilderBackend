@@ -3,6 +3,9 @@ package com.resumebuilder.activityhistory;
 import java.security.Principal;
 import java.util.List;
 
+import com.resumebuilder.DTO.ActivityHistoryDto;
+import com.resumebuilder.DTO.TeamActivityDto;
+
 /**
  * Service interface for managing technology records.
  */
@@ -16,11 +19,15 @@ public interface ActivityHistoryService {
      * @return The added Activity record.
      */
 	
-	public Void addActivity(String activityType, String Description,String newData, String oldData, String modifiedBy);
+	public ActivityHistoryDto addActivity(ActivityHistory activityHistory, Principal principal);
 	
 	/**
 	 * 
 	 * @return list of activities
 	 */
-	public List<ActivityHistory> getAllAcitivities();
+	public List<ActivityHistoryDto> getAllAcitivities();
+	
+	public List<ActivityHistoryDto> getActivitiesByUser(Long userId);
+	
+	public List<TeamActivityDto> getActivitiesByReportingManager(Long managerId);
 }

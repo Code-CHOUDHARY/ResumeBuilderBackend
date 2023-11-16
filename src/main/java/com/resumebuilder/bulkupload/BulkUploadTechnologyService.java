@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.DTO.RolesDto;
 import com.resumebuilder.DTO.TechnologyDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.DataProcessingException;
 import com.resumebuilder.roles.Roles;
@@ -187,10 +188,12 @@ public class BulkUploadTechnologyService {
     	newTechnology.setModified_by(currentUser.getFull_name());
     	newTechnology.setModified_on(LocalDateTime.now());
     	
-    	 String activityType = "Bulk upload";
-	     String description = "Bulk upload of technologies";
-	     
-	     activityHistoryService.addActivity(activityType, description, bulkUploadDto.getTechnology_name(), null, currentUser.getFull_name());
+//    	 ActivityHistory activityHistory = new ActivityHistory();
+//		 activityHistory.setActivity_type("Bulk upload");
+//		 activityHistory.setDescription("Bulk upload of employees");
+//		 activityHistory.setNew_data(newData);
+//		
+//		 activityHistoryService.addActivity(activityHistory, null);
     	
         technologyRepository.save(newTechnology);
     }

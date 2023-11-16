@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryRepository;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.auth.SignupRequest;
@@ -53,10 +54,15 @@ public class UserServiceImplementation implements UserService{
 	 
 	 @Autowired
 	 private PasswordEncoder passwordEncoder;
-	 
-	 	@Autowired
-		private ActivityHistoryService activityHistoryService;
-		
+
+		private final ActivityHistoryService activityHistoryService;
+		@Autowired
+		public UserServiceImplementation(ActivityHistoryService activityHistoryService) {
+			super();
+			this.activityHistoryService = activityHistoryService;
+		}
+
+
 		@Autowired
 		private ActivityHistoryRepository activityHistoryRepository;
 
@@ -251,11 +257,18 @@ public class UserServiceImplementation implements UserService{
 	            
 	            UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
 				
-				 String activityType = "Add Employee";
-			     String description = "New Employee Added";
-			     String newData = userToJsonConverter.convertUserToJSON(newUser);
-			     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
-
+//				 String activityType = "Add Employee";
+//			     String description = "New Employee Added";
+//			    
+//			     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
+	            
+	            ActivityHistory activityHistory = new ActivityHistory();
+	            activityHistory.setActivity_type("Add employee");
+	            activityHistory.setDescription("New Employee added");
+	            String newData = userToJsonConverter.convertUserToJSON(newUser);
+	            activityHistory.setNew_data(newData);
+	            activityHistoryService.addActivity(activityHistory, principal);
+	            
 	            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
 	        }
 	    } catch (Exception e) {
@@ -434,9 +447,18 @@ public class UserServiceImplementation implements UserService{
 			 String newData = userToJsonConverter.convertChangesToJson(changes);
 			 String oldData = userToJsonConverter.convertUserToJSON(existingUser);
 			 
-			 activityHistoryService.
-			    addActivity
-			    (activityType, description,newData ,oldData, currentuser.getFull_name());
+//			 activityHistoryService.
+//			    addActivity
+//			    (activityType, description,newData ,oldData, currentuser.getFull_name());
+			 
+			  	ActivityHistory activityHistory = new ActivityHistory();
+	            activityHistory.setActivity_type("Update Employee");
+	            activityHistory.setDescription("Change in employee data");
+	            activityHistory.setOld_data(oldData);
+	            activityHistory.setNew_data(newData);
+	            activityHistory.setUser(existingUser);
+	            activityHistoryService.addActivity(activityHistory, principal);
+			 
 			}
 		catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
@@ -525,11 +547,13 @@ public class UserServiceImplementation implements UserService{
 		User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));  
 		
-		 String activityType = "Delete Employee";
-	     String description = "Change in Employee Data";
-	     
-	    activityHistoryService.addActivity(activityType, description,"user with"+userId + "deleted", null, principal.getName());
-		
+		 ActivityHistory activityHistory = new ActivityHistory();
+		 activityHistory.setActivity_type("Delete Employee");
+		 activityHistory.setDescription("Change in Employee data");
+		 activityHistory.setNew_data("Employee with id "+userId+"is deleted");
+		 activityHistory.setUser(existingUser);
+		 activityHistoryService.addActivity(activityHistory, principal);
+		 
         userRepository.delete(existingUser);
 		
 	}

@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.DTO.RolesDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.roles.Roles;
 import com.resumebuilder.roles.RolesRepository;
@@ -185,11 +186,13 @@ public class BulkUploadRoleService {
             newRole.setModified_on(LocalDateTime.now());
             
 
-            String activityType = "Bulk upload";
-   	     	String description = "Bulk upload of Roles";
-   	     
-   	     activityHistoryService.addActivity(activityType, description, bulkUploadDto.getRole_name(), null, currentUser.getFull_name());
-            
+//            ActivityHistory activityHistory = new ActivityHistory();
+//   		 activityHistory.setActivity_type("Bulk upload");
+//   		 activityHistory.setDescription("Bulk upload of employees");
+//   		 activityHistory.setNew_data(newData);
+//   		
+//   		 activityHistoryService.addActivity(activityHistory, null);
+//            
             rolesRepository.save(newRole);
         }
         
