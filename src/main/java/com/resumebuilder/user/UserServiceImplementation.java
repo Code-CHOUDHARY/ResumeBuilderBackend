@@ -85,6 +85,7 @@ public class UserServiceImplementation implements UserService {
 	 */
 
 	public User findUserByIdUser(Long userId) {
+		logger.info("Finding user by ID: {}", userId);
 		Optional<User> opt = userRepository.findById(userId);
 		return opt.get();
 	}
@@ -98,7 +99,7 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public User findUserByUsername(String userName) {
-
+		logger.info("Finding user by username: {}", userName);
 		Optional<User> opt = userRepository.findByEmail(userName);
 		return opt.get();
 	}
@@ -115,7 +116,7 @@ public class UserServiceImplementation implements UserService {
 	// add the new user
 	@Override
 	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal) throws UserNotFoundException {
-
+		logger.info("Adding a new user.");
 		try {
 			User currentuser = userRepository.findByEmailId(principal.getName());
 			if (currentuser == null) {
@@ -328,6 +329,7 @@ public class UserServiceImplementation implements UserService {
 		} 
 			
 		} catch (Exception e) {
+			logger.error("Error adding a new user.", e);
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
 					.body(new MessageResponse("Employee with same email id and employee id already exist"));
 		}
@@ -346,6 +348,7 @@ public class UserServiceImplementation implements UserService {
 	// Update the existing user
 	@Override
 	public User editUser(Long userId, User updatedUser, Principal principal) {
+		logger.info("Editing user with ID: {}", userId);
 		User currentuser = userRepository.findByEmailId(principal.getName());
 		// Check if the user exists
 		User existingUser = userRepository.findById(userId)
@@ -499,6 +502,7 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public void deleteUserById(Long userId, Principal principal) {
+		logger.info("Deleting user with ID: {}", userId);
 		User existingUser = userRepository.findById(userId)
 				.orElseThrow(() -> new UserNotFoundException("User not found"));
 
@@ -513,6 +517,7 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	public boolean checkUserExists(String UserId) {
+		logger.info("Checking if user exists with ID: {}", UserId);
 		boolean result = false;
 		result = userRepository.existsById(Long.parseLong(UserId));
 		return result;
