@@ -1,3 +1,8 @@
+2023-11-18 00:01:55.781  INFO dell-OptiPlex-3060 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-18 00:01:55.804  INFO dell-OptiPlex-3060 --- [      Thread-60] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-18 00:01:55.805  INFO dell-OptiPlex-3060 --- [      Thread-60] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-18 00:01:55.805  INFO dell-OptiPlex-3060 --- [      Thread-60] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-18 00:01:55.813  WARN dell-OptiPlex-3060 --- [      Thread-60] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-16 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
 2023-11-17 11:34:38.615  INFO dell-OptiPlex-3060 --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
 2023-11-17 11:34:38.653  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.7 with PID 11861 (/home/dell/Desktop/NewUpdated/ResumeBuilder3/Resume%20Builder%20Backend/target/classes started by dell in /home/dell/Desktop/NewUpdated/ResumeBuilder3/Resume%20Builder%20Backend)
 2023-11-17 11:34:38.659  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
@@ -53,6 +58,13 @@
  java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
  java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
  java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+<<<<<<< HEAD
+2023-11-18 00:01:55.814  INFO dell-OptiPlex-3060 --- [      Thread-60] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-18 00:01:55.825  INFO dell-OptiPlex-3060 --- [      Thread-60] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-18 00:01:55.831  INFO dell-OptiPlex-3060 --- [      Thread-60] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-18 00:01:55.841  INFO dell-OptiPlex-3060 --- [      Thread-60] c.z.h.HikariDataSource                   : HikariPool-16 - Shutdown initiated...
+2023-11-18 00:01:55.851  INFO dell-OptiPlex-3060 --- [      Thread-60] c.z.h.HikariDataSource                   : HikariPool-16 - Shutdown completed.
+=======
 2023-11-17 11:46:48.637  INFO dell-OptiPlex-3060 --- [       Thread-5] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
 2023-11-17 11:46:48.639  INFO dell-OptiPlex-3060 --- [       Thread-5] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
 2023-11-17 11:46:48.649  INFO dell-OptiPlex-3060 --- [       Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
@@ -14217,3 +14229,4 @@ Caused by: java.lang.StackOverflowError
 2023-11-17 13:06:29.106  INFO dell-OptiPlex-3060 --- [nio-8082-exec-3] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
 2023-11-17 13:06:29.108  INFO dell-OptiPlex-3060 --- [nio-8082-exec-3] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
 2023-11-17 13:06:29.132  INFO dell-OptiPlex-3060 --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Editing user details.
+>>>>>>> e1a86b5b634a97a72da46bb67d5347ef2b707d99

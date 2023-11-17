@@ -25,13 +25,4 @@ public class EmployeeBulkUploadDto {
     private boolean status;
     private String appRoleId;
     
-    public void setRemark(Object remark) {
-        if (remark instanceof List<?>) {
-            this.remark = (List<String>) remark;
-        } else if (remark instanceof String) {
-            // If remark is a single string, convert it to a list with one element
-            this.remark = Collections.singletonList((String) remark);
-        }
-    }
-    
 }

@@ -22,7 +22,7 @@ import com.resumebuilder.user.UserRepository;
 import com.resumebuilder.user.UserService;
 @Service
 public class EmployeeProjectServiceImpl implements EmployProjectService{
-       @Autowired
+    @Autowired
 	private UserService userService;
 	@Autowired
 	private EmployeeProjectRepository projectRepo;
@@ -33,23 +33,23 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 	@Override
 	public EmployeeProject addEmployeeProject(EmployeProjectRequestEntity projects,Long id,Principal principal) {
 
-             User user=this.userService.findUserByIdUser(id);
-        	User user1User=userService.findUserByUsername(principal.getName());
-         //	System.out.println(user1User);
+          User user=this.userService.findUserByIdUser(id);
+     	User user1User=userService.findUserByUsername(principal.getName());
+      //	System.out.println(user1User);
 	//	System.out.println(user);
 		EmployeeProject project=new EmployeeProject();	
-		project.setProject_title(projects.getProjectTitle());
-		project.setStart_date(projects.getStartDate());
-		project.setEnd_date(projects.getEndDate());
+		project.setProject_title(projects.getProject_title());
+		project.setStart_date(projects.getStart_date());
+		project.setEnd_date(projects.getEnd_date());
 		project.setCurrent(projects.isCurrent());
-		project.setShow_dates(projects.isShowDates());
+		project.setShow_dates(projects.isShow_dates());
 		project.setShow_duration(projects.isShow_duration());
 		project.setShow_nothing(projects.isShow_nothing());
 		project.setProject_url(projects.getProject_url());
-		project.setClient_name(projects.getProject_url());
+		project.setClient_name(projects.getClient_name());
 		project.setOrganization_name(projects.getOrganization_name());
 		project.setProject_summary(projects.getProject_summary());   
-		project.setTechnologies(projects.getTechnology_stack());
+		project.setTechnologies(projects.getTechnologies());
 		project.setTechnology_stack(projects.getTechnology_stack());
 		project.setRoles_and_responsibility(projects.getRoles_and_responsibility());
 		//project.setAssign_by(projects.getAssign_by());
@@ -84,19 +84,19 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 //			project.setRoles_and_responsibility(projects.getRoles_and_responsibility());
 //			//project.setAssign_by(projects.getAssign_by());
 //			project.setModified_by(user1User.getUser_id());
-			if (projects.getProjectTitle() != null) {
-		        project.setProject_title(projects.getProjectTitle());
+			if (projects.getProject_title() != null) {
+		        project.setProject_title(projects.getProject_title());
 		    }
 
-		    if (projects.getStartDate() != null) {
-		        project.setStart_date(projects.getStartDate());
+		    if (projects.getStart_date() != null) {
+		        project.setStart_date(projects.getStart_date());
 		    }
 
-		    if (projects.getEndDate() != null) {
-		        project.setEnd_date(projects.getEndDate());
+		    if (projects.getEnd_date() != null) {
+		        project.setEnd_date(projects.getEnd_date());
 		    }
 		     project.setCurrent(projects.isCurrent());
-		       project.setShow_dates(projects.isShowDates());
+		       project.setShow_dates(projects.isShow_dates());
 		        project.setShow_duration(projects.isShow_duration());
 		        project.setShow_nothing(projects.isShow_nothing());
 		    if (projects.getProject_url() != null) {
@@ -116,14 +116,14 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 		    }
 
 		    if (projects.getTechnology_stack() != null) {
-		        project.setTechnologies(projects.getTechnology_stack());
+		        project.setTechnologies(projects.getTechnologies());
 		        project.setTechnology_stack(projects.getTechnology_stack());
 		    }
 
 		    if (projects.getRoles_and_responsibility() != null) {
 		        project.setRoles_and_responsibility(projects.getRoles_and_responsibility());
 		    }
-          
+       
 		return this.projectRepo.save(project);
 	}
 
@@ -181,4 +181,6 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 		return emppr;
 	}
 
+	
 }
+

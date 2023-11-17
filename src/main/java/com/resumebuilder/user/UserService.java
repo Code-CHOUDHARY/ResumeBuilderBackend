@@ -33,16 +33,7 @@ public interface UserService {
 
 	public boolean checkUserExists(String UserId);
 
-	/**
-	 * Edit an existing user.
-	 *
-	 * @param userId      User ID of the user to edit.
-	 * @param updatedUser User object containing updated details.
-	 * @param principal   Principal representing the authenticated user.
-	 * @return Updated User entity.
-	 */
 	ResponseEntity<?> editEmployee(Long userId, UserDto editUserRequest, Principal principal);
-
 	
 
 }

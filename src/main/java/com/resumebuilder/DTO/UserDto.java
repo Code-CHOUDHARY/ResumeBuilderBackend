@@ -22,15 +22,13 @@ public class UserDto {
     private String location;
     private String manager_employee_id;
     @UpdateTimestamp
-	private LocalDateTime modified_on;    
-	private String password;
-	private String user_image;
+	private LocalDateTime modified_on;
+    private String user_image;
 	private String linkedin_lnk;
 	private String portfolio_link;
 	private String blogs_link;
     private String professional_summary;
 	private String modified_by;
 	private List<Long> managerIds;
-
     
 }

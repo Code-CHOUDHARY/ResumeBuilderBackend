@@ -87,8 +87,6 @@ public class User {
 	private LocalDateTime modified_on;
 	@Column
 	private Long modified_by;
-
-	@JsonIgnore
 	@Column
 	private boolean is_deleted;
 

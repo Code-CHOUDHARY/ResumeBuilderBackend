@@ -19,6 +19,5 @@ public interface ReportingManagerRepository extends JpaRepository<ReportingManag
 	//List<ReportingManager> findByEmployee_id(User userSave);
 
 	//List<ReportingManager> findByEmployee_id(User user);
-	
 	void deleteByEmployee(User employee);
 }

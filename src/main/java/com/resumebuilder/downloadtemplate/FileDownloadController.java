@@ -30,12 +30,12 @@ public class FileDownloadController {
     public ResponseEntity<Resource> downloadExcel() throws IOException {
 		
         // Load the Excel file from the classpath
-        Resource resource = new ClassPathResource("Download/Templates/Bulk Upload Template.xlsx");
+        Resource resource = new ClassPathResource("Download/Templates/Bulk_Upload_Template.xlsx");
 
         // Set the content type and disposition for the response
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-        headers.setContentDispositionFormData("attachment", "Bulk Upload Template.xlsx");
+        headers.setContentDispositionFormData("attachment", "Bulk_Upload_Template.xlsx");
         
 //         ActivityHistory activityHistory = new ActivityHistory();
 //		 activityHistory.setActivity_type("Download Template");

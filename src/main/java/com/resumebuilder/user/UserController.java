@@ -43,9 +43,9 @@ public class UserController {
     
     @GetMapping("/list")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsersList() {
         List<User> userList = userService.getAllUsers();
-        return new ResponseEntity<>(userList, HttpStatus.OK);
+        return ResponseEntity.ok(userList);
     }
 
     /**
@@ -106,7 +106,8 @@ public class UserController {
      * @param principal    Represents the user identity.
      * @return The response entity indicating the success or failure of the update.
      */
-    //edit employee data
+    
+  //edit employee data
     @PutMapping("/editEmployee/{userId}")
     public ResponseEntity<?> editUser(@PathVariable Long userId, @RequestBody UserDto editUserRequest,
                                       Principal principal) {
@@ -114,7 +115,7 @@ public class UserController {
         try {
             response = userService.editEmployee(userId, editUserRequest, principal);
         } catch (Exception e) {
-            response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            response = ResponseEntity.status(HttpStatus.ACCEPTED)
                     .body(new MessageResponse("employee details not edit."));
         }
         return response;
