@@ -89,6 +89,11 @@ public class BulkUploadEmployeeService {
                 Sheet employeeSheet = workbook.getSheet("Employees");
 
                 logger.info("Number of Rows: " + employeeSheet.getPhysicalNumberOfRows());
+                
+                ActivityHistory activityHistory = new ActivityHistory();
+	            activityHistory.setActivity_type("Bulk upload");
+	            activityHistory.setDescription("Bulk upload for employees");
+	            activityHistoryService.addActivity(activityHistory, principal);
 
                 employeeBulkUploadDtos = validateEmployeeData(employeeSheet);
             }

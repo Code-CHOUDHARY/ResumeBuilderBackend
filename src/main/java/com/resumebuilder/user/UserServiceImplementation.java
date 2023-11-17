@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryRepository;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.auth.SignupRequest;
@@ -65,6 +66,13 @@ public class UserServiceImplementation implements UserService {
 	
 	@Autowired
 	private UserRolesMappingRepository usereRolesMappingRepository;
+	
+	
+	@Autowired
+	public UserServiceImplementation(ActivityHistoryService activityHistoryService) {
+		super();
+		this.activityHistoryService = activityHistoryService;
+	}
 
 	/**
 	 * Retrieve a list of all users.
@@ -302,15 +310,21 @@ public class UserServiceImplementation implements UserService {
 					// Send the email with the generated password
 					sendEmailPassword(newUser, password);
 
-					// Activity history logic
-
-					UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
-
-					String activityType = "Add Employee";
-					String description = "New Employee Added";
-					String newData = userToJsonConverter.convertUserToJSON(newUser);
-					activityHistoryService.addActivity(activityType, description, newData, null,
-							currentuser.getFull_name());
+					  // Activity history logic
+		            
+		            UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+					
+//					 String activityType = "Add Employee";
+//				     String description = "New Employee Added";
+//				    
+//				     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
+		            
+		            ActivityHistory activityHistory = new ActivityHistory();
+		            activityHistory.setActivity_type("Add User");
+		            activityHistory.setDescription("New User added");
+		            String newData = userToJsonConverter.convertUserToJSON(newUser);
+		            activityHistory.setNew_data(newData);
+		            activityHistoryService.addActivity(activityHistory, principal);
 				
 				} else {
 					return ResponseEntity.status(HttpStatus.OK)
@@ -350,6 +364,7 @@ public class UserServiceImplementation implements UserService {
 	public User editUser(Long userId, User updatedUser, Principal principal) {
 		logger.info("Editing user with ID: {}", userId);
 		User currentuser = userRepository.findByEmailId(principal.getName());
+		
 		// Check if the user exists
 		User existingUser = userRepository.findById(userId)
 				.orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -408,18 +423,20 @@ public class UserServiceImplementation implements UserService {
 			changes.put("Location", updatedUser.getLocation());
 		}
 
-		System.out.println("changes for user" + changes);
-
-		String activityType = "Update Employee";
-		String description = "Change in Employee Data";
-
 		UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
 
 		try {
 			String newData = userToJsonConverter.convertChangesToJson(changes);
 			String oldData = userToJsonConverter.convertUserToJSON(existingUser);
 
-			activityHistoryService.addActivity(activityType, description, newData, oldData, currentuser.getFull_name());
+			ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.setActivity_type("Update Employee");
+            activityHistory.setDescription("Change in employee data");
+            activityHistory.setOld_data(oldData);
+            activityHistory.setNew_data(newData);
+            activityHistory.setUser(existingUser);
+            activityHistoryService.addActivity(activityHistory, principal);
+			
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -506,11 +523,12 @@ public class UserServiceImplementation implements UserService {
 		User existingUser = userRepository.findById(userId)
 				.orElseThrow(() -> new UserNotFoundException("User not found"));
 
-		String activityType = "Delete Employee";
-		String description = "Change in Employee Data";
-
-		activityHistoryService.addActivity(activityType, description, "user with" + userId + "deleted", null,
-				principal.getName());
+		 ActivityHistory activityHistory = new ActivityHistory();
+		 activityHistory.setActivity_type("Delete Employee");
+		 activityHistory.setDescription("Change in Employee data");
+		 activityHistory.setNew_data("Employee with id "+userId+"is deleted");
+		 activityHistory.setUser(existingUser);
+		 activityHistoryService.addActivity(activityHistory, principal);
 
 		userRepository.delete(existingUser);
 

@@ -81,6 +81,12 @@ public class BulkUploadRoleService {
                 try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
                     Sheet roleSheet = workbook.getSheet("Roles");
                     logger.info("Number of Rows: " + roleSheet.getPhysicalNumberOfRows());
+                    
+                    ActivityHistory activityHistory = new ActivityHistory();
+    	            activityHistory.setActivity_type("Bulk upload");
+    	            activityHistory.setDescription("Bulk upload for roles");
+    	            activityHistoryService.addActivity(activityHistory, principal);
+                    
                     roleBulkUploadDtos = validateRoleData(roleSheet);
                 }
 

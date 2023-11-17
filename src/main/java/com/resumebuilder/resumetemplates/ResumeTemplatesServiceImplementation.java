@@ -40,8 +40,11 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	private ResumeTemplatesRepository repo;
 	@Autowired
 	private ModelMapper mapper;
-@Autowired
+	@Autowired
 	private UserRepository userrepo;
+	@Autowired
+	private ActivityHistoryService activityHistoryService;
+	
 	 private static final Logger logger = LogManager.getLogger(ResumeTemplatesServiceImplementation.class); 
 
 	@Override
@@ -90,7 +93,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	 		 activityHistory.setActivity_type("Add Template");
 	 		 activityHistory.setDescription("Change in Template data");
 	 		 activityHistory.setNew_data("New template Added with Name "+savedTemplate.getTemplate_name());
-	 		 activityHistoryService.addActivity(activityHistory, p); 
+	 		 activityHistoryService.addActivity(activityHistory, principle); 
 		}
 		return savedTemplate;
 	}
@@ -117,7 +120,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			 		 activityHistory.setActivity_type("Update Template");
 			 		 activityHistory.setDescription("Change in Template data");
 			 		 activityHistory.setNew_data("Template updated with Name "+updateTemplate.getTemplate_name());
-			 		 activityHistoryService.addActivity(activityHistory, p); 
+			 		 activityHistoryService.addActivity(activityHistory, principle); 
 				}
 
 			return updateTemplate;
@@ -148,7 +151,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	}
  
 	@Override
-	public boolean deleteTemplate(String tempId) {
+	public boolean deleteTemplate(String tempId, Principal principle) {
 		boolean flag=false;
 		ResumeTemplates template=getTemplateById(tempId);
 		if(template != null) {
@@ -164,7 +167,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			 		 activityHistory.setActivity_type("Delete Template");
 			 		 activityHistory.setDescription("Change in Template data");
 			 		 activityHistory.setNew_data("Template Deleted with Name "+template.getTemplate_name());
-			 		 activityHistoryService.addActivity(activityHistory, p); 
+			 		 activityHistoryService.addActivity(activityHistory, principle); 
 
 				}
 

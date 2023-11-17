@@ -78,6 +78,12 @@ public class BulkUploadTechnologyService {
             try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
                 Sheet technologySheet = workbook.getSheet("Technologies");
                 logger.info("Number of Rows: " + technologySheet.getPhysicalNumberOfRows());
+                
+                ActivityHistory activityHistory = new ActivityHistory();
+	            activityHistory.setActivity_type("Bulk upload");
+	            activityHistory.setDescription("Bulk upload for technologies");
+	            activityHistoryService.addActivity(activityHistory, principal);
+                
                 technologyBulkUploadDtos = validateTechnologyData(technologySheet);
             }
 

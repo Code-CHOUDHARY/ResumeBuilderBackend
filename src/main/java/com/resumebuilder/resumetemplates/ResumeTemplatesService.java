@@ -11,6 +11,6 @@ public interface ResumeTemplatesService {
 	 ResumeTemplates addTemplate(ResumeTemplates req,Principal principle);
 	 ResumeTemplates updateTemplate(String tempId,ResumeTemplates req,Principal principle);
 	 ResumeTemplates getTemplateById(String tempId);
-	 boolean deleteTemplate(String tempId);
+	 boolean deleteTemplate(String tempId, Principal principle);
 		public boolean deleteTemplatePerminantly(String tempId); 
 }

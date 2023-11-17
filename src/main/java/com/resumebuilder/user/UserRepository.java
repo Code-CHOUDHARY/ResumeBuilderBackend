@@ -24,7 +24,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
     public List<User> findAllUserByUserIds(@Param("user") List<Integer> userIds);
 	
 	
-	
 	//public User findByEmail_Id(String name);
 //	Optional<User> findByEmail(String email);
 //	  Optional<User> findByUsername(String username);
@@ -36,6 +35,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	@Query(value = "select * from user where email_id =:email",nativeQuery = true)
 	User findByEmailId(String email);
+	
+	@Query(value = "select * from user where email =:email AND is_deleted = false", nativeQuery = true)
+	List<User> findByEmailIdAndNotDeleted(String email);
 	//public User findByEmail_Id(String name);
 	
 	@Query(value = "select * from user where employee_id =:empId",nativeQuery = true)
@@ -44,8 +46,8 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query(value = "select * from user where employee_id =:empId",nativeQuery = true)
 	User findByEmployeeIds(String empId);
 	
-
-	  Boolean existsByEmail(String email);
+	@Query(value = "SELECT * FROM user WHERE employee_id = :empId AND is_deleted = false", nativeQuery = true)
+	List<User> findByEmployeeIdAndNotDeleted(String empId);
 	  
 	  @Query(value = "select * from user where email_id =:email",nativeQuery = true)
 		User findByEmail_Id(String email);
@@ -67,16 +69,34 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	    String findFullNameById(@Param("userId") Long userId);
 		
 //		@Query("SELECT u FROM User u WHERE u.user_id = :userId")
+
 //		@Query("SELECT u FROM User u LEFT JOIN FETCH u.assignedProjects ap WHERE u.user_id = :userId")
 //	    User findByUserId(@Param("userId") Long userId);
-		@Query("SELECT DISTINCT u FROM User u " +
-		           "LEFT JOIN FETCH u.employeeProject p " +
-				"WHERE u.user_id = :userId AND (u.is_deleted = false AND (p is null OR p.is_deleted = false))")
-		    Optional<User> findUserWithNonDeletedAssociations(@Param("userId") Long userId);
-//		@Query(value = "SELECT DISTINCT u.* FROM user u " +x
-//	               "LEFT JOIN employee_project p ON u.user_id = p.user_user_id AND p.is_deleted = false " +
-//	               "LEFT JOIN education e ON u.user_id = e.user_id AND e.is_deleted = false " +
-//	               "WHERE u.user_id = :userId AND u.is_deleted = false", nativeQuery = true)
-//	Optional<User> findUserWithNonDeletedAssociations(@Param("userId") Long userId);
-			
+		
+//		@Query("SELECT COUNT(u) > 0 FROM User u WHERE u.employee_Id = :employeeId")
+//	    boolean existsByEmployeeId(@Param("employeeId") String employeeId);
+		
+		@Query("select (count(u) > 0) from User u where u.email = ?1 and u.employee_Id = ?2")
+		boolean existsByEmailAndEmployeeId(String email, String employee_Id);
+
+		@Query("select (count(u) > 0) from User u where u.employee_Id = ?1 AND u.is_deleted = false")
+		boolean existsByEmployeeId(String employee_Id);
+		
+		@Query("select (count(u) > 0) from User u where u.email = ?1 AND u.is_deleted = false")
+		boolean existsByEmail(String email);
+		
+		@Query("SELECT COUNT(u) > 0 FROM User u WHERE u.employee_Id = ?1 AND u.is_deleted = false")
+		boolean existsByEmployeeIdAndNotDeleted(String employeeId);
+
+		@Query("SELECT u FROM User u WHERE u.appRole.name = :roleName AND u.is_deleted = false")
+	    boolean findByAppRoleNameAndNotDeleted(@Param("roleName") String string);
+		
+		@Query("SELECT u FROM User u WHERE u.email = :emailId AND u.employee_Id = :employeeId AND u.is_deleted = :isDeleted")
+		User findByEmailIdAndEmployeeIdAndDeleted(
+		    @Param("emailId") String emailId,
+		    @Param("employeeId") String employeeId,
+		    @Param("isDeleted") boolean isDeleted
+		);
+
+		
 }
