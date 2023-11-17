@@ -25,5 +25,6 @@ public class EmployeeBulkUploadDto {
     private String location;
     private List<String> remark;
     private boolean status;
+    private String appRoleId;
     
 }

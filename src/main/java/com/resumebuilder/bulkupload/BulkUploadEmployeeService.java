@@ -1,9 +1,16 @@
 package com.resumebuilder.bulkupload;
 
 import com.resumebuilder.DTO.EmployeeBulkUploadDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
+import com.resumebuilder.roles.Roles;
+import com.resumebuilder.roles.RolesRepository;
+import com.resumebuilder.security.approle.ERole;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserRoleRepository;
+import com.resumebuilder.user.UserRolesMapping;
+import com.resumebuilder.user.UserRolesMappingRepository;
 import com.resumebuilder.user.UserToJsonConverter;
 
 import jakarta.mail.internet.MimeMessage;
@@ -43,9 +50,18 @@ public class BulkUploadEmployeeService {
 
     @Autowired
     private JavaMailSender mailSender;
+    
+    @Autowired
+	private UserRolesMappingRepository userRolesMappingRepository;
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private UserRoleRepository roleRepository;
+    
+    @Autowired
+    private RolesRepository rolesRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -73,6 +89,11 @@ public class BulkUploadEmployeeService {
                 Sheet employeeSheet = workbook.getSheet("Employees");
 
                 logger.info("Number of Rows: " + employeeSheet.getPhysicalNumberOfRows());
+                
+//                ActivityHistory activityHistory = new ActivityHistory();
+//	            activityHistory.setActivity_type("Bulk upload");
+//	            activityHistory.setDescription("Bulk upload for employees");
+//	            activityHistoryService.addActivity(activityHistory, principal);
 
                 employeeBulkUploadDtos = validateEmployeeData(employeeSheet);
             }
@@ -187,15 +208,115 @@ public class BulkUploadEmployeeService {
      */
     
     
+//    private List<EmployeeBulkUploadDto> processEmployeeSheet(List<EmployeeBulkUploadDto> employeeBulkUploadDto, User currentUser) throws Exception {
+//        List<User> existingUsers = userRepository.findAll();
+//        List<EmployeeBulkUploadDto> notStoredData = new ArrayList<>();
+//        List<EmployeeBulkUploadDto> storedData = new ArrayList<>();
+//
+//        logger.info("Found List of users {}", employeeBulkUploadDto);
+//
+//        for (EmployeeBulkUploadDto bulkUploadDto : employeeBulkUploadDto) {
+//
+//            if (bulkUploadDto.getEmployee_id() != null &&
+//                    bulkUploadDto.getFullName() != null &&
+//                    bulkUploadDto.getDateOfJoining() != null &&
+//                    bulkUploadDto.getDateOfBirth() != null &&
+//                    bulkUploadDto.getCurrentRole() != null &&
+//                    bulkUploadDto.getEmail_id() != null &&
+//                    bulkUploadDto.getGender() != null &&
+//                    bulkUploadDto.getMobile_number() != null &&
+//                    bulkUploadDto.getLocation() != null) {
+//                User existingUser = findUserByEmailAndEmployeeId(existingUsers, bulkUploadDto.getEmail_id(), bulkUploadDto.getEmployee_id());
+//
+//                // Generate a random password
+//                String generatedPassword = generateRandomPassword();
+//                String encodedPassword = passwordEncoder.encode(generatedPassword);
+//
+//                if (bulkUploadDto.getRemark().isEmpty()) {
+//                	
+//                	List<Roles> allRoles = rolesRepository.findAll();
+//                	Roles currentRole = allRoles.stream()
+//                            .filter(role -> role.getRole_name().equals(bulkUploadDto.getCurrentRole()))
+//                            .findFirst()
+//                            .orElse(null);
+//                	if (currentRole != null) {
+//                		
+//                    if (existingUser != null) {
+//                        if (existingUser.is_deleted()) {
+//                            // User exists but is marked as deleted, so create a new user
+//                            createUser(existingUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+//                            storedData.add(bulkUploadDto);
+//                        } else {
+//                            // User exists, update the existing user
+////                            updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
+////                            storedData.add(bulkUploadDto);
+//                        	
+//                        	// User exists, update the existing user
+//                            if(Objects.equals(existingUser.getEmployee_Id(), bulkUploadDto.getEmployee_id())) {
+//                                updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
+//                                storedData.add(bulkUploadDto);
+//                            } else {
+//                                bulkUploadDto.setStatus(true);
+//                                bulkUploadDto.setRemark(List.of("Employee id or email id is already exists"));
+//                                notStoredData.add(bulkUploadDto);
+//                            }
+//                        }
+//                    } else {
+//                        // User doesn't exist, create a new user
+////                        if (bulkUploadDto.getRemark().isEmpty()) {
+////                            User newUser = new User();
+////                            createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+////                            bulkUploadDto.setStatus(false);
+////                            storedData.add(bulkUploadDto);
+//                    	
+//                    	 // User doesn't exist, create a new user
+//                        if (bulkUploadDto.getRemark().isEmpty()) {
+//                        	boolean existsByEmail = userRepository.existsByEmail(bulkUploadDto.getEmail_id());
+//                            boolean existsByEmployeeId = userRepository.existsByEmployeeId(bulkUploadDto.getEmployee_id());
+//                            boolean existBySoftDelete = userRepository.existsByEmployeeIdAndNotDeleted(bulkUploadDto.getEmployee_id());
+//                            
+//                            if (!existsByEmail && !existsByEmployeeId && !existBySoftDelete) {
+//                                User newUser = new User();
+//                                createUser(newUser, bulkUploadDto,generatedPassword, encodedPassword, currentUser);
+//                                bulkUploadDto.setStatus(false);
+//                                storedData.add(bulkUploadDto);
+//                            } else {
+//                                bulkUploadDto.setStatus(true);
+//                                bulkUploadDto.setRemark(List.of("Employee id or email id is already exists"));
+//                                notStoredData.add(bulkUploadDto);
+//                            }
+//                        } else {
+//                            bulkUploadDto.setStatus(true);
+//                            notStoredData.add(bulkUploadDto);
+//                        }
+//                    }
+//                } else {
+//                    bulkUploadDto.setStatus(true);
+//                    bulkUploadDto.setRemark(List.of("Current role does not exist."));
+//                    notStoredData.add(bulkUploadDto);
+//                }
+//            } else {
+//                bulkUploadDto.setStatus(true);
+//               
+//                notStoredData.add(bulkUploadDto);
+//            }
+//            }
+//        }
+//
+//        // Return both the stored and not stored data
+//        List<EmployeeBulkUploadDto> allData = new ArrayList<>();
+//        allData.addAll(storedData);
+//        allData.addAll(notStoredData);
+//
+//        return allData;
+//    }
+    
     private List<EmployeeBulkUploadDto> processEmployeeSheet(List<EmployeeBulkUploadDto> employeeBulkUploadDto, User currentUser) throws Exception {
         List<User> existingUsers = userRepository.findAll();
         List<EmployeeBulkUploadDto> notStoredData = new ArrayList<>();
         List<EmployeeBulkUploadDto> storedData = new ArrayList<>();
 
-        logger.info("Found List of users {}", employeeBulkUploadDto);
-
         for (EmployeeBulkUploadDto bulkUploadDto : employeeBulkUploadDto) {
-
             if (bulkUploadDto.getEmployeeId() != null &&
                     bulkUploadDto.getFullName() != null &&
                     bulkUploadDto.getDateOfJoining() != null &&
@@ -203,36 +324,69 @@ public class BulkUploadEmployeeService {
                     bulkUploadDto.getCurrentRole() != null &&
                     bulkUploadDto.getEmail() != null &&
                     bulkUploadDto.getGender() != null &&
-                    bulkUploadDto.getMobile_number() != null &&
-                    bulkUploadDto.getLocation() != null) {
-                User existingUser = findUserByEmail(existingUsers, bulkUploadDto.getEmail());
+//                    bulkUploadDto.getMobile_number() != null &&
+//                    bulkUploadDto.getLocation() != null &&
+                    bulkUploadDto.getAppRoleId() != null) {
+
+                User existingUser = findUserByEmailAndEmployeeId(existingUsers, bulkUploadDto.getEmail(), bulkUploadDto.getEmployeeId());
 
                 // Generate a random password
                 String generatedPassword = generateRandomPassword();
                 String encodedPassword = passwordEncoder.encode(generatedPassword);
 
                 if (bulkUploadDto.getRemark().isEmpty()) {
-                    if (existingUser != null) {
-                        if (existingUser.is_deleted()) {
-                            // User exists but is marked as deleted, so create a new user
-                            createUser(existingUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
-                            storedData.add(bulkUploadDto);
-                        } else {
+                    List<Roles> allRoles = rolesRepository.findAll();
+//                    Roles currentRole = allRoles.stream()
+//                            .filter(role -> role.getRole_name().equals(bulkUploadDto.getCurrentRole()))
+//                            .findFirst()
+//                            .orElse(null);
+                    Roles currentRole = rolesRepository.findByRoleName(bulkUploadDto.getCurrentRole());
+                    logger.info("Employee current role --- "+currentRole);
+                    if (currentRole != null) {
+                        if (existingUser != null) {
                             // User exists, update the existing user
-                            updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
-                            storedData.add(bulkUploadDto);
+                            if (Objects.equals(existingUser.getEmployee_Id(), bulkUploadDto.getEmployeeId())) {
+                                updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
+                                storedData.add(bulkUploadDto);
+                            } else {
+                                // Existing user is soft-deleted, mark as active and update details
+                                existingUser.set_deleted(false);
+                                updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
+                                storedData.add(bulkUploadDto);
+                            }
+                        } else {
+                            // User doesn't exist, create a new user
+                            boolean existsByEmail = userRepository.existsByEmail(bulkUploadDto.getEmail());
+                            boolean existsByEmployeeId = userRepository.existsByEmployeeId(bulkUploadDto.getEmployeeId());
+                            boolean existBySoftDelete = userRepository.existsByEmployeeIdAndNotDeleted(bulkUploadDto.getEmployeeId());
+                            
+                         // Check if there is a soft-deleted user with the same email ID and employee ID
+                            if (!existsByEmail && !existsByEmployeeId) {                                                           
+
+                                if (!existBySoftDelete) {
+                                    // Create a new user
+                                    User newUser = new User();
+                                    createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+                                    bulkUploadDto.setStatus(false);
+                                    storedData.add(bulkUploadDto);
+                                } else {
+                                    // Soft-deleted user found, create a new user entry
+                                    User newUser = new User();
+                                    createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+                                    bulkUploadDto.setStatus(false);
+                                    storedData.add(bulkUploadDto);
+                                }
+                            } else {
+                                bulkUploadDto.setStatus(true);
+                                bulkUploadDto.setRemark(List.of("Employee ID or email ID is already exists"));
+                                notStoredData.add(bulkUploadDto);
+                            }
+
                         }
                     } else {
-                        // User doesn't exist, create a new user
-                        if (bulkUploadDto.getRemark().isEmpty()) {
-                            User newUser = new User();
-                            createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
-                            bulkUploadDto.setStatus(false);
-                            storedData.add(bulkUploadDto);
-                        } else {
-                            bulkUploadDto.setStatus(true);
-                            notStoredData.add(bulkUploadDto);
-                        }
+                        bulkUploadDto.setStatus(true);
+                        bulkUploadDto.setRemark(List.of("Current role does not exist."));
+                        notStoredData.add(bulkUploadDto);
                     }
                 } else {
                     bulkUploadDto.setStatus(true);
@@ -242,16 +396,109 @@ public class BulkUploadEmployeeService {
                 bulkUploadDto.setStatus(true);
                 notStoredData.add(bulkUploadDto);
             }
-
         }
 
         // Return both the stored and not stored data
         List<EmployeeBulkUploadDto> allData = new ArrayList<>();
         allData.addAll(storedData);
         allData.addAll(notStoredData);
-
+        
+        logger.info("Currect employee data list --- "+storedData);
+        logger.info("According to validation incorrect employee data list  --- "+notStoredData);
+        logger.info("Excel data convert into json with status and remark --- "+allData);
+        
         return allData;
     }
+
+
+    
+//    private List<EmployeeBulkUploadDto> processEmployeeSheet(List<EmployeeBulkUploadDto> employeeBulkUploadDto, User currentUser) throws Exception {
+//        List<User> existingUsers = userRepository.findAll();
+//        List<EmployeeBulkUploadDto> notStoredData = new ArrayList<>();
+//        List<EmployeeBulkUploadDto> storedData = new ArrayList<>();
+//
+//        logger.info("Found List of users {}", employeeBulkUploadDto);
+//
+//        for (EmployeeBulkUploadDto bulkUploadDto : employeeBulkUploadDto) {
+//            if (bulkUploadDto.getEmployeeId() != null &&
+//                    bulkUploadDto.getFullName() != null &&
+//                    bulkUploadDto.getDateOfJoining() != null &&
+//                    bulkUploadDto.getDateOfBirth() != null &&
+//                    bulkUploadDto.getCurrentRole() != null &&
+//                    bulkUploadDto.getEmail() != null &&
+//                    bulkUploadDto.getGender() != null &&
+//                    bulkUploadDto.getMobile_number() != null &&
+//                    bulkUploadDto.getLocation() != null) {
+//
+//                // Check if employee ID already exists
+//                boolean existsByEmployeeId = userRepository.existsByEmployeeId(bulkUploadDto.getEmployeeId());
+//
+//                if (!existsByEmployeeId) {
+//                    // Continue with the rest of the processing
+//
+//                    User existingUser = findUserByEmail(existingUsers, bulkUploadDto.getEmail());
+//
+//                    // Generate a random password
+//                    String generatedPassword = generateRandomPassword();
+//                    String encodedPassword = passwordEncoder.encode(generatedPassword);
+//
+//                    if (bulkUploadDto.getRemark().isEmpty()) {
+//                        if (existingUser != null) {
+//                            if (existingUser.is_deleted()) {
+//                                // User exists but is marked as deleted, so create a new user
+//                                createUser(existingUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+//                                storedData.add(bulkUploadDto);
+//                            } else {
+//                                // User exists, update the existing user
+//                                if (Objects.equals(existingUser.getEmployee_Id(), bulkUploadDto.getEmployeeId())) {
+//                                    updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
+//                                    storedData.add(bulkUploadDto);
+//                                } else {
+//                                    bulkUploadDto.setStatus(true);
+//                                    bulkUploadDto.setRemark(List.of("Employee ID or email ID already exists"));
+//                                    notStoredData.add(bulkUploadDto);
+//                                }
+//                            }
+//                        } else {
+//                            // User doesn't exist, create a new user
+//                            boolean existsByEmail = userRepository.existsByEmail(bulkUploadDto.getEmail());
+//                            if (!existsByEmail) {
+//                                User newUser = new User();
+//                                createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+//                                bulkUploadDto.setStatus(false);
+//                                storedData.add(bulkUploadDto);
+//                            } else {
+//                                bulkUploadDto.setStatus(true);
+//                                bulkUploadDto.setRemark(List.of("Employee ID or email ID already exists"));
+//                                notStoredData.add(bulkUploadDto);
+//                            }
+//                        }
+//                    } else {
+//                        bulkUploadDto.setStatus(true);
+//                        notStoredData.add(bulkUploadDto);
+//                    }
+//
+//                } else {
+//                    // Employee ID already exists, set status to true and add a remark
+//                    bulkUploadDto.setStatus(true);
+//                    bulkUploadDto.setRemark(List.of("Employee ID already exists"));
+//                    notStoredData.add(bulkUploadDto);
+//                }
+//
+//            } else {
+//                // Missing required fields, set status to true and add to notStoredData
+//                bulkUploadDto.setStatus(true);
+//                notStoredData.add(bulkUploadDto);
+//            }
+//        }
+//
+//        // Return both the stored and not stored data
+//        List<EmployeeBulkUploadDto> allData = new ArrayList<>();
+//        allData.addAll(storedData);
+//        allData.addAll(notStoredData);
+//
+//        return allData;
+//    }
 
 
     private boolean allFieldsAreNull(EmployeeBulkUploadDto dto) {
@@ -263,7 +510,8 @@ public class BulkUploadEmployeeService {
                 dto.getEmail() == null &&
                 dto.getGender() == null &&
                 dto.getMobile_number() == null &&
-                dto.getLocation() == null ;
+                dto.getLocation() == null &&
+                dto.getAppRoleId() == null;
     }
 
     private String getStringValue(Cell cell) {
@@ -299,7 +547,10 @@ public class BulkUploadEmployeeService {
      */
 
     private User createUser(User newUser, EmployeeBulkUploadDto bulkUploadDto, String generatedPassword, String encodedPassword, User currentUser) throws Exception {
-        newUser.setFull_name(bulkUploadDto.getFullName());
+        
+    	 Roles currentRole = rolesRepository.findByRoleName(bulkUploadDto.getCurrentRole());
+    	 
+    	newUser.setFull_name(bulkUploadDto.getFullName());
         newUser.setDate_of_joining(bulkUploadDto.getDateOfJoining());
         newUser.setDate_of_birth(bulkUploadDto.getDateOfBirth());
         newUser.setCurrent_role(bulkUploadDto.getCurrentRole());
@@ -309,10 +560,20 @@ public class BulkUploadEmployeeService {
         newUser.setMobile_number(bulkUploadDto.getMobile_number());
         newUser.setLocation(bulkUploadDto.getLocation());
         newUser.setPassword(encodedPassword);
-        newUser.setModified_by(currentUser.getFull_name());
+        newUser.setModified_by(currentUser.getUser_id());
         newUser.setModified_on(LocalDateTime.now());
-
+        
+        Long appRoleIdLong = Long.parseLong(bulkUploadDto.getAppRoleId());
+        Integer appRoleId = appRoleIdLong.intValue();
+        newUser.setAppRole(roleRepository.findById(appRoleId).orElse(null));
+        //newUser.setAppRole(roleRepository.findById(Long.parseLong(bulkUploadDto.getAppRoleId())).orElse(null));
+        
+     // Set app role as ROLE_USER by default
+//        newUser.setAppRole(roleRepository.findByName(ERole.ROLE_USER));
+        
         User user = userRepository.save(newUser);
+     // Map the user to the specified role
+        mapUserToRole(user, currentRole);
         
          String activityType = "Bulk upload";
 	     String description = "Bulk upload of employees";
@@ -321,13 +582,24 @@ public class BulkUploadEmployeeService {
 	     
 	     String newData = userToJsonConverter.convertUserToJSON(newUser);
 	     
-	     activityHistoryService.addActivity(activityType, description, newData, null, currentUser.getFull_name());
-        
+//	     ActivityHistory activityHistory = new ActivityHistory();
+//		 activityHistory.setActivity_type("Bulk upload");
+//		 activityHistory.setDescription("Bulk upload of employees");
+//		 activityHistory.setNew_data(newData);
+//		
+//		 activityHistoryService.addActivity(activityHistory, null);
         // Send the email with the generated password
         sendEmailPassword(newUser, generatedPassword);
         
         return user;
 
+    }
+    
+    private void mapUserToRole(User user, Roles role) {
+        UserRolesMapping userRoleMapping = new UserRolesMapping();
+        userRoleMapping.setUser(user);
+        userRoleMapping.setRole(role);
+        userRolesMappingRepository.save(userRoleMapping);
     }
     
     /**
@@ -348,15 +620,21 @@ public class BulkUploadEmployeeService {
         existingUser.setMobile_number(bulkUploadDto.getMobile_number());
         existingUser.setLocation(bulkUploadDto.getLocation());
         existingUser.setPassword(encodedPassword);
-        existingUser.setModified_by(currentUser.getFull_name());
+        existingUser.setModified_by(currentUser.getUser_id());
         existingUser.setModified_on(LocalDateTime.now());
-
+        
+        Long appRoleIdLong = Long.parseLong(bulkUploadDto.getAppRoleId());
+        Integer appRoleId = appRoleIdLong.intValue();
+        existingUser.setAppRole(roleRepository.findById(appRoleId).orElse(null));
+        //existingUser.setAppRole(roleRepository.findById(Long.parseLong(bulkUploadDto.getAppRoleId())).orElse(null));
+        
+        bulkUploadDto.setRemark(List.of("Update the employee data."));
         return userRepository.save(existingUser);
     }
     
     
     /**
-     * Finds a employee by its email in the list of existing roles.
+     * Finds a employee by its email in the list of existing.
      *
      * @param employeeList  The list of existing employees.
      * @param email The email of the employee to find.
@@ -371,6 +649,18 @@ public class BulkUploadEmployeeService {
         }
         return null;
     }
+    
+    private User findUserByEmailAndEmployeeId(List<User> userList, String email, String employeeId) {
+        for (User employee : userList) {
+            if (employee.getEmail() != null && employee.getEmail().equals(email) &&
+                employee.getEmployee_Id() != null && employee.getEmployee_Id().equals(employeeId) &&
+                employee.is_deleted()==false) {
+                return employee;
+            }
+        }
+        return null;
+    }
+
 	    
     
     /**
@@ -402,7 +692,7 @@ public class BulkUploadEmployeeService {
             String gender = getStringValue(row.getCell(7)); // gender
             String mobile_number = getStringValue(row.getCell(8)); // mobile_number
             String location = getStringValue(row.getCell(9)); // location
-
+            String appRoleId = getStringValue(row.getCell(10));
 
             if (employeeId == null || employeeId.isEmpty()) {
                 missingDataMsg.add("Data missing for employee Id");
@@ -422,6 +712,9 @@ public class BulkUploadEmployeeService {
             if (email == null || email.isEmpty()) {
                 missingDataMsg.add("Data missing for email");
             }
+            if (appRoleId == null || appRoleId.isEmpty()) {
+                missingDataMsg.add("Data missing for app role id");
+            }
 
             if (processedEmployeeIds1.contains(employeeId)) {
                 missingDataMsg.add("Duplicate data entry for employee Id: " + employeeId);
@@ -434,6 +727,14 @@ public class BulkUploadEmployeeService {
             } else {
                 processedEmails.add(email);
             }
+            
+            if (!isValidAppRoleId(appRoleId)) {
+                missingDataMsg.add("Application role does not valid");
+            }
+            
+//            if (userRepository.existsByEmail(email) || userRepository.existsByEmployeeId(employeeId)) {
+//                missingDataMsg.add("Employee ID or email ID already exists in the database");
+//            }
 
             missingDataMsg.stream().distinct().toList();
             logger.info("Msg list for error message: " + missingDataMsg);
@@ -449,7 +750,8 @@ public class BulkUploadEmployeeService {
             bulkExcelEmployeeDto.setLocation(location);
             bulkExcelEmployeeDto.setRemark(missingDataMsg.stream().toList());
             bulkExcelEmployeeDto.setStatus(false);
-
+            bulkExcelEmployeeDto.setAppRoleId(appRoleId);
+            
            if (!allFieldsAreNull(bulkExcelEmployeeDto)){
                 bulkExcelEmployeeDtos.add(bulkExcelEmployeeDto);
             }
@@ -462,6 +764,19 @@ public class BulkUploadEmployeeService {
         return bulkExcelEmployeeDtos;
     }
 
+    private boolean isValidAppRoleId(String appRoleId) {
+        try {
+            // Convert the appRoleId from String to long
+            long appRoleIdLong = Long.parseLong(appRoleId);
+            
+            // Perform your validation logic here
+            // For example, check if the appRoleId is 1 or 2
+            return appRoleIdLong == 1 || appRoleIdLong == 2;
+        } catch (NumberFormatException e) {
+            // Handle the case where appRoleId cannot be parsed to long
+            return false;
+        }
+    }
     
     /**
      * Generates a random password with specified complexity.

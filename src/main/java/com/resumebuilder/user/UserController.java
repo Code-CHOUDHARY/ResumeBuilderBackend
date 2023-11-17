@@ -11,7 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.resumebuilder.DTO.UserDto;
 import com.resumebuilder.auth.SignupRequest;
+import com.resumebuilder.security.response.MessageResponse;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
@@ -102,6 +106,20 @@ public class UserController {
      * @param principal    Represents the user identity.
      * @return The response entity indicating the success or failure of the update.
      */
+    
+  //edit employee data
+    @PutMapping("/editEmployee/{userId}")
+    public ResponseEntity<?> editUser(@PathVariable Long userId, @RequestBody UserDto editUserRequest,
+                                      Principal principal) {
+        ResponseEntity<?> response;
+        try {
+            response = userService.editEmployee(userId, editUserRequest, principal);
+        } catch (Exception e) {
+            response = ResponseEntity.status(HttpStatus.ACCEPTED)
+                    .body(new MessageResponse("employee details not edit."));
+        }
+        return response;
+    }
 
     //update user api
     @PutMapping("/edit/employee/{userId}")

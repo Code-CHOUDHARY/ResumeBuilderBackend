@@ -1,6 +1,7 @@
 package com.resumebuilder.DTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -20,6 +21,12 @@ public class UserDto {
     private String manager_employee_id;
     @UpdateTimestamp
 	private LocalDateTime modified_on;
-
+    private String user_image;
+	private String linkedin_lnk;
+	private String portfolio_link;
+	private String blogs_link;
+    private String professional_summary;
+	private String modified_by;
+	private List<Long> managerIds;
     
 }
