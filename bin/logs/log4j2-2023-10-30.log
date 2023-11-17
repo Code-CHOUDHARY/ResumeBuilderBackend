@@ -1,0 +1,18 @@
+2023-10-31 10:58:22.245  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-10-31 10:58:22.252  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-10-31 10:58:22.253  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-10-31 10:58:22.256  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-37 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2023-10-31 10:58:22.256  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-10-31 10:58:22.258  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-10-31 10:58:22.262  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-31 10:58:22.263  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] c.z.h.HikariDataSource                   : HikariPool-37 - Shutdown initiated...
+2023-10-31 10:58:22.266  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [     Thread-145] c.z.h.HikariDataSource                   : HikariPool-37 - Shutdown completed.

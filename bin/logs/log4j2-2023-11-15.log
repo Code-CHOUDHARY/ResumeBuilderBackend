@@ -1,0 +1,900 @@
+2023-11-15 11:00:53.207  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 2980 (/home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend)
+2023-11-15 11:00:53.207  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:00:53.465  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-15 11:00:53.507  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 41 ms. Found 18 JPA repository interfaces.
+2023-11-15 11:00:53.702  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-15 11:00:53.702  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-15 11:00:53.702  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-15 11:00:53.703  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-15 11:00:53.722  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-15 11:00:53.722  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 512 ms
+2023-11-15 11:00:53.808  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-15 11:00:53.821  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:00:53.821  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-15 11:00:53.822  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-32 - Starting...
+2023-11-15 11:00:53.823  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-15 11:00:53.850  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-32 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5e07c61b
+2023-11-15 11:00:53.850  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-32 - Start completed.
+2023-11-15 11:00:53.934  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:00:54.154  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-15 11:00:54.205  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:00:55.048  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+2023-11-15 11:00:55.048  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:00:55.049  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-32 - Shutdown initiated...
+2023-11-15 11:00:55.051  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-32 - Shutdown completed.
+2023-11-15 11:00:55.052  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-15 11:00:55.057  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-11-15 11:00:55.060 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.resumebuilder.ResumeBuilderBackendApplication.main(ResumeBuilderBackendApplication.java:20)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 25 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:488)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 39 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:157)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 52 more
+Caused by: java.lang.IllegalArgumentException: object is not an instance of declaring class
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 53 more
+2023-11-15 11:01:11.852  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 2980 (/home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend)
+2023-11-15 11:01:11.853  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:01:12.152  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-15 11:01:12.199  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 18 JPA repository interfaces.
+2023-11-15 11:01:12.450  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-15 11:01:12.451  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-15 11:01:12.451  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-15 11:01:12.451  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-15 11:01:12.468  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-15 11:01:12.468  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 613 ms
+2023-11-15 11:01:12.560  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-15 11:01:12.570  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:01:12.570  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-15 11:01:12.571  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-33 - Starting...
+2023-11-15 11:01:12.572  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-15 11:01:12.590  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-33 - Added connection com.mysql.cj.jdbc.ConnectionImpl@775c39b1
+2023-11-15 11:01:12.591  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-33 - Start completed.
+2023-11-15 11:01:12.653  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:01:12.886  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-15 11:01:12.945  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:01:13.752  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+2023-11-15 11:01:13.752  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:01:13.753  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-33 - Shutdown initiated...
+2023-11-15 11:01:13.759  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-33 - Shutdown completed.
+2023-11-15 11:01:13.760  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-15 11:01:13.767  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-11-15 11:01:13.770 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.resumebuilder.ResumeBuilderBackendApplication.main(ResumeBuilderBackendApplication.java:20)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 25 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:488)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 39 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:157)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 52 more
+Caused by: java.lang.IllegalArgumentException: object is not an instance of declaring class
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 53 more
+2023-11-15 11:01:32.552  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 2980 (/home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend)
+2023-11-15 11:01:32.553  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:01:32.769  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-15 11:01:32.815  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 18 JPA repository interfaces.
+2023-11-15 11:01:33.000  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-15 11:01:33.001  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-15 11:01:33.001  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-15 11:01:33.001  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-15 11:01:33.022  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-15 11:01:33.022  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 465 ms
+2023-11-15 11:01:33.108  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-15 11:01:33.114  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:01:33.114  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-15 11:01:33.115  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-34 - Starting...
+2023-11-15 11:01:33.115  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-15 11:01:33.147  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-34 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7926c8
+2023-11-15 11:01:33.147  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-34 - Start completed.
+2023-11-15 11:01:33.209  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:01:33.408  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-15 11:01:33.462  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:01:34.365  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+2023-11-15 11:01:34.366  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:01:34.367  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-34 - Shutdown initiated...
+2023-11-15 11:01:34.373  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-34 - Shutdown completed.
+2023-11-15 11:01:34.374  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-15 11:01:34.379  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-11-15 11:01:34.383 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.resumebuilder.ResumeBuilderBackendApplication.main(ResumeBuilderBackendApplication.java:20)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 25 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:488)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 39 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:157)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 52 more
+Caused by: java.lang.IllegalArgumentException: object is not an instance of declaring class
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 53 more
+2023-11-15 11:01:42.019  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 2980 (/home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend)
+2023-11-15 11:01:42.020  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:01:42.264  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-15 11:01:42.319  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 18 JPA repository interfaces.
+2023-11-15 11:01:42.584  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-15 11:01:42.584  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-15 11:01:42.585  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-15 11:01:42.585  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-15 11:01:42.608  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-15 11:01:42.608  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 585 ms
+2023-11-15 11:01:42.712  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-15 11:01:42.725  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:01:42.725  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-15 11:01:42.726  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-35 - Starting...
+2023-11-15 11:01:42.726  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-15 11:01:42.741  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-35 - Added connection com.mysql.cj.jdbc.ConnectionImpl@336567ce
+2023-11-15 11:01:42.741  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-35 - Start completed.
+2023-11-15 11:01:42.813  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:01:43.054  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-15 11:01:43.102  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:01:43.878  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+2023-11-15 11:01:43.879  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:01:43.879  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-35 - Shutdown initiated...
+2023-11-15 11:01:43.883  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-35 - Shutdown completed.
+2023-11-15 11:01:43.884  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-15 11:01:43.891  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-11-15 11:01:43.894 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.resumebuilder.ResumeBuilderBackendApplication.main(ResumeBuilderBackendApplication.java:20)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 25 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:488)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 39 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:157)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 52 more
+Caused by: java.lang.IllegalArgumentException: object is not an instance of declaring class
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 53 more
+2023-11-15 11:02:36.583  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 2980 (/home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend)
+2023-11-15 11:02:36.583  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:02:36.799  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-15 11:02:36.850  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 50 ms. Found 18 JPA repository interfaces.
+2023-11-15 11:02:37.044  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-15 11:02:37.045  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-15 11:02:37.045  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-15 11:02:37.046  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-15 11:02:37.064  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-15 11:02:37.064  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 479 ms
+2023-11-15 11:02:37.173  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-15 11:02:37.182  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:02:37.182  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-15 11:02:37.182  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-36 - Starting...
+2023-11-15 11:02:37.183  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-15 11:02:37.194  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-36 - Added connection com.mysql.cj.jdbc.ConnectionImpl@78a27feb
+2023-11-15 11:02:37.194  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-36 - Start completed.
+2023-11-15 11:02:37.248  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:02:37.449  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-15 11:02:37.501  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:02:38.417  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+2023-11-15 11:02:38.418  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:02:38.418  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-36 - Shutdown initiated...
+2023-11-15 11:02:38.425  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-36 - Shutdown completed.
+2023-11-15 11:02:38.425  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-15 11:02:38.433  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-11-15 11:02:38.437 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.resumebuilder.ResumeBuilderBackendApplication.main(ResumeBuilderBackendApplication.java:20)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 25 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:488)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 39 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:157)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 52 more
+Caused by: java.lang.IllegalArgumentException: object is not an instance of declaring class
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 53 more
+2023-11-15 11:03:09.581  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 2980 (/home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend)
+2023-11-15 11:03:09.581  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:03:09.808  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-15 11:03:09.855  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 18 JPA repository interfaces.
+2023-11-15 11:03:10.040  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-15 11:03:10.041  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-15 11:03:10.041  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-15 11:03:10.042  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-15 11:03:10.061  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-15 11:03:10.061  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 475 ms
+2023-11-15 11:03:10.169  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-15 11:03:10.177  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:03:10.177  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-15 11:03:10.178  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-37 - Starting...
+2023-11-15 11:03:10.178  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-15 11:03:10.188  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-37 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2315da6b
+2023-11-15 11:03:10.189  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-37 - Start completed.
+2023-11-15 11:03:10.245  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:03:10.471  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-15 11:03:10.532  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:03:11.393  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+2023-11-15 11:03:11.394  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:03:11.394  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-37 - Shutdown initiated...
+2023-11-15 11:03:11.400  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-37 - Shutdown completed.
+2023-11-15 11:03:11.400  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-15 11:03:11.406  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-11-15 11:03:11.410 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.resumebuilder.ResumeBuilderBackendApplication.main(ResumeBuilderBackendApplication.java:20)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 25 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:488)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 39 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:157)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 52 more
+Caused by: java.lang.IllegalArgumentException: object is not an instance of declaring class
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 53 more
+2023-11-15 11:03:44.418  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 2980 (/home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend)
+2023-11-15 11:03:44.419  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:03:44.636  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-15 11:03:44.693  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 56 ms. Found 18 JPA repository interfaces.
+2023-11-15 11:03:44.869  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-15 11:03:44.870  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-15 11:03:44.870  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-15 11:03:44.870  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-15 11:03:44.887  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-15 11:03:44.887  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 465 ms
+2023-11-15 11:03:44.981  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-15 11:03:44.991  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:03:44.991  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-15 11:03:44.992  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-38 - Starting...
+2023-11-15 11:03:44.992  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-15 11:03:45.004  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-38 - Added connection com.mysql.cj.jdbc.ConnectionImpl@76d29d70
+2023-11-15 11:03:45.004  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-38 - Start completed.
+2023-11-15 11:03:45.054  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:03:45.294  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-15 11:03:45.359  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:03:46.313  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+2023-11-15 11:03:46.314  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:03:46.315  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-38 - Shutdown initiated...
+2023-11-15 11:03:46.327  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-38 - Shutdown completed.
+2023-11-15 11:03:46.327  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-15 11:03:46.342  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-11-15 11:03:46.346 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.resumebuilder.ResumeBuilderBackendApplication.main(ResumeBuilderBackendApplication.java:20)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 25 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:488)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 39 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:157)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 52 more
+Caused by: java.lang.IllegalArgumentException: object is not an instance of declaring class
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 53 more
+2023-11-15 11:04:00.061  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 2980 (/home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend)
+2023-11-15 11:04:00.061  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:04:00.311  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-15 11:04:00.358  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 18 JPA repository interfaces.
+2023-11-15 11:04:00.597  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-15 11:04:00.598  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-15 11:04:00.598  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-15 11:04:00.598  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-15 11:04:00.620  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-15 11:04:00.620  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 556 ms
+2023-11-15 11:04:00.717  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-15 11:04:00.728  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:04:00.728  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-15 11:04:00.729  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-39 - Starting...
+2023-11-15 11:04:00.729  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-15 11:04:00.742  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-39 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7fc8c7cc
+2023-11-15 11:04:00.742  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-39 - Start completed.
+2023-11-15 11:04:00.819  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:04:01.059  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-15 11:04:01.111  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:04:02.061  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+2023-11-15 11:04:02.062  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:04:02.062  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-39 - Shutdown initiated...
+2023-11-15 11:04:02.067  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-39 - Shutdown completed.
+2023-11-15 11:04:02.068  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-15 11:04:02.075  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-11-15 11:04:02.077 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.resumebuilder.ResumeBuilderBackendApplication.main(ResumeBuilderBackendApplication.java:20)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 25 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:488)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 39 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:157)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 52 more
+Caused by: java.lang.IllegalArgumentException: object is not an instance of declaring class
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 53 more
+2023-11-15 11:05:09.781  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 2980 (/home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/new/Resume%20Builder%20Backend)
+2023-11-15 11:05:09.782  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:05:10.037  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-15 11:05:10.097  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 18 JPA repository interfaces.
+2023-11-15 11:05:10.380  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-15 11:05:10.381  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-15 11:05:10.381  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-15 11:05:10.381  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-15 11:05:10.401  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-15 11:05:10.402  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 616 ms
+2023-11-15 11:05:10.484  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-15 11:05:10.494  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:05:10.495  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-15 11:05:10.495  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-40 - Starting...
+2023-11-15 11:05:10.495  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-15 11:05:10.508  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-40 - Added connection com.mysql.cj.jdbc.ConnectionImpl@70737449
+2023-11-15 11:05:10.508  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-40 - Start completed.
+2023-11-15 11:05:10.597  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-15 11:05:10.863  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-15 11:05:10.909  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:05:11.907  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+2023-11-15 11:05:11.908  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-15 11:05:11.909  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-40 - Shutdown initiated...
+2023-11-15 11:05:11.911  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-40 - Shutdown completed.
+2023-11-15 11:05:11.911  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-15 11:05:11.916  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-11-15 11:05:11.919 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectController': Unsatisfied dependency expressed through field 'empservice': Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.resumebuilder.ResumeBuilderBackendApplication.main(ResumeBuilderBackendApplication.java:20)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'employeeProjectServiceImpl': Unsatisfied dependency expressed through field 'mapper': Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 25 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'modelMapper' defined in com.resumebuilder.ResumeBuilderBackendApplication: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:488)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764)
+	... 39 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.modelmapper.ModelMapper]: Illegal arguments to factory method 'modelMapper'; args: 
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:157)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 52 more
+Caused by: java.lang.IllegalArgumentException: object is not an instance of declaring class
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
+	... 53 more
