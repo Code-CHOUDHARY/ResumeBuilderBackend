@@ -1,8 +1,10 @@
 package com.resumebuilder.user;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.security.Principal;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.resumebuilder.DTO.UserDto;
 import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryRepository;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
@@ -358,8 +361,134 @@ public class UserServiceImplementation implements UserService {
 	 * @param principal   Principal representing the authenticated user.
 	 * @return Updated User entity.
 	 */
+	//edit employees
+	//@Override
+	@Transactional
+	public ResponseEntity<?> editEmployee(Long userId, UserDto editUserRequest, Principal principal) {
+	    logger.info("Editing user details.");
 
-	// Update the existing user
+	    try {
+	    	User currentuser = userRepository.findByEmailId(principal.getName());
+	        // Retrieve the user to be updated
+	        Optional<User> optionalUser = userRepository.findById(userId);
+	        User user = optionalUser.orElseThrow(() -> new UserNotFoundException("User not found"));
+
+	        // Update the user details
+	        user.setFull_name(editUserRequest.getFull_name());
+	        //user.setEmployee_Id(editUserRequest.getEmployee_Id());
+	        user.setCurrent_role(editUserRequest.getCurrent_role());
+	        //user.setEmail(editUserRequest.getEmail());
+	        user.setUser_image(editUserRequest.getUser_image());
+	        user.setGender(editUserRequest.getGender());
+	        user.setMobile_number(editUserRequest.getMobile_number());
+	        user.setLocation(editUserRequest.getLocation());
+	        user.setDate_of_joining(editUserRequest.getDate_of_joining());
+	        user.setDate_of_birth(editUserRequest.getDate_of_birth());
+	        user.setLinkedin_lnk(editUserRequest.getLinkedin_lnk());
+	        user.setPortfolio_link(editUserRequest.getPortfolio_link());
+	        user.setBlogs_link(editUserRequest.getBlogs_link());
+	        user.setModified_on(LocalDateTime.now());
+	        user.setModified_by(currentuser.getUser_id());
+
+	        // Check if the provided current_role exists in the roles table
+	        String currentRoleName = editUserRequest.getCurrent_role();
+	        Roles currentRole = rolesRepository.findByRoleName(currentRoleName);
+	        if (currentRole == null) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                    .body(new MessageResponse("Current role does not exist."));
+	        }
+
+	        // Save the updated user
+	        User updatedUser = userRepository.save(user);
+
+	        // Save the user-role relationship
+	        UserRolesMapping userRolesMapping = new UserRolesMapping(updatedUser, currentRole);
+	        usereRolesMappingRepository.save(userRolesMapping);
+
+	        // Update reporting managers (you may need to adjust this based on your requirements)
+	        reportingManagerRepository.deleteByEmployee(user);
+
+	        for (Long id : editUserRequest.getManagerIds()) {
+	            User manager = userRepository.findById(id)
+	                    .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+
+	            ReportingManager reportingManager = new ReportingManager();
+	            reportingManager.setEmployee(updatedUser);
+	            reportingManager.setManager(manager);
+	            reportingManagerRepository.save(reportingManager);
+	        }
+	        
+	     // Compare the fields and identify changes
+	        Map<String, String> changes = new HashMap<>();
+	        if (!Objects.nullSafeEquals(user.getFull_name(), updatedUser.getFull_name())) {
+	            changes.put("full_name", updatedUser.getFull_name());
+	        }
+	        if (!Objects.nullSafeEquals(user.getEmployee_Id(), updatedUser.getEmployee_Id())) {
+	            changes.put("employee_Id", updatedUser.getEmployee_Id());
+	        }
+	        if (!Objects.nullSafeEquals(user.getCurrent_role(), updatedUser.getCurrent_role())) {
+	            changes.put("current_role", updatedUser.getCurrent_role());
+	        }
+	        if (!Objects.nullSafeEquals(user.getUser_image(), updatedUser.getUser_image())) {
+	            changes.put("user_image", updatedUser.getUser_image());
+	        }
+	        if (!Objects.nullSafeEquals(user.getGender(), updatedUser.getGender())) {
+	            changes.put("gender", updatedUser.getGender());
+	        }
+	        if (!Objects.nullSafeEquals(user.getMobile_number(), updatedUser.getMobile_number())) {
+	            changes.put("mobile_number", updatedUser.getMobile_number());
+	        }
+	        if (!Objects.nullSafeEquals(user.getLocation(), updatedUser.getLocation())) {
+	            changes.put("location", updatedUser.getLocation());
+	        }
+	        if (!Objects.nullSafeEquals(user.getDate_of_joining(), updatedUser.getDate_of_joining())) {
+	            changes.put("date_of_joining", updatedUser.getDate_of_joining());
+	        }
+	        if (!Objects.nullSafeEquals(user.getDate_of_birth(), updatedUser.getDate_of_birth())) {
+	            changes.put("date_of_birth", updatedUser.getDate_of_birth());
+	        }
+	        if (!Objects.nullSafeEquals(user.getLinkedin_lnk(), updatedUser.getLinkedin_lnk())) {
+	            changes.put("linkedin_lnk", updatedUser.getLinkedin_lnk());
+	        }
+	        if (!Objects.nullSafeEquals(user.getPortfolio_link(), updatedUser.getPortfolio_link())) {
+	            changes.put("portfolio_link", updatedUser.getPortfolio_link());
+	        }
+	        if (!Objects.nullSafeEquals(user.getBlogs_link(), updatedUser.getBlogs_link())) {
+	            changes.put("blogs_link", updatedUser.getBlogs_link());
+	        }
+
+
+	        UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+
+			try {
+				String newData = userToJsonConverter.convertChangesToJson(changes);
+				String oldData = userToJsonConverter.convertUserToJSON(user);
+
+				ActivityHistory activityHistory = new ActivityHistory();
+	            activityHistory.setActivity_type("Update Employee");
+	            activityHistory.setDescription("Change in employee data");
+	            activityHistory.setOld_data(oldData);
+	            activityHistory.setNew_data(newData);
+	            activityHistory.setUser(user);
+	            activityHistoryService.addActivity(activityHistory, principal);
+				
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee details edit successfully.."));
+	    } catch (Exception e) {
+	        logger.error("Employee details edit successfully.", e);
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body(new MessageResponse("Employee details edit successfully."));
+	    }
+	}
+
+	
+
+
+	// Update the user personal details
 	@Override
 	public User editUser(Long userId, User updatedUser, Principal principal) {
 		logger.info("Editing user with ID: {}", userId);

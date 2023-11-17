@@ -1,12 +1,15 @@
 package com.resumebuilder.DTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class UserDto {
     private String employee_Id;
     private String full_name;
@@ -19,7 +22,15 @@ public class UserDto {
     private String location;
     private String manager_employee_id;
     @UpdateTimestamp
-	private LocalDateTime modified_on;
+	private LocalDateTime modified_on;    
+	private String password;
+	private String user_image;
+	private String linkedin_lnk;
+	private String portfolio_link;
+	private String blogs_link;
+    private String professional_summary;
+	private String modified_by;
+	private List<Long> managerIds;
 
     
 }
