@@ -4,22 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
-
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeBulkUploadDto {
 
-    private String employeeId;
+    private String employee_id;
     private String fullName;
     private String dateOfJoining;
     private String dateOfBirth;
     private String currentRole;
-    private String email;
+    private String email_id;
     private String gender;
     private String mobile_number;
     private String location;

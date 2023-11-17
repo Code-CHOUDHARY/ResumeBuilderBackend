@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.DTO.RolesDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.roles.Roles;
 import com.resumebuilder.roles.RolesRepository;
@@ -80,6 +81,12 @@ public class BulkUploadRoleService {
                 try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
                     Sheet roleSheet = workbook.getSheet("Roles");
                     logger.info("Number of Rows: " + roleSheet.getPhysicalNumberOfRows());
+                    
+                    ActivityHistory activityHistory = new ActivityHistory();
+    	            activityHistory.setActivity_type("Bulk upload");
+    	            activityHistory.setDescription("Bulk upload for roles");
+    	            activityHistoryService.addActivity(activityHistory, principal);
+                    
                     roleBulkUploadDtos = validateRoleData(roleSheet);
                 }
 
@@ -180,16 +187,18 @@ public class BulkUploadRoleService {
         
         private void createRole(Roles newRole, RolesDto bulkUploadDto, User currentUser) {
             newRole.setRole_name(bulkUploadDto.getRole_name());
-            newRole.setModified_by(currentUser.getFull_name());
+            newRole.setModified_by(currentUser.getUser_id());
             logger.info("Role modified by- "+currentUser.getFull_name());
             newRole.setModified_on(LocalDateTime.now());
             
 
-            String activityType = "Bulk upload";
-   	     	String description = "Bulk upload of Roles";
-   	     
-   	     activityHistoryService.addActivity(activityType, description, bulkUploadDto.getRole_name(), null, currentUser.getFull_name());
-            
+//            ActivityHistory activityHistory = new ActivityHistory();
+//   		 activityHistory.setActivity_type("Bulk upload");
+//   		 activityHistory.setDescription("Bulk upload of employees");
+//   		 activityHistory.setNew_data(newData);
+//   		
+//   		 activityHistoryService.addActivity(activityHistory, null);
+//            
             rolesRepository.save(newRole);
         }
         
@@ -203,7 +212,7 @@ public class BulkUploadRoleService {
 
         private void updateRole(Roles existingRole, RolesDto bulkUploadDto, User currentUser) {
             existingRole.setRole_name(bulkUploadDto.getRole_name());
-            existingRole.setModified_by(currentUser.getFull_name());
+            existingRole.setModified_by(currentUser.getUser_id());
             existingRole.setModified_on(LocalDateTime.now());
             rolesRepository.save(existingRole);
         }

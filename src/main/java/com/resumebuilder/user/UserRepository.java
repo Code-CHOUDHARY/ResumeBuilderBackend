@@ -16,6 +16,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long>{
 
 
+	@Query("SELECT u FROM User u WHERE u.email = :email AND u.is_deleted = false")
 	Optional<User> findByEmail(String email);
 	
 //	@Query(value = "select * from user where email_id =:email",nativeQuery = true)
@@ -32,7 +33,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query("SELECT COUNT(u) > 0 FROM User u WHERE u.employee_Id = ?1 AND u.is_deleted = false")
 	boolean existsByEmployeeIdAndNotDeleted(String employeeId);
 	
-	
 	//public User findByEmail_Id(String name);
 //	Optional<User> findByEmail(String email);
 //	  Optional<User> findByUsername(String username);
@@ -44,6 +44,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	@Query(value = "select * from user where email_id =:email",nativeQuery = true)
 	User findByEmailId(String email);
+	
+	@Query(value = "select * from user where email =:email AND is_deleted = false", nativeQuery = true)
+	List<User> findByEmailIdAndNotDeleted(String email);
 	//public User findByEmail_Id(String name);
 	
 	@Query(value = "select * from user where employee_id =:empId",nativeQuery = true)

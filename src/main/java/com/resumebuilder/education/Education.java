@@ -8,6 +8,7 @@ import java.util.Set;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.resumebuilder.user.User;
 
@@ -49,14 +50,14 @@ public class Education {
 	private boolean show_dates;
 	private String show_duration;
 	private boolean show_nothing;
+	 @JsonIgnore
 	private boolean is_deleted;
-
-	private String Modified_by;
+	private Long Modified_by;
 	@UpdateTimestamp
 	@Column(name = "modified_on")
 	private LocalDateTime modified_on;
 	
-
+    @JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

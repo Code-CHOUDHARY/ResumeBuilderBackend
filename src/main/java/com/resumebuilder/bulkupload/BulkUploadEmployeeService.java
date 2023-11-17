@@ -317,18 +317,18 @@ public class BulkUploadEmployeeService {
         List<EmployeeBulkUploadDto> storedData = new ArrayList<>();
 
         for (EmployeeBulkUploadDto bulkUploadDto : employeeBulkUploadDto) {
-            if (bulkUploadDto.getEmployeeId() != null &&
+            if (bulkUploadDto.getEmployee_id() != null &&
                     bulkUploadDto.getFullName() != null &&
                     bulkUploadDto.getDateOfJoining() != null &&
                     bulkUploadDto.getDateOfBirth() != null &&
                     bulkUploadDto.getCurrentRole() != null &&
-                    bulkUploadDto.getEmail() != null &&
+                    bulkUploadDto.getEmail_id() != null &&
                     bulkUploadDto.getGender() != null &&
 //                    bulkUploadDto.getMobile_number() != null &&
 //                    bulkUploadDto.getLocation() != null &&
                     bulkUploadDto.getAppRoleId() != null) {
 
-                User existingUser = findUserByEmailAndEmployeeId(existingUsers, bulkUploadDto.getEmail(), bulkUploadDto.getEmployeeId());
+                User existingUser = findUserByEmailAndEmployeeId(existingUsers, bulkUploadDto.getEmail_id(), bulkUploadDto.getEmployee_id());
 
                 // Generate a random password
                 String generatedPassword = generateRandomPassword();
@@ -345,7 +345,7 @@ public class BulkUploadEmployeeService {
                     if (currentRole != null) {
                         if (existingUser != null) {
                             // User exists, update the existing user
-                            if (Objects.equals(existingUser.getEmployee_Id(), bulkUploadDto.getEmployeeId())) {
+                            if (Objects.equals(existingUser.getEmployee_Id(), bulkUploadDto.getEmployee_id())) {
                                 updateUser(existingUser, bulkUploadDto, encodedPassword, currentUser);
                                 storedData.add(bulkUploadDto);
                             } else {
@@ -356,9 +356,9 @@ public class BulkUploadEmployeeService {
                             }
                         } else {
                             // User doesn't exist, create a new user
-                            boolean existsByEmail = userRepository.existsByEmail(bulkUploadDto.getEmail());
-                            boolean existsByEmployeeId = userRepository.existsByEmployeeId(bulkUploadDto.getEmployeeId());
-                            boolean existBySoftDelete = userRepository.existsByEmployeeIdAndNotDeleted(bulkUploadDto.getEmployeeId());
+                            boolean existsByEmail = userRepository.existsByEmail(bulkUploadDto.getEmail_id());
+                            boolean existsByEmployeeId = userRepository.existsByEmployeeId(bulkUploadDto.getEmployee_id());
+                            boolean existBySoftDelete = userRepository.existsByEmployeeIdAndNotDeleted(bulkUploadDto.getEmployee_id());
                             
                          // Check if there is a soft-deleted user with the same email ID and employee ID
                             if (!existsByEmail && !existsByEmployeeId) {                                                           
@@ -502,12 +502,12 @@ public class BulkUploadEmployeeService {
 
 
     private boolean allFieldsAreNull(EmployeeBulkUploadDto dto) {
-        return dto.getEmployeeId() == null &&
+        return dto.getEmployee_id() == null &&
                 dto.getFullName() == null &&
                 dto.getDateOfJoining() == null &&
                 dto.getDateOfBirth() == null &&
                 dto.getCurrentRole() == null &&
-                dto.getEmail() == null &&
+                dto.getEmail_id() == null &&
                 dto.getGender() == null &&
                 dto.getMobile_number() == null &&
                 dto.getLocation() == null &&
@@ -554,8 +554,8 @@ public class BulkUploadEmployeeService {
         newUser.setDate_of_joining(bulkUploadDto.getDateOfJoining());
         newUser.setDate_of_birth(bulkUploadDto.getDateOfBirth());
         newUser.setCurrent_role(bulkUploadDto.getCurrentRole());
-        newUser.setEmail(bulkUploadDto.getEmail());
-        newUser.setEmployee_Id(bulkUploadDto.getEmployeeId());
+        newUser.setEmail(bulkUploadDto.getEmail_id());
+        newUser.setEmployee_Id(bulkUploadDto.getEmployee_id());
         newUser.setGender(bulkUploadDto.getGender());
         newUser.setMobile_number(bulkUploadDto.getMobile_number());
         newUser.setLocation(bulkUploadDto.getLocation());
@@ -616,7 +616,7 @@ public class BulkUploadEmployeeService {
         existingUser.setDate_of_birth(bulkUploadDto.getDateOfBirth());
         existingUser.setCurrent_role(bulkUploadDto.getCurrentRole());
         existingUser.setGender(bulkUploadDto.getGender());
-        existingUser.setEmployee_Id(bulkUploadDto.getEmployeeId());
+        existingUser.setEmployee_Id(bulkUploadDto.getEmployee_id());
         existingUser.setMobile_number(bulkUploadDto.getMobile_number());
         existingUser.setLocation(bulkUploadDto.getLocation());
         existingUser.setPassword(encodedPassword);
@@ -739,12 +739,12 @@ public class BulkUploadEmployeeService {
             missingDataMsg.stream().distinct().toList();
             logger.info("Msg list for error message: " + missingDataMsg);
             EmployeeBulkUploadDto bulkExcelEmployeeDto = new EmployeeBulkUploadDto();
-            bulkExcelEmployeeDto.setEmployeeId(employeeId);
+            bulkExcelEmployeeDto.setEmployee_id(employeeId);
             bulkExcelEmployeeDto.setFullName(fullName);
             bulkExcelEmployeeDto.setDateOfJoining(dateOfJoining);
             bulkExcelEmployeeDto.setDateOfBirth(dateOfBirth);
             bulkExcelEmployeeDto.setCurrentRole(currentRole);
-            bulkExcelEmployeeDto.setEmail(email);
+            bulkExcelEmployeeDto.setEmail_id(email);
             bulkExcelEmployeeDto.setGender(gender);
             bulkExcelEmployeeDto.setMobile_number(mobile_number);
             bulkExcelEmployeeDto.setLocation(location);

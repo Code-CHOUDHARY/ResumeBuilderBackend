@@ -64,7 +64,7 @@ public class LoginController {
 
 	          // Retrieve users from the repository based on email
 	          List<User> users = userRepository.findByEmailIds(userDetails.getEmail());
-	          logger.info("Users found for email {}", users);
+	          logger.info("Users found for email {}");
 	          // Filter active users
 	          List<User> activeUsers = users.stream()
 	                  .filter(user -> !user.is_deleted())

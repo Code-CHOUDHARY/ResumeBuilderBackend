@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.exception.TechnologyException;
-
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryRepository;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 
@@ -79,10 +79,11 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	        throw new TechnologyException("Technology name cannot be null or empty");
 	    }
 	    
-	     String activityType = "Add Technology";
-	     String description = "Change in Technology Data";
-	     
-	    activityHistoryService.addActivity(activityType, description, technology.getTechnology_name(), null, user.getFull_name());
+	    ActivityHistory activityHistory = new ActivityHistory();
+ 		 activityHistory.setActivity_type("Add Technology");
+ 		 activityHistory.setDescription("Change in Technology data");
+ 		 activityHistory.setNew_data(technology.getTechnology_name());
+ 		 activityHistoryService.addActivity(activityHistory, principal);   
 	    
 		return technologyMasterRepository.save(technology);
 
@@ -116,11 +117,13 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	        existingTechnology.setTechnology_name(updatedTechnology.getTechnology_name());
 	        existingTechnology.setModified_by(user.getFull_name());
 
-                
-                String activityType = "Edit Technology";
-   		     	String description = "Change in technology data";
-   		     
-   		    activityHistoryService.addActivity(activityType, description, updatedTechnology.getTechnology_name(), existingTechnology.getTechnology_name(), user.getFull_name());
+	        ActivityHistory activityHistory = new ActivityHistory();
+      		 activityHistory.setActivity_type("Update Technology");
+      		 activityHistory.setDescription("Change in Technology data");
+      		 activityHistory.setOld_data(existingTechnology.getTechnology_name());
+      		 activityHistory.setNew_data(updatedTechnology.getTechnology_name());
+      		 activityHistoryService.addActivity(activityHistory, principal);    
+               
 
 	        return technologyMasterRepository.save(existingTechnology);
 		} catch (Exception e) {
@@ -166,10 +169,11 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	                TechnologyMaster existingTechnology = optionalTechnology.get();
 	                existingTechnology.set_deleted(true);
 	                
-	             String activityType = "Delete technology";
-	   		     String description = "Change in Technology data";
-	   		     
-	   		    activityHistoryService.addActivity(activityType, description,"Technology with the name" + existingTechnology.getTechnology_name() + "is deleted", null, user.getFull_name());
+	                ActivityHistory activityHistory = new ActivityHistory();
+	       		 activityHistory.setActivity_type("Delete Technology");
+	       		 activityHistory.setDescription("Change in Technology data");
+	       		 activityHistory.setNew_data("Employee with id "+id+"is deleted");
+	       		 activityHistoryService.addActivity(activityHistory, principal);
 	                
 	                technologyMasterRepository.save(existingTechnology);
 	            } else {

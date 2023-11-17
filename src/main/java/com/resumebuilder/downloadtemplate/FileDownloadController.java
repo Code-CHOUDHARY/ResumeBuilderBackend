@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 
 import io.jsonwebtoken.io.IOException;
@@ -36,10 +37,12 @@ public class FileDownloadController {
         headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         headers.setContentDispositionFormData("attachment", "Bulk_Upload_Template.xlsx");
         
-        String activityType = "Delete technology";
-		String description = "Change in Technology data";
-		     
-	    activityHistoryService.addActivity(activityType, description,"Bulk Upload Template Downloaded", null, null);
+//         ActivityHistory activityHistory = new ActivityHistory();
+//		 activityHistory.setActivity_type("Download Template");
+//		 activityHistory.setDescription("Template Downloaded for bulk upload");
+//		 activityHistory.setNew_data("Employee with id "+userId+"is deleted");
+//		 activityHistory.setUser(existingUser);
+//		 activityHistoryService.addActivity(activityHistory, principal);
         
         // Return the file as a ResponseEntity
         return ResponseEntity

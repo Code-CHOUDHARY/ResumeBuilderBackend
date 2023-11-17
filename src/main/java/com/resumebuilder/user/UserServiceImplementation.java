@@ -1,5 +1,6 @@
 package com.resumebuilder.user;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.security.Principal;
 import java.security.SecureRandom;
@@ -37,12 +38,11 @@ import com.resumebuilder.security.response.MessageResponse;
 
 import io.jsonwebtoken.lang.Objects;
 
-
 @Service
-public class UserServiceImplementation implements UserService{
-	
+public class UserServiceImplementation implements UserService {
+
 	private final static Logger logger = LogManager.getLogger(UserServiceImplementation.class);
-	
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -78,29 +78,30 @@ public class UserServiceImplementation implements UserService{
 	public List<User> getAllUsers() {
 		return userRepository.getAllActiveUsers();
 	}
-	
+
 	/**
-     * Find a user by their user ID.
-     *
-     * @param userId User ID.
-     * @return The User entity if found, or throw UserNotFoundException.
-     */
+	 * Find a user by their user ID.
+	 *
+	 * @param userId User ID.
+	 * @return The User entity if found, or throw UserNotFoundException.
+	 */
 
 	public User findUserByIdUser(Long userId) {
-		Optional<User> opt =userRepository.findById(userId);		
-			return opt.get();	
+		logger.info("Finding user by ID: {}", userId);
+		Optional<User> opt = userRepository.findById(userId);
+		return opt.get();
 	}
-	
+
 	/**
-     * Find a user by their username (email).
-     *
-     * @param userName Username (email).
-     * @return The User entity if found, or throw UserNotFoundException.
-     */
+	 * Find a user by their username (email).
+	 *
+	 * @param userName Username (email).
+	 * @return The User entity if found, or throw UserNotFoundException.
+	 */
 
 	@Override
 	public User findUserByUsername(String userName) {
-		
+		logger.info("Finding user by username: {}", userName);
 		Optional<User> opt = userRepository.findByEmail(userName);
 		return opt.get();
 	}
@@ -647,80 +648,10 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	
-	
-//	public ResponseEntity<?> addUser(SignupRequest signUpRequest, Principal principal)throws UserNotFoundException {
-//		 try {
-//			 
-//			 User currentuser = userRepository.findByEmailId(principal.getName());
-//			 
-//			 if (currentuser == null) {
-//		            throw new UserNotFoundException("Current user not found.");
-//		        }
-//
-//			 String password = generateRandomPassword();
-//			 
-//			 User user = new User(signUpRequest.getEmail(), generateRandomPassword());
-//		        user.setFull_name(signUpRequest.getFull_name());
-//		        user.setEmployee_Id(signUpRequest.getEmployee_Id());
-//		        user.setCurrent_role(signUpRequest.getCurrent_role());
-//		        user.setUser_image(signUpRequest.getUser_image());
-//		        user.setGender(signUpRequest.getGender());
-//		        user.setMobile_number(signUpRequest.getMobile_number());
-//		        user.setLocation(signUpRequest.getLocation());
-//		        user.setDate_of_joining(signUpRequest.getDate_of_joining());
-//		        user.setDate_of_birth(signUpRequest.getDate_of_birth());
-//		        user.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
-//		        user.setPortfolio_link(signUpRequest.getPortfolio_link());
-//		        user.setBlogs_link(signUpRequest.getBlogs_link());
-//		        user.setModified_by(currentuser.getFull_name());
-//		        String strRoles = signUpRequest.getRole();
-//
-//		        if (strRoles == null) {
-//		            UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
-//		            user.setAppRole(userRole);
-//		        } else {
-//		            switch (strRoles) {
-//		                case "admin":
-//		                    UserRole adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
-//		                    user.setAppRole(adminRole);
-//
-//		                    break;
-//		                case "manager":
-//		                    UserRole managerRole = roleRepository.findByName(ERole.ROLE_MANAGER);
-//		                    user.setAppRole(managerRole);
-//
-//		                    break;
-//		                default:
-//		                    UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
-//		                    user.setAppRole(userRole);
-//
-//		            }
-//		        }
-//		        String encodedPassword = passwordEncoder.encode(user.getPassword());
-//		        user.setPassword(encodedPassword);
-//
-//		        userRepository.save(user);
-//
-//		        // Send the email with the generated password
-//		        sendEmailPassword(user, password);
-//
-//		        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee data added successfully."));
-//		    } catch (Exception e) {
-//		        throw new UserNotFoundException("Failed to add user data." + e.getMessage());
-//		    } 
-//	}
-    
-	/**
-     * Edit an existing user.
-     *
-     * @param userId      User ID of the user to edit.
-     * @param updatedUser User object containing updated details.
-     * @param principal   Principal representing the authenticated user.
-     * @return Updated User entity.
-     */
-	
-	// Update the existing user
-    @Override
+
+
+	// Update the user personal details
+	@Override
 	public User editUser(Long userId, User updatedUser, Principal principal) {
     	User currentuser = userRepository.findByEmailId(principal.getName());
     	// Check if the user exists
@@ -793,113 +724,118 @@ public class UserServiceImplementation implements UserService{
 	     UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
 	           
 		try {
-			 String newData = userToJsonConverter.convertChangesToJson(changes);
-			 String oldData = userToJsonConverter.convertUserToJSON(existingUser);
-			 
-			 activityHistoryService.
-			    addActivity
-			    (activityType, description,newData ,oldData, currentuser.getFull_name());
-			}
-		catch (JsonProcessingException e) {
+			String newData = userToJsonConverter.convertChangesToJson(changes);
+			String oldData = userToJsonConverter.convertUserToJSON(existingUser);
+
+			ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.setActivity_type("Update Employee");
+            activityHistory.setDescription("Change in employee data");
+            activityHistory.setOld_data(oldData);
+            activityHistory.setNew_data(newData);
+            activityHistory.setUser(existingUser);
+            activityHistoryService.addActivity(activityHistory, principal);
+			
+		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        
-        return userRepository.save(existingUser);
+
+		return userRepository.save(existingUser);
 	}
 
-    /**
-     * Get a user by their email.
-     *
-     * @param email Email address of the user.
-     * @return The User entity if found, or null if not found.
-     */
+	/**
+	 * Get a user by their email.
+	 *
+	 * @param email Email address of the user.
+	 * @return The User entity if found, or null if not found.
+	 */
 
 	@Override
 	public User getUserByEmail(String email) {
 		return userRepository.findByEmailId(email);
 	}
-	
-	 /**
-     * Generates a random password with specified complexity.
-     *
-     * @return A randomly generated password.
-     */
-	
+
+	/**
+	 * Generates a random password with specified complexity.
+	 *
+	 * @return A randomly generated password.
+	 */
+
 	public String generateRandomPassword() {
-	    SecureRandom random = new SecureRandom();
-	    String upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	    String lowerChars = "abcdefghijklmnopqrstuvwxyz";
-	    String specialChars = "!@#$%^&*()";
-	    String digits = "0123456789";
-	    
-	    StringBuilder password = new StringBuilder();
-	    password.append(upperChars.charAt(random.nextInt(upperChars.length())));
-	    password.append(lowerChars.charAt(random.nextInt(lowerChars.length())));
-	    password.append(specialChars.charAt(random.nextInt(specialChars.length())));
-	    password.append(digits.charAt(random.nextInt(digits.length())));
-	 
-	    // at least 8 characters password
-	    for (int i = 4; i < 8; i++) { 
-	        String allChars = upperChars + lowerChars + specialChars + digits;
-	        password.append(allChars.charAt(random.nextInt(allChars.length())));
-	    }
-	    
-	    return password.toString();
+		SecureRandom random = new SecureRandom();
+		String upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String lowerChars = "abcdefghijklmnopqrstuvwxyz";
+		String specialChars = "!@#$%^&*()";
+		String digits = "0123456789";
+
+		StringBuilder password = new StringBuilder();
+		password.append(upperChars.charAt(random.nextInt(upperChars.length())));
+		password.append(lowerChars.charAt(random.nextInt(lowerChars.length())));
+		password.append(specialChars.charAt(random.nextInt(specialChars.length())));
+		password.append(digits.charAt(random.nextInt(digits.length())));
+
+		// at least 8 characters password
+		for (int i = 4; i < 8; i++) {
+			String allChars = upperChars + lowerChars + specialChars + digits;
+			password.append(allChars.charAt(random.nextInt(allChars.length())));
+		}
+
+		return password.toString();
 	}
-	
+
 	/**
-     * Sends an email to a user with their generated password.
-     *
-     * @param user              The user to send the email to.
-     * @param generatePassword The generated password.
-     * @throws Exception If there is an error sending the email.
-     */
-	
+	 * Sends an email to a user with their generated password.
+	 *
+	 * @param user             The user to send the email to.
+	 * @param generatePassword The generated password.
+	 * @throws Exception If there is an error sending the email.
+	 */
+
 	public void sendEmailPassword(User user, String generatePassword) throws Exception {
-        String senderName = "QW Resume Builder";
-        String subject = "Credential details";
-        String content = "Dear " + user.getFull_name() + ",<br>"
-                + "We have generated a login credential. Please use the following username and password to login QW Resume Builder:<br>"
-                +"Username: " +user.getEmail()+ "<br>"
-                + "New Password: " + generatePassword + "<br>";
-        content += "<p>Thank you,<br>" + "QW Resume Builder.</p>";
+		String senderName = "QW Resume Builder";
+		String subject = "Credential details";
+		String content = "Dear " + user.getFull_name() + ",<br>"
+				+ "We have generated a login credential. Please use the following username and password to login QW Resume Builder:<br>"
+				+ "Username: " + user.getEmail() + "<br>" + "New Password: " + generatePassword + "<br>";
+		content += "<p>Thank you,<br>" + "QW Resume Builder.</p>";
 
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom("pratikshawakekar94@gmail.com", senderName);
-        helper.setTo(user.getEmail());
-        helper.setSubject(subject);
-        helper.setText(content, true);
-        mailSender.send(message);
-    }
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		helper.setFrom("pratikshawakekar94@gmail.com", senderName);
+		helper.setTo(user.getEmail());
+		helper.setSubject(subject);
+		helper.setText(content, true);
+		mailSender.send(message);
+	}
 
 	/**
-     * Delete a user by their user ID.
-     *
-     * @param userId    User ID of the user to delete.
-     * @param principal Principal representing the authenticated user.
-     */
-	
+	 * Delete a user by their user ID.
+	 *
+	 * @param userId    User ID of the user to delete.
+	 * @param principal Principal representing the authenticated user.
+	 */
+
 	@Override
 	public void deleteUserById(Long userId, Principal principal) {
+		logger.info("Deleting user with ID: {}", userId);
 		User existingUser = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));  
-		
-		 String activityType = "Delete Employee";
-	     String description = "Change in Employee Data";
-	     
-	    activityHistoryService.addActivity(activityType, description,"user with"+userId + "deleted", null, principal.getName());
-		
-        userRepository.delete(existingUser);
-		
+				.orElseThrow(() -> new UserNotFoundException("User not found"));
+
+		 ActivityHistory activityHistory = new ActivityHistory();
+		 activityHistory.setActivity_type("Delete Employee");
+		 activityHistory.setDescription("Change in Employee data");
+		 activityHistory.setNew_data("Employee with id "+userId+"is deleted");
+		 activityHistory.setUser(existingUser);
+		 activityHistoryService.addActivity(activityHistory, principal);
+
+		userRepository.delete(existingUser);
+
 	}
-	
 
 	public boolean checkUserExists(String UserId) {
-		boolean result=false;
-		result=userRepository.existsById(Long.parseLong(UserId));
+		logger.info("Checking if user exists with ID: {}", UserId);
+		boolean result = false;
+		result = userRepository.existsById(Long.parseLong(UserId));
 		return result;
 	}
 
@@ -910,6 +846,4 @@ public class UserServiceImplementation implements UserService{
 //        return managers;
 //    }
 
-    
 }
-

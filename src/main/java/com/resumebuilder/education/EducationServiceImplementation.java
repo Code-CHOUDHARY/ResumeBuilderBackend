@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.resumebuilder.exception.EducationException;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
@@ -50,8 +49,7 @@ public class EducationServiceImplementation implements EducationService{
                     newEducation.setShow_duration(showDuration);
 
                     newEducation.setShow_nothing(false);
-
-                    newEducation.setModified_by(user.getFull_name());
+                    newEducation.setModified_by(user.getUser_id());
                     newEducation.setModified_on(LocalDateTime.now());
                     newEducation.set_deleted(false);
 
@@ -70,7 +68,7 @@ public class EducationServiceImplementation implements EducationService{
               String showDuration = calculateShowDuration(education.getStart_date(), education.getEnd_date());
               education.setShow_duration(showDuration);
 
-              education.setModified_by(user.getFull_name());
+              education.setModified_by(user.getUser_id());
               education.setModified_on(LocalDateTime.now());
               education.setSchool_college(education.getSchool_college());
               education.setDegree(education.getDegree());
@@ -122,8 +120,6 @@ public class EducationServiceImplementation implements EducationService{
             return years + " year" + (years > 1 ? "s" : "") + " and " + months + " month" + (months > 1 ? "s" : "");
         }
     }
-
-
     public Education updateEducation(Long educationId, Education updatedEducation, Principal principal) {
         try {
             // Find the user associated with the authenticated principal
@@ -153,7 +149,7 @@ public class EducationServiceImplementation implements EducationService{
 
             existingEducation.setShow_nothing(updatedEducation.isShow_nothing());
 
-            existingEducation.setModified_by(user.getFull_name());
+            existingEducation.setModified_by(user.getUser_id());
 
             existingEducation.setModified_on(LocalDateTime.now());
 
@@ -175,8 +171,7 @@ public class EducationServiceImplementation implements EducationService{
         if (optionalExistingEducation.isPresent()) {
             Education existingEducation = optionalExistingEducation.get();
             existingEducation.set_deleted(true);
-
-            existingEducation.setModified_by(user.getFull_name());
+            existingEducation.setModified_by(user.getUser_id());
             educationRepository.save(existingEducation);
             return existingEducation;
         } else {

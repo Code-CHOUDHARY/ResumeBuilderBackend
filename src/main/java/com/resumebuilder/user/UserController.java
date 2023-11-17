@@ -55,7 +55,7 @@ public class UserController {
      * @return The user details.
      */
     
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+   
     @GetMapping("/auth/id/{id}")
     public ResponseEntity<User> findUserByIdHandler(@PathVariable Long id) {
 
@@ -70,7 +70,7 @@ public class UserController {
      * @return The user details of the currently logged-in user.
      */
     
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @GetMapping("/auth/user")
     public ResponseEntity<User> getUserById() {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -121,7 +121,7 @@ public class UserController {
         return response;
     }
 
-    //update user api
+    //update user personal details
     @PutMapping("/edit/employee/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<User> editUser(@PathVariable Long userId, @RequestBody User updatedUser, Principal principal) {
@@ -136,13 +136,13 @@ public class UserController {
      * @param principal  Represents the user identity.
      * @return The response entity indicating the success or failure of the delete operation.
      */
-//need to change the delete api for manager side and employee side different
+
 //    //delete user api
-//    @DeleteMapping("/delete/employee/{userId}")
-//    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-//    public ResponseEntity<Void> deleteUser(@PathVariable Long userId, Principal principal) {
-//        userService.deleteUserById(userId, principal);
-//        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-//    }
+    @DeleteMapping("/delete/employee/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId, Principal principal) {
+        userService.deleteUserById(userId, principal);
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    }
     
 }

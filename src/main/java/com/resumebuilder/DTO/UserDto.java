@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class UserDto {
     private String employee_Id;
     private String full_name;

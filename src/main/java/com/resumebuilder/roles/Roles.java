@@ -25,7 +25,7 @@ public class Roles {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long role_id;
 	private String role_name;
-	private String modified_by; // according to token store the name of current user in database
+	private Long modified_by; // according to token store the name of current user in database
 	@UpdateTimestamp
 	@Column(name = "modified_on")
 	private LocalDateTime modified_on;
