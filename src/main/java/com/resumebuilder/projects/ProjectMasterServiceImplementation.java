@@ -2,15 +2,23 @@ package com.resumebuilder.projects;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.resumebuilder.DTO.ProjectDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
+import com.resumebuilder.professionalexperience.JsonConverter;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserToJsonConverter;
 
+import io.jsonwebtoken.lang.Objects;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -22,7 +30,8 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 	@Autowired
 	private UserRepository userRepository;
 	
-	
+	@Autowired
+	private ActivityHistoryService activityHistoryService;
 	
 	@Autowired
 	private EmployeeProjectRepository employeeProjectRepository;
@@ -58,6 +67,21 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 				          .roles_and_responsibility(projects.getRoles_and_responsibility())
 
 				          .modified_by(user.getFull_name()).build();
+			
+			try {
+				String newData = JsonConverter.convertToJson(projectMaster);
+
+				ActivityHistory activityHistory = new ActivityHistory();
+	            activityHistory.setActivity_type("Add Project");
+	            activityHistory.setDescription("Change in Project data");
+	            activityHistory.setNew_data(newData);
+	            activityHistory.setUser(user);
+	            activityHistoryService.addActivity(activityHistory, principal);
+				
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		    
 			return projectMasterRepository.save(projectMaster);
 			
@@ -88,6 +112,50 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 		project.setTechnology_stack(projects.getTechnology_stack());
 		project.setRoles_and_responsibility(projects.getRoles_and_responsibility());
 		project.setModified_by(user.getFull_name());
+		
+	    // Compare the fields and identify changes
+        
+		Map<String, String> projectChanges = new HashMap<>();
+
+		if (!Objects.nullSafeEquals(projects.getProject_title(), project.getProject_title())) {
+		    projectChanges.put("project_title", projects.getProject_title());
+		}
+		if (!Objects.nullSafeEquals(projects.getProject_url(), project.getProject_url())) {
+		    projectChanges.put("project_url", projects.getProject_url());
+		}
+		if (!Objects.nullSafeEquals(projects.getClient_name(), project.getClient_name())) {
+		    projectChanges.put("client_name", projects.getClient_name());
+		}
+		if (!Objects.nullSafeEquals(projects.getOrganization_name(), project.getOrganization_name())) {
+		    projectChanges.put("organization_name", projects.getOrganization_name());
+		}
+		if (!Objects.nullSafeEquals(projects.getProject_summary(), project.getProject_summary())) {
+		    projectChanges.put("project_summary", projects.getProject_summary());
+		}
+		if (!Objects.nullSafeEquals(projects.getTechnology_stack(), project.getTechnology_stack())) {
+		    projectChanges.put("technology_stack", projects.getTechnology_stack());
+		}
+		if (!Objects.nullSafeEquals(projects.getRoles_and_responsibility(), project.getRoles_and_responsibility())) {
+		    projectChanges.put("roles_and_responsibility", projects.getRoles_and_responsibility());
+		}
+
+		try {
+			String newData = JsonConverter.convertToJson(projectChanges);
+			String oldData = JsonConverter.convertToJson(project);
+
+			ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.setActivity_type("Update Project");
+            activityHistory.setDescription("Change in Project data");
+            activityHistory.setOld_data(oldData);
+            activityHistory.setNew_data(newData);
+            activityHistory.setUser(user);
+            activityHistoryService.addActivity(activityHistory, principal);
+			
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return this.projectMasterRepository.save(project);
 	} catch (Exception e) {
 		

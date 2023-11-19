@@ -154,5 +154,8 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List <Certifications> certificate = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List <ProfessionalExperience> professionalExperiences = new ArrayList<>();
 
 }

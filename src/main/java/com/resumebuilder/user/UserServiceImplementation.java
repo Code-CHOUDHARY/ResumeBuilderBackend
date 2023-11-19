@@ -487,18 +487,13 @@ public class UserServiceImplementation implements UserService {
 					  // Activity history logic
 		            
 		            UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
-					
-//					 String activityType = "Add Employee";
-//				     String description = "New Employee Added";
-//				    
-//				     activityHistoryService.addActivity(activityType, description, newData, null, currentuser.getFull_name());
 		            
-//		            ActivityHistory activityHistory = new ActivityHistory();
-//		            activityHistory.setActivity_type("Add User");
-//		            activityHistory.setDescription("New User added");
-//		            String newData = userToJsonConverter.convertUserToJSON(newUser);
-//		            activityHistory.setNew_data(newData);
-//		            activityHistoryService.addActivity(activityHistory, principal);
+		            ActivityHistory activityHistory = new ActivityHistory();
+		            activityHistory.setActivity_type("Add User");
+		            activityHistory.setDescription("New User added");
+		            String newData = userToJsonConverter.convertUserToJSON(newUser);		      
+		            activityHistory.setNew_data(newData);
+		            activityHistoryService.addActivity(activityHistory, principal);
 				
 				} else {
 					return ResponseEntity.status(HttpStatus.OK)
@@ -559,7 +554,69 @@ public class UserServiceImplementation implements UserService {
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 	                    .body(new MessageResponse("Current role does not exist."));
 	        }
+	        
+	        // Activity history for edit user
+	        
+	        // Compare the fields and identify changes
+	        
+	        Map<String, String> changes = new HashMap<>();
+	        if (!Objects.nullSafeEquals(user.getFull_name(), editUserRequest.getFull_name())) {
+	            changes.put("full_name", editUserRequest.getFull_name());
+	        }
+	        if (!Objects.nullSafeEquals(user.getEmployee_Id(), editUserRequest.getEmployee_Id())) {
+	            changes.put("employee_Id", editUserRequest.getEmployee_Id());
+	        }
+	        if (!Objects.nullSafeEquals(user.getCurrent_role(), editUserRequest.getCurrent_role())) {
+	            changes.put("current_role", editUserRequest.getCurrent_role());
+	        }
+	        if (!Objects.nullSafeEquals(user.getUser_image(), editUserRequest.getUser_image())) {
+	            changes.put("user_image", editUserRequest.getUser_image());
+	        }
+	        if (!Objects.nullSafeEquals(user.getGender(), editUserRequest.getGender())) {
+	            changes.put("gender", editUserRequest.getGender());
+	        }
+	        if (!Objects.nullSafeEquals(user.getMobile_number(), editUserRequest.getMobile_number())) {
+	            changes.put("mobile_number", editUserRequest.getMobile_number());
+	        }
+	        if (!Objects.nullSafeEquals(user.getLocation(), editUserRequest.getLocation())) {
+	            changes.put("location", editUserRequest.getLocation());
+	        }
+	        if (!Objects.nullSafeEquals(user.getDate_of_joining(), editUserRequest.getDate_of_joining())) {
+	            changes.put("date_of_joining", editUserRequest.getDate_of_joining());
+	        }
+	        if (!Objects.nullSafeEquals(user.getDate_of_birth(), editUserRequest.getDate_of_birth())) {
+	            changes.put("date_of_birth", editUserRequest.getDate_of_birth());
+	        }
+	        if (!Objects.nullSafeEquals(user.getLinkedin_lnk(), editUserRequest.getLinkedin_lnk())) {
+	            changes.put("linkedin_lnk", editUserRequest.getLinkedin_lnk());
+	        }
+	        if (!Objects.nullSafeEquals(user.getPortfolio_link(), editUserRequest.getPortfolio_link())) {
+	            changes.put("portfolio_link", editUserRequest.getPortfolio_link());
+	        }
+	        if (!Objects.nullSafeEquals(user.getBlogs_link(), editUserRequest.getBlogs_link())) {
+	            changes.put("blogs_link", editUserRequest.getBlogs_link());
+	        }
 
+
+	        UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
+
+			try {
+				String newData = userToJsonConverter.convertChangesToJson(changes);
+				String oldData = userToJsonConverter.convertUserToJSON(user);
+
+				ActivityHistory activityHistory = new ActivityHistory();
+	            activityHistory.setActivity_type("Update Employee");
+	            activityHistory.setDescription("Change in employee data");
+	            activityHistory.setOld_data(oldData);
+	            activityHistory.setNew_data(newData);
+	            activityHistory.setUser(user);
+	            activityHistoryService.addActivity(activityHistory, principal);
+				
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
 	        // Save the updated user
 	        User updatedUser = userRepository.save(user);
 
@@ -580,64 +637,6 @@ public class UserServiceImplementation implements UserService {
 	            reportingManagerRepository.save(reportingManager);
 	        }
 	        
-	     // Compare the fields and identify changes
-	        Map<String, String> changes = new HashMap<>();
-	        if (!Objects.nullSafeEquals(user.getFull_name(), updatedUser.getFull_name())) {
-	            changes.put("full_name", updatedUser.getFull_name());
-	        }
-	        if (!Objects.nullSafeEquals(user.getEmployee_Id(), updatedUser.getEmployee_Id())) {
-	            changes.put("employee_Id", updatedUser.getEmployee_Id());
-	        }
-	        if (!Objects.nullSafeEquals(user.getCurrent_role(), updatedUser.getCurrent_role())) {
-	            changes.put("current_role", updatedUser.getCurrent_role());
-	        }
-	        if (!Objects.nullSafeEquals(user.getUser_image(), updatedUser.getUser_image())) {
-	            changes.put("user_image", updatedUser.getUser_image());
-	        }
-	        if (!Objects.nullSafeEquals(user.getGender(), updatedUser.getGender())) {
-	            changes.put("gender", updatedUser.getGender());
-	        }
-	        if (!Objects.nullSafeEquals(user.getMobile_number(), updatedUser.getMobile_number())) {
-	            changes.put("mobile_number", updatedUser.getMobile_number());
-	        }
-	        if (!Objects.nullSafeEquals(user.getLocation(), updatedUser.getLocation())) {
-	            changes.put("location", updatedUser.getLocation());
-	        }
-	        if (!Objects.nullSafeEquals(user.getDate_of_joining(), updatedUser.getDate_of_joining())) {
-	            changes.put("date_of_joining", updatedUser.getDate_of_joining());
-	        }
-	        if (!Objects.nullSafeEquals(user.getDate_of_birth(), updatedUser.getDate_of_birth())) {
-	            changes.put("date_of_birth", updatedUser.getDate_of_birth());
-	        }
-	        if (!Objects.nullSafeEquals(user.getLinkedin_lnk(), updatedUser.getLinkedin_lnk())) {
-	            changes.put("linkedin_lnk", updatedUser.getLinkedin_lnk());
-	        }
-	        if (!Objects.nullSafeEquals(user.getPortfolio_link(), updatedUser.getPortfolio_link())) {
-	            changes.put("portfolio_link", updatedUser.getPortfolio_link());
-	        }
-	        if (!Objects.nullSafeEquals(user.getBlogs_link(), updatedUser.getBlogs_link())) {
-	            changes.put("blogs_link", updatedUser.getBlogs_link());
-	        }
-
-
-//	        UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
-//
-//			try {
-//				String newData = userToJsonConverter.convertChangesToJson(changes);
-//				String oldData = userToJsonConverter.convertUserToJSON(user);
-//
-//				ActivityHistory activityHistory = new ActivityHistory();
-//	            activityHistory.setActivity_type("Update Employee");
-//	            activityHistory.setDescription("Change in employee data");
-//	            activityHistory.setOld_data(oldData);
-//	            activityHistory.setNew_data(newData);
-//	            activityHistory.setUser(user);
-//	            activityHistoryService.addActivity(activityHistory, principal);
-//				
-//			} catch (JsonProcessingException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
 
 	        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee details edit successfully.."));
 	    } catch (Exception e) {
