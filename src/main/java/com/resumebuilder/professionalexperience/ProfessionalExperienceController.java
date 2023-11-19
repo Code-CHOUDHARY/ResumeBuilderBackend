@@ -54,7 +54,7 @@ public class ProfessionalExperienceController {
     // Add a new experience
     @PostMapping("/add")
     @PreAuthorize("hasAnyRole('USER','MANAGER')")
-    public ResponseEntity<ProfessionalExperience> addExperience(@Valid @RequestBody ProfessionalExperience experience,Principal principal) {
+    public ResponseEntity<ProfessionalExperience> addExperience( @RequestBody ProfessionalExperience experience,Principal principal) {
         try {
             ProfessionalExperience addedExperience = experienceService.addExperience(experience,principal);
             return ResponseEntity.status(HttpStatus.CREATED).body(addedExperience);
@@ -65,9 +65,9 @@ public class ProfessionalExperienceController {
     
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('USER','MANAGER')")
-    public ResponseEntity<ProfessionalExperience> updateExperience(@PathVariable Long id, @Valid @RequestBody ProfessionalExperience updatedExperience) {
+    public ResponseEntity<ProfessionalExperience> updateExperience(@PathVariable Long id, @RequestBody ProfessionalExperience updatedExperience, Principal principal) {
     	try {
-            ProfessionalExperience updated = experienceService.updateExperienceById(id, updatedExperience);
+            ProfessionalExperience updated = experienceService.updateExperienceById(id, updatedExperience, principal);
             return ResponseEntity.ok(updated);
         } catch (ExperienceNotFoundException e) {
             return ResponseEntity.notFound().build();
@@ -115,7 +115,7 @@ public class ProfessionalExperienceController {
             if (experience.isPresent()) {
                 ProfessionalExperience experienceToSoftDelete = experience.get();
                 experienceToSoftDelete.set_deleted(true);
-                experienceService.updateExperienceById(id, experienceToSoftDelete); // Update the 'is_deleted' flag
+                experienceService.updateExperienceById(id, experienceToSoftDelete,principal); // Update the 'is_deleted' flag
                 return ResponseEntity.ok("Experience has been soft-deleted.");
             } else {
                 throw new ExperienceNotFoundException("Experience not found.");

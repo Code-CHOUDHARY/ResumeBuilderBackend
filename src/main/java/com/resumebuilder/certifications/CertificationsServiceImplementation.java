@@ -1,18 +1,25 @@
 package com.resumebuilder.certifications;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.CertificateNotFoundException;
 import com.resumebuilder.exception.CertificationsNullException;
 import com.resumebuilder.exception.ProjectDataNullException;
+import com.resumebuilder.professionalexperience.JsonConverter;
 import com.resumebuilder.projects.ProjectMaster;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+
+import io.jsonwebtoken.lang.Objects;
 
 @Service
 public class CertificationsServiceImplementation implements CertificationsService{
@@ -22,6 +29,9 @@ public class CertificationsServiceImplementation implements CertificationsServic
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private ActivityHistoryService activityHistoryService;
 	
 	/**
      * Add a new certification.
@@ -46,6 +56,21 @@ public class CertificationsServiceImplementation implements CertificationsServic
 		certificate.setShow_nothing(false);
 		certificate.setUser(user);
 		
+		 ActivityHistory activityHistory = new ActivityHistory();
+      	 String newData;
+		try {
+			 newData = JsonConverter.convertToJson(certifications);
+			 activityHistory.setActivity_type("Add Certificate");	            
+	         activityHistory.setDescription("Change in Certifications data");
+	         activityHistory.setNew_data(newData);
+	         activityHistory.setUser(user);
+	         activityHistoryService.addActivity(activityHistory, principal);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         
+		
 		// Check for null values or missing data in any field
         if (hasMissingData(certifications)) {
             throw new CertificationsNullException("Project data is incomplete or contains null values");
@@ -64,23 +89,61 @@ public class CertificationsServiceImplementation implements CertificationsServic
     }
 
 	@Override
-	public Certifications updateCertifications(Certifications updatedCertifications, Principal principal, Long certificationId) {
-
+	public Certifications updateCertifications(Certifications updatedCertifications, Principal principal, Long certificationId)  {
+		
+		User user = userRepository.findByEmail_Id(principal.getName());
+		
 	    // Find the existing certificate to update
 	    Certifications existingCertificate = certificationsRepository.findById(certificationId)
 	            .orElseThrow(() -> new CertificateNotFoundException("Certificate not found"));
-
+	    
+	    ActivityHistory activityHistory = new ActivityHistory();
+	    String oldData;
+		try {
+			oldData = JsonConverter.convertToJson(existingCertificate);
+			activityHistory.setOld_data(oldData);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 	    // Check for null values or missing data in the updated certificate
 	    if (hasAnyMissingData(updatedCertifications)) {
 	        throw new CertificationsNullException("Updated certificate data is incomplete or contains null values");
 	    }
+	    
+	    Map<String, String> changes = new HashMap<>();
+        if (!Objects.nullSafeEquals(existingCertificate.getCertificate_name(), updatedCertifications.getCertificate_name())) {
+            changes.put("Certificate name", updatedCertifications.getCertificate_name());
+        }
+        if (!Objects.nullSafeEquals(existingCertificate.getCertificate_url(), updatedCertifications.getCertificate_url())) {
+            changes.put("Certificate url", updatedCertifications.getCertificate_url());
+        }
+        if (!Objects.nullSafeEquals(existingCertificate.getCertificate_date(), updatedCertifications.getCertificate_date())) {
+            changes.put("Certificate date", updatedCertifications.getCertificate_date());
+        }
+        if (!Objects.nullSafeEquals(existingCertificate.getShow_duration(), updatedCertifications.getShow_duration())) {
+            changes.put("Duration", updatedCertifications.getShow_duration());
+        }
 
 	    // Update the fields of the existing certificate with the new data
 	    existingCertificate.setCertificate_name(updatedCertifications.getCertificate_name());
 	    existingCertificate.setCertificate_url(updatedCertifications.getCertificate_url());
 	    existingCertificate.setCertificate_date(updatedCertifications.getCertificate_date());
 	    existingCertificate.setShow_duration(updatedCertifications.getShow_duration());
-
+	        	    
+		try {
+			String newData = JsonConverter.convertToJson(changes);
+			 activityHistory.setActivity_type("Update Certificate");	            
+	         activityHistory.setDescription("Change in Certifications data");
+	         activityHistory.setNew_data(newData);
+	         activityHistory.setUser(user);
+	         activityHistoryService.addActivity(activityHistory, principal);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 	    // Save the updated certificate
 	    return certificationsRepository.save(existingCertificate);
 	}
@@ -96,6 +159,9 @@ public class CertificationsServiceImplementation implements CertificationsServic
 	
 	@Override
 	public void deleteCertificate(Long certificateId, Principal principal) {
+		
+		User user = userRepository.findByEmail_Id(principal.getName());
+		
 		Certifications certificate = certificationsRepository.findById(certificateId)
                 .orElseThrow(() -> new CertificateNotFoundException("Certificate not found"));
 
@@ -103,10 +169,23 @@ public class CertificationsServiceImplementation implements CertificationsServic
         if (!isAuthorizedToDeleteCertificate(certificate, principal)) {
             throw new CertificateNotFoundException("You are not authorized to delete this certificate");
         }
-
+        
         // Set the 'deleted' flag to true to mark it as soft-deleted
         certificate.set_deleted(true);
-
+        
+        ActivityHistory activityHistory = new ActivityHistory();
+     	String newData;
+		try {
+			 activityHistory.setActivity_type("Delete Certificate");	            
+	         activityHistory.setDescription("Change in Certifications data");
+	         activityHistory.setNew_data("Certificate with id " + certificateId + "is deleted");
+	         activityHistory.setUser(user);
+	         activityHistoryService.addActivity(activityHistory, principal);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
         // Save the updated certificate
         certificationsRepository.save(certificate);
     }

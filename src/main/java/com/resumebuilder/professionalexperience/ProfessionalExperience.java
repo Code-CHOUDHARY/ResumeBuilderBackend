@@ -2,6 +2,7 @@ package com.resumebuilder.professionalexperience;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.resumebuilder.user.User;
 
 import jakarta.persistence.Entity;
@@ -36,6 +37,7 @@ public class ProfessionalExperience {
 	private boolean show_nothing;
 	private boolean is_deleted;
 	
+	@JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "user_id")
     private User user; // Reference to the User entity

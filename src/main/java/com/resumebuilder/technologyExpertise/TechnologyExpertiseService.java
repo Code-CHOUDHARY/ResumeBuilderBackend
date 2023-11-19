@@ -64,10 +64,10 @@ public class TechnologyExpertiseService {
             TechnologyExpertise savedTechnologyExpertise = technologyExpertiseRepository.save(technologyExpertise);
             
             ActivityHistory activityHistory = new ActivityHistory();
-//         	String newData = JsonConverter.convertToJson(savedTechnologyExpertise);
+         	String newData = JsonConverter.convertToJson(expertiseDto);
             activityHistory.setActivity_type("Technology Expertise");	            
             activityHistory.setDescription("Change in Technology Expertise data");
-//            activityHistory.setNew_data(newData);
+            activityHistory.setNew_data(newData);
             activityHistory.setUser(user);
             activityHistoryService.addActivity(activityHistory, principal);
             

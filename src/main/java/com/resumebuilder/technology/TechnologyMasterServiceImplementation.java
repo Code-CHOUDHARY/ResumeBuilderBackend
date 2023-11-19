@@ -81,7 +81,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	    
 	    ActivityHistory activityHistory = new ActivityHistory();
  		 activityHistory.setActivity_type("Add Technology");
- 		 activityHistory.setDescription("Change in Technology data");
+ 		 activityHistory.setDescription("Change in technology data");
  		 activityHistory.setNew_data(technology.getTechnology_name());
  		 activityHistoryService.addActivity(activityHistory, principal);   
 	    

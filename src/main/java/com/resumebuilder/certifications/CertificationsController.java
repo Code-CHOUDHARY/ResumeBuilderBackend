@@ -46,7 +46,7 @@ public class CertificationsController {
     @PutMapping("/update/{certificationId}")
     @PreAuthorize("hasAnyRole('MANAGER', 'USER')")
     public ResponseEntity<Certifications> updateCertifications(
-        @PathVariable Long certificationId, @RequestBody Certifications updatedCertifications, Principal principal) {
+        @PathVariable Long certificationId, @RequestBody Certifications updatedCertifications, Principal principal)  {
         Certifications updatedCertification = certificationsService.updateCertifications(updatedCertifications, principal, certificationId );
         return new ResponseEntity<>(updatedCertification, HttpStatus.OK);
     }

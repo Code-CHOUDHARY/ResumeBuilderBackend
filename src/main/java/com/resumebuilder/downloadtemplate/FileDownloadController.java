@@ -2,6 +2,8 @@ package com.resumebuilder.downloadtemplate;
 
 
 
+import java.security.Principal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
+import com.resumebuilder.user.User;
+import com.resumebuilder.user.UserService;
 
 import io.jsonwebtoken.io.IOException;
 
@@ -26,8 +30,13 @@ public class FileDownloadController {
 	@Autowired
 	private ActivityHistoryService activityHistoryService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@GetMapping("masterdata/downloadtemplate")
-    public ResponseEntity<Resource> downloadExcel() throws IOException {
+    public ResponseEntity<Resource> downloadExcel(Principal principal) throws IOException {
+		
+		User user = userService.getUserByEmail(principal.getName());
 		
         // Load the Excel file from the classpath
         Resource resource = new ClassPathResource("Download/Templates/Bulk_Upload_Template.xlsx");
@@ -37,12 +46,11 @@ public class FileDownloadController {
         headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         headers.setContentDispositionFormData("attachment", "Bulk_Upload_Template.xlsx");
         
-//         ActivityHistory activityHistory = new ActivityHistory();
-//		 activityHistory.setActivity_type("Download Template");
-//		 activityHistory.setDescription("Template Downloaded for bulk upload");
-//		 activityHistory.setNew_data("Employee with id "+userId+"is deleted");
-//		 activityHistory.setUser(existingUser);
-//		 activityHistoryService.addActivity(activityHistory, principal);
+         ActivityHistory activityHistory = new ActivityHistory();
+		 activityHistory.setActivity_type("Download Template");
+		 activityHistory.setDescription("Template downloaded for bulk upload");
+		 activityHistory.setActivity_by(user.getUser_id());
+		 activityHistoryService.addActivity(activityHistory, principal);
         
         // Return the file as a ResponseEntity
         return ResponseEntity

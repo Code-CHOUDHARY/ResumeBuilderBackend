@@ -9,7 +9,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.EducationException;
+import com.resumebuilder.professionalexperience.JsonConverter;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 
@@ -22,7 +26,9 @@ public class EducationServiceImplementation implements EducationService{
     
     @Autowired
     private UserRepository userRepository;
-
+    
+    @Autowired
+    private ActivityHistoryService activityHistoryService;
     
     @Override
     public Education addEducation(Education education, Principal principal) {
@@ -52,7 +58,21 @@ public class EducationServiceImplementation implements EducationService{
                     newEducation.setModified_by(user.getUser_id());
                     newEducation.setModified_on(LocalDateTime.now());
                     newEducation.set_deleted(false);
-
+                    
+                    ActivityHistory activityHistory = new ActivityHistory();
+                 	String newData;
+           		try {
+           			 newData = JsonConverter.convertToJson(newEducation);
+           			 activityHistory.setActivity_type("Add Education");	            
+           	         activityHistory.setDescription("Change in education data");
+           	         activityHistory.setNew_data(newData);
+           	         activityHistory.setUser(user);
+           	         activityHistoryService.addActivity(activityHistory, principal);
+           		} catch (Exception e) {
+           			// TODO Auto-generated catch block
+           			e.printStackTrace();
+           		}
+                    
                     educationRepository.save(newEducation);
 
                     return newEducation;
@@ -78,6 +98,22 @@ public class EducationServiceImplementation implements EducationService{
               education.setShow_nothing(false);
               education.setUser(user);
               education.set_deleted(false);
+              
+              
+              ActivityHistory activityHistory = new ActivityHistory();
+           	  String newData = "School/College: " + education.getSchool_college() + ". Degree: " + education.getDegree() +  ", Start date: " + education.getStart_date() 
+           	   + ", End date: " + education.getEnd_date();
+     		try {
+     			 activityHistory.setActivity_type("Add Education");	            
+     	         activityHistory.setDescription("Change in education data");
+     	         activityHistory.setNew_data(newData);
+     	         activityHistory.setUser(user);
+     	         activityHistoryService.addActivity(activityHistory, principal);
+     		} catch (Exception e) {
+     			// TODO Auto-generated catch block
+     			e.printStackTrace();
+     		}
+              
               education = educationRepository.save(education);
             	
             	return education;
@@ -127,7 +163,7 @@ public class EducationServiceImplementation implements EducationService{
 
             // Find the existing education entry by its ID
             Education existingEducation = educationRepository.findById(educationId).orElse(null);
-
+            
             if (existingEducation == null) {
                 throw new EducationException("Education does not exist.");
             }
@@ -136,7 +172,10 @@ public class EducationServiceImplementation implements EducationService{
             if (!existingEducation.getUser().equals(user)) {
                 throw new EducationException("You are not authorized to update this education entry");
             }
-
+            
+            String oldData = "School/College: " + existingEducation.getSchool_college() + ". Degree: " + existingEducation.getDegree() +  ", Start date: " + existingEducation.getStart_date() 
+      	   + ", End date: " + existingEducation.getEnd_date();
+            
             // Update the fields of the existing education entry
             existingEducation.setDegree(updatedEducation.getDegree());
             existingEducation.setSchool_college(updatedEducation.getSchool_college());
@@ -152,7 +191,22 @@ public class EducationServiceImplementation implements EducationService{
             existingEducation.setModified_by(user.getUser_id());
 
             existingEducation.setModified_on(LocalDateTime.now());
-
+            
+            ActivityHistory activityHistory = new ActivityHistory();
+         	  String newData = "School/College: " + updatedEducation.getSchool_college() + ". Degree: " + updatedEducation.getDegree() +  ", Start date: " + updatedEducation.getStart_date() 
+         	   + ", End date: " + updatedEducation.getEnd_date();
+   		try {
+   			 activityHistory.setActivity_type("Add Education");	            
+   	         activityHistory.setDescription("Change in education data");
+   	         activityHistory.setNew_data(newData);
+   	         activityHistory.setOld_data(oldData);
+   	         activityHistory.setUser(user);
+   	         activityHistoryService.addActivity(activityHistory, principal);
+   		} catch (Exception e) {
+   			// TODO Auto-generated catch block
+   			e.printStackTrace();
+   		}
+            
             // Save the updated education entry
             existingEducation = educationRepository.save(existingEducation);
 
@@ -173,6 +227,15 @@ public class EducationServiceImplementation implements EducationService{
             existingEducation.set_deleted(true);
             existingEducation.setModified_by(user.getUser_id());
             educationRepository.save(existingEducation);
+            
+            ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.setActivity_type("Delete Education");	            
+  	         activityHistory.setDescription("Change in education data");
+  	         activityHistory.setNew_data("Education with id " + id + "is deleted");
+  	         activityHistory.setUser(user);
+  	         activityHistoryService.addActivity(activityHistory, principal);
+  
+            
             return existingEducation;
         } else {
             throw new EducationException("Education does not exist.");
@@ -184,8 +247,6 @@ public class EducationServiceImplementation implements EducationService{
     public List<Education> listActiveEducationsForUser(Long userId) {
         return educationRepository.findActiveEducationsForUser(userId);
     }
-
-
 
 
 }

@@ -8,18 +8,26 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.resumebuilder.DTO.EmployeProjectRequestEntity;
 import com.resumebuilder.DTO.EmployeeProjectResponceEntity;
+import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
+import com.resumebuilder.professionalexperience.JsonConverter;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
 import com.resumebuilder.user.UserService;
+
+import io.jsonwebtoken.lang.Objects;
 @Service
 public class EmployeeProjectServiceImpl implements EmployProjectService{
     @Autowired
@@ -30,10 +38,13 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 	private UserRepository userrepo;
 	@Autowired
 	private ModelMapper mapper;
+	@Autowired
+	private ActivityHistoryService activityHistoryService;
+	
 	@Override
 	public EmployeeProject addEmployeeProject(EmployeProjectRequestEntity projects,Long id,Principal principal) {
 
-          User user=this.userService.findUserByIdUser(id);
+         User user=this.userService.findUserByIdUser(id);
      	User user1User=userService.findUserByUsername(principal.getName());
       //	System.out.println(user1User);
 	//	System.out.println(user);
@@ -55,8 +66,23 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 		//project.setAssign_by(projects.getAssign_by());
 		project.setModified_by(user1User.getUser_id());
 	      project.setUser(user);    
-	       
-	          
+	      
+	      try {
+	    	  String newData = JsonConverter.convertToJson(project);
+
+				ActivityHistory activityHistory = new ActivityHistory();
+	            activityHistory.setActivity_type("Add Project");
+	            activityHistory.setDescription("Change in Project data");
+	            activityHistory.setNew_data(newData);
+	            activityHistory.setUser(user);
+	            activityHistoryService.addActivity(activityHistory, principal);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	      
+	      
 			 return this.projectRepo.save(project);
 	
 		}
@@ -123,6 +149,49 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 		    if (projects.getRoles_and_responsibility() != null) {
 		        project.setRoles_and_responsibility(projects.getRoles_and_responsibility());
 		    }
+		    
+		    // Compare the fields and identify changes
+	        
+			Map<String, String> projectChanges = new HashMap<>();
+
+			if (!Objects.nullSafeEquals(projects.getProject_title(), project.getProject_title())) {
+			    projectChanges.put("project_title", projects.getProject_title());
+			}
+			if (!Objects.nullSafeEquals(projects.getProject_url(), project.getProject_url())) {
+			    projectChanges.put("project_url", projects.getProject_url());
+			}
+			if (!Objects.nullSafeEquals(projects.getClient_name(), project.getClient_name())) {
+			    projectChanges.put("client_name", projects.getClient_name());
+			}
+			if (!Objects.nullSafeEquals(projects.getOrganization_name(), project.getOrganization_name())) {
+			    projectChanges.put("organization_name", projects.getOrganization_name());
+			}
+			if (!Objects.nullSafeEquals(projects.getProject_summary(), project.getProject_summary())) {
+			    projectChanges.put("project_summary", projects.getProject_summary());
+			}
+			if (!Objects.nullSafeEquals(projects.getTechnology_stack(), project.getTechnology_stack())) {
+			    projectChanges.put("technology_stack", projects.getTechnology_stack());
+			}
+			if (!Objects.nullSafeEquals(projects.getRoles_and_responsibility(), project.getRoles_and_responsibility())) {
+			    projectChanges.put("roles_and_responsibility", projects.getRoles_and_responsibility());
+			}
+			
+			try {
+				String newData = JsonConverter.convertToJson(projectChanges);
+				String oldData = JsonConverter.convertToJson(project);
+
+				ActivityHistory activityHistory = new ActivityHistory();
+	            activityHistory.setActivity_type("Update Project");
+	            activityHistory.setDescription("Change in Project data");
+	            activityHistory.setOld_data(oldData);
+	            activityHistory.setNew_data(newData);
+	            activityHistory.setUser(user1User);
+	            activityHistoryService.addActivity(activityHistory, principal);
+				
+			}catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
        
 		return this.projectRepo.save(project);
 	}
@@ -133,7 +202,7 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 		EmployeeProject projects=this.projectRepo.findByIsDeletedAndId(false, project_id);
 		if(projects!=null) {
 			projects.set_deleted(true);
-
+			
 	         this.projectRepo.save(projects);
 	         return "deleted";
 		}

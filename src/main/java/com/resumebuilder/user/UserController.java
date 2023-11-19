@@ -112,7 +112,7 @@ public class UserController {
     public ResponseEntity<?> editUser(@PathVariable Long userId, @RequestBody UserDto editUserRequest,
                                       Principal principal) {
         ResponseEntity<?> response;
-        try {
+        try {	
             response = userService.editEmployee(userId, editUserRequest, principal);
         } catch (Exception e) {
             response = ResponseEntity.status(HttpStatus.ACCEPTED)

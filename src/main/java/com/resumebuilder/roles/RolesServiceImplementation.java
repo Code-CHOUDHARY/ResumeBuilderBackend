@@ -60,7 +60,7 @@ public class RolesServiceImplementation implements RolesService{
 
                     ActivityHistory activityHistory = new ActivityHistory();
                     activityHistory.setActivity_type("Add role");
-                    activityHistory.setDescription("new role addded");
+                    activityHistory.setDescription("New role addded");
                     activityHistory.setNew_data(role.getRole_name());
                     activityHistory.setUser(user);
                     activityHistoryService.addActivity(activityHistory, principal);
