@@ -1,5 +1,6 @@
 package com.resumebuilder.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.resumebuilder.roles.Roles;
 
 import jakarta.persistence.Entity;
@@ -27,10 +28,12 @@ public class UserRolesMapping {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "role_id")
     private Roles role;
 

@@ -35,9 +35,17 @@ public class ProfileImageService {
             throw new IOException("Invalid file extension");
         }
 
+     // Get user data
+        User currentUser = userRepository.findById(userId).orElse(null);
+        if (currentUser == null) {
+            throw new IOException("User not found");
+        }
+        
+        String employeeId = currentUser.getEmployee_Id();
+        
         // Create the directory structure based on user's employee_id
 
-        String userDirectory = baseDirectory + userId + fileSeparator;
+        String userDirectory = baseDirectory + employeeId + fileSeparator;
         String profileImageDirectory = userDirectory + "profileImage"+fileSeparator;
 
         File userDir = new File(userDirectory);
@@ -66,13 +74,18 @@ public class ProfileImageService {
             e.printStackTrace();
         }
         
-     // Update the user's user_image field with the image path
+//     // set the user's user_image field with the image path
+//        String imagePathInDatabase = profileImageDirectory + uniqueFileName;
+//        User user = userRepository.findById(userId).orElse(null);
+//        if (user != null) {
+//            user.setUser_image(imagePathInDatabase);
+//            userRepository.save(user);
+//        }
+        
+     // Set the user's user_image field with the image path
         String imagePathInDatabase = profileImageDirectory + uniqueFileName;
-        User user = userRepository.findById(userId).orElse(null);
-        if (user != null) {
-            user.setUser_image(imagePathInDatabase);
-            userRepository.save(user);
-        }
+        currentUser.setUser_image(imagePathInDatabase);
+        userRepository.save(currentUser);
 
         return uniqueFileName;
     }
