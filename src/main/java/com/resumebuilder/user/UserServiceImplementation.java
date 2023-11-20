@@ -14,6 +14,7 @@ import jakarta.mail.internet.MimeMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -74,6 +75,10 @@ public class UserServiceImplementation implements UserService {
 	     * @return List of User entities.
 	     */
 	 
+		 @Value("${login.url}")
+		    private String loginUrl;
+			
+		
 	@Override
 	public List<User> getAllUsers() {
 		return userRepository.getAllActiveUsers();
@@ -88,7 +93,7 @@ public class UserServiceImplementation implements UserService {
 
 	public User findUserByIdUser(Long userId) {
 		logger.info("Finding user by ID: {}", userId);
-		Optional<User> opt = userRepository.findById(userId);
+		Optional<User> opt = userRepository.findUserWithNonDeletedAssociations(userId);
 		return opt.get();
 	}
 
@@ -348,7 +353,8 @@ public class UserServiceImplementation implements UserService {
 							newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
 							newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 							newUser.setBlogs_link(signUpRequest.getBlogs_link());
-							newUser.setModified_by(currentuser.getUser_id());
+							newUser.setTechnology_stack(signUpRequest.getTechnology_stack());
+							newUser.setModified_by(currentuser.getFull_name());
 							String strRoles = signUpRequest.getRole();
 							UserRole appRole;
 
@@ -441,7 +447,8 @@ public class UserServiceImplementation implements UserService {
 					newUser.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
 					newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 					newUser.setBlogs_link(signUpRequest.getBlogs_link());
-					newUser.setModified_by(currentuser.getUser_id());
+					newUser.setTechnology_stack(signUpRequest.getTechnology_stack());
+					newUser.setModified_by(currentuser.getFull_name());
 
 					String strRoles = signUpRequest.getRole();
 					UserRole appRole;
@@ -544,8 +551,9 @@ public class UserServiceImplementation implements UserService {
 	        user.setLinkedin_lnk(editUserRequest.getLinkedin_lnk());
 	        user.setPortfolio_link(editUserRequest.getPortfolio_link());
 	        user.setBlogs_link(editUserRequest.getBlogs_link());
+	        user.setTechnology_stack(editUserRequest.getTechnology_stack());
 	        user.setModified_on(LocalDateTime.now());
-	        user.setModified_by(currentuser.getUser_id());
+	        user.setModified_by(currentuser.getFull_name());
 
 	        // Check if the provided current_role exists in the roles table
 	        String currentRoleName = editUserRequest.getCurrent_role();
@@ -641,7 +649,7 @@ public class UserServiceImplementation implements UserService {
 	        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Employee details edit successfully.."));
 	    } catch (Exception e) {
 	        logger.error("Employee details edit successfully.", e);
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	        return ResponseEntity.status(HttpStatus.OK)
 	                .body(new MessageResponse("Employee details edit successfully."));
 	    }
 	}
@@ -693,7 +701,7 @@ public class UserServiceImplementation implements UserService {
             existingUser.setBlogs_link(updatedUser.getBlogs_link());
         }
 
-        existingUser.setModified_by(currentuser.getUser_id());
+        existingUser.setModified_by(currentuser.getFull_name());
         
         
         // Compare the fields and identify changes
@@ -791,12 +799,16 @@ public class UserServiceImplementation implements UserService {
 	 */
 
 	public void sendEmailPassword(User user, String generatePassword) throws Exception {
+		
+	   
 		String senderName = "QW Resume Builder";
 		String subject = "Credential details";
 		String content = "Dear " + user.getFull_name() + ",<br>"
 				+ "We have generated a login credential. Please use the following username and password to login QW Resume Builder:<br>"
 				+ "Username: " + user.getEmail() + "<br>" + "New Password: " + generatePassword + "<br>";
+		 content += "<h3><a href=\"" + loginUrl + "\"><button style=\"background-color: blue; color: white;\">Login</button><a></h3>";
 		content += "<p>Thank you,<br>" + "QW Resume Builder.</p>";
+		
 
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);

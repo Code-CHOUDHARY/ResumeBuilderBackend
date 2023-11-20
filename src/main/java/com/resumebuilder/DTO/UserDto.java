@@ -28,6 +28,7 @@ public class UserDto {
 	private String portfolio_link;
 	private String blogs_link;
     private String professional_summary;
+    private String technology_stack;
 	private String modified_by;
 	private List<Long> managerIds;
     

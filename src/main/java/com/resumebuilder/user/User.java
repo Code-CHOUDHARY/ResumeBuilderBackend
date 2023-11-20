@@ -83,10 +83,12 @@ public class User {
 	@Lob
     @Column(length = 1000) 
     private String professional_summary;
+	@Column
+	private String technology_stack;
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
 	@Column
-	private Long modified_by;
+	private String modified_by;
 	@Column
 	private boolean is_deleted;
 

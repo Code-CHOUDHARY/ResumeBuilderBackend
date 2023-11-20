@@ -1,0 +1,317 @@
+2023-11-20 09:51:42.666 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: source cannot be null] with root cause
+java.lang.IllegalArgumentException: source cannot be null
+	at org.modelmapper.internal.util.Assert.notNull(Assert.java:53)
+	at org.modelmapper.ModelMapper.map(ModelMapper.java:420)
+	at com.resumebuilder.projects.EmployeeProjectServiceImpl.getbyid(EmployeeProjectServiceImpl.java:247)
+	at com.resumebuilder.projects.EmployeeProjectController.get(EmployeeProjectController.java:53)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-20 09:51:42.678 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-20 09:51:45.645  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.resumebuilder.exception.CertificateNotFoundException: No certifications found for the given employee ID]
+2023-11-20 09:51:45.684 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-20 09:52:30.928  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.u.UserServiceImplementation          : Users found for email {}
+2023-11-20 09:52:30.953  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: admin@quadwave.com
+2023-11-20 09:52:47.447  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Number of Rows: 3
+2023-11-20 09:52:47.457  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Msg list for error message: []
+2023-11-20 09:52:47.457  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Msg list for error message: []
+2023-11-20 09:52:47.457 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Bulk Excel Employee Dto received [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[], status=false, appRoleId=2)]
+2023-11-20 09:52:47.645  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Employee current role --- Roles(role_id=2, role_name=Solutions Developer, modified_by=Admin, modified_on=2023-11-19T20:41:53.419530, is_deleted=false)
+2023-11-20 09:52:47.795  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Employee current role --- Roles(role_id=2, role_name=Solutions Developer, modified_by=Admin, modified_on=2023-11-19T20:41:53.419530, is_deleted=false)
+2023-11-20 09:52:47.796  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Currect employee data list --- [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[Update the employee data.], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[Update the employee data.], status=false, appRoleId=2)]
+2023-11-20 09:52:47.796  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : According to validation incorrect employee data list  --- []
+2023-11-20 09:52:47.796  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Excel data convert into json with status and remark --- [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[Update the employee data.], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[Update the employee data.], status=false, appRoleId=2)]
+2023-11-20 09:59:52.226  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.b.BulkUploadEmployeeService          : Number of Rows: 3
+2023-11-20 09:59:52.235  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.b.BulkUploadEmployeeService          : Msg list for error message: []
+2023-11-20 09:59:52.236  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.b.BulkUploadEmployeeService          : Msg list for error message: []
+2023-11-20 09:59:52.236 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.b.BulkUploadEmployeeService          : Bulk Excel Employee Dto received [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[], status=false, appRoleId=2)]
+2023-11-20 09:59:52.425  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.b.BulkUploadEmployeeService          : Employee current role --- Roles(role_id=2, role_name=Solutions Developer, modified_by=Admin, modified_on=2023-11-19T20:41:53.419530, is_deleted=false)
+2023-11-20 09:59:52.611  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.b.BulkUploadEmployeeService          : Employee current role --- Roles(role_id=2, role_name=Solutions Developer, modified_by=Admin, modified_on=2023-11-19T20:41:53.419530, is_deleted=false)
+2023-11-20 09:59:52.616  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.b.BulkUploadEmployeeService          : Currect employee data list --- [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[Update the employee data.], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[Update the employee data.], status=false, appRoleId=2)]
+2023-11-20 09:59:52.616  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.b.BulkUploadEmployeeService          : According to validation incorrect employee data list  --- []
+2023-11-20 09:59:52.616  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.b.BulkUploadEmployeeService          : Excel data convert into json with status and remark --- [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[Update the employee data.], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[Update the employee data.], status=false, appRoleId=2)]
+2023-11-20 10:01:47.147  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.b.BulkUploadEmployeeService          : Number of Rows: 3
+2023-11-20 10:01:47.155  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.b.BulkUploadEmployeeService          : Msg list for error message: []
+2023-11-20 10:01:47.156  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.b.BulkUploadEmployeeService          : Msg list for error message: []
+2023-11-20 10:01:47.156 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.b.BulkUploadEmployeeService          : Bulk Excel Employee Dto received [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[], status=false, appRoleId=2)]
+2023-11-20 10:01:47.347  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.b.BulkUploadEmployeeService          : Employee current role --- Roles(role_id=2, role_name=Solutions Developer, modified_by=Admin, modified_on=2023-11-19T20:41:53.419530, is_deleted=false)
+2023-11-20 10:01:47.526  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.b.BulkUploadEmployeeService          : Employee current role --- Roles(role_id=2, role_name=Solutions Developer, modified_by=Admin, modified_on=2023-11-19T20:41:53.419530, is_deleted=false)
+2023-11-20 10:01:47.526  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.b.BulkUploadEmployeeService          : Currect employee data list --- [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[Update the employee data.], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[Update the employee data.], status=false, appRoleId=2)]
+2023-11-20 10:01:47.527  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.b.BulkUploadEmployeeService          : According to validation incorrect employee data list  --- []
+2023-11-20 10:01:47.527  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.b.BulkUploadEmployeeService          : Excel data convert into json with status and remark --- [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[Update the employee data.], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[Update the employee data.], status=false, appRoleId=2)]
+2023-11-20 10:02:03.405  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Number of Rows: 3
+2023-11-20 10:02:03.427  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Msg list for error message: []
+2023-11-20 10:02:03.436  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Msg list for error message: []
+2023-11-20 10:02:03.436 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Bulk Excel Employee Dto received [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[], status=false, appRoleId=2)]
+2023-11-20 10:02:03.744  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Employee current role --- Roles(role_id=2, role_name=Solutions Developer, modified_by=Admin, modified_on=2023-11-19T20:41:53.419530, is_deleted=false)
+2023-11-20 10:02:03.925  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Employee current role --- Roles(role_id=2, role_name=Solutions Developer, modified_by=Admin, modified_on=2023-11-19T20:41:53.419530, is_deleted=false)
+2023-11-20 10:02:03.926  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Currect employee data list --- [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[Update the employee data.], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[Update the employee data.], status=false, appRoleId=2)]
+2023-11-20 10:02:03.926  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : According to validation incorrect employee data list  --- []
+2023-11-20 10:02:03.926  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.b.BulkUploadEmployeeService          : Excel data convert into json with status and remark --- [EmployeeBulkUploadDto(employee_id=E00100, fullName=Ranjana, dateOfJoining=2022-04-12, dateOfBirth=2000-05-12, currentRole=Solutions Developer, email_id=ranjana.l@quadwave.com, gender=Male, mobile_number=2147483647, location=Pune, remark=[Update the employee data.], status=false, appRoleId=1), EmployeeBulkUploadDto(employee_id=E00101, fullName=Pratiksha .w, dateOfJoining=2022-07-15, dateOfBirth=2001-07-13, currentRole=Solutions Developer, email_id=pratiksha.w@quadwave.com, gender=Female, mobile_number=2147483647, location=Mumbai, remark=[Update the employee data.], status=false, appRoleId=2)]
+2023-11-20 10:02:29.447  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] r.r.ResumeTemplatesServiceImplementation : this is the getAllTemplates method
+2023-11-20 10:02:35.686  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] r.r.ResumeTemplatesServiceImplementation : this is the getAllTemplates method
+2023-11-20 10:02:37.054  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.057  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.059  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.067  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.070  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.072  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.073  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.075  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.077  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.078  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.079  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.081  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.085  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.087  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.088  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.090  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.092  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.094  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.096  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 5
+2023-11-20 10:02:37.098  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 5
+2023-11-20 10:02:37.101  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 5
+2023-11-20 10:02:37.104  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 5
+2023-11-20 10:02:37.112  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 5
+2023-11-20 10:02:37.116  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.119  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.121  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:37.123  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-20 10:02:38.359  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] r.r.ResumeTemplatesServiceImplementation : this is the getAllTemplates method
+2023-11-20 10:03:08.899  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Users found for email {}
+2023-11-20 10:03:08.928  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:04:47.127  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:05:45.530  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:08:21.405  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:11:37.242  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:14:09.604  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:16:53.022  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:21:21.006  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:26:42.408  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:27:37.121  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:28:29.344  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:28:40.499  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager@quadwave.com
+2023-11-20 10:34:14.095 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: source cannot be null] with root cause
+java.lang.IllegalArgumentException: source cannot be null
+	at org.modelmapper.internal.util.Assert.notNull(Assert.java:53)
+	at org.modelmapper.ModelMapper.map(ModelMapper.java:420)
+	at com.resumebuilder.projects.EmployeeProjectServiceImpl.getbyid(EmployeeProjectServiceImpl.java:247)
+	at com.resumebuilder.projects.EmployeeProjectController.get(EmployeeProjectController.java:53)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-20 10:34:14.099 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-20 10:41:09.085  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by ID: 2
+2023-11-20 10:45:29.611  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-20 10:45:29.626  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-35] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-20 10:45:29.626  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-35] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-20 10:45:29.627  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-35] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-20 10:45:29.631  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-35] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-9 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2023-11-20 10:45:29.633  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-35] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-20 10:45:29.636  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-35] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-20 10:45:29.650  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-35] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-20 10:45:29.654  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-35] c.z.h.HikariDataSource                   : HikariPool-9 - Shutdown initiated...
+2023-11-20 10:45:29.692  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-35] c.z.h.HikariDataSource                   : HikariPool-9 - Shutdown completed.

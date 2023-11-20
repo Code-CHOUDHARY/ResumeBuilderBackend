@@ -187,7 +187,7 @@ public class BulkUploadRoleService {
         
         private void createRole(Roles newRole, RolesDto bulkUploadDto, User currentUser) {
             newRole.setRole_name(bulkUploadDto.getRole_name());
-            newRole.setModified_by(currentUser.getUser_id());
+            newRole.setModified_by(currentUser.getFull_name());
             logger.info("Role modified by- "+currentUser.getFull_name());
             newRole.setModified_on(LocalDateTime.now());
             
@@ -212,7 +212,7 @@ public class BulkUploadRoleService {
 
         private void updateRole(Roles existingRole, RolesDto bulkUploadDto, User currentUser) {
             existingRole.setRole_name(bulkUploadDto.getRole_name());
-            existingRole.setModified_by(currentUser.getUser_id());
+            existingRole.setModified_by(currentUser.getFull_name());
             existingRole.setModified_on(LocalDateTime.now());
             rolesRepository.save(existingRole);
         }
