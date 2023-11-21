@@ -2,7 +2,6 @@ package com.resumebuilder.resumetemplates;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,18 +11,19 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.math3.analysis.interpolation.UnivariatePeriodicInterpolator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.convert.PeriodFormat;
-import org.springframework.boot.convert.PeriodStyle;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.resumebuilder.DTO.TemplateDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
+import com.resumebuilder.certifications.Certifications;
+import com.resumebuilder.education.EducationService;
 import com.resumebuilder.exception.ResumeTemplateExceptions;
 import com.resumebuilder.placeholders.PlaceholderService;
 import com.resumebuilder.professionalexperience.ProfessionalExperience;
@@ -193,7 +193,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 		String res1 = replaceUserDetails(tem.getProfile_summary(), profileMapper);
 		profile.append(res1);
 
-		for (ProfessionalExperience exp : u.getProfessionalExperience()) {
+		for (ProfessionalExperience exp : u.getProfessionalExperiences()) {
 			Map<String, Object> mapper = getProfessionMapper(exp);
 			String response = replaceUserDetails(tem.getProfessional_experience(), mapper);
 			experince.append(response);
