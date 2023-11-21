@@ -1,6 +1,9 @@
 package com.resumebuilder.DTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,5 +18,8 @@ public class RolesDto {
 	private String role_name;
 	private List<String> remark;
     private boolean status;
-
+    private Long role_id;
+	private String modified_by; // according to token store the name of current user in database
+	@UpdateTimestamp
+	private LocalDateTime modified_on;
 }
