@@ -110,12 +110,14 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 		String totalExperience="";
 		// check weather the user Exists or not
 		try {
-			if(userService.checkUserExists(userId)){
+			
 				Integer exp= experienceRepo.getTotalExperience(userId);
-				totalExperience=exp.toString();
-			}else {
-				System.out.println("unable find the user-->"+userId);
-			}
+				System.out.println("userId"+userId);
+				if(exp != null) {
+					
+					totalExperience=exp.toString();
+				}
+			   
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("unable find the user-->"+userId);

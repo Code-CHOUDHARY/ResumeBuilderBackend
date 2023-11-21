@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.resumebuilder.user.User;
 
 import jakarta.persistence.Column;
@@ -29,10 +30,6 @@ public class TechnologyExpertise {
 	    @Column(name = "tech_id")
 	    private Long techId;
 
-	    @OneToOne
-	    @JoinColumn(name = "user_id")
-	    private User user;
-
 	    @Column
 	    private String proficient_in; // Example: "Java, Python, C, C++, R, Ruby"
 
@@ -50,4 +47,9 @@ public class TechnologyExpertise {
 	    
 	    @Column
 	    private Long modified_by;
+	    
+	     @JsonIgnore
+	    @OneToOne
+	    @JoinColumn(name = "user_id")
+	    private User user;
 }

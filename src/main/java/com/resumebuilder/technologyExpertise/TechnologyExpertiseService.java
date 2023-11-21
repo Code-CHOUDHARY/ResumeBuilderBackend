@@ -41,7 +41,7 @@ public class TechnologyExpertiseService {
     
     public TechnologyExpertiseDto addTechnologyExpertise(Principal principal, TechnologyExpertiseDto expertiseDto) {
         String username = principal.getName();
-        Optional<User> optionalUser = userRepository.findByEmail(username);
+        Optional<User> optionalUser = userRepository.findByEmail(principal.getName());
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
