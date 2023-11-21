@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.resumebuilder.DTO.TechnologyDto;
 import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.exception.TechnologyException;
 import com.resumebuilder.roles.Roles;
@@ -142,8 +143,8 @@ public class TechnologyMasterController {
      */
     
     @GetMapping("/list")
-    public ResponseEntity<List<TechnologyMaster>> getAllRoles() {
-        java.util.List<TechnologyMaster> technologies = technologyMasterService.getAllTechnologyList();
+    public ResponseEntity<List<TechnologyDto>> getAllRoles() {
+        List<TechnologyDto> technologies = technologyMasterService.getAllTechnologyList();
         return ResponseEntity.status(HttpStatus.OK).body(technologies);
     }
 }
