@@ -3,6 +3,8 @@ package com.resumebuilder.user;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
+
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +28,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class UserController {
+	@Lazy
     @Autowired
     private UserService userService;
-    
+	@Lazy
     @Autowired
     private UserRepository userRepository;
     
@@ -43,8 +46,8 @@ public class UserController {
     
     @GetMapping("/list")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<List<User>> getAllUsersList() {
-        List<User> userList = userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsersList() {
+        List<UserDto> userList = userService.getAllUsers();
         return ResponseEntity.ok(userList);
     }
 

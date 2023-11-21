@@ -14,7 +14,7 @@ import jakarta.validation.Valid;
 public interface UserService {
 	
 
-	public List<User> getAllUsers();
+	public List<UserDto> getAllUsers();
 	
 	public User findUserByIdUser(Long id) throws UserNotFoundException;
 
