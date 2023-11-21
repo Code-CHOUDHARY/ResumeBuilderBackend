@@ -1,8 +1,11 @@
 package com.resumebuilder.auth;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +31,7 @@ import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserDetailsImpl;
 import com.resumebuilder.user.UserRepository;
 import com.resumebuilder.user.UserRoleRepository;
+import com.resumebuilder.user.UserServiceImplementation;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,29 +50,77 @@ public class LoginController {
 	 // private final UserRoleRepository userRoleRepository;
 	  private final PasswordEncoder encoder;
 	  private final JwtUtils jwtUtils;
+		private final static Logger logger = LogManager.getLogger(UserServiceImplementation.class);
 
 	  @PostMapping("/signin")
 	  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 	      try {
+	          // Authenticate user
 	          Authentication authentication = authenticationManager.authenticate(
-	              new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+	                  new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
+	          // Check if the user is active (is_deleted = false)
+	          UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+	          // Retrieve users from the repository based on email
+	          List<User> users = userRepository.findByEmailIds(userDetails.getEmail());
+	          logger.info("Users found for email {}");
+	          // Filter active users
+	          List<User> activeUsers = users.stream()
+	                  .filter(user -> !user.is_deleted())
+	                  .collect(Collectors.toList());
+
+	          // Check if there are any active users
+	          if (activeUsers.isEmpty()) {
+	              // No active user found, return an unauthorized response
+	              return ResponseEntity
+	                      .status(HttpStatus.UNAUTHORIZED)
+	                      .body(new MessageResponse("Error: No active user found."));
+	          }
+
+	          // If there are multiple active users, you might want to choose one (e.g., the first one) or handle it accordingly
+
+	          // User is active, proceed with generating the JWT token
 	          SecurityContextHolder.getContext().setAuthentication(authentication);
 	          String jwt = jwtUtils.generateJwtToken(authentication);
 
-	          UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 	          List<String> roles = userDetails.getAuthorities().stream()
-	              .map(item -> item.getAuthority())
-	              .collect(Collectors.toList());
+	                  .map(item -> item.getAuthority())
+	                  .collect(Collectors.toList());
 
 	          return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
 	                  userDetails.getEmail(), roles));
 	      } catch (BadCredentialsException ex) {
 	          return ResponseEntity
-	              .status(HttpStatus.UNAUTHORIZED)
-	              .body(new MessageResponse("Error: Bad credentials provided."));
+	                  .status(HttpStatus.UNAUTHORIZED)
+	                  .body(new MessageResponse("Error: Bad credentials provided."));
 	      }
 	  }
+
+//
+//	  @PostMapping("/signin")
+//	  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+//	      try {
+//	          Authentication authentication = authenticationManager.authenticate(
+//	              new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+//
+//	          SecurityContextHolder.getContext().setAuthentication(authentication);
+//	          String jwt = jwtUtils.generateJwtToken(authentication);
+//
+//	          UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//	          List<String> roles = userDetails.getAuthorities().stream()
+//	              .map(item -> item.getAuthority())
+//	              .collect(Collectors.toList());
+//
+//	          return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
+//	                  userDetails.getEmail(), roles));
+//	      } catch (BadCredentialsException ex) {
+//	          return ResponseEntity
+//	              .status(HttpStatus.UNAUTHORIZED)
+//	              .body(new MessageResponse("Error: Bad credentials provided."));
+//	      }
+//	  }
+
 
 	  
 //	  @PostMapping("/signup")

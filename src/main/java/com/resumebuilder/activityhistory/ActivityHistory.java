@@ -39,12 +39,12 @@ public class ActivityHistory {
 	@Column(columnDefinition = "TEXT")
 	private String new_data;
 	@CreatedBy
-	private String activity_by;
+	private Long activity_by;
 	@CreationTimestamp
 	private Date activity_on;
 	
 	 	@ManyToOne // Many activities can be associated with one user
-	    @JoinColumn(name = "user_id") // Name of the foreign key column in the ActivityHistory table
+	    @JoinColumn(name = "activity_for") // Name of the foreign key column in the ActivityHistory table
 	    private User user; // Reference to the User entity
 
 }

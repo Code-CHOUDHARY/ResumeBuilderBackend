@@ -2,15 +2,19 @@ package com.resumebuilder.roles;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import com.resumebuilder.DTO.RolesDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserService;
 
 @Service
 public class RolesServiceImplementation implements RolesService{
@@ -19,6 +23,8 @@ public class RolesServiceImplementation implements RolesService{
 	private RolesRepository rolesRepository;
 	@Autowired
     private UserRepository userRepository;
+	@Autowired
+	private UserService userService;
     @Autowired
     private ActivityHistoryService activityHistoryService;
     
@@ -57,9 +63,12 @@ public class RolesServiceImplementation implements RolesService{
                     // Save the new role to the database
                     rolesRepository.save(newRole);
 
-                    String activityType = "Add Role";
-                    String description = "New Role Added";
-                    activityHistoryService.addActivity(activityType, description, role.getRole_name(), null, user.getFull_name());
+                    ActivityHistory activityHistory = new ActivityHistory();
+                    activityHistory.setActivity_type("Add role");
+                    activityHistory.setDescription("New role addded");
+                    activityHistory.setNew_data(role.getRole_name());
+                    activityHistory.setUser(user);
+                    activityHistoryService.addActivity(activityHistory, principal);
                     
                     return newRole; // Return the newly created role
                 } else {
@@ -72,9 +81,12 @@ public class RolesServiceImplementation implements RolesService{
                 role.set_deleted(false);
                 role = rolesRepository.save(role);
                 
-                String activityType = "Add Role";
-                String description = "New Role Added";
-                activityHistoryService.addActivity(activityType, description, role.getRole_name(), null, user.getFull_name());
+                ActivityHistory activityHistory = new ActivityHistory();
+                activityHistory.setActivity_type("Add role");
+                activityHistory.setDescription("new role addded");
+                activityHistory.setNew_data(role.getRole_name());
+                activityHistory.setUser(user);
+                activityHistoryService.addActivity(activityHistory, principal);
                 
                 return role; // Return the newly created role
             }
@@ -110,10 +122,13 @@ public class RolesServiceImplementation implements RolesService{
 	        existingRole.setRole_name(updatedRole.getRole_name());
 	        existingRole.setModified_by(user.getUser_id());
 	        
-	         String activityType = "Update Role";
-		     String description = "Change in role data";
-		     
-		     activityHistoryService.addActivity(activityType, description, updatedRole.getRole_name(), existingRole.getRole_name(),user.getFull_name());
+	        ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.setActivity_type("Update role");
+            activityHistory.setDescription("Change in role data");
+            activityHistory.setOld_data(existingRole.getRole_name());
+            activityHistory.setNew_data(updatedRole.getRole_name());
+            activityHistory.setUser(user);
+            activityHistoryService.addActivity(activityHistory, principal);
 
 	        return rolesRepository.save(existingRole);
 	    } catch (Exception e) {
@@ -142,10 +157,12 @@ public class RolesServiceImplementation implements RolesService{
             existingRole.setModified_by(user.getUser_id());
 
             
-             String activityType = "Delete Role";
-		     String description = "Deleted a Role";
-		     
-		     activityHistoryService.addActivity(activityType, description, existingRole.getRole_name() + "is Deleted", null, user.getFull_name());
+            ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.setActivity_type("Delete role");
+            activityHistory.setDescription("Role with role name "+existingRole.getRole_name()+" is deleted");
+            activityHistory.setOld_data(existingRole.getRole_name());
+            activityHistory.setUser(user);
+            activityHistoryService.addActivity(activityHistory, principal);
 
             rolesRepository.save(existingRole);
         } catch (Exception e) {
@@ -160,11 +177,21 @@ public class RolesServiceImplementation implements RolesService{
      */
 
 	@Override
-	public List<Roles> getAllRoles() {
-		  //Retrieve all roles (including deleted ones)
-     return rolesRepository.findAll();
+	public List<RolesDto> getAllRoles() {
+		  List<Roles> rolesList = rolesRepository.findAll();
+		  // Convert Role entities to RoleDto objects
+		    List<RolesDto> dtoList = rolesList.stream()
+		            .map(this::convertToDto)
+		            .collect(Collectors.toList());
+
+		    return dtoList;
 	}
-
-
+	private RolesDto convertToDto(Roles role) {
+	    RolesDto roleDto = new RolesDto();
+	    roleDto.setRole_name(role.getRole_name());
+	    roleDto.setModifiedOn(role.getModified_on());
+	    roleDto.setModifiedBy(userService.findUserByIdUser(role.getModified_by()).getFull_name());
+	    return roleDto;
+	}
 
 }

@@ -18,26 +18,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmployeProjectRequestEntity {
 	
-	private String projectTitle;
-	private Date startDate;
-	private Date endDate;
+	private Long emp_project_id;
+	private String project_title;
+	private Date start_date;
+	private Date end_date;
 	private boolean current;
-	private boolean showDates;
-	
+	private boolean show_dates;
 	private boolean show_duration;
-	
 	private boolean show_nothing;
-	
 	private String project_url;
-	
 	private String client_name;
-	
 	private String organization_name;
-	
 	private String project_summary;
-	
+	private String technologies;
 	private String technology_stack;
-	
 	private String roles_and_responsibility;
 	
 	private Long assign_by;

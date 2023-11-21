@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.resumebuilder.DTO.RolesDto;
 import com.resumebuilder.DTO.TechnologyDto;
+import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.DataProcessingException;
 import com.resumebuilder.roles.Roles;
@@ -77,6 +78,7 @@ public class BulkUploadTechnologyService {
             try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
                 Sheet technologySheet = workbook.getSheet("Technologies");
                 logger.info("Number of Rows: " + technologySheet.getPhysicalNumberOfRows());
+                            
                 technologyBulkUploadDtos = validateTechnologyData(technologySheet);
             }
 
@@ -99,7 +101,7 @@ public class BulkUploadTechnologyService {
             }
 
             User user = userRepository.findByEmailId(principal.getName());
-            return processTechnologySheet(technologyBulkUploadDtos, user);
+            return processTechnologySheet(technologyBulkUploadDtos, user,principal);
         } catch (IOException e) {
             // Handle the exception, you can log it and throw a custom exception or return an error response.
             logger.error("Error processing the Excel file: " + e.getMessage());
@@ -119,7 +121,7 @@ public class BulkUploadTechnologyService {
      * @throws Exception If an error occurs during the processing.
      */
 
-    private List<TechnologyDto> processTechnologySheet(List<TechnologyDto> technologyBulkUploadDtos, User currentUser) throws Exception {
+    private List<TechnologyDto> processTechnologySheet(List<TechnologyDto> technologyBulkUploadDtos, User currentUser, Principal principal) throws Exception {
         List<TechnologyMaster> existingRoles = technologyRepository.findAll();
         List<TechnologyDto> allData = new ArrayList<>();
 
@@ -128,14 +130,14 @@ public class BulkUploadTechnologyService {
                 TechnologyMaster existingTechology = findByTechnologyName(existingRoles, bulkUploadDto.getTechnology_name());
                 if (existingTechology != null) {
                     if (existingTechology.is_deleted()) {
-                        createTechnology(existingTechology, bulkUploadDto, currentUser);
+                        createTechnology(existingTechology, bulkUploadDto, currentUser,principal);
                     } else {
                         updateTechnology(existingTechology, bulkUploadDto, currentUser);
                     }
                 } else {
                     if (bulkUploadDto.getRemark().isEmpty()) {
                         TechnologyMaster newTechnology = new TechnologyMaster();
-                        createTechnology(newTechnology, bulkUploadDto, currentUser);
+                        createTechnology(newTechnology, bulkUploadDto, currentUser, principal);
                     }
                 }
             }
@@ -182,15 +184,16 @@ public class BulkUploadTechnologyService {
      * @param currentUser   The user performing the operation.
      */
 
-    private void createTechnology(TechnologyMaster newTechnology, TechnologyDto bulkUploadDto, User currentUser) {
+    private void createTechnology(TechnologyMaster newTechnology, TechnologyDto bulkUploadDto, User currentUser, Principal principal) {
     	newTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
-    	newTechnology.setModified_by(currentUser.getFull_name());
+    	newTechnology.setModified_by(currentUser.getUser_id());
     	newTechnology.setModified_on(LocalDateTime.now());
     	
-    	 String activityType = "Bulk upload";
-	     String description = "Bulk upload of technologies";
-	     
-	     activityHistoryService.addActivity(activityType, description, bulkUploadDto.getTechnology_name(), null, currentUser.getFull_name());
+    	ActivityHistory activityHistory = new ActivityHistory();
+        activityHistory.setActivity_type("Bulk upload");
+        activityHistory.setDescription("Bulk upload for technologies");
+        activityHistory.setNew_data(newTechnology.getTechnology_name());
+        activityHistoryService.addActivity(activityHistory, principal);
     	
         technologyRepository.save(newTechnology);
     }
@@ -205,7 +208,7 @@ public class BulkUploadTechnologyService {
 
     private void updateTechnology(TechnologyMaster existingTechnology, TechnologyDto bulkUploadDto, User currentUser) {
     	existingTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
-    	existingTechnology.setModified_by(currentUser.getFull_name());
+    	existingTechnology.setModified_by(currentUser.getUser_id());
     	existingTechnology.setModified_on(LocalDateTime.now());
     	
     		

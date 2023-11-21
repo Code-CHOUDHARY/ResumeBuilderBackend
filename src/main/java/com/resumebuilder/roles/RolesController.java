@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.resumebuilder.DTO.RolesDto;
 import com.resumebuilder.exception.RoleException;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -102,8 +103,8 @@ public class RolesController {
 	     */
 	    
 	    @GetMapping("/list")
-	    public ResponseEntity<List<Roles>> getAllRoles() {
-	        List<Roles> roles = rolesService.getAllRoles();
+	    public ResponseEntity<List<RolesDto>> getAllRoles() {
+	        List<RolesDto> roles = rolesService.getAllRoles();
 	        return ResponseEntity.status(HttpStatus.OK).body(roles);
 	    }
     

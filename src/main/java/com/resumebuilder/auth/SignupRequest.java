@@ -43,6 +43,7 @@ public class SignupRequest {
 	private String linkedin_lnk;
 	private String portfolio_link;
 	private String blogs_link;
+	private String technology_stack;
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
 	private String modified_by;

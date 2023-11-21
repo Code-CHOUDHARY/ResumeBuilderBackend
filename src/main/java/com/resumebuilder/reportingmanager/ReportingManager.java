@@ -1,5 +1,6 @@
 package com.resumebuilder.reportingmanager;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.resumebuilder.user.User;
 
 import jakarta.persistence.*;
@@ -20,10 +21,12 @@ public class ReportingManager {
 	    private Long id;
 
 	    @ManyToOne
+	    @JsonIgnore
 	    @JoinColumn(name = "employee_id") // Reference to the ROLE_USER employee
 	    private User employee;
 
 	    @ManyToOne
+	    @JsonIgnore
 	    @JoinColumn(name = "manager_id") // Reference to the ROLE_MANAGER
 	    private User manager;
 

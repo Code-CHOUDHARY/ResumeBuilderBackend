@@ -15,8 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeamActivityDto {
-	
-	private Long team_acivity_id;	
+		
 	private String employee_name;
 	private Long userId;
 	private String employee_id;

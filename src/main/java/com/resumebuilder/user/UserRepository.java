@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.resumebuilder.DTO.UserDto;
 import com.resumebuilder.security.approle.ERole;
 import com.resumebuilder.security.approle.UserRole;
 
@@ -15,15 +16,25 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long>{
 
 
+	@Query("SELECT u FROM User u WHERE u.email = :email AND u.is_deleted = false")
 	Optional<User> findByEmail(String email);
-	
+//	@Query("SELECT DISTINCT u FROM User u " +
+//	           "LEFT JOIN FETCH u.employeeProject p " +
+//			"WHERE u.email = :email AND u.is_deleted = false AND p.is_deleted = false")
+//	    Optional<User> findByEmail(String email);
 //	@Query(value = "select * from user where email_id =:email",nativeQuery = true)
 //	User findByEmployeeEmail(String email);
 	
 	@Query("SELECT u FROM User u WHERE u.id IN :user")
     public List<User> findAllUserByUserIds(@Param("user") List<Integer> userIds);
+	@Query("select (count(u) > 0) from User u where u.employee_Id = ?1 AND u.is_deleted = false")
+	boolean existsByEmployeeId(String employee_Id);
 	
+	@Query("select (count(u) > 0) from User u where u.email = ?1 AND u.is_deleted = false")
+	boolean existsByEmail(String email);
 	
+	@Query("SELECT COUNT(u) > 0 FROM User u WHERE u.employee_Id = ?1 AND u.is_deleted = false")
+	boolean existsByEmployeeIdAndNotDeleted(String employeeId);
 	
 	//public User findByEmail_Id(String name);
 //	Optional<User> findByEmail(String email);
@@ -36,6 +47,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	@Query(value = "select * from user where email_id =:email",nativeQuery = true)
 	User findByEmailId(String email);
+	
+	@Query(value = "select * from user where email =:email AND is_deleted = false", nativeQuery = true)
+	List<User> findByEmailIdAndNotDeleted(String email);
 	//public User findByEmail_Id(String name);
 	
 	@Query(value = "select * from user where employee_id =:empId",nativeQuery = true)
@@ -43,9 +57,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	@Query(value = "select * from user where employee_id =:empId",nativeQuery = true)
 	User findByEmployeeIds(String empId);
-	
-
-	  Boolean existsByEmail(String email);
 	  
 	  @Query(value = "select * from user where email_id =:email",nativeQuery = true)
 		User findByEmail_Id(String email);
@@ -57,26 +68,16 @@ public interface UserRepository extends JpaRepository<User, Long>{
 		
 		@Query(value = "SELECT * FROM user u WHERE u.app_role_id = (SELECT id FROM app_roles WHERE name = 'ROLE_USER')", nativeQuery = true)
 	    List<User> findEmployees();
-
-		//Optional<User> findById(User reportingManager);
-//		Optional<User> findById(Long id);
-		
-//		  List<User> findByIdIn(List<Long> ids);
 		
 		@Query("SELECT u.full_name FROM User u WHERE u.user_id = :userId")
 	    String findFullNameById(@Param("userId") Long userId);
-		
-//		@Query("SELECT u FROM User u WHERE u.user_id = :userId")
-//		@Query("SELECT u FROM User u LEFT JOIN FETCH u.assignedProjects ap WHERE u.user_id = :userId")
-//	    User findByUserId(@Param("userId") Long userId);
-		@Query("SELECT DISTINCT u FROM User u " +
-		           "LEFT JOIN FETCH u.employeeProject p " +
-				"WHERE u.user_id = :userId AND (u.is_deleted = false AND (p is null OR p.is_deleted = false))")
-		    Optional<User> findUserWithNonDeletedAssociations(@Param("userId") Long userId);
-//		@Query(value = "SELECT DISTINCT u.* FROM user u " +x
-//	               "LEFT JOIN employee_project p ON u.user_id = p.user_user_id AND p.is_deleted = false " +
-//	               "LEFT JOIN education e ON u.user_id = e.user_id AND e.is_deleted = false " +
-//	               "WHERE u.user_id = :userId AND u.is_deleted = false", nativeQuery = true)
-//	Optional<User> findUserWithNonDeletedAssociations(@Param("userId") Long userId);
-			
+				
+		//@Query("SELECT u FROM User u WHERE u.is_deleted = false")   //fetch all users as per all app role user
+		@Query(value = "SELECT * FROM user u WHERE u.app_role_id IN (SELECT id FROM app_roles WHERE name IN ('ROLE_USER', 'ROLE_MANAGER')) AND u.is_deleted = false", nativeQuery = true)
+	    List<User> getAllActiveUsers();
+//		
+//		@Query("SELECT DISTINCT u FROM User u " +
+//		           "LEFT JOIN FETCH u.employeeProject p " +
+//				"WHERE u.user_id = :userId AND u.is_deleted = false AND p.is_deleted = false")
+//		    Optional<User> findUserWithNonDeletedAssociations(@Param("userId") Long userId);
 }

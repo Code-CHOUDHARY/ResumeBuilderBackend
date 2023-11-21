@@ -68,8 +68,8 @@ public class ResumeTemplatesController {
 	}
 	
 	 @DeleteMapping("/deleteTemplate/{templateId}")
-	 public ResponseEntity<?> delteTemplate(@PathVariable("templateId")String templateId){
-		boolean flag=service.deleteTemplate(templateId);	
+	 public ResponseEntity<?> delteTemplate(@PathVariable("templateId")String templateId,Principal principle){
+		boolean flag=service.deleteTemplate(templateId,principle);	
 		if(flag) {
 			return  ResponseEntity.status(HttpStatus.OK).body("template Deleted Succesfully");
 		}else {

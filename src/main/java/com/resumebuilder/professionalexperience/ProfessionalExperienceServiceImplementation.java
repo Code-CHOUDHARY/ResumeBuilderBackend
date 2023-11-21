@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.resumebuilder.activityhistory.ActivityHistory;
+import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.ExperienceNotFoundException;
 import com.resumebuilder.exception.ProfessionalExperienceException;
 import com.resumebuilder.exception.UserNotFoundException;
@@ -24,7 +26,7 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 	private UserRepository userRepository;
 	
 	@Autowired
-	private UserService userService;
+	private ActivityHistoryService activityHistoryService;
 	
 	/**
      * Add a new experience.
@@ -51,6 +53,21 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 			Proexperince.setStart_date(experience.getStart_date());
 			Proexperince.setEnd_date(experience.getEnd_date());  
 			Proexperince.setUser(user);
+			
+			      ActivityHistory activityHistory = new ActivityHistory();
+			   	  String newData = "Job title: " + experience.getJob_title() + ". Organization name: " + experience.getOrganization_name() +  ", Start date: " + experience.getLocation() 
+			   	   + ", End date: " + experience.getEnd_date();
+					try {
+						 activityHistory.setActivity_type("Add Professional Experience");	            
+				         activityHistory.setDescription("Change in Professional Experience");
+				         activityHistory.setNew_data(newData);
+				         activityHistory.setUser(user);
+				         activityHistoryService.addActivity(activityHistory, principal);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			        
 			
 			return experienceRepo.save(Proexperince);
 		} catch (Exception e) {
@@ -90,11 +107,16 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 	}
 
 	@Override
-	public ProfessionalExperience updateExperienceById(Long id, ProfessionalExperience updatedExperience) throws ExperienceNotFoundException {
+	public ProfessionalExperience updateExperienceById(Long id, ProfessionalExperience updatedExperience, Principal principal) throws ExperienceNotFoundException {
+		
+		User user = userRepository.findByEmail_Id(principal.getName());
 		
 		ProfessionalExperience existingExperience = experienceRepo.findById(id)
                 .orElseThrow(() -> new ExperienceNotFoundException("Experience not found"));
-
+		
+		 String oldData = "Job title: " + existingExperience.getJob_title() + ". Organization name: " + existingExperience.getOrganization_name() +  ", Start date: " + existingExperience.getLocation() 
+	   	   + ", End date: " + existingExperience.getEnd_date();
+		
         // Copy the properties from the updatedExperience to the existingExperience
         existingExperience.setJob_title(updatedExperience.getJob_title());
         existingExperience.setOrganization_name(updatedExperience.getOrganization_name());
@@ -103,9 +125,25 @@ public class ProfessionalExperienceServiceImplementation implements Professional
         existingExperience.setEnd_date(updatedExperience.getEnd_date());     
         existingExperience.set_deleted(updatedExperience.is_deleted());
         
+        ActivityHistory activityHistory = new ActivityHistory();
+   	  String newData = "Job title: " + updatedExperience.getJob_title() + ". Organization name: " + updatedExperience.getOrganization_name() +  ", Start date: " + updatedExperience.getLocation() 
+   	   + ", End date: " + updatedExperience.getEnd_date();
+		try {
+			 activityHistory.setActivity_type("Update Professional Experience");	            
+	         activityHistory.setDescription("Change in Professional Experience data");
+	         activityHistory.setNew_data(newData);
+	         activityHistory.setOld_data(oldData);
+	         activityHistory.setUser(user);
+	         activityHistoryService.addActivity(activityHistory, principal);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
 		return experienceRepo.save(existingExperience);
 	}
 
+	@Override
 	public String getTotalExperience(String userId) {
 		String totalExperience="";
 		// check weather the user Exists or not

@@ -24,8 +24,6 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.resumebuilder.DTO.TemplateDto;
-import com.resumebuilder.certifications.Certifications;
-import com.resumebuilder.education.EducationService;
 import com.resumebuilder.exception.ResumeTemplateExceptions;
 import com.resumebuilder.placeholders.PlaceholderService;
 import com.resumebuilder.professionalexperience.ProfessionalExperience;
@@ -52,12 +50,15 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	@Autowired
 	private UserRepository userrepo;
 	@Autowired
+	private ActivityHistoryService activityHistoryService;
+	
+	 private static final Logger logger = LogManager.getLogger(ResumeTemplatesServiceImplementation.class); 
+	@Autowired
 	private PlaceholderService placeholdeService;
 
 	@Autowired
 	private EducationService educationService;
 
-	private static final Logger logger = LogManager.getLogger(ResumeTemplatesServiceImplementation.class);
 
 	@Override
 	public List<TemplateDto> getAllTemplates() {
@@ -110,7 +111,18 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 			template.setProjects(StringEscapeUtils.unescapeHtml4(req.getProjects()));
 			template.setCertificates(StringEscapeUtils.unescapeHtml4(req.getCertificates()));
 			template.setTemplate_name(req.getTemplate_name());
-			ResumeTemplates updateTemplate = repo.save(template);
+			ResumeTemplates updateTemplate=repo.save(template);
+
+			if(updateTemplate!=null) {
+				
+				 
+				  	ActivityHistory activityHistory = new ActivityHistory();
+			 		 activityHistory.setActivity_type("Update Template");
+			 		 activityHistory.setDescription("Change in Template data");
+			 		 activityHistory.setNew_data("Template updated with Name "+updateTemplate.getTemplate_name());
+			 		 activityHistoryService.addActivity(activityHistory, principle); 
+				}
+
 			return updateTemplate;
 		} else {
 			new ResumeTemplateExceptions("Unable to Update Resume Template");
@@ -140,16 +152,28 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	}
 
 	@Override
-	public boolean deleteTemplate(String tempId) {
-		boolean flag = false;
-		ResumeTemplates template = getTemplateById(tempId);
-		if (template != null) {
-			// soft deleting
+	public boolean deleteTemplate(String tempId, Principal principle) {
+		boolean flag=false;
+		ResumeTemplates template=getTemplateById(tempId);
+		if(template != null) {
+			//soft deleting
 			template.set_deleted(true);
 			repo.save(template);
-			flag = true;
-		} else {
+			flag=true;
 
+			if(flag) {
+				
+				 
+				  	ActivityHistory activityHistory = new ActivityHistory();
+			 		 activityHistory.setActivity_type("Delete Template");
+			 		 activityHistory.setDescription("Change in Template data");
+			 		 activityHistory.setNew_data("Template Deleted with Name "+template.getTemplate_name());
+			 		 activityHistoryService.addActivity(activityHistory, principle); 
+
+				}
+
+		}else {
+			
 			new ResumeTemplateExceptions("Unable to Delete Resume Template");
 		}
 		return flag;
