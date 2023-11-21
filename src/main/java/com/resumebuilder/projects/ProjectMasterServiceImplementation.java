@@ -60,7 +60,7 @@ public class ProjectMasterServiceImplementation implements ProjectMasterService{
 				          .show_duration(projects.getShow_duration())
 				          .show_nothing(projects.isShow_nothing())
 				          .project_url(projects.getProject_url())
-				          .client_name(projects.getProject_url())
+				          .client_name(projects.getClient_name())
 				          .organization_name(projects.getOrganization_name())
 				          .project_summary(projects.getProject_summary())
 				          .technology_stack(projects.getTechnology_stack())
