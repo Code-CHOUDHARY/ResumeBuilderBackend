@@ -11,6 +11,8 @@ import lombok.Data;
 @Data
 @Builder
 public class UserDto {
+	
+	private long user_id;
     private String employee_Id;
     private String full_name;
     private String date_of_joining;

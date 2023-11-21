@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.resumebuilder.user.User;
@@ -20,4 +21,8 @@ public interface ReportingManagerRepository extends JpaRepository<ReportingManag
 
 	//List<ReportingManager> findByEmployee_id(User user);
 	void deleteByEmployee(User employee);
+	
+	//@Query("SELECT rm FROM ReportingManager rm WHERE rm.employee.user_id = :userId")
+	//List<ReportingManager> findByEmployee(@Param("userId") Long userId);
+	List<ReportingManager> findByEmployee(User updatedUser);
 }
