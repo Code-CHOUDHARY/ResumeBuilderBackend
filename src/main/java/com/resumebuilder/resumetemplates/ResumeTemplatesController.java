@@ -19,8 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.resumebuilder.DTO.TemplateDto;
 import com.resumebuilder.exception.ResumeTemplateExceptions;
+import com.resumebuilder.resumes.ResumeResponse;
+import com.resumebuilder.user.User;
+import com.resumebuilder.user.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -30,6 +35,9 @@ public class ResumeTemplatesController {
 
 	@Autowired
 	private ResumeTemplatesService service;
+	
+	@Autowired
+    private UserService userService;
 	
 	 private static final Logger logger = LogManager.getLogger(ResumeTemplatesController.class); 
 
@@ -93,5 +101,27 @@ public class ResumeTemplatesController {
 			 return  ResponseEntity.ok(list);
 		 }
 	 }
+	 
+	 
+	 
+     @GetMapping("/replace/{templateId}/{userId}")
+     public ResponseEntity<?> replaceEntireTemplate(@PathVariable("templateId") String tempId,@PathVariable("userId") String UserId){
+    	 try {
+    	    ResumeTemplates template=service.getTemplateById(tempId);
+    	   ObjectMapper parser=new ObjectMapper();
+    	   parser.enableDefaultTyping();
+    	   User u= userService.findUserByIdUser(Long.parseLong(UserId));
+    	    ResumeTemplates res;
+				res = service.getGeneratedPreview(template, u);
+    	 return ResponseEntity
+					.ok(new ResumeResponse(HttpStatus.OK, "true", "Template updated SuccessFully", res));
+    	 } catch (JsonProcessingException e) {
+    		 // TODO Auto-generated catch block
+    		 e.printStackTrace();
+    		 
+    	 }
+    	 return ResponseEntity
+					.ok(new ResumeResponse(HttpStatus.CONFLICT, "false", "Unable to Generate Preview", null));
+     }
 	 
 }

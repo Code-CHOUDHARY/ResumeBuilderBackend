@@ -145,7 +145,24 @@ public class ProfessionalExperienceServiceImplementation implements Professional
 
 	@Override
 	public String getTotalExperience(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		String totalExperience="";
+		// check weather the user Exists or not
+		try {
+			
+				Integer exp= experienceRepo.getTotalExperience(userId);
+				System.out.println("userId"+userId);
+				if(exp != null) {
+					
+					totalExperience=exp.toString();
+				}
+			   
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("unable find the user-->"+userId);
+			totalExperience="";
+		}catch(Exception e) {
+			System.out.println("error while counting experienc-->/n"+e);
+		}
+	   	return totalExperience;
 	}
 }

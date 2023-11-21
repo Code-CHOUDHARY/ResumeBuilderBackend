@@ -39,7 +39,6 @@ public class ProfessionalExperience {
 	
 	@JsonIgnore
 	@ManyToOne
-    @JoinColumn(name = "user_id")
     private User user; // Reference to the User entity
 
 }
