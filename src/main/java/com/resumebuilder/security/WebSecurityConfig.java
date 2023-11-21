@@ -88,7 +88,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
-	  System.out.println("Cros");
       CorsConfiguration configuration = new CorsConfiguration();
       configuration.addAllowedOrigin("*"); // You should configure this to allow only your React app's domain
       configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

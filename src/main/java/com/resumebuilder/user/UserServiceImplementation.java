@@ -93,7 +93,8 @@ public class UserServiceImplementation implements UserService {
 
 	public User findUserByIdUser(Long userId) {
 		logger.info("Finding user by ID: {}", userId);
-		Optional<User> opt = userRepository.findUserWithNonDeletedAssociations(userId);
+		Optional<User> opt = userRepository.findById(userId);
+		System.out.println(opt.get().getUser_id() + "user");
 		return opt.get();
 	}
 
@@ -385,14 +386,27 @@ public class UserServiceImplementation implements UserService {
 							UserRolesMapping userRolesMapping = new UserRolesMapping(user, currentRole);
 							usereRolesMappingRepository.save(userRolesMapping);
 
-							for (Long id : signUpRequest.getManagerIds()) {
-								User manager = userRepository.findById(id).get();
-								System.out.println("manager id - " + manager);
-								ReportingManager reportingManager = new ReportingManager();
-								reportingManager.setEmployee(user);
-								reportingManager.setManager(manager);
-								reportingManagerRepository.save(reportingManager);
-							}
+//							for (Long id : signUpRequest.getManagerIds()) {
+//								User manager = userRepository.findById(id).get();
+//								System.out.println("manager id - " + manager);
+//								ReportingManager reportingManager = new ReportingManager();
+//								reportingManager.setEmployee(user);
+//								reportingManager.setManager(manager);
+//								reportingManagerRepository.save(reportingManager);
+//							}
+							
+							// Check if managerIds are provided before iterating over them
+					        if (signUpRequest.getManagerIds() != null) {
+					            for (Long id : signUpRequest.getManagerIds()) {
+					                User manager = userRepository.findById(id).orElse(null);
+					                if (manager != null) {
+					                    ReportingManager reportingManager = new ReportingManager();
+					                    reportingManager.setEmployee(user);
+					                    reportingManager.setManager(manager);
+					                    reportingManagerRepository.save(reportingManager);
+					                }
+					            }
+					        }
 
 							// Send the email with the generated password
 							sendEmailPassword(newUser, newUser.getPassword());
@@ -480,13 +494,26 @@ public class UserServiceImplementation implements UserService {
 					UserRolesMapping userRolesMapping = new UserRolesMapping(user, currentRole);
 					usereRolesMappingRepository.save(userRolesMapping);
 
-					for (Long id : signUpRequest.getManagerIds()) {
-						User manager = userRepository.findById(id).get();
-						ReportingManager reportingManager = new ReportingManager();
-						reportingManager.setEmployee(user);
-						reportingManager.setManager(manager);
-						reportingManagerRepository.save(reportingManager);
-					}
+//					for (Long id : signUpRequest.getManagerIds()) {
+//						User manager = userRepository.findById(id).get();
+//						ReportingManager reportingManager = new ReportingManager();
+//						reportingManager.setEmployee(user);
+//						reportingManager.setManager(manager);
+//						reportingManagerRepository.save(reportingManager);
+//					}
+					
+					// Check if managerIds are provided before iterating over them
+			        if (signUpRequest.getManagerIds() != null) {
+			            for (Long id : signUpRequest.getManagerIds()) {
+			                User manager = userRepository.findById(id).orElse(null);
+			                if (manager != null) {
+			                    ReportingManager reportingManager = new ReportingManager();
+			                    reportingManager.setEmployee(user);
+			                    reportingManager.setManager(manager);
+			                    reportingManagerRepository.save(reportingManager);
+			                }
+			            }
+			        }
 
 					// Send the email with the generated password
 					sendEmailPassword(newUser, password);
@@ -672,35 +699,62 @@ public class UserServiceImplementation implements UserService {
         }
         
        
-     // Update fields if the new value is not null
-        if (updatedUser.getDate_of_birth() != null) {
+//     // Update fields if the new value is not null
+//        if (updatedUser.getDate_of_birth() != null) {
+//            existingUser.setDate_of_birth(updatedUser.getDate_of_birth());
+//        }
+//        if (updatedUser.getGender() != null) {
+//            existingUser.setGender(updatedUser.getGender());
+//        }
+//        if (updatedUser.getLocation() != null) {
+//            existingUser.setLocation(updatedUser.getLocation());
+//        }
+//        if (updatedUser.getProfessional_summary() != null) {
+//            existingUser.setProfessional_summary(updatedUser.getProfessional_summary());
+//        }
+//        if (updatedUser.getUser_image() != null) {
+//            existingUser.setUser_image(updatedUser.getUser_image());
+//        }
+//        if (updatedUser.getMobile_number() != null) {
+//            existingUser.setMobile_number(updatedUser.getMobile_number());
+//        }
+//        if (updatedUser.getLinkedin_lnk() != null) {
+//            existingUser.setLinkedin_lnk(updatedUser.getLinkedin_lnk());
+//        }
+//        if (updatedUser.getPortfolio_link() != null) {
+//            existingUser.setPortfolio_link(updatedUser.getPortfolio_link());
+//        }
+//        if (updatedUser.getBlogs_link() != null) {
+//            existingUser.setBlogs_link(updatedUser.getBlogs_link());
+//        }
+
+        
+     // Update fields if the new value is not null or empty
+        if (isNotNullOrEmpty(updatedUser.getDate_of_birth())) {
             existingUser.setDate_of_birth(updatedUser.getDate_of_birth());
         }
-        if (updatedUser.getGender() != null) {
+        if (isNotNullOrEmpty(updatedUser.getGender())) {
             existingUser.setGender(updatedUser.getGender());
         }
-        if (updatedUser.getLocation() != null) {
+        if (isNotNullOrEmpty(updatedUser.getLocation())) {
             existingUser.setLocation(updatedUser.getLocation());
         }
-        if (updatedUser.getProfessional_summary() != null) {
+        if (isNotNullOrEmpty(updatedUser.getProfessional_summary())) {
             existingUser.setProfessional_summary(updatedUser.getProfessional_summary());
         }
-        if (updatedUser.getUser_image() != null) {
-            existingUser.setUser_image(updatedUser.getUser_image());
-        }
-        if (updatedUser.getMobile_number() != null) {
+        if (isNotNullOrEmpty(updatedUser.getMobile_number())) {
             existingUser.setMobile_number(updatedUser.getMobile_number());
         }
-        if (updatedUser.getLinkedin_lnk() != null) {
+        if (isNotNullOrEmpty(updatedUser.getLinkedin_lnk())) {
             existingUser.setLinkedin_lnk(updatedUser.getLinkedin_lnk());
         }
-        if (updatedUser.getPortfolio_link() != null) {
-            existingUser.setPortfolio_link(updatedUser.getPortfolio_link());
-        }
-        if (updatedUser.getBlogs_link() != null) {
+        if (isNotNullOrEmpty(updatedUser.getBlogs_link())) {
             existingUser.setBlogs_link(updatedUser.getBlogs_link());
         }
-
+        if (isNotNullOrEmpty(updatedUser.getPortfolio_link())) {
+            existingUser.setPortfolio_link(updatedUser.getPortfolio_link());
+        }
+        
         existingUser.setModified_by(currentuser.getFull_name());
         
         
@@ -748,6 +802,11 @@ public class UserServiceImplementation implements UserService {
 		}
 
 		return userRepository.save(existingUser);
+	}
+	
+	
+	private boolean isNotNullOrEmpty(String value) {
+	    return value != null && !value.trim().isEmpty();
 	}
 
 	/**

@@ -85,9 +85,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 		//@Query("SELECT u FROM User u WHERE u.is_deleted = false")   //fetch all users as per all app role user
 		@Query(value = "SELECT * FROM user u WHERE u.app_role_id IN (SELECT id FROM app_roles WHERE name IN ('ROLE_USER', 'ROLE_MANAGER')) AND u.is_deleted = false", nativeQuery = true)
 	    List<User> getAllActiveUsers();
-		
-		@Query("SELECT DISTINCT u FROM User u " +
-		           "LEFT JOIN FETCH u.employeeProject p " +
-				"WHERE u.user_id = :userId AND u.is_deleted = false AND p.is_deleted = false")
-		    Optional<User> findUserWithNonDeletedAssociations(@Param("userId") Long userId);
+//		
+//		@Query("SELECT DISTINCT u FROM User u " +
+//		           "LEFT JOIN FETCH u.employeeProject p " +
+//				"WHERE u.user_id = :userId AND u.is_deleted = false AND p.is_deleted = false")
+//		    Optional<User> findUserWithNonDeletedAssociations(@Param("userId") Long userId);
 }

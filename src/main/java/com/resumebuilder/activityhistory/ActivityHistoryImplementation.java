@@ -80,6 +80,7 @@ public class ActivityHistoryImplementation implements ActivityHistoryService {
 	        ActivityHistoryDto dto = new ActivityHistoryDto();
 	        dto.setActivity_by(userService.findUserByIdUser(activity.getActivity_by()).getFull_name());
 	        dto.setActivity_type(activity.getActivity_type());
+	        dto.setActivity_on(activity.getActivity_on());
 	        dto.setDescription(activity.getDescription());
 	        dto.setOld_data(activity.getOld_data());
 	        dto.setNew_data(activity.getNew_data());

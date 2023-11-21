@@ -50,7 +50,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 	@Override
 	public List<TemplateDto> getAllTemplates() {
 		//repo.findAll()
-		List<ResumeTemplates>temp=repo.findAll();
+		List<ResumeTemplates>temp=repo.findAllAvailable();
 		
 		logger.info("this is the getAllTemplates method");
 		   List<TemplateDto> empProj = temp.stream()
