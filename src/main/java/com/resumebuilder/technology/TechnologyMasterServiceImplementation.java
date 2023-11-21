@@ -4,6 +4,7 @@ package com.resumebuilder.technology;
 import java.util.List;
 import java.security.Principal;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.exception.TechnologyException;
+import com.resumebuilder.DTO.TechnologyDto;
 import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryRepository;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
@@ -20,6 +22,7 @@ import com.resumebuilder.exception.TechnologyException;
 import com.resumebuilder.exception.TechnologyNotFoundException;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserService;
 
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -35,6 +38,10 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	private TechnologyMasterRepository technologyMasterRepository;
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserService userService;
+	
 	@Autowired
 	private ActivityHistoryService activityHistoryService;
 	
@@ -63,7 +70,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 			if(existingTechnology != null) {
 				if(existingTechnology.is_deleted()) {
 					existingTechnology.set_deleted(false);
-					existingTechnology.setModified_by(user.getFull_name());
+					existingTechnology.setModified_by(user.getUser_id());
 					return technologyMasterRepository.save(existingTechnology);
 				}else {
 					throw new TechnologyException("Technology with the same name already exist.");
@@ -73,7 +80,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 			TechnologyMaster saveTechnology = new TechnologyMaster();
 			saveTechnology.setTechnology_name(technology.getTechnology_name());
 			saveTechnology.set_deleted(false);
-			saveTechnology.setModified_by(user.getFull_name());
+			saveTechnology.setModified_by(user.getUser_id());
 
 	    if (technology.getTechnology_name() == null || technology.getTechnology_name().isEmpty()) {
 	        throw new TechnologyException("Technology name cannot be null or empty");
@@ -115,7 +122,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 
 	        // Update the role properties
 	        existingTechnology.setTechnology_name(updatedTechnology.getTechnology_name());
-	        existingTechnology.setModified_by(user.getFull_name());
+	        existingTechnology.setModified_by(user.getUser_id());
 
 	        ActivityHistory activityHistory = new ActivityHistory();
       		 activityHistory.setActivity_type("Update Technology");
@@ -193,11 +200,24 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
      */
 	
 	@Override
-	public List<TechnologyMaster> getAllTechnologyList() {
-		
-		return technologyMasterRepository.findAll();
-	}
+	public List<TechnologyDto> getAllTechnologyList() {
+		List<TechnologyMaster> technologyList = technologyMasterRepository.findAll();
 
+	    // Convert TechnologyMaster entities to TechnologyDto objects
+	    List<TechnologyDto> dtoList = technologyList.stream()
+	            .map(this::convertToDto)
+	            .collect(Collectors.toList());
+
+	    return dtoList;
+	}
+	private TechnologyDto convertToDto(TechnologyMaster technologyMaster) {
+		
+	    TechnologyDto technologyDto = new TechnologyDto();
+	    technologyDto.setTechnology_name(technologyMaster.getTechnology_name());
+	    technologyDto.setModifiedOn(technologyMaster.getModified_on());
+	    technologyDto.setModifiedBy(userService.findUserByIdUser(technologyMaster.getModified_by()).getFull_name());
+	    return technologyDto;
+	}
 
 }
 

@@ -2,16 +2,19 @@ package com.resumebuilder.roles;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import com.resumebuilder.DTO.RolesDto;
 import com.resumebuilder.activityhistory.ActivityHistory;
 import com.resumebuilder.activityhistory.ActivityHistoryService;
 import com.resumebuilder.exception.RoleException;
 import com.resumebuilder.user.User;
 import com.resumebuilder.user.UserRepository;
+import com.resumebuilder.user.UserService;
 
 @Service
 public class RolesServiceImplementation implements RolesService{
@@ -20,6 +23,8 @@ public class RolesServiceImplementation implements RolesService{
 	private RolesRepository rolesRepository;
 	@Autowired
     private UserRepository userRepository;
+	@Autowired
+	private UserService userService;
     @Autowired
     private ActivityHistoryService activityHistoryService;
     
@@ -52,7 +57,7 @@ public class RolesServiceImplementation implements RolesService{
                     // If it's soft-deleted, create a new role without overwriting the existing soft-deleted role
                     Roles newRole = new Roles();
                     newRole.setRole_name(role.getRole_name());
-                    newRole.setModified_by(user.getFull_name());
+                    newRole.setModified_by(user.getUser_id());
                     newRole.set_deleted(false);
                     
                     // Save the new role to the database
@@ -72,7 +77,7 @@ public class RolesServiceImplementation implements RolesService{
                 }
             } else {
                 // If no role with the same name exists, create and save the new role
-                role.setModified_by(user.getFull_name());
+                role.setModified_by(user.getUser_id());
                 role.set_deleted(false);
                 role = rolesRepository.save(role);
                 
@@ -115,7 +120,7 @@ public class RolesServiceImplementation implements RolesService{
 
 	        // Update the role properties
 	        existingRole.setRole_name(updatedRole.getRole_name());
-	        existingRole.setModified_by(user.getFull_name());
+	        existingRole.setModified_by(user.getUser_id());
 	        
 	        ActivityHistory activityHistory = new ActivityHistory();
             activityHistory.setActivity_type("Update role");
@@ -149,7 +154,7 @@ public class RolesServiceImplementation implements RolesService{
             // Soft delete the role by marking it as deleted
             existingRole.set_deleted(true);
 
-            existingRole.setModified_by(user.getFull_name());
+            existingRole.setModified_by(user.getUser_id());
 
             
             ActivityHistory activityHistory = new ActivityHistory();
@@ -172,11 +177,21 @@ public class RolesServiceImplementation implements RolesService{
      */
 
 	@Override
-	public List<Roles> getAllRoles() {
-		  //Retrieve all roles (including deleted ones)
-     return rolesRepository.findAll();
+	public List<RolesDto> getAllRoles() {
+		  List<Roles> rolesList = rolesRepository.findAll();
+		  // Convert Role entities to RoleDto objects
+		    List<RolesDto> dtoList = rolesList.stream()
+		            .map(this::convertToDto)
+		            .collect(Collectors.toList());
+
+		    return dtoList;
 	}
-
-
+	private RolesDto convertToDto(Roles role) {
+	    RolesDto roleDto = new RolesDto();
+	    roleDto.setRole_name(role.getRole_name());
+	    roleDto.setModifiedOn(role.getModified_on());
+	    roleDto.setModifiedBy(userService.findUserByIdUser(role.getModified_by()).getFull_name());
+	    return roleDto;
+	}
 
 }
