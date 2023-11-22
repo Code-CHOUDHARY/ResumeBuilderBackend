@@ -123,69 +123,7 @@ public class LoginController {
 
 
 	  
-//	  @PostMapping("/signup")
-//	  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-//		 System.out.println(signUpRequest.getEmail()+signUpRequest.getRole());
-////	    if (UserRepository.existsByEmail(signUpRequest.getUsername())) {
-////	      return ResponseEntity
-////	          .badRequest()
-////	          .body(new MessageResponse("Error: Username is already taken!"));
-////	    }
-//
-//	    // Create new user's account
-//	    User user = new User( signUpRequest.getEmail(),
-//	               encoder.encode(signUpRequest.getPassword()));
-//
-//	    Set<String> strRoles = signUpRequest.getRole();
-//	    Set<AppRole> roles = new HashSet<>();
-//System.out.println(roles);
-//	    if (strRoles == null) {
-//	    	AppRole userRole = roleRepository.findByName(ERole.ROLE_USER)
-//	          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//	      roles.add(userRole);
-//	    } else {
-//	      strRoles.forEach(role -> {
-//	        switch (role) {
-//	        case "admin":
-//	        	AppRole adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-//	              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//	          roles.add(adminRole);
-//
-//	          break;
-//	        case "manager":
-//	        	AppRole managerRole = roleRepository.findByName(ERole.ROLE_MANAGER)
-//	              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//	          roles.add(managerRole);
-//
-//	          break;
-//	        default:
-//	        	AppRole userRole = roleRepository.findByName(ERole.ROLE_USER)
-//	              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//	          roles.add(userRole);
-//	        }
-//	      });
-//	    }
-//
-//	    user.setAppRoles(roles);
-//	    userRepository.save(user);
-//
-//	    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-//	  }
-	  
-//	  @PostMapping("/logout")
-//	  public ResponseEntity<?> logoutUser(HttpServletRequest request) {
-//	      String token = jwtUtils.resolveToken(request);
-//	      
-//	      // Check if the token is valid and not expired
-//	      if (jwtUtils.validateJwtToken(token)) {
-//	          // Invalidate the token by creating a new one with a very short expiration
-//	          String invalidatedToken = jwtUtils.generateInvalidatedJwtToken();
-//	          
-//	          return ResponseEntity.ok(new MessageResponse("Logout successful."));
-//	      } else {
-//	          return ResponseEntity.badRequest().body(new MessageResponse("Invalid token or token already expired."));
-//	      }
-//	  }
+
 	  
 	  @PostMapping("/signup")
 	  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -200,47 +138,9 @@ public class LoginController {
 		    user.setMobile_number(signUpRequest.getMobile_number());
 		    user.setLocation(signUpRequest.getLocation());
 		    user.setDate_of_joining(signUpRequest.getDate_of_joining());
-		    user.setDate_of_birth(signUpRequest.getDate_of_birth());
-		    user.setLinkedin_lnk(signUpRequest.getLinkedin_lnk());
-		    user.setPortfolio_link(signUpRequest.getPortfolio_link());
-		    user.setBlogs_link(signUpRequest.getBlogs_link());  
-
-//	    Set<String> strRoles = signUpRequest.getRole();
-//	    Set<AppRole> roles = new HashSet<>();
-//System.out.println(roles);
-//	    if (strRoles == null) {
-//	    	AppRole userRole = roleRepository.findByName(ERole.ROLE_USER)
-//	          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//	      roles.add(userRole);
-//	    } else {
-//	      strRoles.forEach(role -> {
-//	        switch (role) {
-//	        case "admin":
-//	        	AppRole adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-//	              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//	          roles.add(adminRole);
-//
-//	          break;
-//	        case "manager":
-//	        	AppRole managerRole = roleRepository.findByName(ERole.ROLE_MANAGER)
-//	              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//	          roles.add(managerRole);
-//
-//	          break;
-//	        default:
-//	        	AppRole userRole = roleRepository.findByName(ERole.ROLE_USER)
-//	              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//	          roles.add(userRole);
-//	        }
-//	      });
-//	    }
-//
-//	    user.setAppRoles(roles);
-//	    userRepository.save(user);
+		    user.setDate_of_birth(signUpRequest.getDate_of_birth()); 
 		    
 		    String strRoles = signUpRequest.getRole();
-	        //Set<AppRole> roles = new HashSet<>();
-	        //System.out.println(roles);
 	        if (strRoles == null) {
 	            UserRole userRole = roleRepository.findByName(ERole.ROLE_USER);
 	            user.setAppRole(userRole);
@@ -275,16 +175,6 @@ public class LoginController {
 	        jwtUtils.generateInvalidatedJwtToken();
 
 	            return ResponseEntity.ok(new MessageResponse("Logout successful."));
-	        } 
-	           
-	    
-
-	    // Extract the token from the Authorization header
-//	    private String extractTokenFromHeader(String authorizationHeader) {
-//	        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-//	            return authorizationHeader.substring(7); // Remove "Bearer " prefix
-//	        }
-//	        return null;
-//	    }
+	        }            
 
 }

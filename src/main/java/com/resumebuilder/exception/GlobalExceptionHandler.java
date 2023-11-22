@@ -96,8 +96,6 @@ public class GlobalExceptionHandler {
         return new CustomErrorResponse(ex.getMessage());
     }
     
-
-
     @ExceptionHandler(EducationException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public CustomErrorResponse handleEducationException(EducationException ex) {
@@ -108,6 +106,20 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public CustomErrorResponse handleCertificateNotFoundException(CertificateNotFoundException ex) {
         return new CustomErrorResponse(ex.getMessage());
+    }
+    
+    @ExceptionHandler(ForgotPasswordException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public CustomErrorResponse handleForgotPasswordException(ForgotPasswordException ex) {
+        return new CustomErrorResponse("User not found with email. ", ex.getMessage());
+    }
+    
+    @ExceptionHandler(TokenExpiredException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public CustomErrorResponse handleTokenExpiredException(TokenExpiredException ex) {
+        return new CustomErrorResponse("Your password reset link appears to be invalid. Please request a new link. ", ex.getMessage());
     }
 
 }
