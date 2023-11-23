@@ -210,9 +210,7 @@ public class BulkUploadTechnologyService {
     	existingTechnology.setTechnology_name(bulkUploadDto.getTechnology_name());
     	existingTechnology.setModified_by(currentUser.getUser_id());
     	existingTechnology.setModified_on(LocalDateTime.now());
-    	
-    		
-    	
+    	bulkUploadDto.setRemark(List.of("Update the technology."));    	
         technologyRepository.save(existingTechnology);
     }
     
@@ -273,10 +271,10 @@ public class BulkUploadTechnologyService {
             String technology_name = getStringValue(row.getCell(1)); // Assuming role name is in column 1
 
             if (technology_name == null) {
-                missingDataMsg.add("Data missing for role name");
+                missingDataMsg.add("Data missing for technology name");
             } else {
                 if (processedTechnology.contains(technology_name)) {
-                    missingDataMsg.add("Duplicate data entry for role name: " + technology_name);
+                    missingDataMsg.add("Duplicate data entry for technology name: " + technology_name);
                 } else {
                 	processedTechnology.add(technology_name);
                 }

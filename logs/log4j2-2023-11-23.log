@@ -1231,3 +1231,297 @@ java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a par
 2023-11-23 12:02:48.356  INFO dell-OptiPlex-3060 --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by ID: 1
 2023-11-23 12:02:48.358  INFO dell-OptiPlex-3060 --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by ID: 1
 2023-11-23 12:02:48.360  INFO dell-OptiPlex-3060 --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by ID: 1
+2023-11-23 12:56:15.877  INFO dell-OptiPlex-3060 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2023-11-23 12:56:15.885  INFO dell-OptiPlex-3060 --- [      Thread-61] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:56:15.886  INFO dell-OptiPlex-3060 --- [      Thread-61] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 12:56:15.888  INFO dell-OptiPlex-3060 --- [      Thread-61] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-23 12:56:15.894  WARN dell-OptiPlex-3060 --- [      Thread-61] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-16 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+2023-11-23 12:56:15.896  INFO dell-OptiPlex-3060 --- [      Thread-61] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:56:15.901  INFO dell-OptiPlex-3060 --- [      Thread-61] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:56:15.924  INFO dell-OptiPlex-3060 --- [      Thread-61] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 12:56:15.926  INFO dell-OptiPlex-3060 --- [      Thread-61] c.z.h.HikariDataSource                   : HikariPool-16 - Shutdown initiated...
+2023-11-23 12:56:15.941  INFO dell-OptiPlex-3060 --- [      Thread-61] c.z.h.HikariDataSource                   : HikariPool-16 - Shutdown completed.
+2023-11-23 12:56:16.180  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.7 with PID 5401 (/home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend/target/classes started by dell in /home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend)
+2023-11-23 12:56:16.181  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 12:56:16.355  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 12:56:16.401  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 21 JPA repository interfaces.
+2023-11-23 12:56:16.589  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 12:56:16.590  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:56:16.590  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 12:56:16.590  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 12:56:16.612  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 12:56:16.612  INFO dell-OptiPlex-3060 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 429 ms
+2023-11-23 12:56:16.703  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 12:56:16.711  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 12:56:16.711  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 12:56:16.712  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-17 - Starting...
+2023-11-23 12:56:16.712  WARN dell-OptiPlex-3060 --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 12:56:16.723  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-17 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1da77510
+2023-11-23 12:56:16.724  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-17 - Start completed.
+2023-11-23 12:56:16.816  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 12:56:17.094  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 12:56:17.139  INFO dell-OptiPlex-3060 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 12:56:18.039  WARN dell-OptiPlex-3060 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 12:56:18.199  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@9d42114, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2efd1ca5, org.springframework.security.web.context.SecurityContextHolderFilter@47d9ef7e, org.springframework.security.web.header.HeaderWriterFilter@1305c5c7, org.springframework.web.filter.CorsFilter@72f3c6be, org.springframework.security.web.authentication.logout.LogoutFilter@78dbfab9, com.resumebuilder.security.jwt.AuthTokenFilter@37f31ec6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@66cc08d7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5bdac234, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6e14c748, org.springframework.security.web.session.SessionManagementFilter@dc4c899, org.springframework.security.web.access.ExceptionTranslationFilter@61280399, org.springframework.security.web.access.intercept.AuthorizationFilter@73117949]
+2023-11-23 12:56:18.334  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 12:56:18.350  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:56:18.352  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 12:56:18.357  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.251 seconds (process running for 12456.244)
+2023-11-23 12:56:18.359  INFO dell-OptiPlex-3060 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 12:56:18.359  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 12:59:36.242  INFO dell-OptiPlex-3060 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 12:59:36.247  INFO dell-OptiPlex-3060 --- [      Thread-65] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:36.247  INFO dell-OptiPlex-3060 --- [      Thread-65] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 12:59:36.248  WARN dell-OptiPlex-3060 --- [      Thread-65] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-17 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+2023-11-23 12:59:36.249  INFO dell-OptiPlex-3060 --- [      Thread-65] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:36.250  INFO dell-OptiPlex-3060 --- [      Thread-65] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:36.254  INFO dell-OptiPlex-3060 --- [      Thread-65] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 12:59:36.255  INFO dell-OptiPlex-3060 --- [      Thread-65] c.z.h.HikariDataSource                   : HikariPool-17 - Shutdown initiated...
+2023-11-23 12:59:36.265  INFO dell-OptiPlex-3060 --- [      Thread-65] c.z.h.HikariDataSource                   : HikariPool-17 - Shutdown completed.
+2023-11-23 12:59:36.487  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.7 with PID 5401 (/home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend/target/classes started by dell in /home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend)
+2023-11-23 12:59:36.487  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 12:59:36.667  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 12:59:36.715  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 21 JPA repository interfaces.
+2023-11-23 12:59:36.984  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 12:59:36.984  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:36.985  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 12:59:36.986  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 12:59:37.008  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 12:59:37.009  INFO dell-OptiPlex-3060 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 519 ms
+2023-11-23 12:59:37.089  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 12:59:37.100  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 12:59:37.100  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 12:59:37.102  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-18 - Starting...
+2023-11-23 12:59:37.102  WARN dell-OptiPlex-3060 --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 12:59:37.113  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-18 - Added connection com.mysql.cj.jdbc.ConnectionImpl@74fcc60b
+2023-11-23 12:59:37.113  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-18 - Start completed.
+2023-11-23 12:59:37.173  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 12:59:37.438  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 12:59:37.489  INFO dell-OptiPlex-3060 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 12:59:38.554  WARN dell-OptiPlex-3060 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 12:59:38.713  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@c9bb18d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7dd60977, org.springframework.security.web.context.SecurityContextHolderFilter@1cdcbbcb, org.springframework.security.web.header.HeaderWriterFilter@5ed1eb0f, org.springframework.web.filter.CorsFilter@7efed96a, org.springframework.security.web.authentication.logout.LogoutFilter@4a97656c, com.resumebuilder.security.jwt.AuthTokenFilter@35cd1e6e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3bb5a736, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6a6daadc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4e50acdd, org.springframework.security.web.session.SessionManagementFilter@6bf655c5, org.springframework.security.web.access.ExceptionTranslationFilter@3c8369b7, org.springframework.security.web.access.intercept.AuthorizationFilter@5bb18d08]
+2023-11-23 12:59:38.890  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 12:59:38.907  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:38.928  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 12:59:38.933  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.526 seconds (process running for 12656.82)
+2023-11-23 12:59:38.935  INFO dell-OptiPlex-3060 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 12:59:38.935  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 12:59:49.409  INFO dell-OptiPlex-3060 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 12:59:49.411  INFO dell-OptiPlex-3060 --- [      Thread-69] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:49.411  INFO dell-OptiPlex-3060 --- [      Thread-69] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 12:59:49.413  WARN dell-OptiPlex-3060 --- [      Thread-69] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-18 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+2023-11-23 12:59:49.414  INFO dell-OptiPlex-3060 --- [      Thread-69] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:49.415  INFO dell-OptiPlex-3060 --- [      Thread-69] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:49.420  INFO dell-OptiPlex-3060 --- [      Thread-69] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 12:59:49.420  INFO dell-OptiPlex-3060 --- [      Thread-69] c.z.h.HikariDataSource                   : HikariPool-18 - Shutdown initiated...
+2023-11-23 12:59:49.423  INFO dell-OptiPlex-3060 --- [      Thread-69] c.z.h.HikariDataSource                   : HikariPool-18 - Shutdown completed.
+2023-11-23 12:59:49.633  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.7 with PID 5401 (/home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend/target/classes started by dell in /home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend)
+2023-11-23 12:59:49.634  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 12:59:49.849  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 12:59:49.914  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 64 ms. Found 21 JPA repository interfaces.
+2023-11-23 12:59:50.114  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 12:59:50.115  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:50.115  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 12:59:50.115  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 12:59:50.134  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 12:59:50.134  INFO dell-OptiPlex-3060 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 496 ms
+2023-11-23 12:59:50.207  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 12:59:50.216  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 12:59:50.217  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 12:59:50.218  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-19 - Starting...
+2023-11-23 12:59:50.218  WARN dell-OptiPlex-3060 --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 12:59:50.232  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-19 - Added connection com.mysql.cj.jdbc.ConnectionImpl@97ef3da
+2023-11-23 12:59:50.232  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-19 - Start completed.
+2023-11-23 12:59:50.308  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 12:59:50.573  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 12:59:50.631  INFO dell-OptiPlex-3060 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 12:59:51.555  WARN dell-OptiPlex-3060 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 12:59:51.708  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@78f11b2e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1b0aae8c, org.springframework.security.web.context.SecurityContextHolderFilter@16972406, org.springframework.security.web.header.HeaderWriterFilter@69905501, org.springframework.web.filter.CorsFilter@2acce8c9, org.springframework.security.web.authentication.logout.LogoutFilter@18c428e, com.resumebuilder.security.jwt.AuthTokenFilter@16ba728f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4b5a58ce, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@208934f9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4ce6b88a, org.springframework.security.web.session.SessionManagementFilter@48e8df61, org.springframework.security.web.access.ExceptionTranslationFilter@47e35e64, org.springframework.security.web.access.intercept.AuthorizationFilter@714e374d]
+2023-11-23 12:59:51.922  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 12:59:51.950  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 12:59:51.956  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 12:59:51.962  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.398 seconds (process running for 12669.849)
+2023-11-23 12:59:51.965  INFO dell-OptiPlex-3060 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 12:59:51.966  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 13:00:00.467  INFO dell-OptiPlex-3060 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 13:00:00.472  INFO dell-OptiPlex-3060 --- [      Thread-73] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:00.472  INFO dell-OptiPlex-3060 --- [      Thread-73] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 13:00:00.477  WARN dell-OptiPlex-3060 --- [      Thread-73] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-19 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+2023-11-23 13:00:00.478  INFO dell-OptiPlex-3060 --- [      Thread-73] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:00.483  INFO dell-OptiPlex-3060 --- [      Thread-73] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:00.492  INFO dell-OptiPlex-3060 --- [      Thread-73] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 13:00:00.494  INFO dell-OptiPlex-3060 --- [      Thread-73] c.z.h.HikariDataSource                   : HikariPool-19 - Shutdown initiated...
+2023-11-23 13:00:00.497  INFO dell-OptiPlex-3060 --- [      Thread-73] c.z.h.HikariDataSource                   : HikariPool-19 - Shutdown completed.
+2023-11-23 13:00:00.735  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.7 with PID 5401 (/home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend/target/classes started by dell in /home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend)
+2023-11-23 13:00:00.735  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 13:00:00.957  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 13:00:01.010  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 21 JPA repository interfaces.
+2023-11-23 13:00:01.200  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 13:00:01.200  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:01.201  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 13:00:01.201  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 13:00:01.219  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 13:00:01.219  INFO dell-OptiPlex-3060 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 482 ms
+2023-11-23 13:00:01.319  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 13:00:01.327  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 13:00:01.327  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 13:00:01.328  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-20 - Starting...
+2023-11-23 13:00:01.328  WARN dell-OptiPlex-3060 --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 13:00:01.341  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-20 - Added connection com.mysql.cj.jdbc.ConnectionImpl@218f0a49
+2023-11-23 13:00:01.341  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-20 - Start completed.
+2023-11-23 13:00:01.403  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 13:00:01.664  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 13:00:01.720  INFO dell-OptiPlex-3060 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 13:00:02.773  WARN dell-OptiPlex-3060 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 13:00:03.063  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2e2b8d2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1da13c47, org.springframework.security.web.context.SecurityContextHolderFilter@7150e562, org.springframework.security.web.header.HeaderWriterFilter@2003224a, org.springframework.web.filter.CorsFilter@6123b8d3, org.springframework.security.web.authentication.logout.LogoutFilter@7ddc5011, com.resumebuilder.security.jwt.AuthTokenFilter@67209e4f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e3dd749, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6715bfb6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@ae6d838, org.springframework.security.web.session.SessionManagementFilter@110fa4fc, org.springframework.security.web.access.ExceptionTranslationFilter@2371867f, org.springframework.security.web.access.intercept.AuthorizationFilter@7c9b978]
+2023-11-23 13:00:03.208  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 13:00:03.227  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:03.232  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 13:00:03.237  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.569 seconds (process running for 12681.125)
+2023-11-23 13:00:03.240  INFO dell-OptiPlex-3060 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 13:00:03.240  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 13:00:52.253  INFO dell-OptiPlex-3060 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 13:00:52.258  INFO dell-OptiPlex-3060 --- [      Thread-77] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:52.259  INFO dell-OptiPlex-3060 --- [      Thread-77] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 13:00:52.263  WARN dell-OptiPlex-3060 --- [      Thread-77] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-20 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+2023-11-23 13:00:52.264  INFO dell-OptiPlex-3060 --- [      Thread-77] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:52.266  INFO dell-OptiPlex-3060 --- [      Thread-77] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:52.276  INFO dell-OptiPlex-3060 --- [      Thread-77] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 13:00:52.278  INFO dell-OptiPlex-3060 --- [      Thread-77] c.z.h.HikariDataSource                   : HikariPool-20 - Shutdown initiated...
+2023-11-23 13:00:52.283  INFO dell-OptiPlex-3060 --- [      Thread-77] c.z.h.HikariDataSource                   : HikariPool-20 - Shutdown completed.
+2023-11-23 13:00:52.460  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.7 with PID 5401 (/home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend/target/classes started by dell in /home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend)
+2023-11-23 13:00:52.460  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 13:00:52.643  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 13:00:52.687  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 21 JPA repository interfaces.
+2023-11-23 13:00:52.876  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 13:00:52.876  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:52.877  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 13:00:52.877  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 13:00:52.895  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 13:00:52.895  INFO dell-OptiPlex-3060 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 433 ms
+2023-11-23 13:00:52.980  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 13:00:52.988  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 13:00:52.988  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 13:00:52.989  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-21 - Starting...
+2023-11-23 13:00:52.989  WARN dell-OptiPlex-3060 --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 13:00:53.002  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-21 - Added connection com.mysql.cj.jdbc.ConnectionImpl@78bb744d
+2023-11-23 13:00:53.003  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-21 - Start completed.
+2023-11-23 13:00:53.062  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 13:00:53.315  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 13:00:53.371  INFO dell-OptiPlex-3060 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 13:00:54.419  WARN dell-OptiPlex-3060 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 13:00:54.569  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@58915cad, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@11fe492e, org.springframework.security.web.context.SecurityContextHolderFilter@7e1c0c04, org.springframework.security.web.header.HeaderWriterFilter@60dba90f, org.springframework.web.filter.CorsFilter@58b91101, org.springframework.security.web.authentication.logout.LogoutFilter@52a370a9, com.resumebuilder.security.jwt.AuthTokenFilter@223acdcb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@9c46f3a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@34ea3cdc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4ad284d1, org.springframework.security.web.session.SessionManagementFilter@64d39018, org.springframework.security.web.access.ExceptionTranslationFilter@62b2b3be, org.springframework.security.web.access.intercept.AuthorizationFilter@1dddb76e]
+2023-11-23 13:00:54.703  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 13:00:54.721  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:00:54.725  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 13:00:54.730  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.323 seconds (process running for 12732.617)
+2023-11-23 13:00:54.732  INFO dell-OptiPlex-3060 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 13:00:54.732  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 13:01:43.553  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-23 13:01:43.553  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2023-11-23 13:01:43.555  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2023-11-23 13:01:44.045  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] c.r.b.BulkUploadRoleService              : Number of Rows: 8
+2023-11-23 13:01:44.052  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] c.r.b.BulkUploadRoleService              : Bulk Excel Employee Dto received [RolesDto(role_id=null, role_name=Data engineer 1, modifiedOn=null, modifiedBy=null, remark=[], status=true, modified_by=null, modified_on=null), RolesDto(role_id=null, role_name=Solution Developer, modifiedOn=null, modifiedBy=null, remark=[], status=true, modified_by=null, modified_on=null), RolesDto(role_id=null, role_name=Data engineer 4, modifiedOn=null, modifiedBy=null, remark=[], status=true, modified_by=null, modified_on=null), RolesDto(role_id=null, role_name=Data engineer 4, modifiedOn=null, modifiedBy=null, remark=[Duplicate data entry for role name: Data engineer 4], status=false, modified_by=null, modified_on=null), RolesDto(role_id=null, role_name=Java Developer, modifiedOn=null, modifiedBy=null, remark=[], status=true, modified_by=null, modified_on=null), RolesDto(role_id=null, role_name=Data engineer 7, modifiedOn=null, modifiedBy=null, remark=[], status=true, modified_by=null, modified_on=null), RolesDto(role_id=null, role_name=null, modifiedOn=null, modifiedBy=null, remark=[Data missing for role name], status=false, modified_by=null, modified_on=null)]
+2023-11-23 13:01:44.071  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] c.r.b.BulkUploadRoleService              : Role modified by- Admin
+2023-11-23 13:01:44.081  INFO dell-OptiPlex-3060 --- [nio-8082-exec-2] c.r.b.BulkUploadRoleService              : Role modified by- Admin
+2023-11-23 13:03:07.402  INFO dell-OptiPlex-3060 --- [nio-8082-exec-5] c.r.b.BulkUploadRoleService              : Number of Rows: 7
+2023-11-23 13:03:07.403  INFO dell-OptiPlex-3060 --- [nio-8082-exec-5] c.r.b.BulkUploadRoleService              : Bulk Excel Employee Dto received [TechnologyDto(technology_id=null, technology_name=HTML5, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=null, modifiedOn=null, modifiedBy=null, remark=[Data missing for role name], status=false), TechnologyDto(technology_id=null, technology_name=ReactJs, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=CSS, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=Angular, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=CSS, modifiedOn=null, modifiedBy=null, remark=[Duplicate data entry for role name: CSS], status=false)]
+2023-11-23 13:03:34.617  INFO dell-OptiPlex-3060 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 13:03:34.620  INFO dell-OptiPlex-3060 --- [      Thread-81] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:03:34.620  INFO dell-OptiPlex-3060 --- [      Thread-81] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 13:03:34.620  INFO dell-OptiPlex-3060 --- [      Thread-81] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-23 13:03:34.622  WARN dell-OptiPlex-3060 --- [      Thread-81] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-21 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+2023-11-23 13:03:34.622  INFO dell-OptiPlex-3060 --- [      Thread-81] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:03:34.625  INFO dell-OptiPlex-3060 --- [      Thread-81] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:03:34.631  INFO dell-OptiPlex-3060 --- [      Thread-81] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 13:03:34.631  INFO dell-OptiPlex-3060 --- [      Thread-81] c.z.h.HikariDataSource                   : HikariPool-21 - Shutdown initiated...
+2023-11-23 13:03:34.635  INFO dell-OptiPlex-3060 --- [      Thread-81] c.z.h.HikariDataSource                   : HikariPool-21 - Shutdown completed.
+2023-11-23 13:03:34.870  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.7 with PID 5401 (/home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend/target/classes started by dell in /home/dell/Desktop/NewUpdatedResumeBuilder/ResumeBuilder4/Resume%20Builder%20Backend)
+2023-11-23 13:03:34.870  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 13:03:35.096  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 13:03:35.152  INFO dell-OptiPlex-3060 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 21 JPA repository interfaces.
+2023-11-23 13:03:35.351  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 13:03:35.352  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:03:35.353  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 13:03:35.354  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 13:03:35.371  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 13:03:35.371  INFO dell-OptiPlex-3060 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 499 ms
+2023-11-23 13:03:35.443  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 13:03:35.451  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 13:03:35.452  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 13:03:35.453  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-22 - Starting...
+2023-11-23 13:03:35.453  WARN dell-OptiPlex-3060 --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 13:03:35.463  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-22 - Added connection com.mysql.cj.jdbc.ConnectionImpl@fe8c05e
+2023-11-23 13:03:35.463  INFO dell-OptiPlex-3060 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-22 - Start completed.
+2023-11-23 13:03:35.520  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 13:03:35.775  INFO dell-OptiPlex-3060 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 13:03:35.829  INFO dell-OptiPlex-3060 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 13:03:36.884  WARN dell-OptiPlex-3060 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 13:03:37.037  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@45865e33, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7ed90389, org.springframework.security.web.context.SecurityContextHolderFilter@e7a32f8, org.springframework.security.web.header.HeaderWriterFilter@6c092690, org.springframework.web.filter.CorsFilter@13f608d8, org.springframework.security.web.authentication.logout.LogoutFilter@50ad792b, com.resumebuilder.security.jwt.AuthTokenFilter@25406a86, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5ed35962, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7b4bd98e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@63a577cd, org.springframework.security.web.session.SessionManagementFilter@1dad31b4, org.springframework.security.web.access.ExceptionTranslationFilter@696733d6, org.springframework.security.web.access.intercept.AuthorizationFilter@31530eac]
+2023-11-23 13:03:37.174  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 13:03:37.192  INFO dell-OptiPlex-3060 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 13:03:37.194  INFO dell-OptiPlex-3060 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 13:03:37.200  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.391 seconds (process running for 12895.087)
+2023-11-23 13:03:37.202  INFO dell-OptiPlex-3060 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 13:03:37.203  INFO dell-OptiPlex-3060 --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 13:03:41.464  INFO dell-OptiPlex-3060 --- [nio-8082-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-23 13:03:41.465  INFO dell-OptiPlex-3060 --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2023-11-23 13:03:41.467  INFO dell-OptiPlex-3060 --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2023-11-23 13:03:41.521  INFO dell-OptiPlex-3060 --- [nio-8082-exec-1] c.r.b.BulkUploadRoleService              : Number of Rows: 7
+2023-11-23 13:03:41.523  INFO dell-OptiPlex-3060 --- [nio-8082-exec-1] c.r.b.BulkUploadRoleService              : Bulk Excel Employee Dto received [TechnologyDto(technology_id=null, technology_name=HTML5, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=null, modifiedOn=null, modifiedBy=null, remark=[Data missing for technology name], status=false), TechnologyDto(technology_id=null, technology_name=ReactJs, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=CSS, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=Angular, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=CSS, modifiedOn=null, modifiedBy=null, remark=[Duplicate data entry for technology name: CSS], status=false)]
+2023-11-23 13:05:06.212  INFO dell-OptiPlex-3060 --- [nio-8082-exec-5] c.r.b.BulkUploadRoleService              : Number of Rows: 7
+2023-11-23 13:05:06.212  INFO dell-OptiPlex-3060 --- [nio-8082-exec-5] c.r.b.BulkUploadRoleService              : Bulk Excel Employee Dto received [TechnologyDto(technology_id=null, technology_name=HTML5, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=null, modifiedOn=null, modifiedBy=null, remark=[Data missing for technology name], status=false), TechnologyDto(technology_id=null, technology_name=ReactJs, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=CSS, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=Angular, modifiedOn=null, modifiedBy=null, remark=[], status=true), TechnologyDto(technology_id=null, technology_name=CSS, modifiedOn=null, modifiedBy=null, remark=[Duplicate data entry for technology name: CSS], status=false)]
