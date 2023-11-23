@@ -73,7 +73,7 @@ public class UserController {
      * @return The user details of the currently logged-in user.
      */
     
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")
     @GetMapping("/auth/user")
     public ResponseEntity<User> getUserById() {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
