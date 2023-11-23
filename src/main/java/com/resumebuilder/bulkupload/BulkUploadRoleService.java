@@ -209,7 +209,7 @@ public class BulkUploadRoleService {
             existingRole.setModified_by(currentUser.getUser_id());
             existingRole.setModified_on(LocalDateTime.now());
             
-            
+            bulkUploadDto.setRemark(List.of("Update the role."));
             rolesRepository.save(existingRole);
         }
         
