@@ -81,6 +81,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 			saveTechnology.setTechnology_name(technology.getTechnology_name());
 			saveTechnology.set_deleted(false);
 			saveTechnology.setModified_by(user.getUser_id());
+			//technologyMasterRepository.save(saveTechnology);
 
 	    if (technology.getTechnology_name() == null || technology.getTechnology_name().isEmpty()) {
 	        throw new TechnologyException("Technology name cannot be null or empty");
@@ -92,7 +93,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
  		 activityHistory.setNew_data(technology.getTechnology_name());
  		 activityHistoryService.addActivity(activityHistory, principal);   
 	    
-		return technologyMasterRepository.save(technology);
+		return technologyMasterRepository.save(saveTechnology);
 
 			
 		} catch (Exception e) {
@@ -201,7 +202,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	
 	@Override
 	public List<TechnologyDto> getAllTechnologyList() {
-		List<TechnologyMaster> technologyList = technologyMasterRepository.findAll();
+		List<TechnologyMaster> technologyList = technologyMasterRepository.findActiveTechnologies();
 
 	    // Convert TechnologyMaster entities to TechnologyDto objects
 	    List<TechnologyDto> dtoList = technologyList.stream()
@@ -213,6 +214,7 @@ public class TechnologyMasterServiceImplementation implements TechnologyMasterSe
 	private TechnologyDto convertToDto(TechnologyMaster technologyMaster) {
 		
 	    TechnologyDto technologyDto = new TechnologyDto();
+	    technologyDto.setTechnology_id(technologyMaster.getTechnology_id());
 	    technologyDto.setTechnology_name(technologyMaster.getTechnology_name());
 	    technologyDto.setModifiedOn(technologyMaster.getModified_on());
 	    technologyDto.setModifiedBy(userService.findUserByIdUser(technologyMaster.getModified_by()).getFull_name());

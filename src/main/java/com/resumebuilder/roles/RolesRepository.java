@@ -20,5 +20,7 @@ public interface RolesRepository extends JpaRepository<Roles, Long>{
 	@Query(value = "select * from roles where role_name =:role_name",nativeQuery = true)
 	List<Roles> findByRolesName(String role_name);
 	
+	@Query("SELECT r FROM Roles r WHERE r.is_deleted = false")
+	List<Roles> findActiveRolesList();
 
 }

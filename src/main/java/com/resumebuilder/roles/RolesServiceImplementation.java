@@ -178,7 +178,7 @@ public class RolesServiceImplementation implements RolesService{
 
 	@Override
 	public List<RolesDto> getAllRoles() {
-		  List<Roles> rolesList = rolesRepository.findAll();
+		  List<Roles> rolesList = rolesRepository.findActiveRolesList();
 		  // Convert Role entities to RoleDto objects
 		    List<RolesDto> dtoList = rolesList.stream()
 		            .map(this::convertToDto)
@@ -188,6 +188,7 @@ public class RolesServiceImplementation implements RolesService{
 	}
 	private RolesDto convertToDto(Roles role) {
 	    RolesDto roleDto = new RolesDto();
+	    roleDto.setRole_id(role.getRole_id());
 	    roleDto.setRole_name(role.getRole_name());
 	    roleDto.setModifiedOn(role.getModified_on());
 	    roleDto.setModifiedBy(userService.findUserByIdUser(role.getModified_by()).getFull_name());
