@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.resumebuilder.DTO.UserDto;
 import com.resumebuilder.auth.SignupRequest;
+import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.security.response.MessageResponse;
 
 import jakarta.persistence.EntityManager;
@@ -143,9 +144,13 @@ public class UserController {
 //    //delete user api
     @DeleteMapping("/delete/employee/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long userId, Principal principal) {
-        userService.deleteUserById(userId, principal);
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity<String> deleteUserById(@PathVariable Long userId, Principal principal) {
+        try {
+            userService.deleteUserById(userId, principal);
+            return new ResponseEntity<>("User deleted successfully.", HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>("Failed to soft delete user: " + e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
     }
     
 }

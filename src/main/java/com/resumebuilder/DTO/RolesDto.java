@@ -14,13 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RolesDto {
 	
-	
+	private Long role_id;
 	private String role_name;
 	private LocalDateTime modifiedOn;
 	private String modifiedBy;
 	private List<String> remark;
     private boolean status;
-    private Long role_id;
 	private String modified_by; // according to token store the name of current user in database
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
