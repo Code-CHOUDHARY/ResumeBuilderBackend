@@ -54,6 +54,7 @@ public class CertificationsServiceImplementation implements CertificationsServic
 		certificate.setShow_dates(false);
 		certificate.setShow_duration(certifications.getShow_duration());
 		certificate.setShow_nothing(false);
+		certificate.setModifiedBy(user.getUser_id());
 		certificate.setUser(user);
 		
 		 ActivityHistory activityHistory = new ActivityHistory();
@@ -131,6 +132,7 @@ public class CertificationsServiceImplementation implements CertificationsServic
 	    existingCertificate.setCertificate_url(updatedCertifications.getCertificate_url());
 	    existingCertificate.setCertificate_date(updatedCertifications.getCertificate_date());
 	    existingCertificate.setShow_duration(updatedCertifications.getShow_duration());
+	    existingCertificate.setModifiedBy(user.getUser_id());
 	        	    
 		try {
 			String newData = JsonConverter.convertToJson(changes);

@@ -58,7 +58,7 @@ public class TechnologyMasterController {
 	
 	
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
 	 @PostMapping("/add")
 	    public ResponseEntity<?> addTechnology(@RequestBody TechnologyMaster technology, Principal principal) throws TechnologyException {
 	     try {
