@@ -1,6 +1,9 @@
 package com.resumebuilder.professionalexperience;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.resumebuilder.user.User;
@@ -31,6 +34,9 @@ public class ProfessionalExperience {
 	private String location;
 	private String start_date;
 	private String end_date;
+	@CreationTimestamp
+	private LocalDateTime modifiedOn;
+	private long modifiedBy;
 	private boolean current;
 	private boolean show_dates;
 	private boolean show_duration;
@@ -40,6 +46,6 @@ public class ProfessionalExperience {
 	@JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "user_id")
-    private User user; // Reference to the User entity
+    private User user; // Reference to the User entity	
 
 }
