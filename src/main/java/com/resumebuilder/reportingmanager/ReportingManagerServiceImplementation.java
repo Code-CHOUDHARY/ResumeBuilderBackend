@@ -1,5 +1,8 @@
 package com.resumebuilder.reportingmanager;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,8 @@ public class ReportingManagerServiceImplementation implements ReportingManagerSe
     private ReportingManagerRepository allocationRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ReportingManagerRepository reportingManagerRepository;
 
     public void allocateReportingManager(Long employeeId, Long managerId) {
         User employee = userRepository.findById(employeeId)
@@ -28,6 +33,13 @@ public class ReportingManagerServiceImplementation implements ReportingManagerSe
         allocation.setManager(manager);
 
         allocationRepository.save(allocation);
+    }
+    
+    public List<Long> getManagerIdsByUser(User user) {
+        List<ReportingManager> reportingManagers = reportingManagerRepository.findByEmployee(user);
+        return reportingManagers.stream()
+                .map(reportingManager -> reportingManager.getManager().getUser_id())
+                .collect(Collectors.toList());
     }
 
 }

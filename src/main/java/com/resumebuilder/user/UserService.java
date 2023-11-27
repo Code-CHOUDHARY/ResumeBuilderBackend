@@ -37,5 +37,6 @@ public interface UserService {
 	ResponseEntity<?> editEmployee(Long userId, UserDto editUserRequest, Principal principal);
 	//public String resetPassword(String token, ForgotPassword password);
 
+	public ResponseEntity<?> getUserDetailsById(Long userId);
 }
 

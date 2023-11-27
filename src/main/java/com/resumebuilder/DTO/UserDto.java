@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.resumebuilder.security.approle.UserRole;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,5 +39,6 @@ public class UserDto {
     private String technology_stack;
 	private String modified_by;
 	private List<Long> managerIds;
+	private UserRole appRole;
     
 }

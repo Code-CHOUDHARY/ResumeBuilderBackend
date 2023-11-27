@@ -153,4 +153,10 @@ public class UserController {
         }
     }
     
+    //user all details using user id
+    @GetMapping("/auth/{userId}")
+    public ResponseEntity<?> getUserDetails(@PathVariable Long userId) {
+        return userService.getUserDetailsById(userId);
+    }
+    
 }

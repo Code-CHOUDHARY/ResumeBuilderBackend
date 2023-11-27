@@ -20,6 +20,7 @@ import com.resumebuilder.professionalexperience.ProfessionalExperience;
 
 import com.resumebuilder.projects.EmployeeProject;
 import com.resumebuilder.projects.ProjectMaster;
+import com.resumebuilder.reportingmanager.ReportingManager;
 import com.resumebuilder.roles.Roles;
 //import com.resumebuilder.security.approle.AppRole;
 import com.resumebuilder.security.approle.UserRole;
