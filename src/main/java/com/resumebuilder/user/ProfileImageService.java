@@ -109,10 +109,11 @@ public class ProfileImageService {
 	                throw e;
 	            }
 	        } else {
-	            throw new FileNotFoundException("Profile image does not exist");
+	        	return null;
+	           // throw new FileNotFoundException("Profile image does not exist");
 	        }
-	    } else {
-	        throw new FileNotFoundException("User not found");
+	    } else {return null;
+	        //throw new FileNotFoundException("User not found");
 	    }
 	}
 	

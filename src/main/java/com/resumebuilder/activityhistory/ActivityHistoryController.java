@@ -73,7 +73,7 @@ public class ActivityHistoryController {
      * @param managerId The ID of the manager.
      * @return ResponseEntity with a list of team activities or an error message.
      */
-    @GetMapping("/byManager/{managerId}")
+    @GetMapping("/getTeamActivity/byManager/{managerId}")
     @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<List<TeamActivityDto>> getTeamActivitiesByManager(@PathVariable Long managerId) {
         try {

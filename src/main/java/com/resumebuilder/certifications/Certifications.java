@@ -1,6 +1,9 @@
 package com.resumebuilder.certifications;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
@@ -35,6 +38,9 @@ public class Certifications {
 	private boolean show_dates;
 	private String show_duration;
 	private boolean show_nothing;
+	@CreationTimestamp
+	private LocalDateTime modifiedOn;
+	private Long modifiedBy;
 	private boolean is_deleted;
 	@JsonIgnore
 	@ManyToOne

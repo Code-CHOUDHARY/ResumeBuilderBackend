@@ -54,18 +54,18 @@ public class TechnologyExpertiseController {
 	     * @return ResponseEntity with the list of technology expertise as DTOs if successful,
 	     * or an error message if not.
 	     */
-	    @GetMapping("/get/{userId}")
-	    public ResponseEntity<Object> getTechnologyExpertiseByUserId(@PathVariable Long userId) {
-	        try {
-	            // Call the service method to fetch technology expertise by user ID
-	            List<TechnologyExpertiseDto> technologyExpertiseDtoList = technologyExpertiseService.getTechnologyExpertiseByUserId(userId);
-
-	            return ResponseEntity.ok(technologyExpertiseDtoList);
-	        } catch (UserNotFoundException e) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
-	        }
-	    }
+//	    @GetMapping("/get/{userId}")
+//	    public ResponseEntity<Object> getTechnologyExpertiseByUserId(@PathVariable Long userId) {
+//	        try {
+//	            // Call the service method to fetch technology expertise by user ID
+//	            TechnologyExpertiseDto technologyExpertiseDtoList = technologyExpertiseService.getTechnologyExpertiseByUserId(userId);
+//
+//	            return ResponseEntity.ok(technologyExpertiseDtoList);
+//	        } catch (UserNotFoundException e) {
+//	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+//	        } catch (Exception e) {
+//	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
+//	        }
+//	    }
 }
 

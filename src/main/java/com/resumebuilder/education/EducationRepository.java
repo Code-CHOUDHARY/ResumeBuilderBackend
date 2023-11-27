@@ -30,4 +30,18 @@ public interface EducationRepository extends JpaRepository<Education, Long>{
 	 @Query("SELECT e FROM Education e WHERE e.degree = :degree AND e.user = :user AND e.is_deleted = true")
 	 Education findSoftDeletedByDegreeAndUser(@Param("degree") String degree, @Param("user") User user);
 
+	 
+	 //to fetch latest education of user
+	 @Query(value="SELECT \n"
+	 		+ "    education.degree\n"
+	 		+ "FROM\n"
+	 		+ "    QW_resumeBuilder.education\n"
+	 		+ "WHERE\n"
+	 		+ "    end_date = (SELECT \n"
+	 		+ "            MAX(education.end_date)\n"
+	 		+ "        FROM\n"
+	 		+ "            QW_resumeBuilder.education\n"
+	 		+ "       where  user_id = :userId And is_deleted=false) And\n"
+	 		+ "            user_id = :userId",nativeQuery = true)
+	 String findLatestEducation(String userId);
 }

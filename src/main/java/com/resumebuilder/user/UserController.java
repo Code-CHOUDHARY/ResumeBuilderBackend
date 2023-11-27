@@ -1,8 +1,11 @@
 package com.resumebuilder.user;
 
+import java.io.FileNotFoundException;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
+
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.resumebuilder.DTO.UserDto;
 import com.resumebuilder.auth.SignupRequest;
+import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.security.response.MessageResponse;
 
+import io.jsonwebtoken.io.IOException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
@@ -26,9 +31,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class UserController {
+	@Lazy
     @Autowired
     private UserService userService;
-    
+	@Lazy
     @Autowired
     private UserRepository userRepository;
     
@@ -43,8 +49,8 @@ public class UserController {
     
     @GetMapping("/list")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<List<User>> getAllUsersList() {
-        List<User> userList = userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsersList() {
+        List<UserDto> userList = userService.getAllUsers();
         return ResponseEntity.ok(userList);
     }
 
@@ -68,13 +74,16 @@ public class UserController {
      * Get user details of the currently logged-in user.
      *
      * @return The user details of the currently logged-in user.
+     * @throws java.io.IOException 
+     * @throws FileNotFoundException 
+     * @throws IOException 
      */
     
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")
     @GetMapping("/auth/user")
-    public ResponseEntity<User> getUserById() {
+    public ResponseEntity<UserDto> getUserById() throws IOException, FileNotFoundException, java.io.IOException {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.findUserByUsername(userName);
+        UserDto user = userService.findUserByUsername(userName);
 
         if (user != null) {
             return ResponseEntity.ok(user);
@@ -140,9 +149,13 @@ public class UserController {
 //    //delete user api
     @DeleteMapping("/delete/employee/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long userId, Principal principal) {
-        userService.deleteUserById(userId, principal);
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity<String> deleteUserById(@PathVariable Long userId, Principal principal) {
+        try {
+            userService.deleteUserById(userId, principal);
+            return new ResponseEntity<>("User deleted successfully.", HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>("Failed to soft delete user: " + e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
     }
     
 }

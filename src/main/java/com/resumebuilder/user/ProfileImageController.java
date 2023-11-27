@@ -22,9 +22,10 @@ public class ProfileImageController {
 	@Autowired
     private ProfileImageService profileImageService;
 	
-	@PostMapping("/uploadImage/{userId}")
+	@PostMapping(value="/uploadImage/{userId}",consumes = "multipart/form-data")
 	public ResponseEntity<String> uploadProfileImage(@PathVariable Long userId, @RequestParam("imageFile") MultipartFile imageFile) throws java.io.IOException {
 	    try {
+	    	System.out.println("multipartfile"+imageFile);
 	        String fileName = profileImageService.uploadProfileImage(imageFile, userId);
 	        return ResponseEntity.ok("Profie image uploaded successfully.");
 	    } catch (IOException e) {

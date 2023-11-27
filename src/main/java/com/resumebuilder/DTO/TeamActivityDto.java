@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class TeamActivityDto {
 		
 	private String employee_name;
+	private Long userId;
 	private String employee_id;
 	private String current_role;
 	private String activty_by;	

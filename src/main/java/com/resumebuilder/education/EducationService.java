@@ -9,5 +9,5 @@ public interface EducationService {
 	public Education updateEducation(Long id, Education updateEducation, Principal principal);
 	public Education softDeleteEducation(Long id,Principal principal);
 	public List<Education> listActiveEducationsForUser(Long userId);
-
+    public String getLatestEducation(String userId);
 }
