@@ -107,13 +107,17 @@ public ResponseEntity<List<ProjectMaster>> getProjects(){
      */
 	
 	// Soft delete a project and its assignment
-    @DeleteMapping("/delete/{emp_project_id}")
+    @PostMapping("/delete/{emp_project_id}")
     public ResponseEntity<String> deleteAssignProject(@PathVariable Long emp_project_id, Principal principal) {
     	projectMasterService.deleteAssignProjectByEmployee(emp_project_id, principal);
         return ResponseEntity.ok("Project deleted successfully.");
     }
-    
-    
+   
+    @GetMapping("/getByid/{emp_project_id}")
+    public ResponseEntity<ProjectMaster> GetProjecbyid(@PathVariable Long emp_project_id, Principal principal) {
+    ProjectMaster proje=	projectMasterService.getprojectById(emp_project_id);
+        return new ResponseEntity<>(proje,HttpStatus.ACCEPTED);
+    }
     //list of assign projects 
 //    @GetMapping("/employeeProjectsList/{userId}")
 //    public List<EmployeeProject> getAssignedProjectsByUserId(@PathVariable Long userId) {

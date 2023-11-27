@@ -18,4 +18,5 @@ public interface ProjectMasterService {
 	public List<ProjectMaster> getProjectdata();
 	public ProjectMaster saveOrUpdateEmployeeProject(ProjectDto project, Principal principal);
 	public void deleteAssignProjectByEmployee(Long emp_project_id, Principal principal);
+	ProjectMaster getprojectById(Long id);
 }

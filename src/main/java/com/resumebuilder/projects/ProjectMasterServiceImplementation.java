@@ -302,4 +302,14 @@ if(project!=null) {
 //		return employeeProjectRepository.findByUsersUserId(userId);
 //	}
 //	
+
+	@Override
+	public ProjectMaster getprojectById(Long id) {
+		// TODO Auto-generated method stub
+		
+	ProjectMaster proje=this.projectMasterRepository.findByIsDeletedAndId(false, id);
+		return proje;
+	}
+	
+	
 }
