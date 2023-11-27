@@ -86,7 +86,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 
 	@Override
 	public ResumeTemplates addTemplate(ResumeTemplates req, Principal principle) {
-		User user = userService.findUserByUsername(principle.getName());
+		User user = userrepo.findByEmail_Id(principle.getName());
 
 		ResumeTemplates template = ResumeTemplates.builder()
 				.template_name(StringEscapeUtils.unescapeHtml4(req.getTemplate_name())).modified_by(user.getUser_id())
@@ -95,12 +95,22 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 				.professional_experience(StringEscapeUtils.unescapeHtml4(req.getProfessional_experience()))
 				.certificates(StringEscapeUtils.unescapeHtml4(req.getCertificates())).is_deleted(false).build();
 		ResumeTemplates savedTemplate = this.repo.save(template);
+
+		if(savedTemplate!=null) {
+			
+			ActivityHistory activityHistory = new ActivityHistory();
+		   activityHistory.setActivity_type("Add Template");
+		   activityHistory.setDescription("Change in Template data");
+		   activityHistory.setNew_data("New template Added with Name "+savedTemplate.getTemplate_name());
+		   activityHistoryService.addActivity(activityHistory, principle); 
+	 }
+
 		return savedTemplate;
 	}
 
 	@Override
 	public ResumeTemplates updateTemplate(String tempId, ResumeTemplates req, Principal principle) {
-		User user = userService.findUserByUsername(principle.getName());
+		User user = userrepo.findByEmail_Id(principle.getName());
 		ResumeTemplates template = getTemplateById(tempId);
 		if (template != null) {
 			template.set_deleted(false);

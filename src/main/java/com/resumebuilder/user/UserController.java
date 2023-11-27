@@ -1,5 +1,6 @@
 package com.resumebuilder.user;
 
+import java.io.FileNotFoundException;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +20,7 @@ import com.resumebuilder.auth.SignupRequest;
 import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.security.response.MessageResponse;
 
+import io.jsonwebtoken.io.IOException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
@@ -72,13 +74,16 @@ public class UserController {
      * Get user details of the currently logged-in user.
      *
      * @return The user details of the currently logged-in user.
+     * @throws java.io.IOException 
+     * @throws FileNotFoundException 
+     * @throws IOException 
      */
     
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")
     @GetMapping("/auth/user")
-    public ResponseEntity<User> getUserById() {
+    public ResponseEntity<UserDto> getUserById() throws IOException, FileNotFoundException, java.io.IOException {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.findUserByUsername(userName);
+        UserDto user = userService.findUserByUsername(userName);
 
         if (user != null) {
             return ResponseEntity.ok(user);
