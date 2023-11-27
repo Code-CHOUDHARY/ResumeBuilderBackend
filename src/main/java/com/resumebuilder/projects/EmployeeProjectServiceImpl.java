@@ -45,7 +45,7 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 	public EmployeeProject addEmployeeProject(EmployeProjectRequestEntity projects,Long id,Principal principal) {
 
          User user=this.userService.findUserByIdUser(id);
-     	User user1User=userService.findUserByUsername(principal.getName());
+     	User user1User=userrepo.findByEmail_Id(principal.getName());
       //	System.out.println(user1User);
 	//	System.out.println(user);
 		EmployeeProject project=new EmployeeProject();	
@@ -92,7 +92,7 @@ public class EmployeeProjectServiceImpl implements EmployProjectService{
 		// TODO Auto-generated method stub
 		//List<User>users=this.userRepo.findByIdIn(projects.getUserids());
 			EmployeeProject project=this.projectRepo.findByIsDeletedAndId(false, project_id);
-			User user1User=userService.findUserByUsername(principal.getName());
+			User user1User=this.userrepo.findByEmail_Id(principal.getName());
 			
 //			project.setProject_title(projects.getProjectTitle());
 //			project.setStart_date(projects.getStartDate());

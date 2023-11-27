@@ -75,7 +75,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 
 	@Override
 	public ResumeTemplates addTemplate(ResumeTemplates req,Principal principle) {
-		User user=userService.findUserByUsername(principle.getName());
+		User user=userrepo.findByEmail_Id(principle.getName());
 		ResumeTemplates template=ResumeTemplates.builder()
 				                  .template_name(req.getTemplate_name())
 				                  .modified_by(user.getUser_id())
@@ -100,7 +100,7 @@ public class ResumeTemplatesServiceImplementation implements ResumeTemplatesServ
 
 	@Override
 	public ResumeTemplates updateTemplate(String tempId,ResumeTemplates req,Principal principle) {
-		User user=userService.findUserByUsername(principle.getName());
+		User user=userrepo.findByEmail_Id(principle.getName());
 		ResumeTemplates template=getTemplateById(tempId);
 		if(template!=null) {
 			template.set_deleted(false);

@@ -1,5 +1,6 @@
 package com.resumebuilder.user;
 
+import java.io.FileNotFoundException;
 import java.security.Principal;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import com.resumebuilder.DTO.UserDto;
 import com.resumebuilder.auth.SignupRequest;
 import com.resumebuilder.exception.UserNotFoundException;
 
+import io.jsonwebtoken.io.IOException;
 import jakarta.validation.Valid;
 
 public interface UserService {
@@ -18,7 +20,7 @@ public interface UserService {
 	
 	public User findUserByIdUser(Long id) throws UserNotFoundException;
 
-	public User findUserByUsername(String userName);
+	public UserDto findUserByUsername(String userName) throws IOException, FileNotFoundException, java.io.IOException;
 
 
 	public User editUser(Long userId, User updatedUser, Principal principal);

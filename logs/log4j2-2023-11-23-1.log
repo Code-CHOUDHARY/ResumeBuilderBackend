@@ -1,0 +1,1237 @@
+2023-11-23 10:55:16.363  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 6153 (/home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend)
+2023-11-23 10:55:16.364  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 10:55:16.649  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 10:55:16.701  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 20 JPA repository interfaces.
+2023-11-23 10:55:16.909  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 10:55:16.910  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 10:55:16.910  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 10:55:16.911  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 10:55:16.929  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 10:55:16.929  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 562 ms
+2023-11-23 10:55:17.035  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 10:55:17.047  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 10:55:17.047  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 10:55:17.048  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-18 - Starting...
+2023-11-23 10:55:17.048  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 10:55:17.066  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-18 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5ad8b8a1
+2023-11-23 10:55:17.067  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-18 - Start completed.
+2023-11-23 10:55:17.122  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 10:55:17.389  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 10:55:17.506  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 10:55:18.592  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 10:55:18.784  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@48f82b94, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@635f8da3, org.springframework.security.web.context.SecurityContextHolderFilter@58269fde, org.springframework.security.web.header.HeaderWriterFilter@6b6b05dd, org.springframework.web.filter.CorsFilter@6f11e38d, org.springframework.security.web.authentication.logout.LogoutFilter@2cd0fb8b, com.resumebuilder.security.jwt.AuthTokenFilter@2e9a839, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3ed5cbf4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@da3641e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@f85c829, org.springframework.security.web.session.SessionManagementFilter@55930337, org.springframework.security.web.access.ExceptionTranslationFilter@51c6fa74, org.springframework.security.web.access.intercept.AuthorizationFilter@2a5f1f9d]
+2023-11-23 10:55:18.947  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 10:55:18.971  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 10:55:19.008  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 10:55:19.016  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.769 seconds (process running for 15774.099)
+2023-11-23 10:55:19.018  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 10:55:19.019  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 10:55:46.246  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-23 10:55:46.246  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2023-11-23 10:55:46.248  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2023-11-23 10:55:46.535  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.u.UserServiceImplementation          : Users found for email {}
+2023-11-23 11:07:39.767  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Users found for email {}
+2023-11-23 11:07:39.795  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:16:39.078  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:41:50.603  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:43:16.118  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:44:21.641  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:47:08.415  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:48:36.146  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:49:15.342  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:49:55.186  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:52:56.691  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:56:04.203  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:57:18.344  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 11:59:19.366  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:01:17.591  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:03:39.960  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:04:57.498  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:21:30.187  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:21:38.145  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:22:04.387  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:23:27.530  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:24:54.842  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:32:40.696  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:35:57.194  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:41:41.622  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:44:56.231  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:46:08.455  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 12:54:27.794  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 14:38:06.165  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 14:49:16.834  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 14:49:27.927  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 14:51:39.909  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 14:51:48.059  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 14:52:30.611  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 14:54:07.008  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 14:59:47.128  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:06:36.344  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:07:30.601  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:15:03.876  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:21:19.253  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:22:07.027  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:22:16.287  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:22:54.730  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:23:04.646  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:23:41.005  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:24:22.652  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:24:35.102  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:25:08.625  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:29:01.463  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:32:08.962  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:32:39.878  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:48:20.180  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:48:29.883  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'PUT' is not supported]
+2023-11-23 15:48:29.884 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 15:49:09.861  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 15:49:18.473  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 15:49:18.474 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 16:07:51.696  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 16:08:00.263 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.web.multipart.MultipartException: Current request is not a multipart request] with root cause
+org.springframework.web.multipart.MultipartException: Current request is not a multipart request
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:210)
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:114)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-23 16:08:00.266 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 16:10:18.075  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 16:10:26.097 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.web.multipart.MultipartException: Current request is not a multipart request] with root cause
+org.springframework.web.multipart.MultipartException: Current request is not a multipart request
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:210)
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:114)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-23 16:10:26.100 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 16:10:44.710 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.web.multipart.MultipartException: Current request is not a multipart request] with root cause
+org.springframework.web.multipart.MultipartException: Current request is not a multipart request
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:210)
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:114)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-23 16:10:44.712 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 16:13:01.485  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 16:13:09.176  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 16:13:09.177 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 16:14:31.097  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 16:14:39.746  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 16:14:39.748 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 16:18:14.576  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 16:18:21.644 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.web.multipart.MultipartException: Current request is not a multipart request] with root cause
+org.springframework.web.multipart.MultipartException: Current request is not a multipart request
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:210)
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:114)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-23 16:18:21.648 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 16:58:46.707  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 16:58:54.586 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.web.multipart.MultipartException: Current request is not a multipart request] with root cause
+org.springframework.web.multipart.MultipartException: Current request is not a multipart request
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:210)
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:114)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-23 16:58:54.591 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:00:22.055  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:02:35.719  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:03:26.103 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.web.multipart.MultipartException: Current request is not a multipart request] with root cause
+org.springframework.web.multipart.MultipartException: Current request is not a multipart request
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:210)
+	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:114)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-23 17:03:26.105 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:05:16.058  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 17:05:16.089  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-71] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:05:16.090  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-71] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 17:05:16.090  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-71] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-23 17:05:16.092  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-71] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-18 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2023-11-23 17:05:16.093  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-71] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:05:16.095  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-71] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:05:16.099  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-71] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:05:16.099  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-71] c.z.h.HikariDataSource                   : HikariPool-18 - Shutdown initiated...
+2023-11-23 17:05:16.102  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-71] c.z.h.HikariDataSource                   : HikariPool-18 - Shutdown completed.
+2023-11-23 17:05:16.586  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 6153 (/home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend)
+2023-11-23 17:05:16.586  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 17:05:17.011  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 17:05:17.103  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 91 ms. Found 20 JPA repository interfaces.
+2023-11-23 17:05:17.481  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 17:05:17.482  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:05:17.482  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 17:05:17.482  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 17:05:17.518  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 17:05:17.519  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 929 ms
+2023-11-23 17:05:17.632  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 17:05:17.642  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:05:17.642  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 17:05:17.644  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-19 - Starting...
+2023-11-23 17:05:17.644  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 17:05:17.662  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-19 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4654312d
+2023-11-23 17:05:17.663  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-19 - Start completed.
+2023-11-23 17:05:17.753  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:05:18.070  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 17:05:18.180  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:05:19.279  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 17:05:19.452  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@49b741b7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5675cd25, org.springframework.security.web.context.SecurityContextHolderFilter@50056d7, org.springframework.security.web.header.HeaderWriterFilter@1f6efb2d, org.springframework.web.filter.CorsFilter@fbf3223, org.springframework.security.web.authentication.logout.LogoutFilter@4a1ab8fc, com.resumebuilder.security.jwt.AuthTokenFilter@af2c3cc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@34612160, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c3e0352, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4ef7c70f, org.springframework.security.web.session.SessionManagementFilter@42aa65c0, org.springframework.security.web.access.ExceptionTranslationFilter@7c69a730, org.springframework.security.web.access.intercept.AuthorizationFilter@5b4543d6]
+2023-11-23 17:05:19.604  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 17:05:19.621  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:05:19.628  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 17:05:19.633  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 3.161 seconds (process running for 34511.409)
+2023-11-23 17:05:19.635  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 17:05:19.635  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 17:05:34.487  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-23 17:05:34.487  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2023-11-23 17:05:34.490  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 3 ms
+2023-11-23 17:05:34.538  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:05:45.623  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'application/json' is not supported]
+2023-11-23 17:05:45.625 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:07:50.745  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:08:05.978  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 17:08:05.982 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:08:58.121  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:09:07.672  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 17:09:07.675 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:11:39.804  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:11:48.077  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 17:11:48.078 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:14:23.853  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:14:32.239  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 17:14:32.243 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:16:32.828  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:16:42.923  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:16:54.151  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 17:16:54.166 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:19:09.068  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:20:41.879  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:20:56.421  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 17:20:56.424 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:21:33.856  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 17:21:33.871  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-75] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:21:33.872  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-75] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 17:21:33.872  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-75] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-23 17:21:33.878  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-75] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-19 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2023-11-23 17:21:33.879  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-75] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:21:33.885  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-75] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:21:33.906  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-75] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:21:33.911  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-75] c.z.h.HikariDataSource                   : HikariPool-19 - Shutdown initiated...
+2023-11-23 17:21:33.934  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-75] c.z.h.HikariDataSource                   : HikariPool-19 - Shutdown completed.
+2023-11-23 17:21:34.516  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 6153 (/home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend)
+2023-11-23 17:21:34.517  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 17:21:35.238  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 17:21:35.439  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 193 ms. Found 20 JPA repository interfaces.
+2023-11-23 17:21:35.781  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 17:21:35.787  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:21:35.793  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 17:21:35.793  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 17:21:35.888  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 17:21:35.888  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1368 ms
+2023-11-23 17:21:36.129  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 17:21:36.152  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:21:36.155  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 17:21:36.157  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-20 - Starting...
+2023-11-23 17:21:36.159  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 17:21:36.207  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-20 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44197901
+2023-11-23 17:21:36.207  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-20 - Start completed.
+2023-11-23 17:21:36.344  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:21:36.578  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 17:21:36.621  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:21:37.446  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 17:21:37.602  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5ba66017, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1517c05a, org.springframework.security.web.context.SecurityContextHolderFilter@e583cf0, org.springframework.security.web.header.HeaderWriterFilter@1e1cf408, org.springframework.web.filter.CorsFilter@2bba76e6, org.springframework.security.web.authentication.logout.LogoutFilter@b98bced, com.resumebuilder.security.jwt.AuthTokenFilter@3f5c4517, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3f969df0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@465392be, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@436032ca, org.springframework.security.web.session.SessionManagementFilter@599b744c, org.springframework.security.web.access.ExceptionTranslationFilter@e07ef04, org.springframework.security.web.access.intercept.AuthorizationFilter@5a766da2]
+2023-11-23 17:21:37.749  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 17:21:37.766  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:21:37.770  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 17:21:37.775  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 3.379 seconds (process running for 35489.551)
+2023-11-23 17:21:37.778  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 17:21:37.778  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 17:21:46.539  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-23 17:21:46.539  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2023-11-23 17:21:46.541  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2023-11-23 17:21:46.569  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'FormData' is not present.]
+2023-11-23 17:21:46.571 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:22:27.608  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:22:38.897  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'FormData' is not present.]
+2023-11-23 17:22:38.906 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:23:39.264  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:26:07.836  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:27:42.768  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:28:03.425  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'FormData' is not present.]
+2023-11-23 17:28:03.426 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-7] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:29:17.220  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 17:29:17.223  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-79] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:29:17.225  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-79] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 17:29:17.225  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-79] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-23 17:29:17.227  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-79] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-20 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2023-11-23 17:29:17.228  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-79] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:29:17.230  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-79] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:29:17.237  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-79] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:29:17.237  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-79] c.z.h.HikariDataSource                   : HikariPool-20 - Shutdown initiated...
+2023-11-23 17:29:17.242  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-79] c.z.h.HikariDataSource                   : HikariPool-20 - Shutdown completed.
+2023-11-23 17:29:17.579  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 6153 (/home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend)
+2023-11-23 17:29:17.580  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 17:29:17.769  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 17:29:17.810  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 41 ms. Found 20 JPA repository interfaces.
+2023-11-23 17:29:17.973  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 17:29:17.974  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:29:17.975  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 17:29:17.975  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 17:29:17.992  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 17:29:17.992  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 410 ms
+2023-11-23 17:29:18.059  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 17:29:18.068  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:29:18.068  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 17:29:18.069  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-21 - Starting...
+2023-11-23 17:29:18.069  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 17:29:18.079  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-21 - Added connection com.mysql.cj.jdbc.ConnectionImpl@20f05025
+2023-11-23 17:29:18.080  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-21 - Start completed.
+2023-11-23 17:29:18.126  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:29:18.406  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 17:29:18.473  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:29:19.670  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 17:29:19.817  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2bf58057, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3cd72f3b, org.springframework.security.web.context.SecurityContextHolderFilter@70562e67, org.springframework.security.web.header.HeaderWriterFilter@45b23b99, org.springframework.web.filter.CorsFilter@3b2fe364, org.springframework.security.web.authentication.logout.LogoutFilter@5c09679d, com.resumebuilder.security.jwt.AuthTokenFilter@2ec2f253, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d659c6e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@595f00a8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@314054c9, org.springframework.security.web.session.SessionManagementFilter@4f216ae8, org.springframework.security.web.access.ExceptionTranslationFilter@169d6a61, org.springframework.security.web.access.intercept.AuthorizationFilter@5c5513c3]
+2023-11-23 17:29:19.947  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 17:29:19.962  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:29:19.967  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 17:29:19.974  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.464 seconds (process running for 35951.749)
+2023-11-23 17:29:19.976  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 17:29:19.977  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 17:29:47.694  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-23 17:29:47.694  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2023-11-23 17:29:47.696  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2023-11-23 17:29:47.730  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:29:57.113 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "org.springframework.web.multipart.MultipartFile.getOriginalFilename()" because "imageFile" is null] with root cause
+java.lang.NullPointerException: Cannot invoke "org.springframework.web.multipart.MultipartFile.getOriginalFilename()" because "imageFile" is null
+	at com.resumebuilder.user.ProfileImageService.uploadProfileImage(ProfileImageService.java:30)
+	at com.resumebuilder.user.ProfileImageController.uploadProfileImage(ProfileImageController.java:29)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-23 17:29:57.122 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:30:52.803  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 17:30:52.806  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-83] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:30:52.806  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-83] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 17:30:52.807  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-83] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-23 17:30:52.809  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-83] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-21 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2023-11-23 17:30:52.809  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-83] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:30:52.814  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-83] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:30:52.819  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-83] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:30:52.820  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-83] c.z.h.HikariDataSource                   : HikariPool-21 - Shutdown initiated...
+2023-11-23 17:30:52.828  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-83] c.z.h.HikariDataSource                   : HikariPool-21 - Shutdown completed.
+2023-11-23 17:30:53.033  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 6153 (/home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend)
+2023-11-23 17:30:53.033  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 17:30:53.246  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 17:30:53.315  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 68 ms. Found 20 JPA repository interfaces.
+2023-11-23 17:30:53.563  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 17:30:53.564  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:30:53.564  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 17:30:53.564  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 17:30:53.580  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 17:30:53.580  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 544 ms
+2023-11-23 17:30:53.649  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 17:30:53.656  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:30:53.656  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 17:30:53.656  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-22 - Starting...
+2023-11-23 17:30:53.657  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 17:30:53.666  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-22 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3644ebc0
+2023-11-23 17:30:53.667  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-22 - Start completed.
+2023-11-23 17:30:53.711  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:30:53.916  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 17:30:53.961  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:30:54.816  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 17:30:54.987  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@49afd959, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e0b4e33, org.springframework.security.web.context.SecurityContextHolderFilter@38b12427, org.springframework.security.web.header.HeaderWriterFilter@77c80ed, org.springframework.web.filter.CorsFilter@2efa0a40, org.springframework.security.web.authentication.logout.LogoutFilter@49a6d22, com.resumebuilder.security.jwt.AuthTokenFilter@69914cee, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7efc6062, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1de4fcb8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@40b8dabb, org.springframework.security.web.session.SessionManagementFilter@624947c5, org.springframework.security.web.access.ExceptionTranslationFilter@1a8b901b, org.springframework.security.web.access.intercept.AuthorizationFilter@23c3cc18]
+2023-11-23 17:30:55.216  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 17:30:55.247  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:30:55.330  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 17:30:55.341  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.355 seconds (process running for 36047.117)
+2023-11-23 17:30:55.344  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 17:30:55.344  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 17:32:36.401  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-23 17:32:36.402  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2023-11-23 17:32:36.404  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2023-11-23 17:32:36.440  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:32:52.815 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "org.springframework.web.multipart.MultipartFile.getOriginalFilename()" because "imageFile" is null] with root cause
+java.lang.NullPointerException: Cannot invoke "org.springframework.web.multipart.MultipartFile.getOriginalFilename()" because "imageFile" is null
+	at com.resumebuilder.user.ProfileImageService.uploadProfileImage(ProfileImageService.java:30)
+	at com.resumebuilder.user.ProfileImageController.uploadProfileImage(ProfileImageController.java:29)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.resumebuilder.security.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-11-23 17:32:52.820 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-4] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:34:41.212  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-11-23 17:34:41.215  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-87] o.a.c.h.Http11NioProtocol                : Pausing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:34:41.216  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-87] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2023-11-23 17:34:41.216  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-87] o.a.c.c.C.[.[.[/]                        : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-11-23 17:34:41.220  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-87] o.a.c.l.WebappClassLoaderBase            : The web application [ROOT] appears to have started a thread named [HikariPool-22 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2023-11-23 17:34:41.220  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-87] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:34:41.222  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-87] o.a.c.h.Http11NioProtocol                : Destroying ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:34:41.227  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-87] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:34:41.229  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-87] c.z.h.HikariDataSource                   : HikariPool-22 - Shutdown initiated...
+2023-11-23 17:34:41.242  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [      Thread-87] c.z.h.HikariDataSource                   : HikariPool-22 - Shutdown completed.
+2023-11-23 17:34:41.634  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Starting ResumeBuilderBackendApplication using Java 17.0.6 with PID 6153 (/home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend/target/classes started by hp in /home/hp/Documents/Resume Builder clone2/Resume%20Builder/Resume%20Builder%20Backend)
+2023-11-23 17:34:41.635  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : No active profile set, falling back to 1 default profile: "default"
+2023-11-23 17:34:41.939  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 17:34:42.004  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 64 ms. Found 20 JPA repository interfaces.
+2023-11-23 17:34:42.207  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8082 (http)
+2023-11-23 17:34:42.208  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:34:42.208  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2023-11-23 17:34:42.209  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-23 17:34:42.226  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2023-11-23 17:34:42.226  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 589 ms
+2023-11-23 17:34:42.340  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 17:34:42.348  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:34:42.348  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 17:34:42.349  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-23 - Starting...
+2023-11-23 17:34:42.350  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.u.DriverDataSource                 : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-11-23 17:34:42.362  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-23 - Added connection com.mysql.cj.jdbc.ConnectionImpl@250e0270
+2023-11-23 17:34:42.363  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-23 - Start completed.
+2023-11-23 17:34:42.415  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-11-23 17:34:42.649  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-23 17:34:42.704  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 17:34:43.667  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 17:34:43.831  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@610acbbc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@47bb420b, org.springframework.security.web.context.SecurityContextHolderFilter@1e22c070, org.springframework.security.web.header.HeaderWriterFilter@136076bb, org.springframework.web.filter.CorsFilter@18e5dc90, org.springframework.security.web.authentication.logout.LogoutFilter@3f033284, com.resumebuilder.security.jwt.AuthTokenFilter@458a0bf3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4aa84f37, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5a6d2d77, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@201bbe6b, org.springframework.security.web.session.SessionManagementFilter@5367d9a2, org.springframework.security.web.access.ExceptionTranslationFilter@368c5a51, org.springframework.security.web.access.intercept.AuthorizationFilter@4ef96ad]
+2023-11-23 17:34:43.981  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-11-23 17:34:44.001  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8082"]
+2023-11-23 17:34:44.005  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8082 (http) with context path ''
+2023-11-23 17:34:44.011  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Started ResumeBuilderBackendApplication in 2.451 seconds (process running for 36275.787)
+2023-11-23 17:34:44.013  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-11-23 17:34:44.014  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [  restartedMain] c.r.ResumeBuilderBackendApplication      : Project started...
+2023-11-23 17:35:51.155  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-23 17:35:51.156  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2023-11-23 17:35:51.165  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
+2023-11-23 17:35:51.211  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:36:05.388  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 17:36:05.390 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:36:39.380  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:40:24.440  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:41:47.370  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:42:25.221  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:44:23.762  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-6] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:44:42.223  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:45:05.978  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 17:45:05.981 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [io-8082-exec-10] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 17:46:07.227  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-3] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 17:46:18.340  WARN hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required part 'imageFile' is not present.]
+2023-11-23 17:46:18.344 ERROR hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.s.j.AuthEntryPointJwt                : Unauthorized error: Full authentication is required to access this resource
+2023-11-23 18:01:33.444  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 18:01:33.713  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-9] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 18:04:58.263  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-2] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 18:06:17.497  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 18:09:45.887  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 18:15:29.137  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-1] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 18:15:54.704  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 18:19:27.335  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-8] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com
+2023-11-23 18:25:15.539  INFO hp-HP-EliteDesk-800-G4-DM-35W-TAA --- [nio-8082-exec-5] c.r.u.UserServiceImplementation          : Finding user by username: manager1@gmail.com

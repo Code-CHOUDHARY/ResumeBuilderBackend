@@ -1,19 +1,25 @@
 package com.resumebuilder.user;
 
-import org.springframework.transaction.annotation.Transactional;
-import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import jakarta.mail.internet.MimeMessage;
+
+import javax.imageio.ImageIO;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,6 +28,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.resumebuilder.DTO.UserDto;
@@ -38,7 +45,9 @@ import com.resumebuilder.security.approle.ERole;
 import com.resumebuilder.security.approle.UserRole;
 import com.resumebuilder.security.response.MessageResponse;
 
+import io.jsonwebtoken.io.IOException;
 import io.jsonwebtoken.lang.Objects;
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -54,10 +63,12 @@ public class UserServiceImplementation implements UserService {
 	
 	 @Autowired
 	  private UserRoleRepository roleRepository;
-	 
+	 @Autowired
+	 private ProfileImageService profileService;
 	 @Autowired
 	 private JavaMailSender mailSender;
-	 
+	 @Autowired
+		private ModelMapper mapper;
 	 @Autowired
 	 private ReportingManagerRepository reportingManagerRepository;
 	 
@@ -104,14 +115,45 @@ public class UserServiceImplementation implements UserService {
 	 *
 	 * @param userName Username (email).
 	 * @return The User entity if found, or throw UserNotFoundException.
+	 * @throws java.io.IOException 
+	 * @throws FileNotFoundException 
+	 * @throws IOException 
 	 */
 
 	@Override
-	public User findUserByUsername(String userName) {
+	public UserDto findUserByUsername(String userName) throws IOException, FileNotFoundException, java.io.IOException {
 		logger.info("Finding user by username: {}", userName);
 		Optional<User> opt = userRepository.findByEmail(userName);
-		return opt.get();
+		UserDto user=mapper.map(opt.get(), UserDto.class);
+		
+		byte[] imageData = profileService.getProfileImageByUserId(opt.get().getUser_id());
+		System.out.println("imagedata"+imageData);
+		if(imageData!=null) {
+		 ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		 BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
+		 String base64Image = convertImageToBase64(image);
+       
+		 user.setImage(base64Image);
+		}
+		return user;
 	}
+	private String convertImageToBase64(BufferedImage image) throws java.io.IOException {
+        // Create a ByteArrayOutputStream to write the image data
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        try {
+            // Write the image data to the ByteArrayOutputStream
+            ImageIO.write(image, "png", baos);
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception according to your needs
+        }
+
+        // Convert the byte array to a Base64-encoded string
+        byte[] imageData = baos.toByteArray();
+        String base64EncodedImage = Base64.getEncoder().encodeToString(imageData);
+
+        return base64EncodedImage;
+    }
 
 	/**
      * Add a new user or update an existing one.
