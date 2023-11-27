@@ -12,7 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.resumebuilder.activityhistory.ActivityHistory;
-
+import com.resumebuilder.auth.PasswordResetToken;
 import com.resumebuilder.certifications.Certifications;
 import com.resumebuilder.education.Education;
 
@@ -88,7 +88,7 @@ public class User {
 	@UpdateTimestamp
 	private LocalDateTime modified_on;
 	@Column
-	private String modified_by;
+	private Long modified_by;
 	@Column
 	private boolean is_deleted;
 
@@ -159,5 +159,8 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List <ProfessionalExperience> professionalExperiences = new ArrayList<>();
+	
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private PasswordResetToken passwordResetToken;
 
 }

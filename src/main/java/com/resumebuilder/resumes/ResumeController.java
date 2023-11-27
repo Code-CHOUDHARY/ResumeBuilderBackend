@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.resumebuilder.downloadhistory.DownloadHistoryService;
+import com.resumebuilder.resumetemplates.ResumeTemplates;
+import com.resumebuilder.resumetemplates.ResumeTemplatesService;
+import com.resumebuilder.user.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +37,8 @@ public class ResumeController {
 
      @Autowired
 	private ResumeGeneratorService resumeService;
-     
+     @Autowired
+ 	private ResumeTemplatesService templateService;
      @Autowired
      private DownloadHistoryService historyService;
      
@@ -162,6 +166,7 @@ public class ResumeController {
 
 		}
      
+  
    
 }
 

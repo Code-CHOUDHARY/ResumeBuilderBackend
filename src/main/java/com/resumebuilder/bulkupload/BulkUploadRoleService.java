@@ -82,11 +82,7 @@ public class BulkUploadRoleService {
                     Sheet roleSheet = workbook.getSheet("Roles");
                     logger.info("Number of Rows: " + roleSheet.getPhysicalNumberOfRows());
                     
-                    ActivityHistory activityHistory = new ActivityHistory();
-    	            activityHistory.setActivity_type("Bulk upload");
-    	            activityHistory.setDescription("Bulk upload for roles");
-    	            activityHistoryService.addActivity(activityHistory, principal);
-                    
+
                     roleBulkUploadDtos = validateRoleData(roleSheet);
                 }
 
@@ -109,7 +105,7 @@ public class BulkUploadRoleService {
                 }
 
                 User user = userRepository.findByEmailId(principal.getName());
-                return processRoleSheet(roleBulkUploadDtos, user);
+                return processRoleSheet(roleBulkUploadDtos, user ,principal);
             } catch (IOException e) {
                 // Handle the exception, you can log it and throw a custom exception or return an error response.
                 logger.error("Error processing the Excel file: " + e.getMessage());
@@ -130,7 +126,7 @@ public class BulkUploadRoleService {
          * @throws Exception If there is an error during processing.
          */
 
-        private List<RolesDto> processRoleSheet(List<RolesDto> roleBulkUploadDtos, User currentUser) throws Exception {
+        private List<RolesDto> processRoleSheet(List<RolesDto> roleBulkUploadDtos, User currentUser ,Principal principal) throws Exception {
             List<Roles> existingRoles = rolesRepository.findAll();
             List<RolesDto> allData = new ArrayList<>();
 
@@ -139,14 +135,14 @@ public class BulkUploadRoleService {
                     Roles existingRole = findByRoleName(existingRoles, bulkUploadDto.getRole_name());
                     if (existingRole != null) {
                         if (existingRole.is_deleted()) {
-                            createRole(existingRole, bulkUploadDto, currentUser);
+                            createRole(existingRole, bulkUploadDto, currentUser ,principal);
                         } else {
-                            updateRole(existingRole, bulkUploadDto, currentUser);
+                            updateRole(existingRole, bulkUploadDto, currentUser );
                         }
                     } else {
                         if (bulkUploadDto.getRemark().isEmpty()) {
                             Roles newRole = new Roles();
-                            createRole(newRole, bulkUploadDto, currentUser);
+                            createRole(newRole, bulkUploadDto, currentUser ,principal);
                         }
                     }
                 }
@@ -185,20 +181,18 @@ public class BulkUploadRoleService {
          */
         
         
-        private void createRole(Roles newRole, RolesDto bulkUploadDto, User currentUser) {
+        private void createRole(Roles newRole, RolesDto bulkUploadDto, User currentUser,Principal principal) {
             newRole.setRole_name(bulkUploadDto.getRole_name());
-            newRole.setModified_by(currentUser.getFull_name());
+            newRole.setModified_by(currentUser.getUser_id());
             logger.info("Role modified by- "+currentUser.getFull_name());
             newRole.setModified_on(LocalDateTime.now());
             
-
-//            ActivityHistory activityHistory = new ActivityHistory();
-//   		 activityHistory.setActivity_type("Bulk upload");
-//   		 activityHistory.setDescription("Bulk upload of employees");
-//   		 activityHistory.setNew_data(newData);
-//   		
-//   		 activityHistoryService.addActivity(activityHistory, null);
-//            
+            ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.setActivity_type("Bulk upload");
+            activityHistory.setDescription("New Role Added");
+            activityHistory.setNew_data(newRole.getRole_name());
+            activityHistoryService.addActivity(activityHistory, principal);
+            
             rolesRepository.save(newRole);
         }
         
@@ -212,8 +206,10 @@ public class BulkUploadRoleService {
 
         private void updateRole(Roles existingRole, RolesDto bulkUploadDto, User currentUser) {
             existingRole.setRole_name(bulkUploadDto.getRole_name());
-            existingRole.setModified_by(currentUser.getFull_name());
+            existingRole.setModified_by(currentUser.getUser_id());
             existingRole.setModified_on(LocalDateTime.now());
+            
+            bulkUploadDto.setRemark(List.of("Update the role."));
             rolesRepository.save(existingRole);
         }
         

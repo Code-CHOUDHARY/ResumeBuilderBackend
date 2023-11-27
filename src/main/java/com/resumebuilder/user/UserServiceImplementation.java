@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.security.Principal;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -14,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -39,6 +40,7 @@ import com.resumebuilder.auth.SignupRequest;
 import com.resumebuilder.exception.UserNotFoundException;
 import com.resumebuilder.reportingmanager.ReportingManager;
 import com.resumebuilder.reportingmanager.ReportingManagerRepository;
+import com.resumebuilder.reportingmanager.ReportingManagerService;
 import com.resumebuilder.roles.Roles;
 import com.resumebuilder.roles.RolesRepository;
 import com.resumebuilder.security.approle.ERole;
@@ -54,33 +56,47 @@ public class UserServiceImplementation implements UserService {
 
 	private final static Logger logger = LogManager.getLogger(UserServiceImplementation.class);
 
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private RolesRepository rolesRepository;
-	@Autowired
-	private UserRolesMappingRepository usereRolesMappingRepository;
-	
-	 @Autowired
-	  private UserRoleRepository roleRepository;
-	 @Autowired
-	 private ProfileImageService profileService;
-	 @Autowired
-	 private JavaMailSender mailSender;
-	 @Autowired
-		private ModelMapper mapper;
-	 @Autowired
-	 private ReportingManagerRepository reportingManagerRepository;
-	 
-	 @Autowired
-	 private PasswordEncoder passwordEncoder;
-	 
-	 	@Autowired
-		private ActivityHistoryService activityHistoryService;
-		
-		@Autowired
-		private ActivityHistoryRepository activityHistoryRepository;
+	private final UserRepository userRepository;
 
+	private final RolesRepository rolesRepository;
+
+	private final UserRolesMappingRepository usereRolesMappingRepository;
+
+	private final UserService userService;
+
+	private final UserRoleRepository roleRepository;
+
+	private final JavaMailSender mailSender;
+
+	private final ReportingManagerRepository reportingManagerRepository;
+
+	private final PasswordEncoder passwordEncoder;
+
+	private final ActivityHistoryService activityHistoryService;
+
+	private final ActivityHistoryRepository activityHistoryRepository;
+	
+	private final ReportingManagerService reportingManagerService;
+@Autowired
+	private ModelMapper mapper;
+@Autowired
+private ProfileImageService profileService;
+	@Autowired
+	    public UserServiceImplementation(@Lazy UserRepository userRepository,@Lazy RolesRepository rolesRepository,@Lazy UserRolesMappingRepository usereRolesMappingRepository,@Lazy UserService userService,
+	    		@Lazy UserRoleRepository roleRepository, @Lazy JavaMailSender mailSender,@Lazy ReportingManagerRepository reportingManagerRepository, PasswordEncoder passwordEncoder, ActivityHistoryService activityHistoryService, 
+	    		ActivityHistoryRepository activityHistoryRepository,@Lazy ReportingManagerService reportingManagerService) {
+	    this.userRepository=userRepository;    
+	    this.rolesRepository=rolesRepository;
+	    this.usereRolesMappingRepository=usereRolesMappingRepository;
+		this.userService = userService;
+		this.roleRepository=roleRepository;
+		this.mailSender=mailSender;
+		this.reportingManagerRepository=reportingManagerRepository;
+		this.passwordEncoder=passwordEncoder;
+		this.activityHistoryService=activityHistoryService;
+		this.activityHistoryRepository=activityHistoryRepository;
+		this.reportingManagerService=reportingManagerService;
+	    }
 	 /**
 	     * Retrieve a list of all users.
 	     *
@@ -91,10 +107,23 @@ public class UserServiceImplementation implements UserService {
 		    private String loginUrl;
 			
 		
-	@Override
-	public List<User> getAllUsers() {
-		return userRepository.getAllActiveUsers();
-	}
+			public List<UserDto> getAllUsers() {
+				List<User> usersList = userRepository.getAllActiveUsers();
+				// Convert Role entities to RoleDto objects
+				List<UserDto> dtoList = usersList.stream().map(this::convertToDto).collect(Collectors.toList());
+
+				return dtoList;
+			}
+
+			private UserDto convertToDto(User user) {
+				UserDto userDto = new UserDto();
+				userDto.setUser_id(user.getUser_id());
+				userDto.setFull_name(user.getFull_name());
+				userDto.setCurrent_role(user.getCurrent_role());
+				userDto.setModified_on(user.getModified_on());
+				userDto.setModified_by(userService.findUserByIdUser(user.getModified_by()).getFull_name());
+				return userDto;
+			}
 
 	/**
 	 * Find a user by their user ID.
@@ -127,7 +156,7 @@ public class UserServiceImplementation implements UserService {
 		UserDto user=mapper.map(opt.get(), UserDto.class);
 		
 		byte[] imageData = profileService.getProfileImageByUserId(opt.get().getUser_id());
-		System.out.println("imagedata"+imageData);
+		//System.out.println("imagedata"+imageData);
 		if(imageData!=null) {
 		 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		 BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
@@ -209,7 +238,7 @@ public class UserServiceImplementation implements UserService {
 							newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 							newUser.setBlogs_link(signUpRequest.getBlogs_link());
 							newUser.setTechnology_stack(signUpRequest.getTechnology_stack());
-							newUser.setModified_by(currentuser.getFull_name());
+							newUser.setModified_by(currentuser.getUser_id());
 							String strRoles = signUpRequest.getRole();
 							UserRole appRole;
 
@@ -304,7 +333,7 @@ public class UserServiceImplementation implements UserService {
 					newUser.setPortfolio_link(signUpRequest.getPortfolio_link());
 					newUser.setBlogs_link(signUpRequest.getBlogs_link());
 					newUser.setTechnology_stack(signUpRequest.getTechnology_stack());
-					newUser.setModified_by(currentuser.getFull_name());
+					newUser.setModified_by(currentuser.getUser_id());
 
 					String strRoles = signUpRequest.getRole();
 					UserRole appRole;
@@ -415,7 +444,7 @@ public class UserServiceImplementation implements UserService {
 //	        user.setPortfolio_link(editUserRequest.getPortfolio_link());
 //	        user.setBlogs_link(editUserRequest.getBlogs_link());
 	        user.setModified_on(LocalDateTime.now());
-	        user.setModified_by(currentuser.getFull_name());
+	        user.setModified_by(currentuser.getUser_id());
 
 	        // Check if the provided current_role exists in the roles table
 	        String currentRoleName = editUserRequest.getCurrent_role();
@@ -630,7 +659,7 @@ public class UserServiceImplementation implements UserService {
             existingUser.setPortfolio_link(updatedUser.getPortfolio_link());
         }
         
-        existingUser.setModified_by(currentuser.getFull_name());
+        existingUser.setModified_by(currentuser.getUser_id());
         
         
         // Compare the fields and identify changes

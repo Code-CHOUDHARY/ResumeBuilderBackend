@@ -9,15 +9,27 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.resumebuilder.DTO.ProjectDto;
+import com.resumebuilder.certifications.Certifications;
+import com.resumebuilder.professionalexperience.ProfessionalExperience;
+import com.resumebuilder.professionalexperience.ProfessionalExperienceService;
+import com.resumebuilder.resumetemplates.ResumeTemplates;
 import com.resumebuilder.resumetemplates.ResumeTemplatesServiceImplementation;
+import com.resumebuilder.user.User;
 import com.syncfusion.docio.FormatType;
 import com.syncfusion.docio.IWParagraph;
 import com.syncfusion.docio.IWSection;
@@ -30,6 +42,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ResumeGeneratorServiceImpl implements ResumeGeneratorService {
 
 	 private static final Logger logger =  LoggerFactory.getLogger(ResumeTemplatesServiceImplementation.class); 
+	 @Autowired
+		private ProfessionalExperienceService experienceService;
 	 
 	 public boolean addFile(String path,String html) throws IOException {
 		 File file=new File(path);
@@ -167,8 +181,7 @@ public class ResumeGeneratorServiceImpl implements ResumeGeneratorService {
 		File[] files=f.getParentFile().listFiles();
 		count=files.length;
 		return count;
-	} 
-		 
+	}
 
 	
 }

@@ -248,5 +248,15 @@ public class EducationServiceImplementation implements EducationService{
         return educationRepository.findActiveEducationsForUser(userId);
     }
 
+   public String getLatestEducation(String userId) {
+	   String res="";
+	   res=educationRepository.findLatestEducation(userId);
+	   if(res != null && res=="") {
+		   return res;
+	   }else {
+		   return res;
+	   }
+   }
+
 
 }

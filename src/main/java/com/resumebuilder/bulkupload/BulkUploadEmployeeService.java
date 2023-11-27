@@ -89,11 +89,6 @@ public class BulkUploadEmployeeService {
                 Sheet employeeSheet = workbook.getSheet("Employees");
 
                 logger.info("Number of Rows: " + employeeSheet.getPhysicalNumberOfRows());
-                
-                ActivityHistory activityHistory = new ActivityHistory();
-	            activityHistory.setActivity_type("Bulk upload");
-	            activityHistory.setDescription("Bulk upload for employees");
-	            activityHistoryService.addActivity(activityHistory, principal);
 
                 employeeBulkUploadDtos = validateEmployeeData(employeeSheet);
             }
@@ -120,7 +115,7 @@ public class BulkUploadEmployeeService {
             // Process and save data from employeeSheet
             User user = userRepository.findByEmailId(principal.getName());
             //return employeeBulkUploadDtos;
-            return processEmployeeSheet(employeeBulkUploadDtos, user);
+            return processEmployeeSheet(employeeBulkUploadDtos, user,principal);
         } catch (IOException e) {
             e.printStackTrace(); // You should consider proper error handling (e.g., logging or throwing a custom exception)
             throw e; // Rethrow the exception for error reporting or handling at a higher level.
@@ -311,7 +306,7 @@ public class BulkUploadEmployeeService {
 //        return allData;
 //    }
     
-    private List<EmployeeBulkUploadDto> processEmployeeSheet(List<EmployeeBulkUploadDto> employeeBulkUploadDto, User currentUser) throws Exception {
+    private List<EmployeeBulkUploadDto> processEmployeeSheet(List<EmployeeBulkUploadDto> employeeBulkUploadDto, User currentUser, Principal principal) throws Exception {
         List<User> existingUsers = userRepository.findAll();
         List<EmployeeBulkUploadDto> notStoredData = new ArrayList<>();
         List<EmployeeBulkUploadDto> storedData = new ArrayList<>();
@@ -366,13 +361,13 @@ public class BulkUploadEmployeeService {
                                 if (!existBySoftDelete) {
                                     // Create a new user
                                     User newUser = new User();
-                                    createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+                                    createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser,principal);
                                     bulkUploadDto.setStatus(false);
                                     storedData.add(bulkUploadDto);
                                 } else {
                                     // Soft-deleted user found, create a new user entry
                                     User newUser = new User();
-                                    createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser);
+                                    createUser(newUser, bulkUploadDto, generatedPassword, encodedPassword, currentUser,principal);
                                     bulkUploadDto.setStatus(false);
                                     storedData.add(bulkUploadDto);
                                 }
@@ -546,7 +541,7 @@ public class BulkUploadEmployeeService {
      * @param currentUser  The user initiating the creation.
      */
 
-    private User createUser(User newUser, EmployeeBulkUploadDto bulkUploadDto, String generatedPassword, String encodedPassword, User currentUser) throws Exception {
+    private User createUser(User newUser, EmployeeBulkUploadDto bulkUploadDto, String generatedPassword, String encodedPassword, User currentUser, Principal principal) throws Exception {
         
     	 Roles currentRole = rolesRepository.findByRoleName(bulkUploadDto.getCurrentRole());
     	 
@@ -560,7 +555,7 @@ public class BulkUploadEmployeeService {
         newUser.setMobile_number(bulkUploadDto.getMobile_number());
         newUser.setLocation(bulkUploadDto.getLocation());
         newUser.setPassword(encodedPassword);
-        newUser.setModified_by(currentUser.getFull_name());
+        newUser.setModified_by(currentUser.getUser_id());
         newUser.setModified_on(LocalDateTime.now());
         
         Long appRoleIdLong = Long.parseLong(bulkUploadDto.getAppRoleId());
@@ -574,20 +569,17 @@ public class BulkUploadEmployeeService {
         User user = userRepository.save(newUser);
      // Map the user to the specified role
         mapUserToRole(user, currentRole);
-        
-         String activityType = "Bulk upload";
-	     String description = "Bulk upload of employees";
 	     
 	     UserToJsonConverter userToJsonConverter = new UserToJsonConverter();
 	     
 	     String newData = userToJsonConverter.convertUserToJSON(newUser);
 	     
-//	     ActivityHistory activityHistory = new ActivityHistory();
-//		 activityHistory.setActivity_type("Bulk upload");
-//		 activityHistory.setDescription("Bulk upload of employees");
-//		 activityHistory.setNew_data(newData);
-//		
-//		 activityHistoryService.addActivity(activityHistory, null);
+	     ActivityHistory activityHistory = new ActivityHistory();
+		 activityHistory.setActivity_type("Bulk upload");
+		 activityHistory.setDescription("Bulk upload of employees");
+		 activityHistory.setNew_data(newData);
+		
+		 activityHistoryService.addActivity(activityHistory, principal);
         // Send the email with the generated password
         sendEmailPassword(newUser, generatedPassword);
         
@@ -620,7 +612,7 @@ public class BulkUploadEmployeeService {
         existingUser.setMobile_number(bulkUploadDto.getMobile_number());
         existingUser.setLocation(bulkUploadDto.getLocation());
         existingUser.setPassword(encodedPassword);
-        existingUser.setModified_by(currentUser.getFull_name());
+        existingUser.setModified_by(currentUser.getUser_id());
         existingUser.setModified_on(LocalDateTime.now());
         
         Long appRoleIdLong = Long.parseLong(bulkUploadDto.getAppRoleId());
