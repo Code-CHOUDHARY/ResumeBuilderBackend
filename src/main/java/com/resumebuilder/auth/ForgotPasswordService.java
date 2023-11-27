@@ -104,12 +104,15 @@ public class ForgotPasswordService {
             String subject = "Password Reset Link";
 //            String resetLink = loginUrl + "/reset-password?token=" + token;
 
-            String resetLink = "reset-password?token=" + token;
+//            String resetLink = "reset-password?token=" + token;
+//            String checkTokenLink = "checkTokenExpiry?token=" + token;
+//            String checkTokenLink = "http://localhost:3011/ResumBuilder/auth/verify";
+            String verifyLink = "http://localhost:3011/ResumBuilder/auth/verify?token=" + token;
 
             String content = "Dear " + user.getFull_name() + ",<br>"
                     + "You have requested to reset your password for QW Resume Builder. "
                     + "Please click the link below to reset your password:<br>"
-                    + "<a href=\"" + resetLink + "\">Reset Password</a><br><br>"
+                    + "<a href=\"" + verifyLink + "\">Reset Password</a><br><br>"
                     + "If you did not request this, please ignore this email.<br>";
 
             content += "<p>Thank you,<br>" + "QW Resume Builder.</p>";
@@ -127,5 +130,47 @@ public class ForgotPasswordService {
             throw new RuntimeException("Error sending reset link email.");
         }
     }
+    
+//    
+//    public void checkTokenExpire(String token) {
+//    	
+//    	 PasswordResetToken resetToken = resetTokenRepository.findByToken(token)
+//                 .orElseThrow(() -> new TokenExpiredException("Your password reset link appears to be invalid. Please request a new link."));
+//
+//         // Check if the token is still valid
+//         if (resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+//             throw new RuntimeException("Token expired");
+//         }else {
+//        	 
+//         }
+    
+    public void checkTokenExpire(String token) {
+        try {
+            // Log before fetching the token
+        	logger.info("Fetching token from the repository for token: {}", token);
 
-}
+            PasswordResetToken resetToken = resetTokenRepository.findByToken(token)
+                    .orElseThrow(() -> new TokenExpiredException("Your password reset link appears to be invalid. Please request a new link."));
+
+            // Log after fetching the token
+            logger.info("Token fetched successfully");
+
+            // Check if the token is still valid
+            if (resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+                throw new TokenExpiredException("Token expired");
+            } else {
+                // Additional logic if needed when the token is still valid
+            }
+        } catch (Exception e) {
+            // Log the exception
+        	logger.error("Exception occurred in checkTokenExpire: {}", e.getMessage(), e);
+            throw e; // Rethrow the exception to propagate it up the stack
+        }
+    }
+
+
+    	
+    }
+    
+    
+
