@@ -47,35 +47,47 @@ public class TechnologyExpertiseService {
      */
     
     public TechnologyExpertiseDto addTechnologyExpertise(Principal principal, TechnologyExpertiseDto expertiseDto) throws Exception {
-        String username = principal.getName();
-        Optional<User> optionalUser = userRepository.findByEmail(principal.getName());
+    	 	String username = principal.getName();
+    	    Optional<User> optionalUser = userRepository.findByEmail(username);
 
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+    	    if (optionalUser.isPresent()) {
+    	        User user = optionalUser.get();
 
-            // Map DTO to entity
-            TechnologyExpertise technologyExpertise = modelMapper.map(expertiseDto, TechnologyExpertise.class);
+    	        // Check if the entity already exists in the database
+    	        TechnologyExpertise existingTechnologyExpertise =  technologyExpertiseRepository.findByUserId(user.getUser_id());
 
-            // Set the user for the technology expertise
-            technologyExpertise.setUser(user);
-            technologyExpertise.setModified_by(user.getUser_id());
-            
-            // Save the technology expertise
-            TechnologyExpertise savedTechnologyExpertise = technologyExpertiseRepository.save(technologyExpertise);
-            
-            ActivityHistory activityHistory = new ActivityHistory();
-         	String newData = JsonConverter.convertToJson(expertiseDto);
-            activityHistory.setActivity_type("Technology Expertise");	            
-            activityHistory.setDescription("Change in Technology Expertise data");
-            activityHistory.setNew_data(newData);
-            activityHistory.setUser(user);
-            activityHistoryService.addActivity(activityHistory, principal);
-            
-            // Map the saved entity back to DTO and return
-            return modelMapper.map(savedTechnologyExpertise, TechnologyExpertiseDto.class);
-        } else {
-            throw new UserNotFoundException("User not found with username: " + username);
-        }
+    	        // Map DTO to entity
+    	        TechnologyExpertise technologyExpertise;
+
+    	        if (existingTechnologyExpertise != null) {
+    	            // If the entity exists, update it
+    	            modelMapper.map(expertiseDto, existingTechnologyExpertise);
+    	            existingTechnologyExpertise.setModified_by(user.getUser_id());
+    	            technologyExpertise = existingTechnologyExpertise;
+    	        } else {
+    	            // If the entity doesn't exist, create a new one
+    	            technologyExpertise = modelMapper.map(expertiseDto, TechnologyExpertise.class);
+    	            technologyExpertise.setUser(user);
+    	            technologyExpertise.setModified_by(user.getUser_id());
+    	        }
+
+    	        // Save the technology expertise (either new or updated)
+    	        TechnologyExpertise savedTechnologyExpertise = technologyExpertiseRepository.save(technologyExpertise);
+
+    	        // Log activity history
+    	        ActivityHistory activityHistory = new ActivityHistory();
+    	        String newData = JsonConverter.convertToJson(expertiseDto);
+    	        activityHistory.setActivity_type("Technology Expertise");
+    	        activityHistory.setDescription("Change in Technology Expertise data");
+    	        activityHistory.setNew_data(newData);
+    	        activityHistory.setUser(user);
+    	        activityHistoryService.addActivity(activityHistory, principal);
+
+    	        // Map the saved entity back to DTO and return
+    	        return modelMapper.map(savedTechnologyExpertise, TechnologyExpertiseDto.class);
+    	    } else {
+    	        throw new UserNotFoundException("User not found with username: " + username);
+    	    }
     }
     
     
@@ -86,21 +98,21 @@ public class TechnologyExpertiseService {
      * @return List of technology expertise as DTOs.
      * @throws UserNotFoundException If the user with the given ID is not found.
      */
-    public List<TechnologyExpertiseDto> getTechnologyExpertiseByUserId(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<TechnologyExpertise> technologyExpertiseList = technologyExpertiseRepository.findByUserId(user.getUser_id());
-
-            // Map the entities to DTOs
-            return technologyExpertiseList.stream()
-                    .map(this::convertToDto)
-                    .collect(Collectors.toList());
-        } else {
-            throw new UserNotFoundException("User not found with ID: " + userId);
-        }
-    }
+//    public TechnologyExpertiseDto getTechnologyExpertiseByUserId(Long userId) {
+//        Optional<User> optionalUser = userRepository.findById(userId);
+//
+//        if (optionalUser.isPresent()) {
+//            User user = optionalUser.get();
+//            TechnologyExpertise technologyExpertiseList = technologyExpertiseRepository.findByUserId(user.getUser_id());
+//
+//            // Map the entities to DTOs
+//            return technologyExpertiseList.stream()
+//                    .map(this::convertToDto)
+//                    .collect(Collectors.toList());
+//        } else {
+//            throw new UserNotFoundException("User not found with ID: " + userId);
+//        }
+//    }
 
     private TechnologyExpertiseDto convertToDto(TechnologyExpertise technologyExpertise) {
         return modelMapper.map(technologyExpertise, TechnologyExpertiseDto.class);

@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class TechnologyDto {
 		
+	private Long technology_id;
 	private String technology_name;
 	private LocalDateTime modifiedOn;
 	private String modifiedBy;

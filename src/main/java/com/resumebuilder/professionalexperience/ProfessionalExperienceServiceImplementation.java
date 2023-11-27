@@ -124,6 +124,7 @@ public class ProfessionalExperienceServiceImplementation implements Professional
         existingExperience.setStart_date(updatedExperience.getStart_date());
         existingExperience.setEnd_date(updatedExperience.getEnd_date());     
         existingExperience.set_deleted(updatedExperience.is_deleted());
+        existingExperience.setModifiedBy(user.getUser_id());
         
         ActivityHistory activityHistory = new ActivityHistory();
    	  String newData = "Job title: " + updatedExperience.getJob_title() + ". Organization name: " + updatedExperience.getOrganization_name() +  ", Start date: " + updatedExperience.getLocation() 

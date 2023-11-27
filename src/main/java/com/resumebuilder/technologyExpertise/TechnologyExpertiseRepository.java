@@ -16,6 +16,6 @@ import com.resumebuilder.user.User;
 public interface TechnologyExpertiseRepository extends JpaRepository< TechnologyExpertise, Long>{
 	
 	 @Query("SELECT te FROM TechnologyExpertise te WHERE te.user.user_id = :user_id")
-	  List<TechnologyExpertise> findByUserId(@Param("user_id") Long user_id);
+	  TechnologyExpertise findByUserId(@Param("user_id") Long user_id);
 	
 }

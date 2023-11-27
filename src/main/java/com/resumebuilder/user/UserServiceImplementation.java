@@ -108,6 +108,7 @@ public class UserServiceImplementation implements UserService {
 
 	private UserDto convertToDto(User user) {
 		UserDto userDto = new UserDto();
+		userDto.setUser_id(user.getUser_id());
 		userDto.setFull_name(user.getFull_name());
 		userDto.setCurrent_role(user.getCurrent_role());
 		userDto.setModified_on(user.getModified_on());
@@ -753,21 +754,40 @@ public class UserServiceImplementation implements UserService {
 	 * @param principal Principal representing the authenticated user.
 	 */
 
+//	@Override
+//	public void deleteUserById(Long userId, Principal principal) {
+//		logger.info("Deleting user with ID: {}", userId);
+//		User existingUser = userRepository.findById(userId)
+//				.orElseThrow(() -> new UserNotFoundException("User not found"));
+//
+//		ActivityHistory activityHistory = new ActivityHistory();
+//		activityHistory.setActivity_type("Delete Employee");
+//		activityHistory.setDescription("Change in Employee data");
+//		activityHistory.setNew_data("Employee with id " + userId + "is deleted");
+//		activityHistory.setUser(existingUser);
+//		activityHistoryService.addActivity(activityHistory, principal);
+//
+//		userRepository.delete(existingUser);
+//
+//	}
+	
 	@Override
 	public void deleteUserById(Long userId, Principal principal) {
-		logger.info("Deleting user with ID: {}", userId);
-		User existingUser = userRepository.findById(userId)
-				.orElseThrow(() -> new UserNotFoundException("User not found"));
+	    logger.info("Deleting user with ID: {}", userId);
 
-		ActivityHistory activityHistory = new ActivityHistory();
-		activityHistory.setActivity_type("Delete Employee");
-		activityHistory.setDescription("Change in Employee data");
-		activityHistory.setNew_data("Employee with id " + userId + "is deleted");
-		activityHistory.setUser(existingUser);
-		activityHistoryService.addActivity(activityHistory, principal);
+	    User existingUser = userRepository.findById(userId)
+	            .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-		userRepository.delete(existingUser);
+	    // Soft delete by setting the is_deleted flag to true
+	    existingUser.set_deleted(true);
+	    userRepository.save(existingUser);
 
+	    ActivityHistory activityHistory = new ActivityHistory();
+	    activityHistory.setActivity_type("Delete Employee");
+	    activityHistory.setDescription("Change in Employee data");
+	    activityHistory.setNew_data("Employee with id " + userId + " is soft-deleted");
+	    activityHistory.setUser(existingUser);
+	    activityHistoryService.addActivity(activityHistory, principal);
 	}
 
 	public boolean checkUserExists(String UserId) {
