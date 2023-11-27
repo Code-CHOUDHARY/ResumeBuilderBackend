@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
+import org.apache.catalina.Manager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
@@ -135,7 +136,7 @@ private ProfileImageService profileService;
 	public User findUserByIdUser(Long userId) {
 		logger.info("Finding user by ID: {}", userId);
 		Optional<User> opt = userRepository.findById(userId);
-		System.out.println(opt.get().getUser_id() + "user");
+		logger.info(opt.get().getUser_id() + "user");
 		return opt.get();
 	}
 
@@ -819,5 +820,57 @@ private ProfileImageService profileService;
 //        List<User> managers = userRepository.findByAppRoleName(roleName);
 //        return managers;
 //    }
+	
+	public ResponseEntity<?> getUserDetailsById(Long userId) {
+        try {
+            Optional<User> optionalUser = userRepository.findById(userId);
+            User user = optionalUser.orElseThrow(() -> new UserNotFoundException("User not found"));
+
+            List<Long> managerIds = getManagerIdsByUser(user);
+
+            UserDto userDto = convertUserToDto(user, managerIds);
+
+            // Additional logic to retrieve and set other details like roles, projects, etc.
+
+            return ResponseEntity.ok(userDto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new MessageResponse("Error fetching user details."));
+        }
+    }
+
+    private List<Long> getManagerIdsByUser(User user) {
+        List<ReportingManager> reportingManagers = reportingManagerRepository.findByEmployee(user);
+        return reportingManagers.stream()
+                .map(reportingManager -> reportingManager.getManager().getUser_id())
+                .collect(Collectors.toList());
+    }
+
+	
+	private UserDto convertUserToDto(User user, List<Long> managerIds) {
+		//List<ReportingManager> reportingManagers = user.getReportingManagers();
+	    return UserDto.builder()
+	            .user_id(user.getUser_id())
+	            .employee_Id(user.getEmployee_Id())
+	            .full_name(user.getFull_name())
+	            .date_of_joining(user.getDate_of_joining())
+	            .date_of_birth(user.getDate_of_birth())
+	            .current_role(user.getCurrent_role())
+	            .email(user.getEmail())
+	            .gender(user.getGender())
+	            .mobile_number(user.getMobile_number())
+	            .location(user.getLocation())
+	            .modified_on(user.getModified_on())
+	            .user_image(user.getUser_image())
+	            .linkedin_lnk(user.getLinkedin_lnk())
+	            .portfolio_link(user.getPortfolio_link())
+	            .blogs_link(user.getBlogs_link())
+	            .professional_summary(user.getProfessional_summary())
+	            .technology_stack(user.getTechnology_stack())
+	            .managerIds(managerIds)
+	            .appRole(user.getAppRole())
+	            .build();
+	}
+
 
 }
